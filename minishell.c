@@ -6,13 +6,15 @@
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 16:16:01 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/07/23 18:21:43 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:55:12y ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_mode	*modes;
+
+
 
 char	*read_line(void)
 {
@@ -32,12 +34,12 @@ void	minishell(t_shell *shell)
 		printf("minishell$ ");
 		shell->line = read_line();
 		shell->av = ft_split(shell->line, ' ');
-        if (ft_strncmp(*shell->av, "exit", 4) == 0)
-        {
-            printf("exit\n");
-            exit(EXIT_SUCCESS);
-        }
-		shell->status = execute(shell->av);
+		if (ft_strncmp(*shell->av, "exit", 4) == 0)
+		{
+			printf("exit\n");
+			shell->status = 0;
+		}
+		// shell->status = execute(shell->av);
 		// free(shell->line);
 		// free(shell->av);
 	}

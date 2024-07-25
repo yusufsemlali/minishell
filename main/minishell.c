@@ -10,35 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 t_mode	*modes;
 
 
 
-char	*read_line(void)
-{
-	char	*line;
-	size_t	bufsize;
 
-	line = NULL;
-	bufsize = 0;
-	getline(&line, &bufsize, stdin);
-	return (line);
-}
 void	minishell(t_shell *shell)
 {
 	shell->status = 1;
 	while (shell->status)
 	{
-		printf("minishell$ ");
-		shell->line = read_line();
-		shell->av = ft_split(shell->line, ' ');
-		if (ft_strncmp(*shell->av, "exit", 4) == 0)
-		{
-			printf("exit\n");
-			shell->status = 0;
-		}
+		
+		parse(shell);
 		// shell->status = execute(shell->av);
 		// free(shell->line);
 		// free(shell->av);

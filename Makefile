@@ -1,8 +1,20 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/07/25 21:41:51 by ysemlali          #+#    #+#              #
+#    Updated: 2024/07/25 21:42:57 by ysemlali         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 LIBS = -Llibft -lft -lreadline
-SRCS =	minishell.c \
-		parsing/signals.c \
+SRCS =	main/minishell.c \
+		main/signals.c \
 
 
 OBJS = $(SRCS:.c=.o)

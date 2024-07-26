@@ -39,8 +39,8 @@ int	main(int ac, char **av, char **nv)
 	modes->input_mode = -1;
 	shell->nv = nv;
 
-	handle_signals(SIGINT);
-	handle_signals(SIGQUIT);
+	// handle_signals(SIGINT);
+	// handle_signals(SIGQUIT);
 	if (ac > 1)
 	{
 		printf("Usage: use without arguments\n");

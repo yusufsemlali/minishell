@@ -22,13 +22,17 @@
 # define SIGSPECIAL 1337
 
 // error type def
-# define ERR_SYNTAX 1
-# define ERR_CMD 2
-# define ERR_FILE 3
-# define ERR_PERM 4
-# define ERR_FORK 5
-# define ERR_EXEC 6
-# define 
+# define ERR_SYNTAX 1 
+# define ERR_CMD 2 // command not found
+# define ERR_FILE 3 // no such find or directory
+# define ERR_PERM 4 // permission denied
+# define ERR_FORK 5 // fork failed
+# define ERR_EXEC 6 // execve failed
+
+
+
+# define BUFFER_SIZE 1024
+# define CMD_MAX_LENGTH 256
 
 typedef struct s_mode
 {
@@ -50,5 +54,6 @@ typedef struct s_shell
 
 // -- parsing -- //
 void		handle_signals(int sig);
+void		parse(t_shell *shell);
 
 #endif

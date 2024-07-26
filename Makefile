@@ -6,7 +6,7 @@
 #    By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/25 21:41:51 by ysemlali          #+#    #+#              #
-#    Updated: 2024/07/25 21:42:57 by ysemlali         ###   ########.fr        #
+#    Updated: 2024/07/26 01:06:52 by ysemlali         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ CFLAGS = -Wall -Wextra -Werror
 LIBS = -Llibft -lft -lreadline
 SRCS =	main/minishell.c \
 		main/signals.c \
+		parsing/parse.c 
+		
 
 
 OBJS = $(SRCS:.c=.o)

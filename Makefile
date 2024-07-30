@@ -3,24 +3,24 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+         #
+#    By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/25 21:41:51 by ysemlali          #+#    #+#              #
-#    Updated: 2024/07/26 01:06:52 by ysemlali         ###   ########.fr        #
+#    Updated: 2024/07/30 12:11:25 by aclakhda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 LIBS = -Llibft -lft -lreadline
-SRCS =	main/minishell.c \
+SRCS =	main/minishell.c  execution/execute.c execution/utils.c\
 		main/signals.c \
-		parsing/parse.c 
-		
+		parsing/parse.c
+
 
 
 OBJS = $(SRCS:.c=.o)
-NAME = minishell 
+NAME = minishell
 LIBFT_NAME = libft/libft.a
 
 all: $(LIBFT_NAME) $(NAME)

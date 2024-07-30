@@ -22,9 +22,9 @@ void	minishell(t_shell *shell)
 	shell->status = 1;
 	while (shell->status)
 	{
-		
+
 		parse(shell);
-		// shell->status = execute(shell->av);
+		shell->status = execute(shell);
 		// free(shell->line);
 		// free(shell->av);
 	}

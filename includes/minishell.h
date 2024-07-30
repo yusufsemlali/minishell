@@ -29,8 +29,6 @@
 # define ERR_FORK 5 // fork failed
 # define ERR_EXEC 6 // execve failed
 
-
-
 # define BUFFER_SIZE 1024
 # define CMD_MAX_LENGTH 256
 
@@ -60,6 +58,13 @@ typedef struct s_shell
 	t_tree	*tree;
 }			t_shell;
 
+typedef struct s_var
+{
+	int		i;
+	int		has_pipe;
+	int		has_rederect;
+}			t_var;
+
 
 // -- parsing -- //
 void		handle_signals(int sig);
@@ -68,5 +73,6 @@ void		parse(t_shell *shell);
 int	execute(t_shell *shell);
 int	ft_strcmp(char *s1, char *s2);
 int	ft_size(char **av);
+void	ft_found(t_shell *shell, t_var *var, int start, int end);
 
 #endif

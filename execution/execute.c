@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/07/30 18:21:23 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/07/30 20:28:58 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,30 +61,27 @@ t_tree	*tree_attatch(t_tree *root, int start, int end, char **av)
 t_tree	*create_tree(t_shell *shell, int start, int end)
 {
 	t_tree	*root;
-	int		i;
-	int		has_pipe;
+	t_var	var;
 
 	if (start > end)
 		return (NULL);
-	has_pipe = 0;
-	i = start;
-	while (i < end)
+	ft_memset(&var, 0, sizeof(t_var));
+	ft_found(shell, &var, start, end);
+	if (var.has_rederect)
 	{
-		if(ft_strcmp(shell->av[i], "|") == 0)
-		{
-			has_pipe = i;
-			break;
-		}
-		i++;
+		root = creat_node(shell->av[var.has_rederect]);
+		root->left = create_tree(shell, start, var.has_rederect - 1);
+		root->right = create_tree(shell, var.has_rederect + 1, end);
+		return (root);
 	}
-	if (!has_pipe)
+	if (!var.has_pipe && !var.has_rederect)
 	{
 		root = creat_node(shell->av[start]);
 		return (tree_attatch(root, start, end, shell->av));
 	}
-	root = creat_node(shell->av[has_pipe]);
-	root->left = create_tree(shell, start, has_pipe - 1);
-	root->right = create_tree(shell, has_pipe + 1, end);
+	root = creat_node(shell->av[var.has_pipe]);
+	root->left = create_tree(shell, start, var.has_pipe - 1);
+	root->right = create_tree(shell, var.has_pipe + 1, end);
 	return (root);
 }
 

@@ -43,7 +43,6 @@ int	main(int ac, char **av, char **nv)
 	// handle_signals(SIGQUIT);
 	if (ac > 1)
 	{
-		printf("Usage: use without arguments\n");
 		free(shell);
 		return (EXIT_FAILURE);
 	}

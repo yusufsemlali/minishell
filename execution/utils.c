@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:46:55 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/07/30 11:56:11 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/07/30 20:29:51 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,28 @@ int	ft_size(char **av)
 	while(av[i])
 		i++;
 	return(i);
+}
+
+void	ft_found(t_shell *shell, t_var *var, int start, int end)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	var->i = start;
+	while (var->i < end)
+	{
+		if(ft_strcmp(shell->av[var->i], "|") == 0 && i == 0)
+		{
+			i++;
+			var->has_pipe = var->i;
+		}
+		if (!ft_strcmp(shell->av[var->i], ">") || !ft_strcmp(shell->av[var->i], "<") || !ft_strcmp(shell->av[var->i], ">>"))
+		{
+			if (j == 0)
+				var->has_rederect = var->i;
+		}
+		var->i++;
+	}
 }

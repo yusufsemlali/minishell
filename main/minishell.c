@@ -24,8 +24,12 @@ void	minishell(t_shell *shell)
 	{
 
 		parse(shell);
-		shell->status = execute(shell);
-		// free(shell->line);
+		if (shell->line && *shell->line)
+		{
+			add_history(shell->line);
+			shell->status = execute(shell);
+			free(shell->line);
+		}
 		// free(shell->av);
 	}
 }

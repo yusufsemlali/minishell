@@ -12,14 +12,6 @@
 
 #include "../includes/minishell.h"
 
-void	read_line(char **line)
-{
-	size_t	bufsize;
-
-	bufsize = 0;
-	getline(line, &bufsize, stdin);
-
-}
 
 void	closed_check(t_shell *shell, char *s)
 {
@@ -37,15 +29,32 @@ void	closed_check(t_shell *shell, char *s)
 		shell->err = ERR_SYNTAX;
 }
 
-void	parse(t_shell *shell)
+// void	parse(t_shell *shell)
+// {
+// 	shell->line = "\033[0;36m\033[1mminishell \033[1;93m✗ \033[0m";
+// 	// ft_putstr_fd("\033[0;36m\033[1mminishell \033[1;93m✗ \033[0m", STDERR);
+// 	readline(shell->line);
+// 	closed_check(shell, shell->line);
+// 	shell->av = ft_split(shell->line, ' ');
+// 	if (ft_strncmp(*shell->av, "exit", 4) == 0)
+// 	{
+// 		ft_putendl_fd("exit", STDOUT);
+// 		shell->status = 0;
+// 	}
+// }
+void parse(t_shell *shell)
 {
-	ft_putstr_fd("\033[0;36m\033[1mminishell \033[1;93m✗ \033[0m", STDERR);
-	read_line(&shell->line);
-	closed_check(shell, shell->line);
-	shell->av = ft_split(shell->line, ' ');
-	if (ft_strncmp(*shell->av, "exit", 4) == 0)
-	{
-		ft_putendl_fd("exit", STDOUT);
-		shell->status = 0;
-	}
+    char *prompt = "\032[0;36m\033[1mminishell \033[1;93m✗ \033[0m";
+    shell->line = readline(prompt);
+    if (shell->line == NULL) {
+        shell->status = 0;
+        return;
+    }
+    closed_check(shell, shell->line);
+    shell->av = ft_split(shell->line, ' ');
+    if (ft_strncmp(*shell->av, "exit", 4) == 0)
+    {
+        ft_putendl_fd("exit", STDOUT);
+        shell->status = 0;
+    }
 }

@@ -22,25 +22,23 @@ t_mode	*modes;
 
 int error(t_shell *shell)
 {
+	if (ft_strncmp(shell->line, "exit", 4) == 0)
+		return (ft_putstr_fd("exit\n", STDOUT), shell->status = 1 , 1);
 	if (shell->err == ERR_SYNTAX)
-	{
-		ft_putstr_fd("minishell: syntax error\n", STDERR);
-		return (1);
-	}
-	if (shell->err == ERR_SYNTAX)
-	{
-		ft_putstr_fd("minishell: syntax error\n", STDERR);
-		return (1);
-	}
+		return (ft_putstr_fd("syntax error\n", STDERR), 1);
 	return (0);
+}
+void init_signals(void)
+{
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 int	main(int ac, char **av, char **nv)
 {
 	t_shell	*shell;
-	// handle_signals(SIGINT);
-	// handle_signals(SIGQUIT);
 	init(&shell, ac, av, nv);
+	// init_signals();
 	while (shell->status == 0)
 	{
 		parse(shell);

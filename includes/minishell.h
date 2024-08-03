@@ -55,6 +55,7 @@ typedef struct s_shell
 	int		status;
 	int		fd;
 	int		err;
+	int 	begin;
 	t_tree	*tree;
 }			t_shell;
 

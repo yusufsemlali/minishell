@@ -14,43 +14,29 @@
 
 t_mode	*modes;
 
-
-
-
 void	minishell(t_shell *shell)
 {
-	shell->status = 1;
-	while (shell->status)
-	{
-
-		parse(shell);
-		if (shell->line && *shell->line)
-		{
-			add_history(shell->line);
-			shell->status = execute(shell);
-			free(shell->line);
-		}
-		// free(shell->av);
-	}
+	shell->status = execute(shell);
 }
 
 int	main(int ac, char **av, char **nv)
 {
-	(void)av;
-	t_shell *shell;
-	shell = ft_calloc(1, sizeof(t_shell));
-	modes = ft_calloc(1, sizeof(t_mode));
-	modes->input_mode = -1;
-	shell->nv = nv;
+	t_shell	*shell;
 
+	(void)av;
 	// handle_signals(SIGINT);
 	// handle_signals(SIGQUIT);
-	if (ac > 1)
+	shell->status = 0;
+	while (shell->status == 0)
 	{
-		free(shell);
-		return (EXIT_FAILURE);
+		parse(shell);
+		if (ft_strncmp(*shell->av, "exit", 3) == 0)
+		{
+			ft_putendl_fd("exit", STDOUT);
+			shell->status = -1;
+		}
+		else
+			minishell(shell);
 	}
-	minishell(shell);
-
 	return (EXIT_SUCCESS);
 }

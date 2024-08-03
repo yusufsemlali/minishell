@@ -13,7 +13,7 @@
 #include "../includes/minishell.h"
 
 
-void	closed_check(t_shell *shell, char *s)
+void	closed_checker(t_shell *shell, char *s)
 {
 	int one_open = 0;
 	int two_open = 0;
@@ -26,35 +26,22 @@ void	closed_check(t_shell *shell, char *s)
 		s++;
 	}
 	if (one_open % 2 != 0 || two_open % 2 != 0)
+	{
 		shell->err = ERR_SYNTAX;
+		shell->begin = NULL;
+	}
 }
 
-// void	parse(t_shell *shell)
-// {
-// 	shell->line = "\033[0;36m\033[1mminishell \033[1;93m✗ \033[0m";
-// 	// ft_putstr_fd("\033[0;36m\033[1mminishell \033[1;93m✗ \033[0m", STDERR);
-// 	readline(shell->line);
-// 	closed_check(shell, shell->line);
-// 	shell->av = ft_split(shell->line, ' ');
-// 	if (ft_strncmp(*shell->av, "exit", 4) == 0)
-// 	{
-// 		ft_putendl_fd("exit", STDOUT);
-// 		shell->status = 0;
-// 	}
-// }
 void parse(t_shell *shell)
 {
-    char *prompt = "\032[0;36m\033[1mminishell \033[1;93m✗ \033[0m";
-    shell->line = readline(prompt);
+	// const char *prompt = "\033[0;36m\033[1mminishell \033[1;93m✗ \033[0m";
+	shell->line = readline("\033[0;36m\033[1mminishell \033[1;93m✗ \033[0m ");
     if (shell->line == NULL) {
         shell->status = 0;
         return;
     }
-    closed_check(shell, shell->line);
+	add_history(shell->line);
+    closed_checker(shell, shell->line);
+	seperators_checker(shell, shell->line);
     shell->av = ft_split(shell->line, ' ');
-    if (ft_strncmp(*shell->av, "exit", 4) == 0)
-    {
-        ft_putendl_fd("exit", STDOUT);
-        shell->status = 0;
-    }
 }

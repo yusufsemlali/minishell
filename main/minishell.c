@@ -14,9 +14,25 @@
 
 t_mode	*modes;
 
-void	minishell(t_shell *shell)
+// void	minishell(t_shell *shell)
+// {
+// 	shell->status = execute(shell);
+// }
+
+
+int error(t_shell *shell)
 {
-	shell->status = execute(shell);
+	if (shell->err == ERR_SYNTAX)
+	{
+		ft_putstr_fd("minishell: syntax error\n", STDERR);
+		return (1);
+	}
+	if (shell->err == ERR_SYNTAX)
+	{
+		ft_putstr_fd("minishell: syntax error\n", STDERR);
+		return (1);
+	}
+	return (0);
 }
 
 int	main(int ac, char **av, char **nv)
@@ -28,13 +44,10 @@ int	main(int ac, char **av, char **nv)
 	while (shell->status == 0)
 	{
 		parse(shell);
-		if (ft_strncmp(*shell->av, "exit", 3) == 0)
-		{
-			ft_putendl_fd("exit", STDOUT);
-			shell->status = -1;
-		}
-		else
-			minishell(shell);
+		if (error(shell))
+			break;
+		// else
+			// minishell(shell);
 	}
 	return (EXIT_SUCCESS);
 }

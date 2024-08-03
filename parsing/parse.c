@@ -28,10 +28,9 @@ void	closed_checker(t_shell *shell, char *s)
 		s++;
 	}
 	if (one_open % 2 != 0 || two_open % 2 != 0)
-	{
 		shell->err = ERR_SYNTAX;
-	}
 }
+
 
 void	parse(t_shell *shell)
 {

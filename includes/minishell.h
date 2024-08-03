@@ -66,6 +66,8 @@ typedef struct s_var
 	int				has_rederect;
 }					t_var;
 
+// -- init -- //
+void				init(t_shell **shell, int ac, char **av, char **nv);
 // -- parsing -- //
 void				handle_signals(int sig);
 void				parse(t_shell *shell);

@@ -6,16 +6,19 @@
 #    By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/25 21:41:51 by ysemlali          #+#    #+#              #
-#    Updated: 2024/08/02 19:40:00 by ysemlali         ###   ########.fr        #
+#    Updated: 2024/08/03 10:05:11 by ysemlali         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 LIBS = -Llibft -lft -lreadline
-SRCS =	main/minishell.c  execution/execute.c execution/utils.c\
+SRCS =	main/minishell.c\
+		main/init.c\
 		main/signals.c \
-		parsing/parse.c
+		parsing/parse.c\
+		execution/execute.c\
+		execution/utils.c\
 
 
 

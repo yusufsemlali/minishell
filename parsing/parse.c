@@ -44,6 +44,5 @@ void	parse(t_shell *shell)
 	add_history(shell->line);
 	closed_checker(shell, shell->line);
 	// seperators_checker(shell, shell->line);
-	shell->av = ft_split(shell->line, ' ');
-	// shell->av = ft_tokenize(shell->line, " \t\n\r\f\v");
+	tokenize(shell);
 }

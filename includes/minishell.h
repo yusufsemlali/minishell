@@ -23,7 +23,7 @@
 
 // error type def
 # define ERR_SYNTAX 1
-# define ERR_CMD 2 // command not found
+# define ERR_CMD 2  // command not found
 # define ERR_FILE 3 // no such find or directory
 # define ERR_PERM 4 // permission denied
 # define ERR_FORK 5 // fork failed
@@ -34,46 +34,45 @@
 
 typedef struct s_mode
 {
-	int		input_mode;
-	int		exit_mode;
-	int		output_mode;
-}			t_mode;
-extern t_mode *modes;
+	int				input_mode;
+	int				exit_mode;
+	int				output_mode;
+}					t_mode;
+extern t_mode		*modes;
 
 typedef struct s_tree
 {
 	char			*op;
-    struct s_tree	*left;
-    struct s_tree	*right;
+	struct s_tree	*left;
+	struct s_tree	*right;
 }					t_tree;
 
 typedef struct s_shell
 {
-	char	*line;
-	char	**nv;
-    char    **av;
-	int		status;
-	int		fd;
-	int		err;
-	int 	begin;
-	t_tree	*tree;
-}			t_shell;
+	char			*line;
+	char			**nv;
+	char			**av;
+	int				status;
+	int				fd;
+	int				err;
+	int				begin;
+	t_tree			*tree;
+}					t_shell;
 
 typedef struct s_var
 {
-	int		i;
-	int		has_pipe;
-	int		has_rederect;
-}			t_var;
-
+	int				i;
+	int				has_pipe;
+	int				has_rederect;
+}					t_var;
 
 // -- parsing -- //
-void		handle_signals(int sig);
-void		parse(t_shell *shell);
+void				handle_signals(int sig);
+void				parse(t_shell *shell);
 //---execution---//
-int	execute(t_shell *shell);
-int	ft_strcmp(char *s1, char *s2);
-int	ft_size(char **av);
-void	ft_found(t_shell *shell, t_var *var, int start, int end);
+int					execute(t_shell *shell);
+int					ft_strcmp(char *s1, char *s2);
+int					ft_size(char **av);
+void				ft_found(t_shell *shell, t_var *var, int start, int end);
 
 #endif

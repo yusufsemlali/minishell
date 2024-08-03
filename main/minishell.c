@@ -22,11 +22,9 @@ void	minishell(t_shell *shell)
 int	main(int ac, char **av, char **nv)
 {
 	t_shell	*shell;
-
-	(void)av;
 	// handle_signals(SIGINT);
 	// handle_signals(SIGQUIT);
-	shell->status = 0;
+	init(&shell, ac, av, nv);
 	while (shell->status == 0)
 	{
 		parse(shell);

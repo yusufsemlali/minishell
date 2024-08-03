@@ -45,4 +45,5 @@ void	parse(t_shell *shell)
 	closed_checker(shell, shell->line);
 	// seperators_checker(shell, shell->line);
 	shell->av = ft_split(shell->line, ' ');
+	// shell->av = ft_tokenize(shell->line, " \t\n\r\f\v");
 }

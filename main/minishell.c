@@ -14,10 +14,10 @@
 
 t_mode	*modes;
 
-// void	minishell(t_shell *shell)
-// {
-// 	shell->status = execute(shell);
-// }
+void	minishell(t_shell *shell)
+{
+	shell->status = execute(shell);
+}
 
 
 int error(t_shell *shell)
@@ -34,6 +34,17 @@ void init_signals(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
+void print_av(char **av)
+{
+	int i = 0;
+	while (av[i])
+	{
+		ft_putstr_fd(av[i], STDOUT);
+		ft_putstr_fd("\n", STDOUT);
+		i++;
+	}
+}
+
 int	main(int ac, char **av, char **nv)
 {
 	t_shell	*shell;
@@ -44,8 +55,9 @@ int	main(int ac, char **av, char **nv)
 		parse(shell);
 		if (error(shell))
 			break;
-		// else
-			// minishell(shell);
+		print_av(shell->av);
+		else
+			minishell(shell);
 	}
 	return (EXIT_SUCCESS);
 }

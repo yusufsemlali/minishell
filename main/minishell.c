@@ -53,9 +53,9 @@ int	main(int ac, char **av, char **nv)
 	while (shell->status == 0)
 	{
 		parse(shell);
+		print_av(shell->av);
 		if (error(shell))
 			break;
-		print_av(shell->av);
 		else
 			minishell(shell);
 	}

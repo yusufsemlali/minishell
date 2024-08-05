@@ -89,20 +89,20 @@ void print_tokens(Token *head) {
 // Main function
 int main() {
     char input[1024];
-    
+
     // Get input from the user
     printf("minishell> ");
     fgets(input, sizeof(input), stdin);
-    
+
     // Remove newline character from input
     input[strcspn(input, "\n")] = 0;
-    
+
     // Tokenize the input
     Token *tokens = tokenize(input);
-    
+
     // Print tokens (for debugging)
     print_tokens(tokens);
-    
+
     // Free tokens
     Token *current = tokens;
     while (current != NULL) {
@@ -111,7 +111,7 @@ int main() {
         free(current);
         current = next;
     }
-    
+
     return 0;
 }
 

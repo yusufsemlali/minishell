@@ -2,16 +2,18 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-# include <stdio.h>
-# include <stdlib.h>
 # include <string.h>
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+
 
 # define STDIN 0
 # define STDOUT 1
@@ -71,10 +73,13 @@ void				init(t_shell **shell, int ac, char **av, char **nv);
 // -- parsing -- //
 void				handle_signals(int sig);
 void				parse(t_shell *shell);
+void 				tokenize(t_shell *shell);
 //---execution---//
 int					execute(t_shell *shell);
 int					ft_strcmp(char *s1, char *s2);
 int					ft_size(char **av);
 void				ft_found(t_shell *shell, t_var *var, int start, int end);
+void				ft_free_tree(t_tree *root);
+void				executing(t_shell *shell);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/07/30 20:28:58 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/05 11:37:19 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,6 @@
 //     printAST(root->left, level + 1, "left");
 //     printAST(root->right, level + 1, "right");
 // }
-
-void	ft_free_tree(t_tree *root)
-{
-	if (root == NULL)
-		return;
-	ft_free_tree(root->left);
-	ft_free_tree(root->right);
-	free(root->op);
-	free(root);
-}
 
 t_tree	*creat_node(char *str)
 {
@@ -85,11 +75,10 @@ t_tree	*create_tree(t_shell *shell, int start, int end)
 	return (root);
 }
 
-
 int	execute(t_shell *shell)
 {
-	shell->tree = create_tree(shell, 0, ft_size(shell->av) - 1);//function that creat a tree for my execution algho
-	// printAST(shell->tree, 0, "root");//print tree for debugin
+	shell->tree = create_tree(shell, 0, ft_size(shell->av) - 1);
+	executing(shell);
 	ft_free_tree(shell->tree);
-	return(1);
+	return (0);
 }

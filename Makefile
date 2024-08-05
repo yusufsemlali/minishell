@@ -3,22 +3,24 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+         #
+#    By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/25 21:41:51 by ysemlali          #+#    #+#              #
-#    Updated: 2024/08/03 10:05:11 by ysemlali         ###   ########.fr        #
+#    Updated: 2024/08/05 12:03:37 by aclakhda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror 
 LIBS = -Llibft -lft -lreadline
 SRCS =	main/minishell.c\
 		main/init.c\
 		main/signals.c \
 		parsing/parse.c\
+		parsing/token.c\
 		execution/execute.c\
 		execution/utils.c\
+		execution/executing.c\
 
 
 

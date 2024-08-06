@@ -36,13 +36,9 @@ void	parse(t_shell *shell)
 {
 	// const char *prompt = "\033[0;36m\033[1mminishell \033[1;93m✗ \033[0m";
 	shell->line = readline("\033[0;36m\033[1mminishell \033[1;93m✗ \033[0m ");
-	if (shell->line == NULL)
-	{
-		shell->status = 0;
+	if (shell->line == NULL || shell->line[0] == '\0')
 		return ;
-	}
 	add_history(shell->line);
 	closed_checker(shell, shell->line);
-	// seperators_checker(shell, shell->line);
 	tokenize(shell);
 }

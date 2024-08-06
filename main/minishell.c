@@ -36,6 +36,8 @@ void init_signals(void)
 
 void print_av(char **av)
 {
+	if (!av || !*av)
+		return ;
 	int i = 0;
 	while (av[i])
 	{
@@ -53,9 +55,11 @@ int	main(int ac, char **av, char **nv)
 	while (shell->status == 0)
 	{
 		parse(shell);
-		print_av(shell->av);
+		// print_av(shell->av);
 		if (error(shell))
 			break;
+		if (shell->line == NULL || shell->line[0] == '\0')
+			;
 		else
 			minishell(shell);
 	}

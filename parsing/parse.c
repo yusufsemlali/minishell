@@ -31,7 +31,6 @@ void	closed_checker(t_shell *shell, char *s)
 		shell->err = ERR_SYNTAX;
 }
 
-
 void	parse(t_shell *shell)
 {
 	// const char *prompt = "\033[0;36m\033[1mminishell \033[1;93m✗ \033[0m";

@@ -40,7 +40,6 @@ typedef struct s_mode
 	int				exit_mode;
 	int				output_mode;
 }					t_mode;
-extern t_mode		*modes;
 
 typedef struct s_tree
 {
@@ -82,4 +81,5 @@ void				ft_found(t_shell *shell, t_var *var, int start, int end);
 void				ft_free_tree(t_tree *root);
 void				executing(t_shell *shell);
 
+extern t_mode		*g_modes;
 #endif

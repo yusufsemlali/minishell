@@ -12,16 +12,15 @@
 
 #include "../includes/minishell.h"
 
-
 void	signal_interrupt(int sig)
 {
 	(void)sig;
-	if (modes->input_mode == -1)
+	if (g_modes->input_mode == -1)
 		printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	modes->exit_mode = 1;
+	g_modes->exit_mode = 1;
 }
 
 void	signal_quit(int sig)
@@ -33,9 +32,9 @@ void	signal_quit(int sig)
 void	signal_special(int sig)
 {
 	(void)sig;
-    if (modes->input_mode == -1)
-        printf("hello\n");
-    exit(0);
+	if (g_modes->input_mode == -1)
+		printf("hello\n");
+	exit(0);
 	rl_replace_line("", 0);
 }
 

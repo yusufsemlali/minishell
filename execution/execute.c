@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/05 11:37:19 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/09 19:35:16 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ t_tree	*create_tree(t_shell *shell, int start, int end)
 int	execute(t_shell *shell)
 {
 	shell->tree = create_tree(shell, 0, ft_size(shell->av) - 1);
+	//printAST(shell->tree, 0, "root");
 	executing(shell);
 	ft_free_tree(shell->tree);
 	return (0);

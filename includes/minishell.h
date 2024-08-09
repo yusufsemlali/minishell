@@ -80,6 +80,9 @@ int					ft_size(char **av);
 void				ft_found(t_shell *shell, t_var *var, int start, int end);
 void				ft_free_tree(t_tree *root);
 void				executing(t_shell *shell);
+int					is_rederaction(char *c);
+char				*ft_strcat(char *dest, char *src);
+char				*ft_strcpy(char *dest, char *src);
 
 extern t_mode		*g_modes;
 #endif

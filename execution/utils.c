@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:46:55 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/05 11:37:36 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/09 21:34:00 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,11 @@ void	ft_found(t_shell *shell, t_var *var, int start, int end)
 			i++;
 			var->has_pipe = var->i;
 		}
-		if (!ft_strcmp(shell->av[var->i], ">") \
-			|| !ft_strcmp(shell->av[var->i], "<") \
-				|| !ft_strcmp(shell->av[var->i], ">>"))
+		if (is_rederaction(shell->av[var->i]))
 		{
 			if (j == 0)
 				var->has_rederect = var->i;
+			j++;
 		}
 		var->i++;
 	}
@@ -66,4 +65,36 @@ void	ft_free_tree(t_tree *root)
 	ft_free_tree(root->right);
 	free(root->op);
 	free(root);
+}
+
+char	*ft_strcat(char *dest, char *src)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (dest[x])
+		x++;
+	while (src[y])
+	{
+		dest[x + y] = src[y];
+		y++;
+	}
+	dest[x + y] = '\0';
+	return (dest);
+}
+
+char	*ft_strcpy(char *dest, char *src)
+{
+	int	z;
+
+	z = 0;
+	while (src[z])
+	{
+		dest[z] = src[z];
+		z++;
+	}
+	dest[z] = '\0';
+	return (dest);
 }

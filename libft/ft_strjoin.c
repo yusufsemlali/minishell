@@ -6,9 +6,11 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 00:24:32 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/09 21:01:27 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/11 19:31:22 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 static void	ft_strcpy(char *dest, const char *src)
 {

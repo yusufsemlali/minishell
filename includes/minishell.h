@@ -88,6 +88,9 @@ char				*creating_cmd_path(int len, char **path_split, int i, char *av);
 void				s_free(char	**av);
 int					check_cmd(t_shell *shell);
 int					is_rederaction(char *c);
+void				cmd_maker(t_shell *shell, char **av);
+// -- built in -- //
+void				echo(t_shell *shell);
 
 extern t_mode		*g_modes;
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:46:55 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/10 15:06:12 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/08/13 17:25:51 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,3 @@ char	*ft_strcpy(char *dest, char *src)
 	dest[z] = '\0';
 	return (dest);
 }
-

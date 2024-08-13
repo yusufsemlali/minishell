@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 06:01:17 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/09 19:32:43 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/13 14:38:58 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	error(t_shell *shell)
 		return (ft_putstr_fd("syntax error\n", STDERR), 1);
 	return (0);
 }
+
 void	init_signals(void)
 {
 	signal(SIGINT, SIG_IGN);

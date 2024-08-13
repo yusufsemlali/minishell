@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/23 16:17:06 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/07/23 16:18:17by ysemlali         ###   ########.fr       */
+/*   Created: 2024/08/13 14:38:22 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/08/13 14:38:39 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	signal_quit(int sig)
 	printf("Quit: 3\n");
 	rl_replace_line("", 0);
 }
+
 void	signal_special(int sig)
 {
 	(void)sig;

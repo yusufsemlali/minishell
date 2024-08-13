@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:26:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/11 20:56:42 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/13 20:44:27 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ void	ft_exec_bin(t_shell *shell)
 
 void	ft_exec_cmd(t_shell *shell)
 {
-	(void) shell;
-	printf("hey im here ^^");
+	if (strcmp(shell->tree->op, "echo") == 0)
+		echo(shell);
 }
 
 void	executing(t_shell *shell)

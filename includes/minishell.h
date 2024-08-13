@@ -3,6 +3,7 @@
 
 # include "../libft/libft.h"
 # include <stdio.h>
+#include <stddef.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -83,6 +84,10 @@ void				executing(t_shell *shell);
 int					is_rederaction(char *c);
 char				*ft_strcat(char *dest, char *src);
 char				*ft_strcpy(char *dest, char *src);
+char				*creating_cmd_path(int len, char **path_split, int i, char *av);
+void				s_free(char	**av);
+int					check_cmd(t_shell *shell);
+int					is_rederaction(char *c);
 
 extern t_mode		*g_modes;
 #endif

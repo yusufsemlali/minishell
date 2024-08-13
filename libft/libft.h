@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 00:24:56 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/07/08 09:02:33 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/08/11 19:33:04 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <stdlib.h>
 # include <limits.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -57,7 +58,7 @@ void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 char				*ft_strnstr(const char *h, const char *n, size_t l);
-char				*ft_strjoin(char *s1, char *s2);
+char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_itoa(int n);
 
 // bonus

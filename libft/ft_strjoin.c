@@ -6,9 +6,11 @@
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 00:24:32 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/10 15:04:30 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/08/13 14:31:07 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 # include "libft.h"
 

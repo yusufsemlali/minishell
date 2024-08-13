@@ -6,12 +6,12 @@
 #    By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/25 21:41:51 by ysemlali          #+#    #+#              #
-#    Updated: 2024/08/05 12:03:37 by aclakhda         ###   ########.fr        #
+#    Updated: 2024/08/11 20:58:03 by aclakhda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror
 LIBS = -Llibft -lft -lreadline
 SRCS =	main/minishell.c\
 		main/init.c\
@@ -21,6 +21,7 @@ SRCS =	main/minishell.c\
 		execution/execute.c\
 		execution/utils.c\
 		execution/executing.c\
+		execution/executing_utils.c\
 
 
 

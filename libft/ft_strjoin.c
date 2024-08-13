@@ -6,14 +6,12 @@
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:31:31 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/13 14:31:34 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/08/13 14:34:07 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "libft.h"
-
-# include "libft.h"
 
 char	*ft_strjoin(char *s1, char *s2)
 {

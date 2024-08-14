@@ -49,10 +49,17 @@ typedef struct s_tree
 	struct s_tree	*right;
 }					t_tree;
 
+
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+}					t_env;
+
 typedef struct s_shell
 {
 	char			*line;
-	char			**nv;
+	t_env			*nv;
 	char			**av;
 	int				status;
 	int				fd;

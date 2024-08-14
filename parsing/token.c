@@ -6,7 +6,7 @@
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:19:32 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/11 16:24:10 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/08/14 18:07:50 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,26 @@ char	*new_line(char *s)
 	return (new);
 }
 
-int	inquotes(const char *s, int i)
-{
-	int			one;
-	int			two;
-	const char	*ptr = s;
 
+int	inquotes(char *s, int i, int x)
+{
+	int		one;
+	int		two;
+	char	*p;
+
+	p = s;
 	one = 0;
 	two = 0;
-	while (*ptr && ptr - s < i)
+	while (*p && p - s < i)
 	{
-		if (*ptr == '\'' && (ptr == s || *(ptr - 1) != '\\') && two % 2 == 0)
+		if (*p == '\'' && (p == s || *(p - 1) != '\\') && two % 2 == 0)
 			one++;
-		if (*ptr == '\"' && (ptr == s || *(ptr - 1) != '\\') && one % 2 == 0)
+		if (*p == '\"' && (p == s || *(p - 1) != '\\') && one % 2 == 0)
 			two++;
-		ptr++;
+		p++;
 	}
+	if (x == 1)
+		return (one % 2 == 0 && two % 2 != 0);
 	return (one % 2 != 0 || two % 2 != 0);
 }
 
@@ -67,15 +71,18 @@ char	*spacing(char *s)
 	new = new_line(s);
 	while (new &&s[i])
 	{
-		if (s[i] == '$' && inquotes(s, i))
+		if (s[i] == '$' && inquotes(s, i, 1))
+			new[j++] = -s[i++];
+		else if (seperator(s[i], s[i - 1]) && i > 0 && !inquotes(s, i, 0))
 		{
-			new[j++] = 'X';
-			i++;
+			new[j++] = ' ';
+			new[j++] = s[i++];
+			new[j++] = ' ';
 		}
 		else
 			new[j++] = s[i++];
 	}
-	new[j] = '\0'; 
+	new[j] = '\0';
 	return (new);
 }
 

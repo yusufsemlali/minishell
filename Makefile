@@ -6,7 +6,7 @@
 #    By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/25 21:41:51 by ysemlali          #+#    #+#              #
-#    Updated: 2024/08/13 17:34:59 by aclakhda         ###   ########.fr        #
+#    Updated: 2024/08/14 16:34:26 by aclakhda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ SRCS =	main/minishell.c\
 		execution/executing.c\
 		execution/executing_utils.c\
 		execution/build_in/echo.c\
+		execution/build_in/cd.c\
+		execution/build_in/env.c\
 
 
 

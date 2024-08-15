@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:29:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/13 20:09:26 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/14 11:35:27 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	remove_quote(char *str)
 		i++;
 	}
 	str[j] = '\0';
-	printf("str: %s\n", str);
+	// printf("str: %s\n", str);
 }
 
 

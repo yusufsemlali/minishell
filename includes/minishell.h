@@ -91,6 +91,8 @@ int					is_rederaction(char *c);
 void				cmd_maker(t_shell *shell, char **av);
 // -- built in -- //
 void				echo(t_shell *shell);
+void				cd(t_shell *shell);
+void				env(t_shell *shell);
 
 extern t_mode		*g_modes;
 #endif

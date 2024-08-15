@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:19:32 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/11 16:24:10 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/08/14 11:29:53 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,13 @@ char	*spacing(char *s)
 		else
 			new[j++] = s[i++];
 	}
-	new[j] = '\0'; 
+	new[j] = '\0';
 	return (new);
 }
 
 void	tokenize(t_shell *shell)
 {
 	shell->line = spacing(shell->line);
-	printf("\n%s\n", shell->line);
+	//printf("\n%s\n", shell->line);
 	shell->av = ft_split(shell->line, ' ');
 }

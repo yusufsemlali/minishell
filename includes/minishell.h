@@ -49,10 +49,17 @@ typedef struct s_tree
 	struct s_tree	*right;
 }					t_tree;
 
+
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+}					t_env;
+
 typedef struct s_shell
 {
 	char			*line;
-	char			**nv;
+	t_env			*nv;
 	char			**av;
 	int				status;
 	int				fd;
@@ -66,6 +73,13 @@ typedef struct s_var
 	int				i;
 	int				has_pipe;
 	int				has_rederect;
+	char			*av[CMD_MAX_LENGTH];
+	char			*cmd_path;
+	int 			value_len;
+	int 			key_len;
+	char			**env;
+	int				size;
+	pid_t 			pid;
 }					t_var;
 
 // -- init -- //
@@ -89,6 +103,9 @@ void				s_free(char	**av);
 int					check_cmd(t_shell *shell);
 int					is_rederaction(char *c);
 void				cmd_maker(t_shell *shell, char **av);
+char				**creat_env(t_env *nv);
+void				lazy_free(char **env, int i);
+int					env_size(t_env *nv);
 // -- built in -- //
 void				echo(t_shell *shell);
 void				cd(t_shell *shell);

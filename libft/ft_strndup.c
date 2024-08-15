@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/14 16:32:37 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/15 12:23:55 by aclakhda         ###   ########.fr       */
+/*   Created: 2024/08/14 19:19:38 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/08/14 19:30:24 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+# include "libft.h"
 
-void	env(t_shell *shell)
+char *ft_strndup(const char *s, size_t n)
 {
-	(void) shell;
-	// int	i;
-
-	// i = 0;
-	// while(shell->nv[i])
-	// {
-	// 	printf("%s\n\n", shell->nv[i]);
-	// 	i++;
-	// }
+    size_t i = 0;
+    while (s[i] && i < n)
+        i++;
+    char *new = ft_calloc(i + 1, sizeof(char));
+    i = 0;
+    while (*s && n--)
+        new[i++] = *s++;
+    return (new);
 }

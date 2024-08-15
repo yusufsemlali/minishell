@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:26:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/14 19:04:36 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/15 12:28:42 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ char	*find_cmd_path(char	**av)
 	s_free(path_split);
 	return (NULL);
 }
+
 void	cmd_maker(t_shell *shell, char **av)
 {
 	int		i;
@@ -58,31 +59,31 @@ void	cmd_maker(t_shell *shell, char **av)
 
 void	ft_exec_bin(t_shell *shell)
 {
-	char	*av[CMD_MAX_LENGTH];
-	char	*cmd_path;
-	pid_t 	pid;
+	t_var	var;
 
-	pid = fork();
-	if (pid == -1)
+	var.pid = fork();
+	if (var.pid == -1)
 	{
 		perror("fork");
 		return ;
 	}
-	if (pid == 0)
+	if (var.pid == 0)
 	{
-		cmd_maker(shell, av);
-		cmd_path = find_cmd_path(av);
-		if (!cmd_path)
+		cmd_maker(shell, var.av);
+		var.cmd_path = find_cmd_path(var.av);
+		if (!var.cmd_path)
 		{
 			printf("command not found\n");
 			return ;
 		}
-		if (execve(cmd_path, av, shell->nv) == -1)
+		var.env = creat_env(shell->nv);
+		if (execve(var.cmd_path, var.av, var.env) == -1)
 			perror("execve");
-		free(cmd_path);
+		free(var.cmd_path);
+		s_free(var.env);
 	}
 	else
-		waitpid(pid, &shell->status, 0);
+		waitpid(var.pid, &shell->status, 0);
 }
 
 void	ft_exec_cmd(t_shell *shell)
@@ -93,8 +94,8 @@ void	ft_exec_cmd(t_shell *shell)
 		cd(shell);
 	else if (ft_strcmp(shell->tree->op, "env") == 0)
 		env(shell);
-	else if (ft_strcmp(shell->tree->op, "pwd") == 0)
-		pwd(shell);
+	// else if (ft_strcmp(shell->tree->op, "pwd") == 0)
+	// 	pwd(shell);
 }
 
 void	executing(t_shell *shell)

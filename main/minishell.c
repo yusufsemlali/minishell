@@ -6,7 +6,7 @@
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 06:01:17 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/13 14:38:58 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/08/14 20:03:27 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,37 @@ void	init_signals(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	print_av(char **av)
-{
-	int	i;
+// void	print_av(char **av)
+// {
+// 	int	i;
 
-	if (!av || !*av)
-		return ;
-	i = 0;
-	while (av[i])
-	{
-		ft_putstr_fd(av[i], STDOUT);
-		ft_putstr_fd("\n", STDOUT);
-		i++;
-	}
-}
+// 	if (!av || !*av)
+// 		return ;
+// 	i = 0;
+// 	while (av[i])
+// 	{
+// 		ft_putstr_fd(av[i], STDOUT);
+// 		ft_putstr_fd("\n", STDOUT);
+// 		i++;
+// 	}
+// }
+
+// void print_env(t_shell *shell)
+// {
+// 	int i = 0;
+// 	while (shell->nv[i].key != NULL)
+// 	{
+// 		printf("%s      %s\n", shell->nv[i].key, shell->nv[i].value);
+// 		i++;
+// 	}
+// }
 
 int	main(int ac, char **av, char **nv)
 {
 	t_shell	*shell;
 
 	init(&shell, ac, av, nv);
+	// print_env(shell);
 	// init_signals();
 	while (shell->status == 0)
 	{

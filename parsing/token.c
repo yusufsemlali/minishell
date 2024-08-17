@@ -6,7 +6,7 @@
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:19:32 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/17 16:59:15 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/08/17 17:03:35 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ void	tokenize(t_shell *shell)
 {
 	shell->s = spacing(shell->s);
 	shell->av = ft_split(shell->s, ' ');
-	// for (int i = 0; shell->av[i] != NULL; i++)
-	// {
-	// 	printf("[%s]\n", shell->av[i]);
-	// }
+	for (int i = 0; shell->av[i] != NULL; i++)
+	{
+		printf("[%s]\n", shell->av[i]);
+	}
 }

@@ -16,7 +16,7 @@ t_mode	*g_modes;
 
 void	minishell(t_shell *shell)
 {
-	// shell->status = execute(shell);
+	shell->status = execute(shell);
 	(void)shell;
 }
 

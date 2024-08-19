@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:26:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/15 12:28:42 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/16 20:28:06 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,12 @@ void	ft_exec_cmd(t_shell *shell)
 		cd(shell);
 	else if (ft_strcmp(shell->tree->op, "env") == 0)
 		env(shell);
-	// else if (ft_strcmp(shell->tree->op, "pwd") == 0)
-	// 	pwd(shell);
+	else if (ft_strcmp(shell->tree->op, "pwd") == 0)
+		pwd(shell);
+	else if (ft_strcmp(shell->tree->op, "export") == 0)
+		export(shell);
+	else if (ft_strcmp(shell->tree->op, "unset") == 0)
+		unset(shell);
 }
 
 void	executing(t_shell *shell)

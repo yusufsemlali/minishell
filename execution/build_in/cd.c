@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:20:15 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/14 18:11:41 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/15 15:40:31 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,29 +54,20 @@ char	*ft_str_join(char const *s1, char const *s2)
 	return (p);
 }
 
-void	update_env(char **nv, char *key, char *value)
+void	update_env(t_env *nv, char *key, char *value)
 {
-	int		i;
-	char	*tmp;
-	char	*tmp2;
+	int	i;
 
-
-	tmp = ft_str_join(key, "=");
-	tmp2 = ft_str_join(tmp, value);
-	free(tmp);
 	i = 0;
-	while (nv[i])
+	while (nv[i].key)
 	{
-		if (ft_strncmp(nv[i], key, ft_strlen(key)) == 0 && nv[i][ft_strlen(key)] == '=')
+		if (ft_strcmp(nv[i].key, key) == 0)
 		{
-			free(nv[i]);
-			nv[i] = tmp2;
-			return ;
+			nv[i].value = value;
+			break ;
 		}
 		i++;
 	}
-	nv[i] = tmp2;
-	nv[i + 1] = NULL;
 }
 
 void	cd(t_shell *shell)
@@ -96,11 +87,11 @@ void	cd(t_shell *shell)
 		perror("cd :");
 		return ;
 	}
-	if (getcwd(past_path, sizeof(current_path)) == NULL)
+	if (getcwd(current_path, sizeof(current_path)) == NULL)
 	{
 		perror("getcwd :");
 		return ;
 	}
-	//update_env(shell->nv, "OLDPWD", past_path);
-	//update_env(shell->nv, "PWD", current_path);
+	update_env(shell->nv, "OLDPWD", past_path);
+	update_env(shell->nv, "PWD", current_path);
 }

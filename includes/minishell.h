@@ -3,7 +3,7 @@
 
 # include "../libft/libft.h"
 # include <stdio.h>
-#include <stddef.h>
+# include <stddef.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -110,6 +110,9 @@ int					env_size(t_env *nv);
 void				echo(t_shell *shell);
 void				cd(t_shell *shell);
 void				env(t_shell *shell);
+void				pwd(t_shell *shell);
+void				export(t_shell *shell);
+void				unset(t_shell *shell);
 
 extern t_mode		*g_modes;
 #endif

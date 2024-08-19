@@ -6,7 +6,7 @@
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:39:59 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/18 18:43:46 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/08/19 22:35:39 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ char	*spacing(char *s)
 		{
 			new[j++] = ' ';
 			new[j++] = s[i++];
-			// if (ft_strchr("<>|", s[i]) && !inquotes(s, i, 0))
-			// 	new[j++] = s[i++];
-            if (s[i] == s[i - 1] && !inquotes(s, i, 0))
-                new[j++] = s[i++];
+			if (ft_strchr("<>|", s[i]) && !inquotes(s, i, 0))
+				new[j++] = s[i++];
+            // if (s[i] == s[i - 1] && !inquotes(s, i, 0))
+            //     new[j++] = s[i++];
 			new[j++] = ' ';
 		}
 		else

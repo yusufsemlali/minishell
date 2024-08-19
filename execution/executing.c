@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:26:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/16 20:28:06 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/19 11:39:21 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ void	ft_exec_bin(t_shell *shell)
 			printf("command not found\n");
 			return ;
 		}
-		var.env = creat_env(shell->nv);
-		if (execve(var.cmd_path, var.av, var.env) == -1)
+		// var.env = creat_env(shell->nv);
+		if (execve(var.cmd_path, var.av,shell->env) == -1)
 			perror("execve");
 		free(var.cmd_path);
 		s_free(var.env);

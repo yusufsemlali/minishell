@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:20:15 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/15 15:40:31 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/19 11:59:33 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,17 @@ char	*ft_str_join(char const *s1, char const *s2)
 
 void	update_env(t_env *nv, char *key, char *value)
 {
-	int	i;
+	t_env	*tmp;
 
-	i = 0;
-	while (nv[i].key)
+	tmp = nv;
+	while (tmp)
 	{
-		if (ft_strcmp(nv[i].key, key) == 0)
+		if (ft_strcmp(tmp->key, key) == 0)
 		{
-			nv[i].value = value;
-			break ;
+			tmp->value = value;
+			return ;
 		}
-		i++;
+		tmp = tmp->next;
 	}
 }
 

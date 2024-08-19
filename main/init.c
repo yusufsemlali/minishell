@@ -5,47 +5,52 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/02 21:56:29 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/14 20:00:58 by ysemlali         ###   ########.fr       */
+/*   Created: 2023/11/07 00:24:56 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/08/17 20:12:02 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	old_pwd(char **nv)
+void	add_old_pwd(t_shell **shell, char **nv)
 {
 	int	i;
 
 	i = 0;
-	while (nv[i])
-	{
-		if (ft_strncmp(nv[i], "OLDPWD=", 7) == 0)
-			return (0);
+	while (nv[i] && ft_strncmp(nv[i], "OLDPWD=", 7) != 0)
 		i++;
+	if (!nv[i] && (*shell)->nv->next == NULL)
+	{
+		(*shell)->nv->next = ft_calloc(1, sizeof(t_env));
+		(*shell)->nv = (*shell)->nv->next;
+		(*shell)->nv->key = ft_strdup("OLDPWD");
+		(*shell)->nv->value = getcwd(NULL, 0);
+		(*shell)->nv->next = NULL;
 	}
-	return (1);
 }
 
 void	init_env(t_shell **shell, char **nv)
 {
-	int	i;
+	int		i;
+	t_env	*tmp;
 
 	i = 0;
-	while (nv[i])
-		i++;
-	(*shell)->nv = ft_calloc(i + old_pwd(nv) + 1, sizeof(t_env));
-	i = 0;
+	(*shell)->nv = ft_calloc(1, sizeof(t_env));
+	tmp = (*shell)->nv;
 	while (nv[i])
 	{
-		(*shell)->nv[i].key = ft_strndup(nv[i], ft_strchr(nv[i], '=') - nv[i]);
-		(*shell)->nv[i].value = getenv((*shell)->nv[i].key);
+		(*shell)->nv->key = ft_strndup(nv[i], ft_strchr(nv[i], '=') - nv[i]);
+		(*shell)->nv->value = getenv((*shell)->nv->key);
+		if (nv[i + 1])
+		{
+			(*shell)->nv->next = ft_calloc(1, sizeof(t_env));
+			(*shell)->nv = (*shell)->nv->next;
+		}
 		i++;
 	}
-	if (old_pwd(nv))
-	{
-		(*shell)->nv[i].key = ft_strdup("OLDPWD");
-		(*shell)->nv[i++].value = getcwd(NULL, 0);
-	}
+	(*shell)->nv->next = NULL;
+	add_old_pwd(shell, nv);
+	(*shell)->nv = tmp;
 }
 
 void	init(t_shell **shell, int ac, char **av, char **nv)

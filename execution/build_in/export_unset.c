@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:03:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/16 20:47:59 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/19 12:18:24 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,32 @@ int	create_arr(char **arr, t_shell *shell)
 
 void	create_env(char *key, char *value, t_shell *shell)
 {
-	int		i;
+	t_env	*tmp;
+	t_env	*new;
 
-	i = 0;
-	while (shell->nv[i].key)
+	tmp = shell->nv;
+	while (tmp)
 	{
-		if (!ft_strcmp(shell->nv[i].key, key))
+		if (!ft_strcmp(tmp->key, key))
 		{
-			if (shell->nv[i].value)
-				free(shell->nv[i].value);
-			shell->nv[i].value = ft_strdup(value);
+			tmp->value = value;
 			return ;
 		}
-		i++;
+		tmp = tmp->next;
 	}
-	shell->nv[i].key = ft_strdup(key);
-	shell->nv[i].value = ft_strdup(value);
-	shell->nv[i + 1].key = NULL;
-	shell->nv[i + 1].value = NULL;
+	new = (t_env *)malloc(sizeof(t_env));
+	new->key = key;
+	new->value = value;
+	new->next = NULL;
+	tmp = shell->nv;
+	if (!tmp)
+	{
+		shell->nv = new;
+		return ;
+	}
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = new;
 }
 
 void	export(t_shell *shell)
@@ -75,8 +83,6 @@ void	export(t_shell *shell)
 				key = ft_substr(arr[i], 0, j);
 				value = ft_substr(arr[i], j + 1, ft_strlen(arr[i]) - (j + 1));
 				create_env(key, value, shell);
-				free(key);
-				free(value);
 				break ;
 			}
 			j++;
@@ -85,21 +91,27 @@ void	export(t_shell *shell)
 	}
 }
 
-int	found_key(t_shell *shell, char *arr)
+void	found_key(t_shell *shell, char *key)
 {
-	int	i;
+	t_env	*tmp;
+	t_env	*prev = NULL;
 
-	i = 0;
-	while (shell->nv[i].key)
+	tmp = shell->nv;
+	while (tmp)
 	{
-		if (ft_strcmp(arr, shell->nv[i].key) == 0)
+		if (!ft_strcmp(tmp->key, key))
 		{
-			free(shell->nv[i].key);
-			if (shell->nv[i].value)
-				free(shell->nv[i].value);
+			if (prev)
+				prev->next = tmp->next;
+			else
+				shell->nv = tmp->next;
+			free(tmp->key);
+			free(tmp);
+			return ;
 		}
-	}
-	return 0;
+		prev = tmp;
+		tmp = tmp->next;
+    }
 }
 
 void	unset(t_shell *shell)
@@ -114,9 +126,7 @@ void	unset(t_shell *shell)
 		return ;
 	while (arr[i])
 	{
-		if (found_key(shell, arr[i]))
-			printf("nope\n");
-		// 	// delete(shell, arr[i]);
+		found_key(shell, arr[i]);
 		i++;
 	}
 }

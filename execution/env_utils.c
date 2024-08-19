@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 12:27:46 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/15 12:31:56 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/19 11:35:29 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	env_size(t_env *nv)
 	i = 0;
 	while (nv[i].key)
 		i++;
+	printf("env_size: %d\n", i);
 	return (i);
 }
 

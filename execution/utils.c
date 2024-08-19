@@ -6,21 +6,21 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:46:55 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/13 17:25:51 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/19 10:39:55 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
+// static int	ft_strcmp(char *s1, char *s2)
+// {
+// 	int	i;
 
-	i = 0;
-	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
-		i++;
-	return (s1[i] - s2[i]);
-}
+// 	i = 0;
+// 	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+// 		i++;
+// 	return (s1[i] - s2[i]);
+// }
 
 int	ft_size(char **av)
 {

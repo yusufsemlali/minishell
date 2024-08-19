@@ -6,37 +6,19 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:19:32 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/15 11:13:37 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/19 10:49:50 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	seperator(char c, char prev)
+int	metachar(char c, char prev)
 {
-	if (prev != '\\' && (c == '|' || c == ';' || c == '<' || c == '>'))
+	if (prev != '\\' && (c == '|' || c == ';' || c == '<' || c == '>'
+			|| c == '&' || c == '(' || c == ')' || c == '\n'))
 		return (1);
 	return (0);
 }
-
-char	*new_line(char *s)
-{
-	int		i;
-	int		count;
-	char	*new;
-
-	i = 0;
-	count = 0;
-	while (s[i])
-	{
-		if (seperator(s[i], s[i + 1]) && i > 0)
-			count++;
-		i++;
-	}
-	new = malloc(i + (count * 2) + 1);
-	return (new);
-}
-
 
 int	inquotes(char *s, int i, int x)
 {
@@ -60,6 +42,22 @@ int	inquotes(char *s, int i, int x)
 	return (one % 2 != 0 || two % 2 != 0);
 }
 
+char	*new_line(char *s)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (s[i])
+	{
+		if (i && metachar(s[i], s[i - 1]) && !inquotes(s, i, 0))
+			count++;
+		i++;
+	}
+	return (ft_calloc(i + (count * 2) + 1, sizeof(char)));
+}
+
 char	*spacing(char *s)
 {
 	char	*new;
@@ -69,26 +67,30 @@ char	*spacing(char *s)
 	i = 0;
 	j = 0;
 	new = new_line(s);
-	while (new &&s[i])
+	while (s[i] && new)
 	{
-		if (s[i] == '$' && inquotes(s, i, 1))
+		if (s[i] == '$' && inquotes(s, i, 1) && i)
 			new[j++] = -s[i++];
-		else if (seperator(s[i], s[i - 1]) && i > 0 && !inquotes(s, i, 0))
+		else if (i && metachar(s[i], s[i - 1]) && !inquotes(s, i, 0))
 		{
 			new[j++] = ' ';
 			new[j++] = s[i++];
+			if (ft_strchr("<>|", s[i]) && !inquotes(s, i, 0))
+				new[j++] = s[i++];
 			new[j++] = ' ';
 		}
 		else
 			new[j++] = s[i++];
 	}
-	new[j] = '\0';
 	return (new);
 }
 
 void	tokenize(t_shell *shell)
 {
-	shell->line = spacing(shell->line);
-	//printf("\n%s\n", shell->line);
-	shell->av = ft_split(shell->line, ' ');
+	shell->s = spacing(shell->s);
+	shell->av = ft_split(shell->s, ' ');
+	// for (int i = 0; shell->av[i] != NULL; i++)
+	// {
+	// 	printf("[%s]\n", shell->av[i]);
+	// }
 }

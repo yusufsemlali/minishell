@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 16:32:37 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/15 15:48:23 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/19 11:48:20 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	env(t_shell *shell)
 {
-	int	i;
+	t_env	*tmp;
 
-	i = 0;
-	while (shell->nv[i].key)
+	tmp = shell->nv;
+	while (tmp)
 	{
-		printf("%s=%s\n", shell->nv[i].key, shell->nv[i].value);
-		i++;
+		printf("%s=%s\n", tmp->key, tmp->value);
+		tmp = tmp->next;
 	}
 }

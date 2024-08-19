@@ -14,6 +14,10 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"
+# include <stdio.h>
+# include <stddef.h>
+# include <unistd.h>
+# include <stdlib.h>
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -56,6 +60,7 @@
 # define ERR_SYNTAX 258 // syntax error
 
 # define BUFFER_SIZE 1024
+# define CMD_MAX_LENGTH 1024
 
 typedef struct s_mode
 {
@@ -96,6 +101,7 @@ typedef struct s_shell
 	int				begin;
 	t_tree			*tree;
 	t_oken			*token;
+	char			**env;
 }					t_shell;
 
 typedef struct s_var
@@ -103,6 +109,13 @@ typedef struct s_var
 	int				i;
 	int				has_pipe;
 	int				has_rederect;
+	char			*av[CMD_MAX_LENGTH];
+	char			*cmd_path;
+	int 			value_len;
+	int 			key_len;
+	char			**env;
+	int				size;
+	pid_t 			pid;
 }					t_var;
 
 // -- init -- //
@@ -130,8 +143,16 @@ void				s_free(char **av);
 int					check_cmd(t_shell *shell);
 int					is_rederaction(char *c);
 void				cmd_maker(t_shell *shell, char **av);
+char				**creat_env(t_env *nv);
+void				lazy_free(char **env, int i);
+int					env_size(t_env *nv);
 // -- built in -- //
 void				echo(t_shell *shell);
+void				cd(t_shell *shell);
+void				env(t_shell *shell);
+void				pwd(t_shell *shell);
+void				export(t_shell *shell);
+void				unset(t_shell *shell);
 
 extern t_mode		*g_modes;
 #endif

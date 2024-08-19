@@ -57,6 +57,7 @@ int	main(int ac, char **av, char **nv)
 	t_shell	*shell;
 
 	init(&shell, ac, av, nv);
+	shell->env = nv;
 	while (1)
 	{
 		reset(shell);

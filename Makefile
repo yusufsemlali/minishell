@@ -6,7 +6,7 @@
 #    By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/25 21:41:51 by ysemlali          #+#    #+#              #
-#    Updated: 2024/08/17 20:44:04 by ysemlali         ###   ########.fr        #
+#    Updated: 2024/08/19 22:26:20 by ysemlali         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,11 +18,13 @@ SRCS =	main/minishell.c\
 		main/signals.c \
 		parsing/parse.c\
 		parsing/token.c\
-		# execution/execute.c\
-		# execution/utils.c\
-		# execution/executing.c\
-		# execution/executing_utils.c\
-		# execution/build_in/echo.c\
+		parsing/line.c\
+		parsing/valid.c\
+		execution/execute.c\
+		execution/utils.c\
+		execution/executing.c\
+		execution/executing_utils.c\
+		execution/build_in/echo.c\
 
 
 

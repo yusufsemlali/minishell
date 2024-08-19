@@ -1,0 +1,10 @@
+Makefile
+a.out
+execution
+get_next_line
+includes
+libft
+ls
+main
+parsing
+test

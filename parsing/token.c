@@ -7,90 +7,79 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:19:32 by ysemlali          #+#    #+#             */
 /*   Updated: 2024/08/19 10:49:50 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/19 22:26:01 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	metachar(char c, char prev)
+int	token_type(char *s)
 {
-	if (prev != '\\' && (c == '|' || c == ';' || c == '<' || c == '>'
-			|| c == '&' || c == '(' || c == ')' || c == '\n'))
-		return (1);
-	return (0);
+	if (ft_strcmp(s, "|") == 0)
+		return (PIPE);
+	else if (ft_strcmp(s, "<") == 0)
+		return (INPUT);
+	else if (ft_strcmp(s, ">") == 0)
+		return (OUTPUT);
+	else if (ft_strcmp(s, ">>") == 0)
+		return (APPEND);
+	else if (ft_strcmp(s, "&") == 0)
+		return (AND);
+	else
+		return (ARGS);
 }
 
-int	inquotes(char *s, int i, int x)
+char	*join_args(char **av, int i)
 {
-	int		one;
-	int		two;
-	char	*p;
+	char	*next;
+	char	*joined;
 
-	p = s;
-	one = 0;
-	two = 0;
-	while (*p && p - s < i)
+	if (av[i + 1] == NULL || token_type(av[i + 1]) != ARGS)
+		return (av[i]);
+	else
 	{
-		if (*p == '\'' && (p == s || *(p - 1) != '\\') && two % 2 == 0)
-			one++;
-		if (*p == '\"' && (p == s || *(p - 1) != '\\') && one % 2 == 0)
-			two++;
-		p++;
+		next = join_args(av, i + 1);
+		joined = ft_strjoin(av[i], next);
+		if (next != av[i + 1])
+			free(next);
+		return (joined);
 	}
-	if (x == 1)
-		return (one % 2 == 0 && two % 2 != 0);
-	return (one % 2 != 0 || two % 2 != 0);
 }
 
-char	*new_line(char *s)
+void	token_value_type(char **av, int *i, int *type, char **value)
 {
-	int	i;
-	int	count;
+	*type = token_type(av[*i]);
+	if (token_type(av[*i]) == ARGS)
+		(*value) = join_args(av, *i);
+}
+
+t_oken	*token_lst(char **av)
+{
+	t_oken	*token;
+	t_oken	*head;
+	int		i;
 
 	i = 0;
-	count = 0;
-	while (s[i])
+	head = NULL;
+	while (av[i])
 	{
-		if (i && metachar(s[i], s[i - 1]) && !inquotes(s, i, 0))
-			count++;
+		token = malloc(sizeof(t_oken));
+		token_value_type(av, &i, &token->type, &token->value);
+		if (token->value == NULL)
+			return (NULL);
+		token->next = NULL;
+		if (head == NULL)
+			head = token;
+		// else
+		// 	token_add_back(&head, token);
 		i++;
 	}
-	return (ft_calloc(i + (count * 2) + 1, sizeof(char)));
-}
-
-char	*spacing(char *s)
-{
-	char	*new;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	new = new_line(s);
-	while (s[i] && new)
-	{
-		if (s[i] == '$' && inquotes(s, i, 1) && i)
-			new[j++] = -s[i++];
-		else if (i && metachar(s[i], s[i - 1]) && !inquotes(s, i, 0))
-		{
-			new[j++] = ' ';
-			new[j++] = s[i++];
-			if (ft_strchr("<>|", s[i]) && !inquotes(s, i, 0))
-				new[j++] = s[i++];
-			new[j++] = ' ';
-		}
-		else
-			new[j++] = s[i++];
-	}
-	return (new);
+	return (head);
 }
 
 void	tokenize(t_shell *shell)
 {
 	shell->s = spacing(shell->s);
+	// shell->s = validate(shell->s);
 	shell->av = ft_split(shell->s, ' ');
-	// for (int i = 0; shell->av[i] != NULL; i++)
-	// {
-	// 	printf("[%s]\n", shell->av[i]);
-	// }
 }

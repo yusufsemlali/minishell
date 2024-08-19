@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/08/18 18:32:00 by ysemlali         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -75,7 +87,7 @@ typedef struct s_token
 {
 	char			*value;
 	int				type;
-	struct t_oken	*next;
+	struct s_token	*next;
 }					t_oken;
 
 typedef struct s_shell
@@ -112,6 +124,10 @@ void				init(t_shell **shell, int ac, char **av, char **nv);
 void				handle_signals(int sig);
 void				parse(t_shell *shell);
 void				tokenize(t_shell *shell);
+char				*spacing(char *s);
+char				*validate(char *s);
+int					inquotes(char *s, int i, int x);
+int					metachar(char c, char prev);
 //---execution---//
 int					execute(t_shell *shell);
 int					ft_size(char **av);

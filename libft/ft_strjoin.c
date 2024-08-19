@@ -6,7 +6,7 @@
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:31:31 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/13 14:36:12 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:04:49 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,5 @@ char	*ft_strjoin(char *s1, char *s2)
 	ft_memcpy(result, s1, len1);
 	ft_memcpy(result + len1, s2, len2);
 	result[len1 + len2] = '\0';
-	free(s1);
 	return (result);
 }

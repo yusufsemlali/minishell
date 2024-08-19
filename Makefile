@@ -7,6 +7,7 @@
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/25 21:41:51 by ysemlali          #+#    #+#              #
 #    Updated: 2024/08/19 10:46:18 by aclakhda         ###   ########.fr        #
+#    Updated: 2024/08/19 22:26:20 by ysemlali         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +26,10 @@ SRCS =	main/minishell.c\
 		execution/build_in/pwd.c\
 		execution/build_in/export_unset.c\
 		execution/execute.c\
+		parsing/line.c\
+		parsing/valid.c\
+		execution/execute.c\
+		execution/utils.c\
 		execution/executing.c\
 		execution/executing_utils.c\
 		execution/build_in/echo.c\

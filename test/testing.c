@@ -1,11 +1,11 @@
 # include <stdio.h>
 
 
-char **parsing(char *s)
-{
-	char **line = 
+// char **parsing(char *s)
+// {
+// 	char **line = 
 
-}
+// }
 
 int main(int ac, char **av)
 {

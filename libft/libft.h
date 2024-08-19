@@ -6,7 +6,7 @@
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 00:24:56 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/17 18:02:08 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/08/18 15:27:16 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char				*ft_strjoin(char *s1, char *s2);
 char				*ft_itoa(int n);
 
 // bonus
-void 				*ft_lstnew(void *type, size_t size);
+void				*ft_lstnew(void *type, size_t size);
 t_stack				*ft_lstlast(t_stack *lst);
 int					ft_lstsize(t_stack *lst);
 void				ft_lstclear(t_stack **lst, void (*del)(int));

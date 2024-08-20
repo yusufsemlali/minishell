@@ -3,11 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:19:32 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/19 10:49:50 by aclakhda         ###   ########.fr       */
-/*   Updated: 2024/08/19 22:26:01 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/08/19 23:52:29by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +80,7 @@ void	tokenize(t_shell *shell)
 {
 	shell->s = spacing(shell->s);
 	// shell->s = validate(shell->s);
-	shell->av = ft_split(shell->s, ' ');
+	if (shell->s == NULL)
+		return ;
+	shell->av = ft_split(shell->s, " \t\n\r\f\v");
 }

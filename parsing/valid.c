@@ -24,13 +24,16 @@ char	*validate(char *s)
 		in_quote = inquotes(s, i, in_quote);
 		if (!in_quote)
 		{
-			if ((s[i] == '<' && s[i + 1] == '>') || (s[i] == '>' && s[i
-					+ 1] == '<') || (s[i] == ';' && s[i + 1] == ';'))
-				return (NULL);
-			if (s[i] == '|' || s[i] == '&' || s[i] == ';')
+			if (s[i + 1] != '\0')
 			{
-				if (s[i + 1] != s[i])
+				if ((s[i] == '<' && s[i + 1] == '>') || (s[i] == '>' && s[i
+						+ 1] == '<'))
 					return (NULL);
+				if (s[i] == '|' || s[i] == '&' || s[i] == ';')
+				{
+					if (s[i + 1] != s[i])
+						return (NULL);
+				}
 			}
 		}
 		i++;

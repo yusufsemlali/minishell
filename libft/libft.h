@@ -6,7 +6,7 @@
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 00:24:56 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/18 15:27:16 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/08/20 07:13:49 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,12 @@ char				*ft_strrchr(const char *s, int c);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 size_t				ft_strlcpy(char *dest, const char *src, size_t size);
 size_t				ft_strlcat(char *dest, const char *src, size_t size);
+size_t				ft_strcspn(const char *s, const char *d);
 void				*ft_calloc(size_t n, size_t size);
 char				*ft_strdup(const char *str);
 char				*ft_strndup(const char *s, size_t n);
-char				**ft_split(char const *s, char c);
+// char				**ft_split(char const *s, char c);
+char				**ft_split(char *s, char *d);
 char				*ft_strtrim(char const *s1, char const *set);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));

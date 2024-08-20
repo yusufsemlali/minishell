@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 06:01:17 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/20 07:17:54 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:19:00 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ int	main(int ac, char **av, char **nv)
 	{
 		reset(shell);
 		parse(shell);
-		for (int i = 0; shell->av[i] != NULL; i++)
-			printf("%s\n" , shell->av[i]);
+		// for (int i = 0; shell->av[i] != NULL; i++)
+		// 	printf("%s\n" , shell->av[i]);
 		if (error(shell))
 			break ;
 		if (shell->s == NULL || shell->s[0] == '\0')

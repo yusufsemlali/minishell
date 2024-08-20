@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:03:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/19 12:18:24 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:09:23 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,8 @@ void	unset(t_shell *shell)
 {
 	char	*arr[1024];
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
 	if (create_arr(arr, shell))
 		return ;
 	while (arr[i])

@@ -6,7 +6,7 @@
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 06:01:17 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/20 06:30:46 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/08/20 07:17:54 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_mode	*g_modes;
 
 void	minishell(t_shell *shell)
 {
-	//	shell->status = execute(shell);
+	shell->status = execute(shell);
 	(void)shell;
 }
 
@@ -80,8 +80,8 @@ int	main(int ac, char **av, char **nv)
 			break ;
 		if (shell->s == NULL || shell->s[0] == '\0')
 			continue ;
-		// else
-		// 	minishell(shell);
+		else
+			minishell(shell);
 	}
 	return (shell->status);
 }

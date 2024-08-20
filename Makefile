@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+         #
+#    By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/25 21:41:51 by ysemlali          #+#    #+#              #
-#    Updated: 2024/08/20 07:19:50 by ysemlali         ###   ########.fr        #
+#    Updated: 2024/08/20 17:17:39 by aclakhda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,12 +21,10 @@ SRCS =	main/minishell.c\
 		parsing/token.c\
 		parsing/line.c\
 		parsing/valid.c\
-		execution/execute.c\
 		execution/utils.c\
 		execution/executing.c\
 		execution/executing_utils.c\
 		execution/build_in/echo.c\
-		execution/utils.c\
 		execution/build_in/cd.c\
 		execution/build_in/env.c\
 		execution/env_utils.c\

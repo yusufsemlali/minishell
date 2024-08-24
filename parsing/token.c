@@ -82,5 +82,10 @@ void	tokenize(t_shell *shell)
 	// shell->s = validate(shell->s);
 	if (shell->s == NULL)
 		return ;
-	shell->av = ft_split(shell->s, " \t\n\r\f\v");
+	shell->av = ft_split(shell->s, " \t\r\f\v");
+	for(int i = 0; shell->av[i] != NULL; i++)
+		printf("[%s] \n", shell->av[i]);
+
+
+
 }

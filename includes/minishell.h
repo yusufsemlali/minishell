@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ysemlali & aclakhda <ysemlali & aclackd    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/18 18:32:00 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/08/24 23:04:33 by ysemlali &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"
-# include <stdio.h>
-# include <stddef.h>
-# include <unistd.h>
-# include <stdlib.h>
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -65,7 +61,7 @@
 typedef struct s_mode
 {
 	int				input_mode;
-	int				exit_mode;
+	unsigned char	exit_mode;
 	int				output_mode;
 }					t_mode;
 
@@ -111,16 +107,17 @@ typedef struct s_var
 	int				has_rederect;
 	char			*av[CMD_MAX_LENGTH];
 	char			*cmd_path;
-	int 			value_len;
-	int 			key_len;
+	int				value_len;
+	int				key_len;
 	char			**env;
 	int				size;
-	pid_t 			pid;
+	pid_t			pid;
 }					t_var;
 
 // -- init -- //
 void				init(t_shell **shell, int ac, char **av, char **nv);
 // -- parsing -- //
+void				ft_exit(t_shell *shell);
 void				handle_signals(int sig);
 void				parse(t_shell *shell);
 void				tokenize(t_shell *shell);

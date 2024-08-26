@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/18 18:32:00 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/08/26 11:38:15 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ void				cmd_maker(t_shell *shell, char **av);
 char				**creat_env(t_env *nv);
 void				lazy_free(char **env, int i);
 int					env_size(t_env *nv);
+void				ft_exec_rederect(t_shell *shell);
 // -- built in -- //
 void				echo(t_shell *shell);
 void				cd(t_shell *shell);

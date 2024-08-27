@@ -6,7 +6,7 @@
 /*   By: ysemlali & aclakhda <ysemlali & aclackd    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/24 23:04:33 by ysemlali &       ###   ########.fr       */
+/*   Updated: 2024/08/25 15:10:26 by ysemlali &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct s_shell
 	char			*s;
 	t_env			*nv;
 	char			**av;
+	int 			*type;
 	int				status;
 	int				fd;
 	int				err;

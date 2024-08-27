@@ -6,17 +6,16 @@
 /*   By: ysemlali & aclakhda <ysemlali & aclackd    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 23:28:12 by ysemlali &        #+#    #+#             */
-/*   Updated: 2024/08/24 23:49:09 by ysemlali &       ###   ########.fr       */
+/*   Updated: 2024/08/26 17:49:21 by ysemlali &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../includes/minishell.h" 
 
 void	ft_exit(t_shell *shell)
 {
 	if (shell->av && ft_strcmp(shell->av[0], "exit") == 0)
 	{
-		
 		shell->status = EXIT_ERROR;
 		ft_putstr_fd("exit\n", STDOUT);
 		if (shell->err == ERR_SYNTAX)
@@ -32,10 +31,10 @@ void	ft_exit(t_shell *shell)
 		}
 		else if (ft_arrlen(shell->av) > 2)
 		{
-
+			shell->status = EXIT_SUCCESS;
 			ft_putstr_fd("exit", STDOUT);
 			ft_putstr_fd(": too many arguments\n", STDOUT);
-			g_modes->exit_mode = STDERR;
+			g_modes->exit_mode = STDOUT;
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:26:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/20 17:16:20 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/26 11:56:35 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,15 @@ void	ft_exec_cmd(t_shell *shell)
 
 void	executing(t_shell *shell)
 {
+	if (!shell->tree)
+		return ;
 	if (!ft_strcmp(shell->tree->op, "|"))
 	{
 		//ft_exec_pipe(shell);
 	}
 	else if (is_rederaction(shell->tree->op))
 	{
-		//ft_exec_rederect(shell);
+		ft_exec_rederect(shell);
 	}
 	else if (check_cmd(shell))
 		ft_exec_cmd(shell);

@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:20:15 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/19 11:59:33 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/26 11:27:56 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,12 @@ void	update_env(t_env *nv, char *key, char *value)
 	{
 		if (ft_strcmp(tmp->key, key) == 0)
 		{
-			tmp->value = value;
+			// free(tmp->value);
+			tmp->value = (char *)malloc(sizeof(char) * (ft_strlen(value) + 1));
+			if (!tmp->value)
+				return ;
+			ft_str_cpy(tmp->value, value);
+			printf("tmp->value : %s\n", tmp->value);
 			return ;
 		}
 		tmp = tmp->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ysemlali & aclakhda <ysemlali & aclackd    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:39:59 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/19 23:48:13 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/08/26 17:49:30 by ysemlali &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ char	*spacing(char *s)
 			new[j++] = s[i++];
 			if (ft_strchr("<>|", s[i]) && !inquotes(s, i, 0))
 				new[j++] = s[i++];
-			// if (s[i] == s[i - 1] && !inquotes(s, i, 0))
-			//     new[j++] = s[i++];
 			new[j++] = ' ';
 		}
 		else

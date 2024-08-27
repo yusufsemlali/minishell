@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_numvalid.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysemlali & aclakhda <ysemlali & aclackd    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/14 19:12:15 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/26 12:48:47 by ysemlali &       ###   ########.fr       */
+/*   Created: 2024/08/24 22:33:45 by ysemlali &        #+#    #+#             */
+/*   Updated: 2024/08/24 23:12:25 by ysemlali &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-void	pwd(t_shell *shell)
+int	ft_numvalid(const char *s)
 {
-	t_env	*tmp;
+	const char	*tmp;
 
-	if (shell->tree->right)
-	{
-		printf("pwd : too many arguments\n");
-		return ;
-	}
-	tmp = shell->nv;
-	while (tmp)
-	{
-		if (ft_strcmp(tmp->key, "PWD") == 0)
-		{
-			printf("%s\n", tmp->value);
-			return ;
-		}
-		tmp = tmp->next;
-	}
+	if (!s || !*s)
+		return (0);
+	tmp = s;
+	if (*tmp == '-' || *tmp == '+')
+		tmp++;
+	while (*tmp && ft_isdigit(*tmp))
+		tmp++;
+	return (!*tmp);
 }

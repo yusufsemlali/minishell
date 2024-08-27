@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_arrlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysemlali & aclakhda <ysemlali & aclackd    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/14 19:12:15 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/26 12:48:47 by ysemlali &       ###   ########.fr       */
+/*   Created: 2024/08/24 22:34:26 by ysemlali &        #+#    #+#             */
+/*   Updated: 2024/08/24 23:09:33 by ysemlali &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-void	pwd(t_shell *shell)
+size_t	ft_arrlen(char **s)
 {
-	t_env	*tmp;
+	char	**tmp;
 
-	if (shell->tree->right)
-	{
-		printf("pwd : too many arguments\n");
-		return ;
-	}
-	tmp = shell->nv;
-	while (tmp)
-	{
-		if (ft_strcmp(tmp->key, "PWD") == 0)
-		{
-			printf("%s\n", tmp->value);
-			return ;
-		}
-		tmp = tmp->next;
-	}
+	tmp = s;
+	while (*tmp)
+		tmp++;
+	return (tmp - s);
 }

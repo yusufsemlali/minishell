@@ -6,7 +6,7 @@
 /*   By: ysemlali & aclakhda <ysemlali & aclackd    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 00:24:56 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/24 23:11:13 by ysemlali &       ###   ########.fr       */
+/*   Updated: 2024/08/29 12:12:26 by ysemlali &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ size_t				ft_strcspn(const char *s, const char *d);
 void				*ft_calloc(size_t n, size_t size);
 char				*ft_strdup(const char *str);
 char				*ft_strndup(const char *s, size_t n);
-// char				**ft_split(char const *s, char c);
-char				**ft_split(char *s, char *d);
+char				**ft_split(char const *s, char c);
+char				**ft_token(char *s, char *d);
 char				*ft_strtrim(char const *s1, char const *set);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));

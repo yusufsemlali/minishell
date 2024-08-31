@@ -1,0 +1,4 @@
+- fix echo insted of printing eash charcter u should join all argument in one string and
+	print it using printf !!!
+- fix somebugs in | "pipe" check  grep ls | grep hello note: u dont have to fix it!
+

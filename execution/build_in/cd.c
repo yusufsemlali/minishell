@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:20:15 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/26 11:27:56 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/29 11:13:56 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	update_env(t_env *nv, char *key, char *value)
 			if (!tmp->value)
 				return ;
 			ft_str_cpy(tmp->value, value);
-			printf("tmp->value : %s\n", tmp->value);
 			return ;
 		}
 		tmp = tmp->next;

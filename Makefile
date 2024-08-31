@@ -6,13 +6,13 @@
 #    By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/25 21:41:51 by ysemlali          #+#    #+#              #
-#    Updated: 2024/08/26 11:38:33 by aclakhda         ###   ########.fr        #
+#    Updated: 2024/08/30 10:23:46 by aclakhda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror  -g -O0
+CFLAGS = -Wall -Wextra -Werror  #-g -O0
 LIBS = -Llibft -lft -lreadline
 SRCS =	main/minishell.c\
 		main/init.c\
@@ -33,6 +33,7 @@ SRCS =	main/minishell.c\
 		execution/build_in/export_unset.c\
 		execution/execute.c\
 		execution/rederextion.c\
+		execution/pipe.c\
 
 
 
@@ -40,7 +41,7 @@ OBJS = $(SRCS:.c=.o)
 NAME = minishell
 LIBFT_NAME = libft/libft.a
 
-all: $(LIBFT_NAME) $(NAME) clean
+all: $(LIBFT_NAME) $(NAME)
 
 
 $(LIBFT_NAME):

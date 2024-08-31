@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:26:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/26 11:56:35 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/29 11:42:03 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,10 @@ void	executing(t_shell *shell)
 {
 	if (!shell->tree)
 		return ;
+	// printf("op = %s\n", shell->tree->op);
 	if (!ft_strcmp(shell->tree->op, "|"))
 	{
-		//ft_exec_pipe(shell);
+		ft_pipe(shell);
 	}
 	else if (is_rederaction(shell->tree->op))
 	{

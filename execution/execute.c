@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/20 17:14:57 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/30 10:28:04 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,16 @@ t_tree	*create_tree(t_shell *shell, int start, int end)
 
 int	execute(t_shell *shell)
 {
+	t_oken *tmp;
+	tmp = shell->token;
+	while (tmp)
+	{
+		printf("value is %s and type is %i\n", tmp->value, tmp->type);
+		tmp = tmp->next;
+	}
+
 	shell->tree = create_tree(shell, 0, ft_size(shell->av) - 1);
-	//printAST(shell->tree, 0, "root");
+	// printAST(shell->tree, 0, "root");
 	executing(shell);
 	ft_free_tree(shell->tree);
 	return (0);

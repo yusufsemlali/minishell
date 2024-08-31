@@ -81,6 +81,5 @@ void	tokenize(t_shell *shell)
 	shell->s = spacing(shell->s);
 	if (shell->s == NULL)
 		return ;
-	shell->av = ft_split(shell->s, " \t\r\f\v");
 	shell->av = ft_token(shell->s, " \t\r\f\v");
 }

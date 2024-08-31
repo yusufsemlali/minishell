@@ -3,10 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   executing.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysemlali & aclakhda <ysemlali & aclackd    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:26:56 by aclakhda          #+#    #+#             */
 /*   Updated: 2024/08/29 11:42:03 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/08/29 12:13:00 by ysemlali &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +22,7 @@ char	*find_cmd_path(char	**av)
 	i = 0;
 	if (!access(av[0], X_OK))
 		return (av[0]);
-	path_split = ft_split(getenv("PATH"), ":");
+	path_split = ft_split(getenv("PATH"), ':');
 	if (!path_split)
 		return (NULL);
 	while (path_split[i])

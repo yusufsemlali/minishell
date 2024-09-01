@@ -1,4 +1,4 @@
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror -g
 NAME = libft.a
 
 SRCS = ft_strnstr.c ft_itoa.c ft_strtrim.c ft_substr.c ft_strmapi.c \

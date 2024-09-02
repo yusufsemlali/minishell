@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ysemlali & aclakhda <ysemlali & aclackd    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:00:56 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/17 18:08:04 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/09/02 23:26:58 by ysemlali &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_stack	*ft_lstnew(int number)
+t_oken	*ft_lstnew(char *value, int type)
 {
-	t_stack	*result;
+	t_oken	*result;
 
-	result = malloc(sizeof(t_stack));
+	result = malloc(sizeof(t_oken));
 	if (!result)
 		return (NULL);
-	result->number = number;
+	result->value = value;
+	result->type = type;
 	result->next = NULL;
 	return (result);
 }

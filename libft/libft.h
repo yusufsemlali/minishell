@@ -6,7 +6,7 @@
 /*   By: ysemlali & aclakhda <ysemlali & aclackd    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 00:24:56 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/29 12:12:26 by ysemlali &       ###   ########.fr       */
+/*   Updated: 2024/09/02 23:38:32 by ysemlali &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct s_stack
+typedef struct s_token
 {
-	int				number;
-	struct s_stack	*next;
-}					t_stack;
+	char			*value;
+	int				type;
+	struct s_token	*next;
+}					t_oken;
 
 // mandatory
 int					ft_isalpha(int c);
@@ -67,12 +68,12 @@ char				*ft_strjoin(char *s1, char *s2);
 char				*ft_itoa(int n);
 
 // bonus
-void				*ft_lstnew(void *type, size_t size);
-t_stack				*ft_lstlast(t_stack *lst);
-int					ft_lstsize(t_stack *lst);
-void				ft_lstclear(t_stack **lst, void (*del)(int));
-void				ft_lstadd_front(t_stack **lst, t_stack *new);
-void				ft_lstadd_back(t_stack **lst, t_stack *new);
-void				ft_lstdelone(t_stack *lst, void (*del)(int));
-
+t_oken				*ft_lstnew(char *value, int type);
+t_oken				*ft_lstlast(t_oken *token);
+int					ft_lstsize(t_oken *token);
+void				ft_lstclear(t_oken **token, void (*del)(void *));
+void				ft_lstadd_front(t_oken **token, t_oken *new);
+void				ft_lstadd_back(t_oken **token, t_oken *new);
+void				ft_lstdelone(t_oken *token, void (*del)(void *));
+void				del(void *value);
 #endif

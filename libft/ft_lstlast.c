@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ysemlali & aclakhda <ysemlali & aclackd    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:35:48 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/07/06 21:29:50 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/09/02 23:37:56 by ysemlali &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_stack	*ft_lstlast(t_stack *lst)
+t_oken	*ft_lstlast(t_oken *lst)
 {
 	if (!lst)
 		return (NULL);
-	while (lst->next)
+	while (lst->next != NULL)
 		lst = lst->next;
 	return (lst);
 }
-// returns the last element of the list

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ysemlali & aclakhda <ysemlali & aclackd    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:38:12 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/07/06 21:30:12 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/09/02 23:37:30 by ysemlali &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@ void	ft_lstadd_back(t_oken **token, t_oken *new)
 
 	if (!token || !new)
 		return ;
-	if (!*token)
+	if (*token == NULL)
 	{
 		*token = new;
 		return ;
 	}
-	last = ft_lstlast(*token);
+	last = *token;
+	while (last->next != NULL)
+		last = last->next;
 	last->next = new;
 }

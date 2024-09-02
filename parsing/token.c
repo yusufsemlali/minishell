@@ -28,61 +28,24 @@ int	token_type(char *s)
 		return (ARGS);
 }
 
-char	*join_args(char **av, int i)
+t_oken	*token_lst(t_shell *shell)
 {
-	char	*next;
-	char	*joined;
-
-	if (av[i + 1] == NULL || token_type(av[i + 1]) != ARGS)
-		return (av[i]);
-	else
-	{
-		next = join_args(av, i + 1);
-		joined = ft_strjoin(av[i], next);
-		if (next != av[i + 1])
-			free(next);
-		return (joined);
-	}
-}
-
-void	token_value_type(char **av, int *i, int *type, char **value)
-{
-	*type = token_type(av[*i]);
-	if (token_type(av[*i]) == ARGS)
-		(*value) = join_args(av, *i);
-}
-
-t_oken	*token_lst(char **av)
-{
-	t_oken	*token;
-	t_oken	*head;
-	int		i;
-
-	i = 0;
-	head = NULL;
-	while (av[i])
-	{
-		token = malloc(sizeof(t_oken));
-		token_value_type(av, &i, &token->type, &token->value);
-		if (token->value == NULL)
-			return (NULL);
-		token->next = NULL;
-		if (head == NULL)
-			head = token;
-		// else
-		// 	token_add_back(&head, token);
-		i++;
-	}
-	return (head);
+  int i = 0;   
+  while (shell->av[i])
+  {
+    char *v = shell->av[i++];
+    ft_lstadd_back(&shell->token, ft_lstnew(v, token_type(v)));
+  }
+  shell->av = NULL;
+  return shell->token;
 }
 
 void	tokenize(t_shell *shell)
 {
 	shell->s = spacing(shell->s);
-	shell->s = validate(shell->s);
 	if (shell->s == NULL)
 		return ;
-	shell->av = ft_split(shell->s, " \t\r\f\v");
-	for(int i = 0; shell->av[i] != NULL; i++)
-		printf("[%s] \n", shell->av[i]);
+	shell->av = ft_token(shell->s, " \t\r\f\v");
+  shell->token = token_lst(shell);
+  shell->av = NULL;
 }

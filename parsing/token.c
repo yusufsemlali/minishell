@@ -30,14 +30,17 @@ int	token_type(char *s)
 
 t_oken	*token_lst(t_shell *shell)
 {
-  int i = 0;   
-  while (shell->av[i])
-  {
-    char *v = shell->av[i++];
-    ft_lstadd_back(&shell->token, ft_lstnew(v, token_type(v)));
-  }
-  shell->av = NULL;
-  return shell->token;
+	int		i;
+	char	*v;
+
+	i = 0;
+	while (shell->av[i])
+	{
+		v = shell->av[i++];
+		ft_lstadd_back(&shell->token, ft_lstnew(v, token_type(v)));
+	}
+	shell->av = NULL;
+	return (shell->token);
 }
 
 void	tokenize(t_shell *shell)
@@ -46,6 +49,8 @@ void	tokenize(t_shell *shell)
 	if (shell->s == NULL)
 		return ;
 	shell->av = ft_token(shell->s, " \t\r\f\v");
-  shell->token = token_lst(shell);
-  shell->av = NULL;
+	for (int i = 0; shell->av[i]; i++)
+		printf("av[%d]: %s\n", i, shell->av[i]);
+	// shell->token = token_lst(shell);
+	// shell->av = NULL;
 }

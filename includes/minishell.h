@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysemlali & aclakhda <ysemlali & aclackd    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/29 11:30:04 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/02 23:41:37 by ysemlali &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,6 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*next;
 }					t_env;
-
-typedef struct s_token
-{
-	char			*value;
-	int				type;
-	struct s_token	*next;
-}					t_oken;
 
 typedef struct s_shell
 {

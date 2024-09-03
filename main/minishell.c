@@ -6,7 +6,7 @@
 /*   By: ysemlali & aclakhda <ysemlali & aclackd    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 06:01:17 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/26 16:23:54 by ysemlali &       ###   ########.fr       */
+/*   Updated: 2024/09/03 00:00:01 by ysemlali &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	reset(t_shell *shell)
 	g_modes->input_mode = 0;
 	g_modes->output_mode = 0;
 	free_shell_av(&(shell->av));
+	ft_lstclear(&shell->token, del);
+	free(shell->s);
 }
 
 int	main(const int ac, char **av, char **nv)
@@ -64,6 +66,7 @@ int	main(const int ac, char **av, char **nv)
 	t_shell	*shell;
 
 	init(&shell, ac, av, nv);
+	init_signals();
 	shell->env = nv;
 	while (shell->status == 0)
 	{

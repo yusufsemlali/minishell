@@ -3,46 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali & aclakhda <ysemlali & aclackd    +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:29:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/26 14:55:57 by ysemlali &       ###   ########.fr       */
+/*   Updated: 2024/09/05 11:45:59 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-
-void	echo(t_shell *shell)
+int	is_flag(char *av)
 {
-	char	*av[CMD_MAX_LENGTH];
-	int		i;
+	int	i;
 
-
-	if (ft_arrlen(shell->av) <= 1)
-		return;
-	cmd_maker(shell, av);
-	if (ft_strcmp(av[1], "-n") == 0)
+	i = 1;
+	while (av[i])
 	{
-		i = 2;
-		while (av[i])
-		{
-			ft_putstr_fd(av[i], 1);
-			if (av[i + 1])
-				ft_putstr_fd(" ", 1);
-			i++;
-		}
+		if (av[i] != 'n')
+			return (0);
+		i++;
 	}
-	else
+	return (1);
+}
+
+void echo(t_shell *shell)
+{
+	t_tree	*tmp;
+	int		flag;
+	int		j;
+
+	tmp = shell->tree->right;
+	flag = 0;
+	j = 0;
+	while (tmp)
 	{
-		i = 1;
-		while (av[i])
+		if (tmp->op[0] == '-' && is_flag(tmp->op) && j == 0)
 		{
-			printf("%s", av[i]);
-			if (av[i + 1])
+			if (tmp->op[1] != '\0')
+				flag = 1;
+		}
+		else
+		{
+			printf("%s", tmp->op);
+			if (tmp->right)
 				printf(" ");
-			i++;
+			j = 1;
 		}
-		printf("\n");
+		tmp = tmp->right;
 	}
+	if (flag == 0)
+		printf("\n");
 }

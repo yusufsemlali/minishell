@@ -42,7 +42,7 @@ int	main(const int ac, char **av, char **nv)
 	while (shell->status == 0)
 	{
 		parse(shell);
-    if (shell->begin == 0)
+    if (shell->err == 0)
       minishell(shell);
 		reset(shell);
 	}

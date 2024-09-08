@@ -18,35 +18,35 @@ void	signal_interrupt(int sig)
 	if (g_modes->input_mode == -1)
 		printf("\n");
 	rl_on_new_line();
-	// rl_replace_line("", 0);
-	rl_redisplay();
-	g_modes->exit_mode = 1;
+	rl_replace_line("", 0);
+	RL_REDISPLAY();
+	G_MODES->EXIT_MODE = 1;
 }
 
-void	signal_quit(int sig)
+VOID	SIGNAL_QUIT(INT SIG)
 {
-	(void)sig;
-	printf("Quit: 3\n");
-	// rl_replace_line("", 0);
+	(VOID)SIG;
+	PRINTF("qUIT: 3\N");
+	RL_REPLACE_LINE("", 0);
 }
 
-void	signal_special(int sig)
+VOID	SIGNAL_SPECIAL(INT SIG)
 {
-	(void)sig;
-	if (g_modes->input_mode == -1)
-		printf("hello\n");
-	exit(0);
-	// rl_replace_line("", 0);
+	(VOID)SIG;
+	IF (G_MODES->INPUT_MODE == -1)
+		PRINTF("HELLO\N");
+	EXIT(0);
+	// RL_REPLACE_LINE("", 0);
 }
 
-void	handle_signals(int sig)
+VOID	init_signals(int sig)
 {
-	if (sig == SIGINT)
-		signal(SIGINT, signal_interrupt);
-	else if (sig == SIGCHLD)
-		signal(SIGCHLD, signal_quit);
-	else if (sig == SIGSPECIAL)
-		signal(SIGINT, signal_special);
-	else if (sig == SIGQUIT)
-		signal(SIGQUIT, signal_quit);
+	IF (SIG == sigint)
+		SIGNAL(sigint, SIGNAL_INTERRUPT);
+	ELSE IF (SIG == sigchld)
+		SIGNAL(sigchld, SIGNAL_QUIT);
+	ELSE IF (SIG == sigspecial)
+		SIGNAL(sigint, SIGNAL_SPECIAL);
+	ELSE IF (SIG == sigquit)
+		SIGNAL(sigquit, SIGNAL_QUIT);
 }

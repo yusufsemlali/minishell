@@ -14,7 +14,7 @@
 
 int	metachar(char c, char prev)
 {
-	return (prev != '\\' && ft_strchr("|;<>", c) != NULL);
+	return (prev != '\\' && ft_strchr("|<>", c) != NULL);
 }
 
 int	inquotes(char *s, int i, int x)
@@ -39,7 +39,7 @@ int	inquotes(char *s, int i, int x)
 	return (one % 2 != 0 || two % 2 != 0);
 }
 
-char	*new_line(char *s)
+int	new_line(char *s)
 {
 	int	i;
 	int	count;
@@ -52,32 +52,33 @@ char	*new_line(char *s)
 			count++;
 		i++;
 	}
-	return (ft_calloc(i + (count * 2) + 1, sizeof(char)));
+	// return (ft_calloc(i + (count * 2) + 1, sizeof(char)));
+	return(i + (count * 2) + 1);
 }
 
 char	*spacing(char *s)
 {
-	char	*new;
+	char	new[new_line(s)];
 	int		i;
 	int		j;
 
 	i = 0;
 	j = 0;
-	new = new_line(s);
-	while (s[i] && new)
+	ft_memset(new, 0, new_line(s));
+	while (s[i] )
 	{
 		if (s[i] == '$' && inquotes(s, i, 1) && i)
 			new[j++] = -s[i++];
-		else if (i && metachar(s[i], s[i - 1]) && !inquotes(s, i, 0))
+		else if ( metachar(s[i], s[i - 1]) && !inquotes(s, i, 0))
 		{
 			new[j++] = ' ';
 			new[j++] = s[i++];
-			if (ft_strchr("<>|", s[i]) && !inquotes(s, i, 0))
+			if (ft_strchr("<>", s[i]) && !inquotes(s, i, 0))
 				new[j++] = s[i++];
 			new[j++] = ' ';
 		}
 		else
 			new[j++] = s[i++];
 	}
-	return (new);
+	return(ft_strdup(new));
 }

@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-void	closed_checker(t_shell *shell, char *s)
+int	closed_checker(t_shell *shell, char *s)
 {
 	int	one_open;
 	int	two_open;
@@ -29,9 +29,15 @@ void	closed_checker(t_shell *shell, char *s)
 			two_open++;
 		s++;
 	}
+	if (one_open % 2 != 0)
+		ft_putendl_fd("minishell: syntax error near unexpected token `'", 2);
+	if (two_open % 2 != 0)
+		ft_putendl_fd("minishell: syntax error near unexpected token `\"'", 2);
 	if (one_open % 2 != 0 || two_open % 2 != 0)
-		shell->err = ERR_SYNTAX;
+		return (shell->err = ERR_SYNTAX, 0);
+	return (1);
 }
+
 
 char	*get_line(void)
 {
@@ -43,9 +49,8 @@ char	*get_line(void)
 void	parse(t_shell *shell)
 {
 	shell->s = get_line();
-	if (shell->s == NULL || shell->s[0] == '\0')
-		return ;
+	error(shell->s);
 	add_history(shell->s);
-	closed_checker(shell, shell->s);
-	tokenize(shell);
+	if (closed_checker(shell, shell->s))
+		tokenize(shell);
 }

@@ -22,8 +22,8 @@ int	token_type(char *s)
 		return (OUTPUT);
 	else if (ft_strcmp(s, ">>") == 0)
 		return (APPEND);
-	else if (ft_strcmp(s, "&") == 0)
-		return (AND);
+	else if (ft_strcmp(s, "<<") == 0)
+		return (HEREDOC);
 	else
 		return (ARGS);
 }
@@ -36,21 +36,24 @@ t_oken	*token_lst(t_shell *shell)
 	i = 0;
 	while (shell->av[i])
 	{
-		v = shell->av[i++];
-		ft_lstadd_back(&shell->token, ft_lstnew(v, token_type(v)));
+		v = shell->av[i];
+		if (i == 0 && token_type(v) == ARGS)
+			ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup(v), CMD));
+		else if (i > 0 && token_type(v) == ARGS && token_type(shell->av[i
+				- 1]) == PIPE)
+			ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup(v), CMD));
+		else
+			ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup(v),
+					token_type(v)));
+		i++;
 	}
-	shell->av = NULL;
+	ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup("\n"), END));
 	return (shell->token);
 }
 
 void	tokenize(t_shell *shell)
 {
-	shell->s = spacing(shell->s);
-	if (shell->s == NULL)
-		return ;
-	shell->av = ft_token(shell->s, " \t\r\f\v");
-	for (int i = 0; shell->av[i]; i++)
-		printf("av[%d]: %s\n", i, shell->av[i]);
-	// shell->token = token_lst(shell);
-	// shell->av = NULL;
+	shell->av = ft_token(spacing(shell->s), " \t\r\f\v");
+	shell->token = token_lst(shell);
+	valid(shell);
 }

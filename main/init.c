@@ -24,7 +24,7 @@ void	add_old_pwd(t_shell **shell, char **nv)
 		(*shell)->nv->next = ft_calloc(1, sizeof(t_env));
 		(*shell)->nv = (*shell)->nv->next;
 		(*shell)->nv->key = ft_strdup("OLDPWD");
-		(*shell)->nv->value = getcwd(NULL, 0);
+		(*shell)->nv->value = ft_strdup(getcwd(NULL, 0));
 		(*shell)->nv->next = NULL;
 	}
 }
@@ -40,7 +40,7 @@ void	init_env(t_shell **shell, char **nv)
 	while (nv[i])
 	{
 		(*shell)->nv->key = ft_strndup(nv[i], ft_strchr(nv[i], '=') - nv[i]);
-		(*shell)->nv->value = getenv((*shell)->nv->key);
+		(*shell)->nv->value = ft_strdup(getenv((*shell)->nv->key));
 		if (nv[i + 1])
 		{
 			(*shell)->nv->next = ft_calloc(1, sizeof(t_env));
@@ -49,7 +49,7 @@ void	init_env(t_shell **shell, char **nv)
 		i++;
 	}
 	(*shell)->nv->next = NULL;
-	add_old_pwd(shell, nv);
+//	add_old_pwd(shell, nv);
 	(*shell)->nv = tmp;
 }
 
@@ -61,4 +61,5 @@ void	init(t_shell **shell, int ac, char **av, char **nv)
 	(*shell)->status = 0;
 	g_modes = ft_calloc(1, sizeof(t_mode));
 	init_env(shell, nv);
+	// init_signals(int sig);
 }

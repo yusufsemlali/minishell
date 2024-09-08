@@ -12,31 +12,69 @@
 
 #include "../includes/minishell.h"
 
-char	*validate(char *s)
+void	first_error(t_shell *shell, int type)
 {
-	int	i;
-	int	in_quote;
+	if (shell->err == ERR_SYNTAX)
+		return ;
+	shell->err = ERR_SYNTAX;
+	if (type == PIPE)
+		printf("minishell: syntax error near unexpected token `|'\n");
+	else if (type == INPUT || type == OUTPUT || type == APPEND)
+		printf("minishell: syntax error near unexpected token `newline'\n");
+}
 
-	i = 0;
-	in_quote = 0;
-	while (s[i] != '\0')
+void	heredoc_error(t_shell *shell, int type, t_oken *next)
+{
+	if (shell->err == ERR_SYNTAX)
+		return ;
+	if (type == HEREDOC && next->type == END)
 	{
-		in_quote = inquotes(s, i, in_quote);
-		if (!in_quote)
-		{
-			if (s[i + 1] != '\0')
-			{
-				if ((s[i] == '<' && s[i + 1] == '>') || (s[i] == '>' && s[i
-						+ 1] == '<'))
-					return (NULL);
-				if (s[i] == '|' || s[i] == '&' || s[i] == ';')
-				{
-					if (s[i + 1] != s[i])
-						return (NULL);
-				}
-			}
-		}
-		i++;
+		shell->err = ERR_SYNTAX;
+		printf("minishell: syntax error near unexpected token `newline'\n");
 	}
-	return (s);
+	else if (type == HEREDOC && next->type != END && next->type != ARGS)
+	{
+		shell->err = ERR_SYNTAX;
+		printf("minishell: syntax error near unexpected token `%s'\n",
+			next->value);
+	}
+}
+
+void	redirect_error(t_shell *shell, int type, t_oken *next)
+{
+	if (shell->err == ERR_SYNTAX)
+		return ;
+	if ((type == OUTPUT || type == INPUT || type == APPEND)
+		&& next->type != ARGS)
+	{
+		shell->err = ERR_SYNTAX;
+		printf("minishell: syntax error near unexpected token `%s'\n",
+			next->value);
+	}
+}
+
+void	valid(t_shell *shell)
+{
+	t_oken	*token;
+
+	token = shell->token;
+	while (token->next)
+	{
+		if (token->type != CMD && token->type != HEREDOC
+			&& token->next->type == END)
+			first_error(shell, token->type);
+		if (token->type == HEREDOC)
+			heredoc_error(shell, token->type, token->next);
+		if ((token->type == OUTPUT || token->type == INPUT
+				|| token->type == APPEND) && token->next->type != END)
+			redirect_error(shell, token->type, token->next);
+		if (token->type == PIPE && token->next->type == PIPE)
+		{
+			shell->err = ERR_SYNTAX;
+			printf("minishell: syntax error near unexpected token `|'\n");
+		}
+		if (shell->err == ERR_SYNTAX)
+			break ;
+		token = token->next;
+	}
 }

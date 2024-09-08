@@ -12,29 +12,26 @@
 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror  #-g -O0
+CFLAGS = -Wall -Wextra -Werror  -g3 -ggdb
 LIBS = -Llibft -lft -lreadline
-SRCS =	main/minishell.c\
-		main/init.c\
-		main/signals.c \
-		parsing/parse.c\
-		parsing/token.c\
-		parsing/exit.c\
-		parsing/line.c\
-		parsing/valid.c\
-		execution/utils.c\
-		execution/executing.c\
-		execution/executing_utils.c\
-		execution/build_in/echo.c\
-		execution/build_in/cd.c\
-		execution/build_in/env.c\
-		execution/env_utils.c\
-		execution/build_in/pwd.c\
-		execution/build_in/export_unset.c\
-		execution/execute.c\
-		execution/rederextion.c\
-		execution/pipe.c\
-
+SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  \
+		    parsing/parse.c\
+		    parsing/token.c\
+		    parsing/exit.c\
+		    parsing/line.c\
+		    parsing/valid.c\
+		    execution/utils.c\
+		    execution/executing.c\
+		    execution/executing_utils.c\
+		    execution/build_in/echo.c\
+		    execution/build_in/cd.c\
+		    execution/build_in/env.c\
+		    execution/env_utils.c\
+		    execution/build_in/pwd.c\
+		    execution/build_in/export_unset.c\
+		    execution/execute.c\
+		    execution/rederextion.c\
+		    execution/pipe.c\
 
 
 OBJS = $(SRCS:.c=.o)

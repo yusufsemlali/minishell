@@ -37,17 +37,17 @@ t_oken	*token_lst(t_shell *shell)
 	while (shell->av[i])
 	{
 		v = shell->av[i];
+		t_oken *new_token = ft_lstnew(ft_strdup(v), token_type(v));
+		new_token->read = 0;
 		if (i == 0 && token_type(v) == ARGS)
-			ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup(v), CMD));
-		else if (i > 0 && token_type(v) == ARGS && token_type(shell->av[i
-				- 1]) == PIPE)
-			ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup(v), CMD));
+			ft_lstadd_back(&shell->token, new_token);
+		else if (i > 0 && token_type(v) == ARGS && token_type(shell->av[i - 1]) == PIPE)
+			ft_lstadd_back(&shell->token, new_token);
 		else
-			ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup(v),
-					token_type(v)));
+			ft_lstadd_back(&shell->token, new_token);
 		i++;
 	}
-	ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup("\n"), END));
+	ft_lstadd_back(&shell->token, NULL);
 	return (shell->token);
 }
 

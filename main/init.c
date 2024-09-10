@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali & aclakhda <ysemlali & aclackd    +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 00:24:56 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/26 16:23:38 by ysemlali &       ###   ########.fr       */
+/*   Updated: 2024/09/08 19:14:35 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	init_env(t_shell **shell, char **nv)
 		i++;
 	}
 	(*shell)->nv->next = NULL;
-//	add_old_pwd(shell, nv);
 	(*shell)->nv = tmp;
 }
 

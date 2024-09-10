@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 20:54:13 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/29 11:33:05 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/06 21:42:26 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,14 @@ int		is_rederaction(char *c)
 {
 	if (!ft_strcmp(c, ">") \
 		|| !ft_strcmp(c, "<") \
-			|| !ft_strcmp(c, ">>")\
-				|| !ft_strcmp(c, "<<"))
+			|| !ft_strcmp(c, ">>"))
+		return (1);
+	return (0);
+}
+
+int	is_herd(char *c)
+{
+	if (!ft_strcmp(c, "<<"))
 		return (1);
 	return (0);
 }

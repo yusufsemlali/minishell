@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   executing.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali & aclakhda <ysemlali & aclackd    +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:26:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/29 11:42:03 by aclakhda         ###   ########.fr       */
-/*   Updated: 2024/08/29 12:13:00 by ysemlali &       ###   ########.fr       */
+/*   Updated: 2024/09/06 16:16:32 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/minishell.h"
 
@@ -75,10 +75,11 @@ void	ft_exec_bin(t_shell *shell)
 		if (!var.cmd_path)
 		{
 			printf("command not found\n");
+			shell->status = 127;
 			return ;
 		}
-		// var.env = creat_env(shell->nv);
-		if (execve(var.cmd_path, var.av,shell->env) == -1)
+		var.env = creat_env(shell->nv);
+		if (execve(var.cmd_path, var.av, var.env) == -1)
 			perror("execve");
 		free(var.cmd_path);
 		s_free(var.env);

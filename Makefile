@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ysemlali & aclakhda <ysemlali & aclackd    +#+  +:+       +#+         #
+#    By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/25 21:41:51 by ysemlali          #+#    #+#              #
-#    Updated: 2024/09/02 23:45:26 by ysemlali &       ###   ########.fr        #
+#    Updated: 2024/09/08 20:03:02 by aclakhda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ OBJS = $(SRCS:.c=.o)
 NAME = minishell
 LIBFT_NAME = libft/libft.a
 
-all: $(LIBFT_NAME) $(NAME) clean
+all: $(LIBFT_NAME) $(NAME) 
 
 
 $(LIBFT_NAME):

@@ -6,18 +6,18 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/11 00:22:31 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:22:09 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-void printAST(t_tree *root, int level, char *side) {
-    if (root == NULL) return;
-    for (int i = 0; i < level; i++) printf("    ");
-    printf("%s (%s)\n", root->op, side);
-    printAST(root->left, level + 1, "left");
-    printAST(root->right, level + 1, "right");
-}
+// void printAST(t_tree *root, int level, char *side) {
+//     if (root == NULL) return;
+//     for (int i = 0; i < level; i++) printf("    ");
+//     printf("%s (%s)\n", root->op, side);
+//     printAST(root->left, level + 1, "left");
+//     printAST(root->right, level + 1, "right");
+// }
 
 t_tree *creat_node(char *str, char *file_name)
 {
@@ -139,14 +139,8 @@ t_tree *create_tree(t_oken *tokens)
 
 int	execute(t_shell *shell)
 {
-	t_oken *tmp = shell->token;
-	while (tmp)
-	{
-		printf("tmp = %s\n", tmp->value);
-		tmp = tmp->next;
-	}
 	shell->tree = create_tree(shell->token);
-	printAST(shell->tree, 0, "root");
+	// printAST(shell->tree, 0, "root");
 	executing(shell);
 	ft_free_tree(shell->tree);
 	return (0);

@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali & aclakhda <ysemlali & aclackd    +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/02 23:41:37 by ysemlali &       ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/*   Updated: 2024/08/26 11:38:15 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/08 19:11:37 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +60,7 @@
 typedef struct s_tree
 {
 	char			*op;
+	char			*file_name;
 	struct s_tree	*left;
 	struct s_tree	*right;
 }					t_tree;
@@ -95,6 +92,7 @@ typedef struct s_var
 	int				i;
 	int				has_pipe;
 	int				has_rederect;
+	int				has_herd;
 	char			*av[CMD_MAX_LENGTH];
 	char			*cmd_path;
 	int				value_len;
@@ -148,6 +146,7 @@ void				lazy_free(char **env, int i);
 int					env_size(t_env *nv);
 void				ft_exec_rederect(t_shell *shell);
 void				ft_pipe(t_shell *shell);
+int					is_herd(char *c);
 // -- built in -- //
 void				echo(t_shell *shell);
 void				cd(t_shell *shell);

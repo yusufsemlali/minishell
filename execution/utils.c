@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:46:55 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/29 11:59:21 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/06 21:56:29 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,20 @@ void	ft_found(t_shell *shell, t_var *var, int start, int end)
 {
 	int	i;
 	int	j;
+	int	k;
 
+	k = 0;
 	i = 0;
 	j = 0;
 	var->i = start;
 	while (var->i <= end)
 	{
-		if (ft_strcmp2(shell->av[var->i], "|") == 0 && i == 0)
-		{
-			i++;
+		if (ft_strcmp2(shell->av[var->i], "|") == 0 && i++ == 0)
 			var->has_pipe = var->i;
-		}
-		if (is_rederaction(shell->av[var->i]))
-		{
-			if (j == 0)
-				var->has_rederect = var->i;
-			j++;
-		}
+		if (is_rederaction(shell->av[var->i]) && j++ == 0)
+			var->has_rederect = var->i;
+		if (is_herd(shell->av[var->i]) && k++ == 0)
+			var->has_herd = var->i;
 		var->i++;
 	}
 }

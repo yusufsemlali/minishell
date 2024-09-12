@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:03:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/20 17:09:23 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/05 17:35:39 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	found_key(t_shell *shell, char *key)
 			else
 				shell->nv = tmp->next;
 			free(tmp->key);
+			free(tmp->value);
 			free(tmp);
 			return ;
 		}

@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:35:04 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/29 11:21:13 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/10 23:19:29 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_exec_rederect_in(t_shell *shell)
 	int	fd;
 	int	stdin_copy;
 
-	fd = open(shell->tree->right->op, O_RDONLY);
+	fd = open(shell->tree->file_name, O_RDONLY);
 	if (fd < 0)
 	{
 		printf("Error: open failed\n");
@@ -38,7 +38,7 @@ void	ft_exec_rederect_out(t_shell *shell)
 	int	stdout_copy;
 
 	stdout_copy = dup(STDOUT);
-	fd = open(shell->tree->right->op, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	fd = open(shell->tree->file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
 	{
 		printf("Error: open failed\n");
@@ -59,7 +59,7 @@ void	ft_exec_rederect_out_append(t_shell *shell)
 	int	stdout_copy;
 
 	stdout_copy = dup(STDOUT);
-	fd = open(shell->tree->right->op, O_WRONLY | O_CREAT | O_APPEND);
+	fd = open(shell->tree->file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
 	{
 		printf("Error: open failed\n");

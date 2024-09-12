@@ -77,14 +77,6 @@ t_tree	*create_tree(t_shell *shell, int start, int end)
 
 int	execute(t_shell *shell)
 {
-	t_oken *tmp;
-	tmp = shell->token;
-	while (tmp)
-	{
-		printf("value is %s and type is %i\n", tmp->value, tmp->type);
-		tmp = tmp->next;
-	}
-
 	shell->tree = create_tree(shell, 0, ft_size(shell->av) - 1);
 	// printAST(shell->tree, 0, "root");
 	executing(shell);

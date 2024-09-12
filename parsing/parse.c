@@ -21,9 +21,9 @@ int	closed_checker(t_shell *shell, char *s)
 	two_open = 0;
 	while (*s)
 	{
-		if (s > shell->s && *(s - 1) == '\\')
-			;
-		else if (*s == '\'' && two_open % 2 == 0)
+//		if (s > shell->s && *(s - 1) == '\\')
+//			;
+		if (*s == '\'' && two_open % 2 == 0)
 			one_open++;
 		else if (*s == '\"' && one_open % 2 == 0)
 			two_open++;

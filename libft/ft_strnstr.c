@@ -14,17 +14,20 @@
 
 char	*ft_strnstr(const char *h, const char *n, size_t l)
 {
-	size_t	n_len;
+	size_t	len;
 
 	if (*n == '\0')
 		return ((char *)h);
-	n_len = ft_strlen(n);
-	while (*h && l >= n_len)
+	len = ft_strlen(n);
+	while (*h && l >= len)
 	{
-		if (*h == *n && ft_strncmp(h, n, n_len) == 0)
+		if (*h == *n && ft_strncmp(h, n, len) == 0)
 			return ((char *)h);
 		h++;
 		l--;
 	}
 	return (NULL);
 }
+// find the first occurrence of the substring n in the string h, 
+// where not more than l characters are searched.
+

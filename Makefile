@@ -12,7 +12,7 @@
 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror  -g3 -ggdb
+CFLAGS = -Wall -Wextra -Werror  -ggdb 
 LIBS = -Llibft -lft -lreadline
 SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  \
 		    parsing/parse.c\

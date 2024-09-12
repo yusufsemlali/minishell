@@ -17,3 +17,5 @@ char	*ft_strpbrk(const char *s, const char *accept)
 	}
 	return (NULL);
 }
+// locate the first occurrence in the string s of any character in the string accept.
+

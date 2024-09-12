@@ -23,30 +23,23 @@ static int	handle_free(char **new, int i)
 	}
 	return (0);
 }
-static char	*extract_quoted(char **s, char quote)
-{
-	char	*start;
-	char	*result;
 
-	start = ++(*s);
-	while (**s && (**s != quote || *(*s - 1) == '\\'))
-		(*s)++;
-	result = ft_strndup(start, *s - start);
-	if (**s == quote)
-		(*s)++; // Move past the closing quote
-	return (result);
-}
+
 
 static char	*get_next_token(char **s, const char *d)
 {
 	char	*token;
+  char *dlem = ft_strjoin((char *)d, "\"\'");
 
 	if (**s == '\"' || **s == '\'')
-		token = extract_quoted(s, **s);
+  {
+    token = ft_strndup(*s + 1, ft_strchr(*s + 1, **s) - *s);
+    *s += ft_strchr(*s + 1, **s) - *s + 1;
+  }
 	else
 	{
-		token = ft_strndup(*s, ft_strcspn(*s, d));
-		*s += ft_strcspn(*s, d);
+		token = ft_strndup(*s, ft_strcspn(*s, (char *)dlem));
+		*s += ft_strcspn(*s, (char *)dlem);
 	}
 	return (token);
 }
@@ -61,8 +54,6 @@ char	**ft_token(char *s, char *d)
 		return (NULL);
 	new = ft_calloc(ft_strlen(s) + 2, sizeof(char *));
 	tmp = s;
-	if (!new)
-		return (NULL);
 	i = 0;
 	while (*s)
 	{

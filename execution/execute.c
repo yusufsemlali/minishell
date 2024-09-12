@@ -139,7 +139,6 @@ t_tree *create_tree(t_oken *tokens)
 
 int	execute(t_shell *shell)
 {
-	shell->tree = create_tree(shell, 0, ft_size(shell->av) - 1);
 	shell->tree = create_tree(shell->token);
 	// printAST(shell->tree, 0, "root");
 	executing(shell);

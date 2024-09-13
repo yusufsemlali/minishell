@@ -43,7 +43,8 @@ int	main(const int ac, char **av, char **nv)
 	{
 		reset(shell);
 		parse(shell);
-		minishell(shell);
+    if (shell->err == 0)
+		  minishell(shell);
 	}
 	return (free_all(shell));
 }

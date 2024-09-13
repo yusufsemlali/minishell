@@ -28,5 +28,3 @@ char	*ft_strnstr(const char *h, const char *n, size_t l)
 	}
 	return (NULL);
 }
-// find the first occurrence of the substring n in the string h,
-// where not more than l characters are searched.

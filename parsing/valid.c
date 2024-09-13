@@ -16,11 +16,17 @@ void	first_error(t_shell *shell, int type)
 {
 	if (shell->err == ERR_SYNTAX)
 		return ;
-	shell->err = ERR_SYNTAX;
 	if (type == PIPE)
+  {
 		printf("minishell: syntax error near unexpected token `|'\n");
+    shell->err = ERR_SYNTAX;
+
+  }
 	else if (type == INPUT || type == OUTPUT || type == APPEND)
+  {
 		printf("minishell: syntax error near unexpected token `newline'\n");
+    shell->err = ERR_SYNTAX;
+  }
 }
 
 void	heredoc_error(t_shell *shell, int type, t_oken *next)
@@ -56,15 +62,13 @@ void	redirect_error(t_shell *shell, int type, t_oken *next)
 void	valid(t_shell *shell)
 {
 	t_oken	*token;
-  
-
 
 	token = shell->token;
-  if (token->type != CMD && token->type != HEREDOC && token->next->type == END)
-			first_error(shell, token->type);
+	if (token->type != CMD && token->type != HEREDOC
+		&& token->next->type == END)
+		first_error(shell, token->type);
 	while (token->next)
 	{
-		
 		if (token->type == HEREDOC)
 			heredoc_error(shell, token->type, token->next);
 		if ((token->type == OUTPUT || token->type == INPUT
@@ -79,7 +83,5 @@ void	valid(t_shell *shell)
 			break ;
 		token = token->next;
 	}
-   if (token->type == END)
-    printf("%s %d", token->value, token->type);
-  exit(0);
+  printf("shell->err = %d\n", shell->err);
 }

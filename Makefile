@@ -38,7 +38,7 @@ OBJS = $(SRCS:.c=.o)
 NAME = minishell
 LIBFT_NAME = libft/libft.a
 
-all: $(LIBFT_NAME) $(NAME) 
+all: $(LIBFT_NAME) $(NAME)  clean
 
 
 $(LIBFT_NAME):

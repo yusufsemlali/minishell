@@ -83,5 +83,5 @@ void	valid(t_shell *shell)
 			break ;
 		token = token->next;
 	}
-  printf("shell->err = %d\n", shell->err);
+  ft_dellast(&shell->token, del);
 }

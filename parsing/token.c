@@ -32,21 +32,17 @@ t_oken	*token_lst(t_shell *shell)
 {
 	int		i;
 	char	*v;
-	t_oken	*new_token;
 
 	i = 0;
 	while (shell->av[i])
 	{
 		v = shell->av[i];
-		new_token = ft_lstnew(ft_strdup(v), token_type(v));
-		new_token->read = 0;
-		if (i == 0 && token_type(v) == ARGS)
-			ft_lstadd_back(&shell->token, new_token);
-		else if (i > 0 && token_type(v) == ARGS && token_type(shell->av[i
-				- 1]) == PIPE)
-			ft_lstadd_back(&shell->token, new_token);
+    if (token_type(v) == ARGS && i == 0)
+		  shell->token = ft_lstnew(ft_strdup(v), CMD);
+    else if (i > 0 && token_type(v) == ARGS && token_type(shell->av[i - 1]) == PIPE)
+			ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup(v), CMD));
 		else
-			ft_lstadd_back(&shell->token, new_token);
+			ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup(v), token_type(v)));
 		i++;
 	}
 	ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup("END"), END));
@@ -58,4 +54,12 @@ void	tokenize(t_shell *shell)
 	shell->av = ft_token(spacing(shell->s), " \t\r\f\v");
 	shell->token = token_lst(shell);
 	valid(shell);
+  /*
+  while (shell->token)
+  {
+    printf("[%s] [%d]\n", shell->token->value, shell->token->type);
+    shell->token = shell->token->next;
+  }
+  exit(0);
+  */
 }

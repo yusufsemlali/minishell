@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/08 19:11:37 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:58:43 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,12 @@ typedef struct s_tree
 	struct s_tree	*right;
 }					t_tree;
 
+typedef struct s_herdoc
+{
+	int				herdoc;
+	char			**line;
+}					t_herdoc;
+
 typedef struct s_env
 {
 	char			*key;
@@ -82,6 +88,7 @@ typedef struct s_shell
 	int				fd;
 	int				err;
 	int				begin;
+	t_herdoc		*herdoc;
 	t_tree			*tree;
 	t_oken			*token;
 	char			**env;

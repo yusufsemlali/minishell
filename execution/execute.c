@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/11 16:22:09 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/12 23:48:53 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_tree *create_tree(t_oken *tokens)
 			// if (last_redirection->next->next && (last_redirection->next->next->type == PIPE || !isnt_red(last_redirection->next->next->type)))
 			if (last_redirection_pipe != tokens)
 				root->left = create_tree(tokens);
-			if (last_redirection_pipe->next->next)
+			else if (last_redirection_pipe->next->next)
 			{
 				new_token = creat_token(tokens, last_redirection_pipe);
 				root->left = create_tree(new_token);
@@ -137,10 +137,47 @@ t_tree *create_tree(t_oken *tokens)
 	return NULL;
 }
 
+t_herdoc	*set_up(t_tree *tree)
+{
+	t_herdoc *herdoc = malloc(sizeof(t_herdoc));//free hada
+	herdoc->herdoc = 0;
+	herdoc->line = NULL;
+	if (tree)
+	{
+		if (tree->left)
+			herdoc = set_up(tree->left);
+		if (tree->right)
+			herdoc = set_up(tree->right);
+		if (tree->op && !ft_strcmp(tree->op, "<<"))
+		{
+			herdoc->line = ft_calloc(1, sizeof(char *));
+			if (herdoc->line == NULL)
+				return NULL;
+			herdoc->line[herdoc->herdoc] = strdup(tree->file_name);//free hada
+			herdoc->herdoc++;
+		}
+	}
+	return herdoc;
+}
+
 int	execute(t_shell *shell)
 {
+	// t_tree	*tmp;
+
+	for (int i = 0; shell->token; i++)
+	{
+		printf("value:%s type = %i\n", shell->token->value, shell->token->type);
+		shell->token = shell->token->next;
+	}
+	printf("here\n");
 	shell->tree = create_tree(shell->token);
+	// tmp = shell->tree;
 	// printAST(shell->tree, 0, "root");
+	// shell->herdoc = set_up(tmp);
+	// for (int i = 0; i < shell->herdoc->herdoc; i++)
+	// {
+	// 	printf("herdoc: %s\n", shell->herdoc->line[i]);
+	// }
 	executing(shell);
 	ft_free_tree(shell->tree);
 	return (0);

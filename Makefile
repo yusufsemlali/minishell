@@ -6,7 +6,7 @@
 #    By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/25 21:41:51 by ysemlali          #+#    #+#              #
-#    Updated: 2024/09/08 20:03:02 by aclakhda         ###   ########.fr        #
+#    Updated: 2024/09/11 23:26:09 by aclakhda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ OBJS = $(SRCS:.c=.o)
 NAME = minishell
 LIBFT_NAME = libft/libft.a
 
-all: $(LIBFT_NAME) $(NAME) 
+all: $(LIBFT_NAME) $(NAME)
 
 
 $(LIBFT_NAME):

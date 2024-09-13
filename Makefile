@@ -14,7 +14,7 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror  -ggdb 
 LIBS = -Llibft -lft -lreadline
-SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  \
+SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c \
 		    parsing/parse.c\
 		    parsing/token.c\
 		    parsing/exit.c\

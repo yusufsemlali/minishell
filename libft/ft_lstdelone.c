@@ -12,11 +12,15 @@
 
 #include "libft.h"
 
-void	ft_lstdelone(t_oken *lst, void (*del)(void *))
+void	ft_lstdelone(t_oken **lst, void (*del)(void *))
 {
+	t_oken	*next;
+
 	if (lst && del)
 	{
+		next = (*lst)->next;
 		del(lst->value);
 		free(lst);
+		*lst = next;
 	}
 }

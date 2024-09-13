@@ -60,5 +60,6 @@ void	init(t_shell **shell, int ac, char **av, char **nv)
 	(*shell)->status = 0;
 	g_modes = ft_calloc(1, sizeof(t_mode));
 	init_env(shell, nv);
-	// init_signals(int sig);
+	signal(SIGINT, handle_signals);
+	signal(SIGQUIT, handle_signals);
 }

@@ -56,13 +56,15 @@ void	redirect_error(t_shell *shell, int type, t_oken *next)
 void	valid(t_shell *shell)
 {
 	t_oken	*token;
+  
+
 
 	token = shell->token;
+  if (token->type != CMD && token->type != HEREDOC && token->next->type == END)
+			first_error(shell, token->type);
 	while (token->next)
 	{
-		if (token->type != CMD && token->type != HEREDOC
-			&& token->next->type == END)
-			first_error(shell, token->type);
+		
 		if (token->type == HEREDOC)
 			heredoc_error(shell, token->type, token->next);
 		if ((token->type == OUTPUT || token->type == INPUT
@@ -77,4 +79,7 @@ void	valid(t_shell *shell)
 			break ;
 		token = token->next;
 	}
+   if (token->type == END)
+    printf("%s %d", token->value, token->type);
+  exit(0);
 }

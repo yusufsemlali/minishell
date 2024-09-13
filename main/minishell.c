@@ -41,10 +41,9 @@ int	main(const int ac, char **av, char **nv)
 	shell->env = nv;
 	while (shell->status == 0)
 	{
-		parse(shell);
-    if (shell->err == 0)
-      minishell(shell);
 		reset(shell);
+		parse(shell);
+		minishell(shell);
 	}
 	return (free_all(shell));
 }

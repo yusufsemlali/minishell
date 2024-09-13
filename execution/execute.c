@@ -140,7 +140,6 @@ t_tree *create_tree(t_oken *tokens)
 int	execute(t_shell *shell)
 {
 	shell->tree = create_tree(shell->token);
-	// printAST(shell->tree, 0, "root");
 	executing(shell);
 	ft_free_tree(shell->tree);
 	return (0);

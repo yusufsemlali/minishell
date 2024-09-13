@@ -14,21 +14,20 @@
 
 size_t	ft_strcspn(const char *s, const char *d)
 {
-	size_t		count;
-	const char	*dlim = d;
+	const char	*d2 = d;
+	const char	*s2 = s;
 
-	count = 0;
 	while (*s)
 	{
-		d = dlim;
 		while (*d)
 		{
 			if (*s == *d)
-				return (count);
+				return (s - s2);
 			d++;
 		}
+		d = d2;
 		s++;
-		count++;
 	}
-	return (count);
+	return (s - s2);
 }
+// return len of the initial segment of s which consists of characters not in d.

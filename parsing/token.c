@@ -47,7 +47,7 @@ t_oken	*token_lst(t_shell *shell)
 			ft_lstadd_back(&shell->token, new_token);
 		i++;
 	}
-	ft_lstadd_back(&shell->token, NULL);
+	ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup("END"), END));
 	return (shell->token);
 }
 

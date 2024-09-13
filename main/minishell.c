@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali & aclakhda <ysemlali & aclackd    +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 06:01:17 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/03 00:00:01 by ysemlali &       ###   ########.fr       */
+/*   Updated: 2024/09/13 12:09:18 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ int	main(const int ac, char **av, char **nv)
 	shell->env = nv;
 	while (shell->status == 0)
 	{
-		parse(shell);
-    if (shell->err == 0)
-      minishell(shell);
 		reset(shell);
+		parse(shell);
+		printf("here\n");
+		minishell(shell);
 	}
 	return (free_all(shell));
 }

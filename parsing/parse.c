@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali & aclakhda <ysemlali & aclackd    +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 01:38:32 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/02 23:56:30 by ysemlali &       ###   ########.fr       */
+/*   Updated: 2024/09/13 12:10:23 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	closed_checker(t_shell *shell, char *s)
 	two_open = 0;
 	while (*s)
 	{
-		if (s > shell->s && *(s - 1) == '\\')
-			;
-		else if (*s == '\'' && two_open % 2 == 0)
+//		if (s > shell->s && *(s - 1) == '\\')
+//			;
+		if (*s == '\'' && two_open % 2 == 0)
 			one_open++;
 		else if (*s == '\"' && one_open % 2 == 0)
 			two_open++;
@@ -53,4 +53,5 @@ void	parse(t_shell *shell)
 	add_history(shell->s);
 	if (closed_checker(shell, shell->s))
 		tokenize(shell);
+	printf("here1\n");
 }

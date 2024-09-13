@@ -119,7 +119,7 @@ typedef struct s_mode
 
 // -- main -- //
 void				init(t_shell **shell, int ac, char **av, char **nv);
-void				init_signals(int sig);
+void        handle_signals(int sig);
 int					free_all(t_shell *shell);
 void				free_nv(t_env **env);
 void				free_av(char ***av);

@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:35:04 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/11 22:07:22 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/14 00:08:09 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,29 +91,39 @@ void	ft_continue_rederect_herd(t_shell *shell)
 	executing(shell);
 	dup2(stdin_copy, STDIN);
 	close(stdin_copy);
-	unlink("tmp");
 }
 
-void	ft_exec_rederect_herd(t_shell *shell)
+void	ft_exec_rederect_herd(t_shell *shell, int j)
 {
-	char	*line;
-	int		fd;
+	char		*line;
+	int			i;
 
-	fd = open("tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	while (1)
+	i = 0;
+	if (j)
 	{
-		line = readline("> ");
-		if (ft_strcmp(line, shell->tree->file_name) == 0)
+		while (shell->herdoc->herdoc)
 		{
-			free(line);
-			break ;
+			line = readline("> ");
+			if (line)
+			{
+				if (ft_strcmp(line, shell->herdoc->line[i]) == 0)
+				{
+					free(line);
+					i++;
+					shell->herdoc->herdoc--;
+					continue;
+				}
+				write(shell->fd, line, ft_strlen(line));
+				write(shell->fd, "\n", 1);
+				free(line);
+			}
 		}
-		write(fd, line, ft_strlen(line));
-		write(fd, "\n", 1);
-		free(line);
 	}
-	close(fd);
-	ft_continue_rederect_herd(shell);
+	else
+	{
+		if (ft_strcmp(shell->tree->op, "<<") == 0)
+			ft_continue_rederect_herd(shell);
+	}
 }
 
 void	ft_exec_rederect(t_shell *shell)
@@ -125,5 +135,5 @@ void	ft_exec_rederect(t_shell *shell)
 	else if (ft_strcmp(shell->tree->op, "<") == 0)
 		ft_exec_rederect_in(shell);
 	else if (ft_strcmp(shell->tree->op, "<<") == 0)
-		ft_exec_rederect_herd(shell);
+		ft_exec_rederect_herd(shell, 0);
 }

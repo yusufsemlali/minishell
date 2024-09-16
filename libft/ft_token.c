@@ -32,7 +32,7 @@ static char	*get_next_token(char **s, const char *d)
 	dlem = ft_strjoin((char *)d, "\"\'");
 	if (**s == '\"' || **s == '\'')
 	{
-		token = ft_strndup(*s + 1, ft_strchr(*s + 1, **s) - *s);
+		token = ft_strndup(*s + 1, ft_strchr(*s + 1, **s) - *s - 1);
 		*s += ft_strchr(*s + 1, **s) - *s + 1;
 	}
 	else

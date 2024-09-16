@@ -76,6 +76,7 @@ int					ft_lstsize(t_oken *token);
 void				ft_lstclear(t_oken **token, void (*del)(void *));
 void				ft_lstadd_front(t_oken **token, t_oken *new);
 void				ft_lstadd_back(t_oken **token, t_oken *new);
-void				ft_lstdelone(t_oken *token, void (*del)(void *));
+void        ft_lstdelone(t_oken *lst, void (*del)(void *));
+void        ft_dellast(t_oken **lst, void (*del)(void *));
 void				del(void *value);
 #endif

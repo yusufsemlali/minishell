@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:20:15 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/29 11:13:56 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/15 21:35:23 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,19 +74,52 @@ void	update_env(t_env *nv, char *key, char *value)
 	}
 }
 
+char	*get_env(t_env *nv, char *key)
+{
+	t_env	*tmp;
+
+	tmp = nv;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->key, key) == 0)
+			return (tmp->value);
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
+
 void	cd(t_shell *shell)
 {
 	char	*av[CMD_MAX_LENGTH];
+	char	*home;
+	int		i;
 	char	past_path[1024];
 	char	current_path[1024];
 
+	i = 0;
 	if (getcwd(past_path, sizeof(past_path)) == NULL)
 	{
 		perror("getcwd :");
 		return ;
 	}
-	cmd_maker(shell, av);
-	if (chdir(av[1]))
+	if (!shell->tree->right || !ft_strcmp(shell->tree->right->op, "~"))
+	{
+		home = get_env(shell->nv, "HOME");
+		if (!home)
+		{
+			printf("HOME not set\n");
+			return ;
+		}
+		if (chdir(home))
+		{
+			perror("cd :");
+			return ;
+		}
+		i = 1;
+	}
+	else
+		cmd_maker(shell, av);
+	if (chdir(av[1]) && !i)
 	{
 		perror("cd :");
 		return ;

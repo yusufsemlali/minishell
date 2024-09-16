@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/13 11:59:55 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/15 21:38:43 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,46 +139,85 @@ t_tree *create_tree(t_oken *tokens)
 
 t_herdoc	*set_up(t_tree *tree)
 {
-	t_herdoc *herdoc = malloc(sizeof(t_herdoc));//free hada
+	char **new_line;
+
+	new_line = NULL;
+	t_herdoc *herdoc = malloc(sizeof(t_herdoc));
+	if (!herdoc)
+		return NULL;
 	herdoc->herdoc = 0;
 	herdoc->line = NULL;
 	if (tree)
 	{
 		if (tree->left)
 			herdoc = set_up(tree->left);
-		if (tree->right)
+		else if (tree->right)
 			herdoc = set_up(tree->right);
 		if (tree->op && !ft_strcmp(tree->op, "<<"))
 		{
-			herdoc->line = ft_calloc(1, sizeof(char *));
-			if (herdoc->line == NULL)
+			new_line = realloc(herdoc->line, (herdoc->herdoc + 1) * sizeof(char *));
+			if (new_line == NULL)
+			{
+				for (int j = 0; j < herdoc->herdoc; j++)
+					free(herdoc->line[j]);
+				free(herdoc->line);
+				free(herdoc);
 				return NULL;
-			herdoc->line[herdoc->herdoc] = strdup(tree->file_name);//free hada
+			}
+			herdoc->line = new_line;
+			herdoc->line[herdoc->herdoc] = strdup(tree->file_name);
+			if (herdoc->line[herdoc->herdoc] == NULL)
+			{
+				for (int j = 0; j < herdoc->herdoc; j++)
+					free(herdoc->line[j]);
+				free(herdoc->line);
+				free(herdoc);
+				return NULL;
+			}
 			herdoc->herdoc++;
 		}
 	}
 	return herdoc;
 }
 
+void free_herdoc(t_herdoc *herdoc)
+{
+	if (herdoc)
+	{
+		int i = 0;
+		while (i < herdoc->herdoc)
+		{
+			free(herdoc->line[i]);
+			i++;
+		}
+		free(herdoc->line);
+		free(herdoc);
+	}
+}
+
 int	execute(t_shell *shell)
 {
-	// t_tree	*tmp;
+	t_tree	*tmp;
 
-	for (int i = 0; shell->token; i++)
-	{
-		printf("value:%s type = %i\n", shell->token->value, shell->token->type);
-		shell->token = shell->token->next;
-	}
-	printf("here\n");
 	shell->tree = create_tree(shell->token);
-	// tmp = shell->tree;
+	tmp = shell->tree;
 	// printAST(shell->tree, 0, "root");
-	// shell->herdoc = set_up(tmp);
-	// for (int i = 0; i < shell->herdoc->herdoc; i++)
+	shell->herdoc = set_up(tmp);
+	if (shell->herdoc)
+	{
+		shell->fd = open("tmp", O_CREAT | O_RDWR | O_TRUNC, 0644);
+		ft_exec_rederect_herd(shell, 1);
+	}
+	// t_herdoc *t = shell->herdoc;
+	// while(t->herdoc)
 	// {
-	// 	printf("herdoc: %s\n", shell->herdoc->line[i]);
+	// 	printf("herdoc: %s\n", t->line[t->herdoc - 1]);
+	// 	t->herdoc--;
 	// }
 	executing(shell);
+	free_herdoc(shell->herdoc);
 	ft_free_tree(shell->tree);
+	close(shell->fd);
+	unlink("tmp");
 	return (0);
 }

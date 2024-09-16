@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/08 19:11:37 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/14 00:07:32 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,12 @@ typedef struct s_tree
 	struct s_tree	*right;
 }					t_tree;
 
+typedef struct s_herdoc
+{
+	int				herdoc;
+	char			**line;
+}					t_herdoc;
+
 typedef struct s_env
 {
 	char			*key;
@@ -82,6 +88,7 @@ typedef struct s_shell
 	int				fd;
 	int				err;
 	int				begin;
+	t_herdoc		*herdoc;
 	t_tree			*tree;
 	t_oken			*token;
 	char			**env;
@@ -107,12 +114,13 @@ typedef struct s_mode
 	int				input_mode;
 	unsigned char	exit_mode;
 	int				output_mode;
+	t_herdoc		*herdoc;
 }					t_mode;
 
 
 // -- main -- //
 void				init(t_shell **shell, int ac, char **av, char **nv);
-void        handle_signals(int sig);
+void				handle_signals(int sig);
 int					free_all(t_shell *shell);
 void				free_nv(t_env **env);
 void				free_av(char ***av);
@@ -147,6 +155,7 @@ int					env_size(t_env *nv);
 void				ft_exec_rederect(t_shell *shell);
 void				ft_pipe(t_shell *shell);
 int					is_herd(char *c);
+void				ft_exec_rederect_herd(t_shell *shell, int j);
 // -- built in -- //
 void				echo(t_shell *shell);
 void				cd(t_shell *shell);

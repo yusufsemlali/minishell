@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/14 00:07:32 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:36:25 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct s_shell
 	t_herdoc		*herdoc;
 	t_tree			*tree;
 	t_oken			*token;
+	int				r_fd;
 	char			**env;
 }					t_shell;
 
@@ -112,7 +113,7 @@ typedef struct s_var
 typedef struct s_mode
 {
 	int				input_mode;
-	unsigned char	exit_mode;
+	int				exit_mode;
 	int				output_mode;
 	t_herdoc		*herdoc;
 }					t_mode;
@@ -156,7 +157,10 @@ void				ft_exec_rederect(t_shell *shell);
 void				ft_pipe(t_shell *shell);
 int					is_herd(char *c);
 void				ft_exec_rederect_herd(t_shell *shell, int j);
+void				ft_str_cpy(char *dest, const char *src);
+void 				free_herdoc(t_herdoc *herdoc);
 // -- built in -- //
+void				ft_exit(t_shell *shell);
 void				echo(t_shell *shell);
 void				cd(t_shell *shell);
 void				env(t_shell *shell);

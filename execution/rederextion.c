@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:35:04 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/14 00:08:09 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/16 19:02:18 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,13 @@ void	ft_exec_rederect_out(t_shell *shell)
 		printf("Error: open failed\n");
 		return ;
 	}
-	dup2(fd, STDOUT);
+	if (shell->r_fd)
+		dup2(shell->r_fd, STDOUT);
+	else
+	{
+		shell->r_fd = fd;
+		dup2(fd, STDOUT);
+	}
 	close(fd);
 	shell->tree = shell->tree->left;
 	executing(shell);
@@ -65,7 +71,13 @@ void	ft_exec_rederect_out_append(t_shell *shell)
 		printf("Error: open failed\n");
 		return ;
 	}
-	dup2(fd, STDOUT);
+	if (shell->r_fd)
+		dup2(shell->r_fd, STDOUT);
+	else
+	{
+		shell->r_fd = fd;
+		dup2(fd, STDOUT);
+	}
 	close(fd);
 	shell->tree = shell->tree->left;
 	executing(shell);

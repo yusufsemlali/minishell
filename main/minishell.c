@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 06:01:17 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/13 16:34:06 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:42:10 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	main(const int ac, char **av, char **nv)
 	{
 		reset(shell);
 		parse(shell);
+		shell->r_fd = 0;
 		if (shell->err == 0)
 		  minishell(shell);
 	}

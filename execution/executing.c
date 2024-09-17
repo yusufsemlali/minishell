@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:26:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/15 21:22:40 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:53:35 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,15 @@ void	ft_exec_bin(t_shell *shell)
 		if (!var.cmd_path)
 		{
 			printf("command not found\n");
-			shell->status = 127;
-			return ;
+			g_modes->exit_mode = 127;
+			exit(127);
 		}
 		var.env = creat_env(shell->nv);
-		if (execve(var.cmd_path, var.av, var.env) == -1)
+		if ((g_modes->exit_mode = execve(var.cmd_path, var.av, var.env)) == -1)
 			perror("execve");
 		free(var.cmd_path);
 		s_free(var.env);
+		exit(g_modes->exit_mode);
 	}
 	else
 		waitpid(var.pid, &shell->status, 0);
@@ -102,6 +103,8 @@ void	ft_exec_cmd(t_shell *shell)
 		export(shell);
 	else if (ft_strcmp(shell->tree->op, "unset") == 0)
 		unset(shell);
+	else if (ft_strcmp(shell->tree->op, "exit") == 0)
+		ft_exit(shell);
 }
 
 void	executing(t_shell *shell)

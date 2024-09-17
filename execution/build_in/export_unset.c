@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:03:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/05 17:35:39 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:14:49 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,11 @@ void	create_env(char *key, char *value, t_shell *shell)
 	{
 		if (!ft_strcmp(tmp->key, key))
 		{
-			tmp->value = value;
+			free(tmp->value);
+			tmp->value = malloc((ft_strlen(value) + 1));
+			if (!tmp->value)
+				return ;
+			ft_str_cpy(tmp->value, value);
 			return ;
 		}
 		tmp = tmp->next;

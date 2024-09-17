@@ -6,14 +6,14 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:20:15 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/15 21:35:23 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:15:56 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 
-static void	ft_str_cpy(char *dest, const char *src)
+void	ft_str_cpy(char *dest, const char *src)
 {
 	int	i;
 
@@ -63,7 +63,8 @@ void	update_env(t_env *nv, char *key, char *value)
 	{
 		if (ft_strcmp(tmp->key, key) == 0)
 		{
-			// free(tmp->value);
+			if (tmp->value)
+				free(tmp->value);
 			tmp->value = (char *)malloc(sizeof(char) * (ft_strlen(value) + 1));
 			if (!tmp->value)
 				return ;

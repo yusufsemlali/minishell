@@ -24,8 +24,8 @@ void	minishell(t_shell *shell)
 void	reset(t_shell *shell)
 {
 	shell->err = 0;
-	shell->status = 0;
 	shell->begin = 0;
+	shell->status = 0;
 	g_modes->input_mode = 0;
 	g_modes->output_mode = 0;
 	free_av(&(shell->av));
@@ -37,14 +37,16 @@ int	main(const int ac, char **av, char **nv)
 {
 	t_shell	*shell;
 
-	init(&shell, ac, av, nv);
-	shell->env = nv;
+	if (*nv == NULL)
+		init(&shell, ac, av, NULL);
+	else
+		init(&shell, ac, av, nv);
 	while (shell->status == 0)
 	{
 		reset(shell);
 		parse(shell);
-    if (shell->err == 0)
-		  minishell(shell);
+		if (shell->err == 0)
+			minishell(shell);
 	}
 	return (free_all(shell));
 }

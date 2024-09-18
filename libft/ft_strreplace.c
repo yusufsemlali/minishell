@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcspn.c                                       :+:      :+:    :+:   */
+/*   ft_strreplace.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/20 07:14:08 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/20 07:14:09 by ysemlali         ###   ########.fr       */
+/*   Created: 2024/09/18 10:33:42 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/09/18 10:33:42 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strcspn(const char *s, const char *d)
+char	*ft_strreplace(char *s, int replace, int c)
 {
-	const char	*d2 = d;
-	const char	*s2 = s;
+	char	*tmp;
 
-	while (*s)
+	tmp = s;
+	while (*tmp)
 	{
-		while (*d)
-		{
-			if (*s == *d)
-				return (s - s2);
-			d++;
-		}
-		d = d2;
-		s++;
+		if (*tmp == replace)
+			*tmp = c;
+		tmp++;
 	}
-	return (s - s2);
+	return (s);
 }
-// return len of the initial segment of s which consists of characters not in d.
-// if s is not in d, return the length of s.

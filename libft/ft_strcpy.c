@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcspn.c                                       :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/20 07:14:08 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/20 07:14:09 by ysemlali         ###   ########.fr       */
+/*   Created: 2024/09/18 10:33:26 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/09/18 10:33:26 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strcspn(const char *s, const char *d)
+char	*ft_strpy(char *d, char *s)
 {
-	const char	*d2 = d;
-	const char	*s2 = s;
-
-	while (*s)
-	{
-		while (*d)
-		{
-			if (*s == *d)
-				return (s - s2);
-			d++;
-		}
-		d = d2;
-		s++;
-	}
-	return (s - s2);
+	if (d == NULL || s == NULL)
+		return (NULL);
+	ft_memcpy(d, s, ft_strlen(s));
+	return (d);
 }
-// return len of the initial segment of s which consists of characters not in d.
-// if s is not in d, return the length of s.

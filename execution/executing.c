@@ -27,7 +27,7 @@ char	*find_cmd_path(char	**av)
 		return (NULL);
 	while (path_split[i])
 	{
-		cmd_path = creating_cmd_path(strlen(path_split[i]) + strlen(av[0]) + 2, path_split, i, av[0]);
+		cmd_path = creating_cmd_path(ft_strlen(path_split[i]) + ft_strlen(av[0]) + 2, path_split, i, av[0]);
 		if (!cmd_path)
 			return (NULL);
 		if (access(cmd_path, X_OK) == 0)
@@ -76,13 +76,14 @@ void	ft_exec_bin(t_shell *shell)
 		{
 			printf("command not found\n");
 			shell->status = 127;
-			return ;
+      exit(0);
 		}
 		var.env = creat_env(shell->nv);
 		if (execve(var.cmd_path, var.av, var.env) == -1)
 			perror("execve");
 		free(var.cmd_path);
 		s_free(var.env);
+    exit(0);
 	}
 	else
 		waitpid(var.pid, &shell->status, 0);

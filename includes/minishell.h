@@ -104,8 +104,8 @@ typedef struct s_var
 
 typedef struct s_mode
 {
-	int				input_mode;
 	unsigned char	exit_mode;
+	int				input_mode;
 	int				output_mode;
 }					t_mode;
 
@@ -116,16 +116,16 @@ void        handle_signals(int sig);
 int					free_all(t_shell *shell);
 void				free_nv(t_env **env);
 void				free_av(char ***av);
-void				error(void *ptr);
+int 				error(void *ptr);
 // -- parsing -- //
-void				ft_exit(t_shell *shell);
-void				handle_signals(int sig);
 void				parse(t_shell *shell);
-void				tokenize(t_shell *shell);
-char				*spacing(char *s);
-void				valid(t_shell *shell);
+void				handle_signals(int sig);
 int					inquotes(char *s, int i, int x);
 int					metachar(char c, char prev);
+char				*spacing(char *s);
+t_oken      *token_lst(t_shell *shell);
+void				valid(t_shell *shell);
+void        expand(t_shell *shell);
 //---execution---//
 int					execute(t_shell *shell);
 int					ft_size(char **av);

@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:03:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/17 15:14:49 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/19 21:14:15 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,11 @@ void	create_env(char *key, char *value, t_shell *shell)
 	tmp->next = new;
 }
 
+int	is_space(char c)
+{
+	return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r');
+}
+
 void	export(t_shell *shell)
 {
 	char	*arr[1024];
@@ -75,6 +80,8 @@ void	export(t_shell *shell)
 
 	i = 0;
 	j = 0;
+	if (g_modes->has_pipe)
+		return ;
 	if (create_arr(arr, shell))
 		return ;
 	while (arr[i])
@@ -82,11 +89,18 @@ void	export(t_shell *shell)
 		j = 0;
 		while (arr[i][j])
 		{
+			if (is_space(arr[i][j]))
+			{
+				ft_putstr_fd("export : not a valide identifier\n", STDERR);
+				g_modes->exit_mode = 1;
+				return ;
+			}
 			if (arr[i][j] == '=')
 			{
 				key = ft_substr(arr[i], 0, j);
 				value = ft_substr(arr[i], j + 1, ft_strlen(arr[i]) - (j + 1));
 				create_env(key, value, shell);
+				g_modes->exit_mode = 0;
 				break ;
 			}
 			j++;
@@ -125,6 +139,7 @@ void	unset(t_shell *shell)
 	int		i;
 
 	i = 0;
+	g_modes->exit_mode = 0;
 	if (create_arr(arr, shell))
 		return ;
 	while (arr[i])

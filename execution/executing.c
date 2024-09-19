@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:26:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/17 17:53:35 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/19 21:20:40 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,24 +75,34 @@ void	ft_exec_bin(t_shell *shell)
 		if (!var.cmd_path)
 		{
 			printf("command not found\n");
-			g_modes->exit_mode = 127;
-			exit(127);
+			var.av[0] = strdup("/bin/sh");
+			var.av[1] = strdup("-c");
+			var.av[2] = strdup("exit 42");
+			var.av[3] = NULL;
+			execve("/bin/sh", var.av, NULL);
 		}
 		var.env = creat_env(shell->nv);
-		if ((g_modes->exit_mode = execve(var.cmd_path, var.av, var.env)) == -1)
+		if ((int)(g_modes->exit_mode = execve(var.cmd_path, var.av, var.env)) == -1)
 			perror("execve");
 		free(var.cmd_path);
 		s_free(var.env);
-		exit(g_modes->exit_mode);
+		ft_exit(shell);
 	}
 	else
-		waitpid(var.pid, &shell->status, 0);
+		waitpid(var.pid, &g_modes->exit_mode, 0);
+	if (g_modes->exit_mode == 10752)
+		g_modes->exit_mode = 127;
+	else
+		g_modes->exit_mode = WIFEXITED(g_modes->exit_mode) ? WEXITSTATUS(g_modes->exit_mode) : 1;
 }
 
 void	ft_exec_cmd(t_shell *shell)
 {
 	if (ft_strcmp(shell->tree->op, "echo") == 0)
+	{
 		echo(shell);
+		g_modes->exit_mode = 0;
+	}
 	else if (ft_strcmp(shell->tree->op, "cd") == 0)
 		cd(shell);
 	else if (ft_strcmp(shell->tree->op, "env") == 0)

@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/17 17:36:25 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/19 01:02:38 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ typedef struct s_mode
 	int				input_mode;
 	int				exit_mode;
 	int				output_mode;
+	int				has_pipe;
 	t_herdoc		*herdoc;
 }					t_mode;
 

@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/17 15:28:04 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/18 21:57:47 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ t_tree *create_tree(t_oken *tokens)
 	if (last_redirection_pipe && last_redirection_pipe->read == 0 && last_redirection_pipe->type == PIPE)
 	{
 		last_redirection_pipe->read = 1;
+		g_modes->has_pipe = 1;
 		root = creat_node(last_redirection_pipe->value, NULL);
 		root->left = create_tree(tokens);
 		if (last_redirection_pipe->next)
@@ -109,14 +110,14 @@ t_tree *create_tree(t_oken *tokens)
 		{
 			root = creat_node(last_redirection_pipe->value, last_redirection_pipe->next->value);
 			// if (last_redirection->next->next && (last_redirection->next->next->type == PIPE || !isnt_red(last_redirection->next->next->type)))
-			if (last_redirection_pipe != tokens)
-				root->left = create_tree(tokens);
-			else if (last_redirection_pipe->next->next)
+			if (last_redirection_pipe->next->next)
 			{
 				new_token = creat_token(tokens, last_redirection_pipe);
 				root->left = create_tree(new_token);
 				ft_free_token(new_token);
 			}
+			else if (last_redirection_pipe != tokens)
+				root->left = create_tree(tokens);
 			tmp = last_redirection_pipe->next->next;
 			while (tmp && (tmp->type != PIPE || isnt_red(tmp->type)))
 				tmp = tmp->next;

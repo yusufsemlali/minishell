@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:22:54 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/16 18:06:30 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/18 18:36:36 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	child_process(int fd[], t_shell *shell)
 	executing(shell);
 	dup2(stdout_copy, STDOUT);
 	close(stdout_copy);
+	exit(0);
 }
 
 void	parent_process(int fd[], t_shell *shell, pid_t pid)

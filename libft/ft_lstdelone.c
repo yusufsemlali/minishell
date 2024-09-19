@@ -20,4 +20,3 @@ void	ft_lstdelone(t_oken *lst, void (*del)(void *))
 		free(lst);
 	}
 }
-  

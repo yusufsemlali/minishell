@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:26:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/19 21:20:40 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/19 21:24:42 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*find_cmd_path(char	**av)
 		return (NULL);
 	while (path_split[i])
 	{
-		cmd_path = creating_cmd_path(strlen(path_split[i]) + strlen(av[0]) + 2, path_split, i, av[0]);
+		cmd_path = creating_cmd_path(ft_strlen(path_split[i]) + ft_strlen(av[0]) + 2, path_split, i, av[0]);
 		if (!cmd_path)
 			return (NULL);
 		if (access(cmd_path, X_OK) == 0)

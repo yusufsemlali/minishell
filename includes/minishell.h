@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/19 01:02:38 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/19 21:25:51 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,16 +126,16 @@ void				handle_signals(int sig);
 int					free_all(t_shell *shell);
 void				free_nv(t_env **env);
 void				free_av(char ***av);
-void				error(void *ptr);
+int 				error(void *ptr);
 // -- parsing -- //
-void				ft_exit(t_shell *shell);
-void				handle_signals(int sig);
 void				parse(t_shell *shell);
-void				tokenize(t_shell *shell);
-char				*spacing(char *s);
-void				valid(t_shell *shell);
+void				handle_signals(int sig);
 int					inquotes(char *s, int i, int x);
 int					metachar(char c, char prev);
+char				*spacing(char *s);
+t_oken      *token_lst(t_shell *shell);
+void				valid(t_shell *shell);
+void        expand(t_shell *shell);
 //---execution---//
 int					execute(t_shell *shell);
 int					ft_size(char **av);

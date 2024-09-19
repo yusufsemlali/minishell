@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/18 10:37:12 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/09/18 10:37:12 by ysemlali         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-void	error(void *ptr)
+int	error(void *ptr)
 {
 	if (ptr == NULL)
 	{
@@ -9,4 +21,7 @@ void	error(void *ptr)
 		free(ptr);
 		exit(g_modes->exit_mode);
 	}
+	else if (ft_strncmp(ptr, "", 1) == 0)
+		return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 06:01:17 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/16 18:42:10 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/19 21:26:03 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	minishell(t_shell *shell)
 void	reset(t_shell *shell)
 {
 	shell->err = 0;
-	shell->status = 0;
 	shell->begin = 0;
+	shell->status = 0;
 	g_modes->input_mode = 0;
 	g_modes->output_mode = 0;
 	free_av(&(shell->av));
@@ -37,15 +37,17 @@ int	main(const int ac, char **av, char **nv)
 {
 	t_shell	*shell;
 
-	init(&shell, ac, av, nv);
-	shell->env = nv;
+	if (*nv == NULL)
+		init(&shell, ac, av, NULL);
+	else
+		init(&shell, ac, av, nv);
 	while (shell->status == 0)
 	{
 		reset(shell);
 		parse(shell);
 		shell->r_fd = 0;
 		if (shell->err == 0)
-		  minishell(shell);
+			minishell(shell);
 	}
 	return (free_all(shell));
 }

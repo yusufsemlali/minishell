@@ -5,29 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/18 17:05:11 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/18 18:18:41y ysemlali         ###   ########.fr       */
+/*   Created: 2024/09/18 10:38:43 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/09/18 10:38:43 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	first_error(t_shell *shell, int type)
-{
-	if (shell->err == ERR_SYNTAX)
-		return ;
-	if (type == PIPE)
-  {
-		printf("minishell: syntax error near unexpected token `|'\n");
-    shell->err = ERR_SYNTAX;
-
-  }
-	else if (type == INPUT || type == OUTPUT || type == APPEND)
-  {
-		printf("minishell: syntax error near unexpected token `newline'\n");
-    shell->err = ERR_SYNTAX;
-  }
-}
 
 void	heredoc_error(t_shell *shell, int type, t_oken *next)
 {
@@ -54,8 +37,27 @@ void	redirect_error(t_shell *shell, int type, t_oken *next)
 		&& next->type != ARGS)
 	{
 		shell->err = ERR_SYNTAX;
-		printf("minishell: syntax error near unexpected token `%s'\n",
-			next->value);
+		if (next->type == END)
+			printf("minishell: syntax error near unexpected token `newline'\n");
+		else
+			printf("minishell: syntax error near unexpected token `%s'\n",
+				next->value);
+	}
+}
+
+void	pipe_error(t_shell *shell, t_oken *next)
+{
+	if (shell->err == ERR_SYNTAX)
+		return ;
+	if ((next->type != CMD && next->type != HEREDOC) || next->type == END)
+	{
+		printf("next->type: %d\n", next->type);
+		shell->err = ERR_SYNTAX;
+		if (next->type == END)
+			printf("minishell: syntax error near unexpected token `|'\n");
+		else
+			printf("minishell: syntax error near unexpected token `%s'\n",
+				next->value);
 	}
 }
 
@@ -64,24 +66,18 @@ void	valid(t_shell *shell)
 	t_oken	*token;
 
 	token = shell->token;
-	if (token->type != CMD && token->type != HEREDOC
-		&& token->next->type == END)
-		first_error(shell, token->type);
 	while (token->next)
 	{
+		if (token->type == PIPE)
+			pipe_error(shell, token->next);
 		if (token->type == HEREDOC)
 			heredoc_error(shell, token->type, token->next);
 		if ((token->type == OUTPUT || token->type == INPUT
-				|| token->type == APPEND) && token->next->type != END)
+				|| token->type == APPEND) && token->next->type != ARGS)
 			redirect_error(shell, token->type, token->next);
-		if (token->type == PIPE && token->next->type == PIPE)
-		{
-			shell->err = ERR_SYNTAX;
-			printf("minishell: syntax error near unexpected token `|'\n");
-		}
 		if (shell->err == ERR_SYNTAX)
 			break ;
 		token = token->next;
 	}
-  ft_dellast(&shell->token, del);
+	ft_dellast(&shell->token, del);
 }

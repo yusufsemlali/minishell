@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 00:24:56 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/08 19:53:58 by aclakhda         ###   ########.fr       */
+/*   Created: 2024/09/18 10:36:23 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/09/18 10:36:23 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int					ft_isdigit(int c);
 int					ft_isalnum(int c);
 int					ft_isascii(int c);
 int					ft_isprint(int c);
+int					ft_isspace(int c);
 int					ft_numvalid(const char *s);
 size_t				ft_strlen(const char *s);
 size_t				ft_arrlen(char **s);
@@ -49,6 +50,8 @@ int					ft_toupper(int c);
 int					ft_tolower(int c);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
+char				*ft_strcpy(char *d, char *s);
+char				*ft_strreplace(char *s, int replace, int c);
 size_t				ft_strlcpy(char *dest, const char *src, size_t size);
 size_t				ft_strlcat(char *dest, const char *src, size_t size);
 size_t				ft_strcspn(const char *s, const char *d);
@@ -76,7 +79,7 @@ int					ft_lstsize(t_oken *token);
 void				ft_lstclear(t_oken **token, void (*del)(void *));
 void				ft_lstadd_front(t_oken **token, t_oken *new);
 void				ft_lstadd_back(t_oken **token, t_oken *new);
-void        ft_lstdelone(t_oken *lst, void (*del)(void *));
-void        ft_dellast(t_oken **lst, void (*del)(void *));
+void				ft_lstdelone(t_oken *lst, void (*del)(void *));
+void				ft_dellast(t_oken **lst, void (*del)(void *));
 void				del(void *value);
 #endif

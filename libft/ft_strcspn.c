@@ -31,3 +31,4 @@ size_t	ft_strcspn(const char *s, const char *d)
 	return (s - s2);
 }
 // return len of the initial segment of s which consists of characters not in d.
+// if s is not in d, return the length of s.

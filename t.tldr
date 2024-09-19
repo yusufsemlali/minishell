@@ -48,82 +48,6 @@
 			"typeName": "page"
 		},
 		{
-			"id": "pointer:pointer",
-			"typeName": "pointer",
-			"x": 486,
-			"y": 605,
-			"lastActivityTimestamp": 1726507971942,
-			"meta": {}
-		},
-		{
-			"followingUserId": null,
-			"opacityForNextShape": 1,
-			"stylesForNextShape": {},
-			"brush": null,
-			"scribbles": [],
-			"cursor": {
-				"type": "default",
-				"rotation": 0
-			},
-			"isFocusMode": false,
-			"exportBackground": true,
-			"isDebugMode": false,
-			"isToolLocked": false,
-			"screenBounds": {
-				"x": 0,
-				"y": 0,
-				"w": 1228,
-				"h": 907
-			},
-			"insets": [
-				false,
-				false,
-				true,
-				false
-			],
-			"zoomBrush": null,
-			"isGridMode": false,
-			"isPenMode": false,
-			"chatMessage": "",
-			"isChatting": false,
-			"highlightedUserIds": [],
-			"isFocused": true,
-			"devicePixelRatio": 1,
-			"isCoarsePointer": false,
-			"isHoveringCanvas": true,
-			"openMenus": [],
-			"isChangingStyle": false,
-			"isReadonly": false,
-			"meta": {},
-			"duplicateProps": null,
-			"id": "instance:instance",
-			"currentPageId": "page:page",
-			"typeName": "instance"
-		},
-		{
-			"editingShapeId": "shape:2Ew1THl8p282yZdhncZWX",
-			"croppingShapeId": null,
-			"selectedShapeIds": [
-				"shape:2Ew1THl8p282yZdhncZWX"
-			],
-			"hoveredShapeId": null,
-			"erasingShapeIds": [],
-			"hintingShapeIds": [],
-			"focusedGroupId": null,
-			"meta": {},
-			"id": "instance_page_state:page:page",
-			"pageId": "page:page",
-			"typeName": "instance_page_state"
-		},
-		{
-			"x": 149,
-			"y": -61,
-			"z": 1,
-			"meta": {},
-			"id": "camera:page:page",
-			"typeName": "camera"
-		},
-		{
 			"x": 375,
 			"y": 161.8046875,
 			"rotation": 0,
@@ -1611,6 +1535,200 @@
 			},
 			"parentId": "page:page",
 			"index": "aM6w7",
+			"typeName": "shape"
+		},
+		{
+			"x": 4.654292501544774,
+			"y": 0,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:zbgUyxrEAptGo0hmKvnwN",
+			"type": "text",
+			"props": {
+				"color": "black",
+				"size": "m",
+				"w": 843.2948822893352,
+				"text": "1 -  add the gmod->exit_status to cmd executr and the other build in",
+				"font": "draw",
+				"textAlign": "start",
+				"autoSize": true,
+				"scale": 0.9986596453078019
+			},
+			"parentId": "shape:ZCRhxpiGRDcoLcsGCzQEv",
+			"index": "a1",
+			"typeName": "shape"
+		},
+		{
+			"x": 0,
+			"y": 68.30972929579167,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:G3DER1BMBDa98QSBEb-6F",
+			"type": "text",
+			"props": {
+				"color": "black",
+				"size": "m",
+				"w": 752.1310829092375,
+				"text": "2 - fix line in herdoc aka add the $ + add ctr+c ctr+d\n\n3- fix leaks as possible\n\n4- make sure exit | cmd return the value of cmd not exit \n\n5- fix norminett\n\n5- make sure evrything work and push!",
+				"font": "draw",
+				"textAlign": "start",
+				"autoSize": true,
+				"scale": 1.038377041926009
+			},
+			"parentId": "shape:ZCRhxpiGRDcoLcsGCzQEv",
+			"index": "a21yl",
+			"typeName": "shape"
+		},
+		{
+			"x": 734.5448605366803,
+			"y": 124.03337843465317,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:ZCRhxpiGRDcoLcsGCzQEv",
+			"type": "group",
+			"parentId": "page:page",
+			"index": "aO6aM",
+			"props": {},
+			"typeName": "shape"
+		},
+		{
+			"x": 1642.5746287117372,
+			"y": 143.55563766497445,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:C0WPsTfg8-cDAjrAouIKA",
+			"type": "arrow",
+			"props": {
+				"dash": "draw",
+				"size": "m",
+				"fill": "none",
+				"color": "black",
+				"labelColor": "black",
+				"bend": 0,
+				"start": {
+					"x": 0,
+					"y": 0
+				},
+				"end": {
+					"x": 64.52407370384549,
+					"y": -0.5585883729275452
+				},
+				"arrowheadStart": "none",
+				"arrowheadEnd": "arrow",
+				"text": "",
+				"labelPosition": 0.5,
+				"font": "draw",
+				"scale": 1
+			},
+			"parentId": "page:page",
+			"index": "aP8Bx",
+			"typeName": "shape"
+		},
+		{
+			"id": "pointer:pointer",
+			"typeName": "pointer",
+			"x": 1602.6500774551505,
+			"y": 228.92609400382017,
+			"lastActivityTimestamp": 1726773307609,
+			"meta": {}
+		},
+		{
+			"followingUserId": null,
+			"opacityForNextShape": 1,
+			"stylesForNextShape": {},
+			"brush": null,
+			"scribbles": [],
+			"cursor": {
+				"type": "default",
+				"rotation": 0
+			},
+			"isFocusMode": false,
+			"exportBackground": true,
+			"isDebugMode": false,
+			"isToolLocked": false,
+			"screenBounds": {
+				"x": 0,
+				"y": 0,
+				"w": 1136.6666259765625,
+				"h": 429.1666564941406
+			},
+			"insets": [
+				false,
+				false,
+				true,
+				false
+			],
+			"zoomBrush": null,
+			"isGridMode": false,
+			"isPenMode": false,
+			"chatMessage": "",
+			"isChatting": false,
+			"highlightedUserIds": [],
+			"isFocused": true,
+			"devicePixelRatio": 1.2000000476837158,
+			"isCoarsePointer": false,
+			"isHoveringCanvas": true,
+			"openMenus": [],
+			"isChangingStyle": false,
+			"isReadonly": false,
+			"meta": {},
+			"duplicateProps": null,
+			"id": "instance:instance",
+			"currentPageId": "page:page",
+			"typeName": "instance"
+		},
+		{
+			"editingShapeId": "shape:G3DER1BMBDa98QSBEb-6F",
+			"croppingShapeId": null,
+			"selectedShapeIds": [
+				"shape:G3DER1BMBDa98QSBEb-6F"
+			],
+			"hoveredShapeId": null,
+			"erasingShapeIds": [],
+			"hintingShapeIds": [],
+			"focusedGroupId": "shape:ZCRhxpiGRDcoLcsGCzQEv",
+			"meta": {},
+			"id": "instance_page_state:page:page",
+			"pageId": "page:page",
+			"typeName": "instance_page_state"
+		},
+		{
+			"x": -697.3734138167174,
+			"y": -35.59109419731266,
+			"z": 0.700896436939086,
+			"meta": {},
+			"id": "camera:page:page",
+			"typeName": "camera"
+		},
+		{
+			"x": 1742.9465717813548,
+			"y": 127.1235196556128,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:Xl8aEf5C0AP40z4xA-xZZ",
+			"type": "text",
+			"props": {
+				"color": "black",
+				"size": "m",
+				"w": 61.83333206176758,
+				"text": "done",
+				"font": "draw",
+				"textAlign": "start",
+				"autoSize": true,
+				"scale": 1
+			},
+			"parentId": "page:page",
+			"index": "aQ1Si",
 			"typeName": "shape"
 		}
 	]

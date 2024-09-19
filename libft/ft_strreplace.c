@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_strreplace.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/14 16:32:37 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/19 15:05:10 by aclakhda         ###   ########.fr       */
+/*   Created: 2024/09/18 10:33:42 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/09/18 10:33:42 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-void	env(t_shell *shell)
+char	*ft_strreplace(char *s, int replace, int c)
 {
-	t_env	*tmp;
+	char	*tmp;
 
-	tmp = shell->nv;
-	while (tmp)
+	tmp = s;
+	while (*tmp)
 	{
-		printf("%s=%s\n", tmp->key, tmp->value);
-		tmp = tmp->next;
+		if (*tmp == replace)
+			*tmp = c;
+		tmp++;
 	}
-	g_modes->exit_mode = 0;
+	return (s);
 }

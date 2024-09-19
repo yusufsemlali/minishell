@@ -6,13 +6,13 @@
 #    By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/25 21:41:51 by ysemlali          #+#    #+#              #
-#    Updated: 2024/09/17 15:58:18 by aclakhda         ###   ########.fr        #
+#    Updated: 2024/09/18 23:17:36 by aclakhda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror  -ggdb
+CFLAGS = -Wall -Wextra -Werror  -ggdb -g
 LIBS = -Llibft -lft -lreadline
 SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c \
 		    parsing/parse.c\
@@ -20,6 +20,7 @@ SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c \
 		    parsing/exit.c\
 		    parsing/line.c\
 		    parsing/valid.c\
+				parsing/expand.c\
 		    execution/utils.c\
 		    execution/executing.c\
 		    execution/executing_utils.c\

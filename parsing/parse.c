@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/16 01:38:32 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/13 16:30:12 by aclakhda         ###   ########.fr       */
+/*   Created: 2024/09/18 10:44:55 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/09/18 10:44:55 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int	closed_checker(t_shell *shell, char *s)
 	two_open = 0;
 	while (*s)
 	{
-		//		if (s > shell->s && *(s - 1) == '\\')
-		//			;
 		if (*s == '\'' && two_open % 2 == 0)
 			one_open++;
 		else if (*s == '\"' && one_open % 2 == 0)
@@ -48,8 +46,14 @@ char	*get_line(void)
 void	parse(t_shell *shell)
 {
 	shell->s = get_line();
-	error(shell->s);
+	if (error(shell->s))
+		return ;
 	add_history(shell->s);
 	if (closed_checker(shell, shell->s))
-		tokenize(shell);
+	{
+		shell->av = ft_token(spacing(shell->s), " \t\r\f\v");
+		shell->token = token_lst(shell);
+		valid(shell);
+		expand(shell);
+	}
 }

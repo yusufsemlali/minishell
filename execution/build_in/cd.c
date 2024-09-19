@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:20:15 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/17 15:15:56 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:03:14 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	cd(t_shell *shell)
 	if (getcwd(past_path, sizeof(past_path)) == NULL)
 	{
 		perror("getcwd :");
+		g_modes->exit_mode = 1;
 		return ;
 	}
 	if (!shell->tree->right || !ft_strcmp(shell->tree->right->op, "~"))
@@ -109,13 +110,16 @@ void	cd(t_shell *shell)
 		if (!home)
 		{
 			printf("HOME not set\n");
+			g_modes->exit_mode = 1;
 			return ;
 		}
 		if (chdir(home))
 		{
 			perror("cd :");
+			g_modes->exit_mode = 1;
 			return ;
 		}
+		g_modes->exit_mode = 0;
 		i = 1;
 	}
 	else
@@ -123,13 +127,16 @@ void	cd(t_shell *shell)
 	if (chdir(av[1]) && !i)
 	{
 		perror("cd :");
+		g_modes->exit_mode = 1;
 		return ;
 	}
 	if (getcwd(current_path, sizeof(current_path)) == NULL)
 	{
 		perror("getcwd :");
+		g_modes->exit_mode = 1;
 		return ;
 	}
 	update_env(shell->nv, "OLDPWD", past_path);
 	update_env(shell->nv, "PWD", current_path);
+	g_modes->exit_mode = 0;
 }

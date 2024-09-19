@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali & aclakhda <ysemlali & aclackd    +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 19:12:15 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/08/26 12:48:47 by ysemlali &       ###   ########.fr       */
+/*   Updated: 2024/09/19 15:08:26 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@ void	pwd(t_shell *shell)
 {
 	t_env	*tmp;
 
-	if (shell->tree->right)
-	{
-		printf("pwd : too many arguments\n");
-		return ;
-	}
 	tmp = shell->nv;
 	while (tmp)
 	{
@@ -31,4 +26,5 @@ void	pwd(t_shell *shell)
 		}
 		tmp = tmp->next;
 	}
+	g_modes->exit_mode = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:55:33 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/18 23:31:48 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/20 21:17:49 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,13 @@ void	handle_exit_error(t_shell *shell, char *msg, int exit_code)
 	free_all_shell(shell, 0);
 }
 
-void	ft_exit(t_shell *shell)
+void	ft_exit(t_shell *shell, int i)
 {
 	if (g_modes->has_pipe)
 		return exit_pipe(shell);
 	g_modes->exit_mode = 0;
-	ft_putstr_fd("exit\n", STDERR_FILENO);
+	if (i)
+		ft_putstr_fd("exit\n", STDERR_FILENO);
 	if (shell->tree->right)
 	{
 		if (is_numeric(shell->tree->right->op) && !shell->tree->right->right)

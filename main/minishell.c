@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 06:01:17 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/19 21:26:03 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/20 21:31:12 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	reset(t_shell *shell)
 	shell->status = 0;
 	g_modes->input_mode = 0;
 	g_modes->output_mode = 0;
+	g_modes->herdoc_mode = 0;
 	free_av(&(shell->av));
 	ft_lstclear(&shell->token, del);
 	free(shell->s);

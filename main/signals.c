@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:38:22 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/08/17 17:04:00 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/09/20 21:30:53 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void	handle_signals(int sig)
 		rl_replace_line("", 0);
 		rl_redisplay();
 		g_modes->exit_mode = CTRL_C;
+		g_modes->herdoc_mode = CTRL_C;
 	}
 	else if (sig == SIGQUIT)
 		return ;
 }
+

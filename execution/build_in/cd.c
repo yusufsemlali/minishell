@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:20:15 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/19 15:03:14 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/20 00:28:00 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	update_env(t_env *nv, char *key, char *value)
 	}
 }
 
-char	*get_env(t_env *nv, char *key)
+char	*get_env_cd(t_env *nv, char *key)
 {
 	t_env	*tmp;
 
@@ -106,7 +106,7 @@ void	cd(t_shell *shell)
 	}
 	if (!shell->tree->right || !ft_strcmp(shell->tree->right->op, "~"))
 	{
-		home = get_env(shell->nv, "HOME");
+		home = get_env_cd(shell->nv, "HOME");
 		if (!home)
 		{
 			printf("HOME not set\n");

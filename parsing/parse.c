@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:44:55 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/18 10:44:55 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/09/20 21:10:50 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*get_line(void)
 void	parse(t_shell *shell)
 {
 	shell->s = get_line();
-	if (error(shell->s))
+	if (error(shell->s, shell))
 		return ;
 	add_history(shell->s);
 	if (closed_checker(shell, shell->s))

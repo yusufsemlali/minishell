@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/18 21:57:47 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/20 22:07:55 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,8 @@ int	execute(t_shell *shell)
 		shell->fd = open("tmp", O_CREAT | O_RDWR | O_TRUNC, 0644);
 		ft_exec_rederect_herd(shell, 1);
 	}
-	executing(shell);
+	if (g_modes->herdoc_mode != CTRL_C)
+		executing(shell);
 	free_herdoc(shell->herdoc);
 	ft_free_tree(shell->tree);
 	close(shell->fd);

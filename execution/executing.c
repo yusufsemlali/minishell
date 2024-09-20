@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:26:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/19 21:24:42 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/20 21:16:55 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	ft_exec_bin(t_shell *shell)
 			perror("execve");
 		free(var.cmd_path);
 		s_free(var.env);
-		ft_exit(shell);
+		ft_exit(shell, 1);
 	}
 	else
 		waitpid(var.pid, &g_modes->exit_mode, 0);
@@ -114,7 +114,7 @@ void	ft_exec_cmd(t_shell *shell)
 	else if (ft_strcmp(shell->tree->op, "unset") == 0)
 		unset(shell);
 	else if (ft_strcmp(shell->tree->op, "exit") == 0)
-		ft_exit(shell);
+		ft_exit(shell, 1);
 }
 
 void	executing(t_shell *shell)

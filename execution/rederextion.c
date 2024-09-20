@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:35:04 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/16 19:02:18 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/20 21:30:29 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	ft_exec_rederect_herd(t_shell *shell, int j)
 	i = 0;
 	if (j)
 	{
-		while (shell->herdoc->herdoc)
+		while (shell->herdoc->herdoc && g_modes->herdoc_mode != CTRL_C)
 		{
 			line = readline("> ");
 			if (line)

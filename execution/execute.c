@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/20 22:07:55 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/20 22:29:23 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,7 @@ void free_herdoc(t_herdoc *herdoc)
 int	execute(t_shell *shell)
 {
 	t_tree	*tmp;
+
 
 	shell->tree = create_tree(shell->token);
 	tmp = shell->tree;

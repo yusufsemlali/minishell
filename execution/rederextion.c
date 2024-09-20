@@ -101,7 +101,7 @@ void	ft_exec_rederect_herd(t_shell *shell, int j)
 	i = 0;
 	if (j)
 	{
-		while (shell->herdoc->herdoc)
+		while (shell->herdoc->herdoc && g_modes->exit_mode != CTRL_C)
 		{
 			line = readline("> ");
 			if (line)

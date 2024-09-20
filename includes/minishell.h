@@ -35,6 +35,7 @@
 # define APPEND 5  // ">>"
 # define HEREDOC 6 // "<<"
 # define END 7 // ""
+# define DLEM 8 // delimiters
 
 # define STDIN 0
 # define STDOUT 1
@@ -88,6 +89,7 @@ typedef struct s_shell
 	int				fd;
 	int				err;
 	int				begin;
+  int       end;
 	t_herdoc		*herdoc;
 	t_tree			*tree;
 	t_oken			*token;
@@ -114,6 +116,7 @@ typedef struct s_mode
 	unsigned char	exit_mode;
 	int				input_mode;
 	int				output_mode;
+  int       herdoc_mode;
 	t_herdoc		*herdoc;
 }					t_mode;
 
@@ -121,19 +124,20 @@ typedef struct s_mode
 // -- main -- //
 void				init(t_shell **shell, int ac, char **av, char **nv);
 void				handle_signals(int sig);
-int					free_all(t_shell *shell);
+void					free_all(t_shell *shell);
 void				free_nv(t_env **env);
 void				free_av(char ***av);
-int 				error(void *ptr);
+int	        error(void *ptr, t_shell *shell);
 // -- parsing -- //
 void				parse(t_shell *shell);
 void				handle_signals(int sig);
 int					inquotes(char *s, int i, int x);
 int					metachar(char c, char prev);
 char				*spacing(char *s);
-t_oken      *token_lst(t_shell *shell);
+void        token_lst(t_shell *shell);
 void				valid(t_shell *shell);
 void        expand(t_shell *shell);
+void        squish(t_shell *shell);
 //---execution---//
 int					execute(t_shell *shell);
 int					ft_size(char **av);

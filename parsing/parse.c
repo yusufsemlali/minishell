@@ -46,14 +46,15 @@ char	*get_line(void)
 void	parse(t_shell *shell)
 {
 	shell->s = get_line();
-	if (error(shell->s))
+	if (error(shell->s, shell))
 		return ;
 	add_history(shell->s);
 	if (closed_checker(shell, shell->s))
 	{
 		shell->av = ft_token(spacing(shell->s), " \t\r\f\v");
-		shell->token = token_lst(shell);
-		valid(shell);
 		expand(shell);
+		squish(shell);
+		token_lst(shell);
+		valid(shell);
 	}
 }

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include <string.h>
 
 t_mode	*g_modes;
 
@@ -26,11 +25,10 @@ void	reset(t_shell *shell)
 	shell->err = 0;
 	shell->begin = 0;
 	shell->status = 0;
+	shell->end = 0;
 	g_modes->input_mode = 0;
 	g_modes->output_mode = 0;
-	free_av(&(shell->av));
-	ft_lstclear(&shell->token, del);
-	free(shell->s);
+	free_all(shell);
 }
 
 int	main(const int ac, char **av, char **nv)
@@ -48,5 +46,5 @@ int	main(const int ac, char **av, char **nv)
 		if (shell->err == 0)
 			minishell(shell);
 	}
-	return (free_all(shell));
+	return (0);
 }

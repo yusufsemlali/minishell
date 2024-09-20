@@ -12,16 +12,17 @@
 
 #include "../includes/minishell.h"
 
-int	error(void *ptr)
+int	error(void *ptr, t_shell *shell)
 {
 	if (ptr == NULL)
 	{
 		ft_putendl_fd("exit", 0);
 		rl_clear_history();
-		free(ptr);
+		shell->end = 1;
+		free_all(shell);
 		exit(g_modes->exit_mode);
 	}
 	else if (ft_strncmp(ptr, "", 1) == 0)
-		return (1);
+		return (shell->err = 1, 1);
 	return (0);
 }

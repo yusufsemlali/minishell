@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/14 00:07:32 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/21 18:13:30 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_shell
 	t_herdoc		*herdoc;
 	t_tree			*tree;
 	t_oken			*token;
+	int				r_fd;
 	char			**env;
 }					t_shell;
 
@@ -113,11 +114,12 @@ typedef struct s_var
 
 typedef struct s_mode
 {
-	unsigned char	exit_mode;
 	int				input_mode;
+	int				exit_mode;
 	int				output_mode;
-  int       herdoc_mode;
+	int				has_pipe;
 	t_herdoc		*herdoc;
+	int				herdoc_mode;
 }					t_mode;
 
 
@@ -127,7 +129,8 @@ void				handle_signals(int sig);
 void					free_all(t_shell *shell);
 void				free_nv(t_env **env);
 void				free_av(char ***av);
-int	        error(void *ptr, t_shell *shell);
+int					error(void *ptr, t_shell *shell);
+char				*var(char *s, t_env *nv);
 // -- parsing -- //
 void				parse(t_shell *shell);
 void				handle_signals(int sig);
@@ -160,7 +163,10 @@ void				ft_exec_rederect(t_shell *shell);
 void				ft_pipe(t_shell *shell);
 int					is_herd(char *c);
 void				ft_exec_rederect_herd(t_shell *shell, int j);
+void				ft_str_cpy(char *dest, const char *src);
+void 				free_herdoc(t_herdoc *herdoc);
 // -- built in -- //
+void				ft_exit(t_shell *shell, int i);
 void				echo(t_shell *shell);
 void				cd(t_shell *shell);
 void				env(t_shell *shell);

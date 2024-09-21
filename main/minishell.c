@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 10:45:07 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/18 10:45:07 by ysemlali         ###   ########.fr       */
+/*   Created: 2024/08/07 06:01:17 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/09/21 16:37:49 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	main(const int ac, char **av, char **nv)
 	{
 		reset(shell);
 		parse(shell);
+		shell->r_fd = 0;
 		if (shell->err == 0)
 			minishell(shell);
 	}

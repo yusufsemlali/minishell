@@ -6,14 +6,14 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:20:15 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/15 21:35:23 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/20 00:28:00 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 
-static void	ft_str_cpy(char *dest, const char *src)
+void	ft_str_cpy(char *dest, const char *src)
 {
 	int	i;
 
@@ -63,7 +63,8 @@ void	update_env(t_env *nv, char *key, char *value)
 	{
 		if (ft_strcmp(tmp->key, key) == 0)
 		{
-			// free(tmp->value);
+			if (tmp->value)
+				free(tmp->value);
 			tmp->value = (char *)malloc(sizeof(char) * (ft_strlen(value) + 1));
 			if (!tmp->value)
 				return ;
@@ -74,7 +75,7 @@ void	update_env(t_env *nv, char *key, char *value)
 	}
 }
 
-char	*get_env(t_env *nv, char *key)
+char	*get_env_cd(t_env *nv, char *key)
 {
 	t_env	*tmp;
 
@@ -100,21 +101,25 @@ void	cd(t_shell *shell)
 	if (getcwd(past_path, sizeof(past_path)) == NULL)
 	{
 		perror("getcwd :");
+		g_modes->exit_mode = 1;
 		return ;
 	}
 	if (!shell->tree->right || !ft_strcmp(shell->tree->right->op, "~"))
 	{
-		home = get_env(shell->nv, "HOME");
+		home = get_env_cd(shell->nv, "HOME");
 		if (!home)
 		{
 			printf("HOME not set\n");
+			g_modes->exit_mode = 1;
 			return ;
 		}
 		if (chdir(home))
 		{
 			perror("cd :");
+			g_modes->exit_mode = 1;
 			return ;
 		}
+		g_modes->exit_mode = 0;
 		i = 1;
 	}
 	else
@@ -122,13 +127,16 @@ void	cd(t_shell *shell)
 	if (chdir(av[1]) && !i)
 	{
 		perror("cd :");
+		g_modes->exit_mode = 1;
 		return ;
 	}
 	if (getcwd(current_path, sizeof(current_path)) == NULL)
 	{
 		perror("getcwd :");
+		g_modes->exit_mode = 1;
 		return ;
 	}
 	update_env(shell->nv, "OLDPWD", past_path);
 	update_env(shell->nv, "PWD", current_path);
+	g_modes->exit_mode = 0;
 }

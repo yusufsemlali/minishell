@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:44:55 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/18 10:44:55 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/09/21 18:10:40 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ void	parse(t_shell *shell)
 		expand(shell);
 		squish(shell);
 		token_lst(shell);
-		valid(shell);
+		// valid(shell);
 	}
 }

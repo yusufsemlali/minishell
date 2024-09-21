@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/15 21:38:43 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/21 18:17:27 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ t_tree *create_tree(t_oken *tokens)
 	if (last_redirection_pipe && last_redirection_pipe->read == 0 && last_redirection_pipe->type == PIPE)
 	{
 		last_redirection_pipe->read = 1;
+		g_modes->has_pipe = 1;
 		root = creat_node(last_redirection_pipe->value, NULL);
 		root->left = create_tree(tokens);
 		if (last_redirection_pipe->next)
@@ -109,14 +110,14 @@ t_tree *create_tree(t_oken *tokens)
 		{
 			root = creat_node(last_redirection_pipe->value, last_redirection_pipe->next->value);
 			// if (last_redirection->next->next && (last_redirection->next->next->type == PIPE || !isnt_red(last_redirection->next->next->type)))
-			if (last_redirection_pipe != tokens)
-				root->left = create_tree(tokens);
-			else if (last_redirection_pipe->next->next)
+			if (last_redirection_pipe->next->next)
 			{
 				new_token = creat_token(tokens, last_redirection_pipe);
 				root->left = create_tree(new_token);
+				ft_free_token(new_token);
 			}
-			ft_free_token(new_token);
+			else if (last_redirection_pipe != tokens)
+				root->left = create_tree(tokens);
 			tmp = last_redirection_pipe->next->next;
 			while (tmp && (tmp->type != PIPE || isnt_red(tmp->type)))
 				tmp = tmp->next;
@@ -158,8 +159,11 @@ t_herdoc	*set_up(t_tree *tree)
 			new_line = realloc(herdoc->line, (herdoc->herdoc + 1) * sizeof(char *));
 			if (new_line == NULL)
 			{
-				for (int j = 0; j < herdoc->herdoc; j++)
+				int j = 0;
+				while (j < herdoc->herdoc) {
 					free(herdoc->line[j]);
+					j++;
+				}
 				free(herdoc->line);
 				free(herdoc);
 				return NULL;
@@ -168,8 +172,12 @@ t_herdoc	*set_up(t_tree *tree)
 			herdoc->line[herdoc->herdoc] = strdup(tree->file_name);
 			if (herdoc->line[herdoc->herdoc] == NULL)
 			{
-				for (int j = 0; j < herdoc->herdoc; j++)
+				int j = 0;
+				while (j < herdoc->herdoc)
+				{
 					free(herdoc->line[j]);
+					j++;
+				}
 				free(herdoc->line);
 				free(herdoc);
 				return NULL;
@@ -203,18 +211,14 @@ int	execute(t_shell *shell)
 	tmp = shell->tree;
 	// printAST(shell->tree, 0, "root");
 	shell->herdoc = set_up(tmp);
-	if (shell->herdoc)
+	if (shell->herdoc->herdoc)
 	{
+		printf("shell->herdoc->herdoc: %d\n", shell->herdoc->herdoc);
 		shell->fd = open("tmp", O_CREAT | O_RDWR | O_TRUNC, 0644);
 		ft_exec_rederect_herd(shell, 1);
 	}
-	// t_herdoc *t = shell->herdoc;
-	// while(t->herdoc)
-	// {
-	// 	printf("herdoc: %s\n", t->line[t->herdoc - 1]);
-	// 	t->herdoc--;
-	// }
-	executing(shell);
+	if (g_modes->herdoc_mode != CTRL_C)
+		executing(shell);
 	free_herdoc(shell->herdoc);
 	ft_free_tree(shell->tree);
 	close(shell->fd);

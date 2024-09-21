@@ -6,13 +6,13 @@
 #    By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/25 21:41:51 by ysemlali          #+#    #+#              #
-#    Updated: 2024/09/13 16:27:09 by aclakhda         ###   ########.fr        #
+#    Updated: 2024/09/20 22:22:23 by aclakhda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror  -ggdb
+CFLAGS = -Wall -Wextra -Werror  -ggdb -g
 LIBS = -Llibft -lft -lreadline
 SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c \
 		    parsing/parse.c\
@@ -28,6 +28,7 @@ SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c \
 		    execution/build_in/echo.c\
 		    execution/build_in/cd.c\
 		    execution/build_in/env.c\
+			execution/build_in/exit.c\
 		    execution/env_utils.c\
 		    execution/build_in/pwd.c\
 		    execution/build_in/export_unset.c\
@@ -53,7 +54,7 @@ $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@rm -f $(OBJS)
+	@rm -rf $(OBJS)
 	@make -s -C libft clean
 
 fclean: clean

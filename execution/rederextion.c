@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:35:04 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/21 16:47:37 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/21 23:00:07 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void	ft_continue_rederect_herd(t_shell *shell)
 void	ft_exec_rederect_herd(t_shell *shell, int j)
 {
 	char		*line;
+	char		*tmp;
 	int			i;
 
 	i = 0;
@@ -125,7 +126,9 @@ void	ft_exec_rederect_herd(t_shell *shell, int j)
 					shell->herdoc->herdoc--;
 					continue;
 				}
-				line = var(line, shell->nv);
+				tmp = line;
+				if (!ft_strcmp(line = var(line, shell->nv), ""))
+					line = tmp;
 				write(shell->fd, line, ft_strlen(line));
 				write(shell->fd, "\n", 1);
 				free(line);

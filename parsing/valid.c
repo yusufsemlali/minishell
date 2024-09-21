@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:38:43 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/21 18:10:25 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/21 22:01:38 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,23 +61,23 @@ void	pipe_error(t_shell *shell, t_oken *next)
 	}
 }
 
-// void	valid(t_shell *shell)
-// {
-// 	t_oken	*token;
+void	valid(t_shell *shell)
+{
+	t_oken	*token;
 
-// 	token = shell->token;
-// 	while (token->next)
-// 	{
-// 		if (token->type == PIPE)
-// 			pipe_error(shell, token->next);
-// 		if (token->type == HEREDOC)
-// 			heredoc_error(shell, token->type, token->next);
-// 		if ((token->type == OUTPUT || token->type == INPUT
-// 				|| token->type == APPEND) && token->next->type != ARGS)
-// 			redirect_error(shell, token->type, token->next);
-// 		if (shell->err == ERR_SYNTAX)
-// 			break ;
-// 		token = token->next;
-// 	}
-// 	ft_dellast(&shell->token, del);
-// }
+	token = shell->token;
+	while (token->next)
+	{
+		if (token->type == PIPE)
+			pipe_error(shell, token->next);
+		if (token->type == HEREDOC)
+			heredoc_error(shell, token->type, token->next);
+		if ((token->type == OUTPUT || token->type == INPUT
+				|| token->type == APPEND) && token->next->type != ARGS)
+			redirect_error(shell, token->type, token->next);
+		if (shell->err == ERR_SYNTAX)
+			break ;
+		token = token->next;
+	}
+	ft_dellast(&shell->token, del);
+}

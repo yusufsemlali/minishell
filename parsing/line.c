@@ -82,7 +82,7 @@ char	*spacing(char *s)
 	j = 0;
 	while (s[i])
 	{
-		if (s[i] == '$' && !inquotes(s, i, 2) && i)
+		if (s[i] == '$' && !inquotes(s, i, 2))
 			new[j++] = -s[i++];
 		else if (metachar(s[i], s[i - 1]) && !inquotes(s, i, 0))
 		{

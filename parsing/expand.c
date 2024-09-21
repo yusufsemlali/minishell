@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-char	*get_env(t_env *nv, char *key)
+static char	*get_env(t_env *nv, char *key)
 {
 	t_env	*tmp;
 
@@ -64,21 +64,18 @@ char	*var(char *s, t_env *nv)
 
 void	expand(t_shell *shell)
 {
-	t_oken	*token;
+	char	**token;
 	char	*expand;
 
-	token = shell->token;
-	while (token)
+	token = shell->av;
+	while (*token)
 	{
-		if (token->type == ARGS && (ft_strchr(token->value, -'$')) != NULL)
+		if (ft_strchr(*token, -'$'))
 		{
-			expand = var(ft_strreplace(token->value, -'$', '$'), shell->nv);
-			if (expand)
-			{
-				free(token->value);
-				token->value = expand;
-			}
+			expand = var(ft_strreplace(*token, -'$', '$'), shell->nv);
+			free(*token);
+			*token = expand;
 		}
-		token = token->next;
+		token++;
 	}
 }

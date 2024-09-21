@@ -12,18 +12,6 @@
 
 #include "libft.h"
 
-static int	handle_free(char **new, int i)
-{
-	if (!new[i])
-	{
-		while (i-- > -1)
-			free(new[i]);
-		free(new);
-		return (-1);
-	}
-	return (0);
-}
-
 static char	*get_next_token(char **s, const char *d)
 {
 	char	*token;
@@ -40,7 +28,7 @@ static char	*get_next_token(char **s, const char *d)
 		token = ft_strndup(*s, ft_strcspn(*s, (char *)dlem));
 		*s += ft_strcspn(*s, (char *)dlem);
 	}
-	return (token);
+	return (free(dlem), token);
 }
 
 char	**ft_token(char *s, char *d)
@@ -54,15 +42,19 @@ char	**ft_token(char *s, char *d)
 	new = ft_calloc(ft_strlen(s) + 2, sizeof(char *));
 	tmp = s;
 	i = 0;
+	while (*s && ft_strchr(d, *s))
+		s++;
 	while (*s)
 	{
-		while (*s && ft_strchr(d, *s))
-			s++;
-		if (!*s)
-			break ;
-		new[i] = get_next_token(&s, d);
-		if (handle_free(new, i++) != 0)
-			return (NULL);
+		if (ft_isspace(*s))
+		{
+			while (*s && ft_strchr(d, *s))
+				s++;
+			if (!*s)
+				break ;
+			new[i++] = ft_strreplace(ft_strdup("#"), '#', -'#');
+		}
+		new[i++] = get_next_token(&s, d);
 	}
-	return (free(tmp), s = NULL, new);
+	return (free(tmp), s = NULL, new[i] = NULL, new);
 }

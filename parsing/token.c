@@ -28,7 +28,7 @@ int	t_type(char *s)
 		return (ARGS);
 }
 
-t_oken	*token_lst(t_shell *shell)
+void	token_lst(t_shell *shell)
 {
 	int		i;
 	char	*v;
@@ -46,5 +46,4 @@ t_oken	*token_lst(t_shell *shell)
 		i++;
 	}
 	ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup("END"), END));
-	return (shell->token);
 }

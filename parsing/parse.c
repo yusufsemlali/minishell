@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:44:55 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/20 21:10:50 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/21 18:10:40 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,9 @@ void	parse(t_shell *shell)
 	if (closed_checker(shell, shell->s))
 	{
 		shell->av = ft_token(spacing(shell->s), " \t\r\f\v");
-		shell->token = token_lst(shell);
-		valid(shell);
 		expand(shell);
+		squish(shell);
+		token_lst(shell);
+		// valid(shell);
 	}
 }

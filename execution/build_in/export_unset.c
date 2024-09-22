@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:03:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/19 21:14:15 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/22 01:04:35 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,26 @@ int	is_space(char c)
 	return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r');
 }
 
+void	print_env(t_shell *shell)
+{
+	t_env	*tmp;
+
+	tmp = shell->nv;
+	while (tmp)
+	{
+		ft_putstr_fd("declare -x ", STDOUT);
+		ft_putstr_fd(tmp->key, STDOUT);
+		if (tmp->value)
+		{
+			ft_putstr_fd("=\"", STDOUT);
+			ft_putstr_fd(tmp->value, STDOUT);
+			ft_putstr_fd("\"", STDOUT);
+		}
+		ft_putstr_fd("\n", STDOUT);
+		tmp = tmp->next;
+	}
+}
+
 void	export(t_shell *shell)
 {
 	char	*arr[1024];
@@ -83,7 +103,10 @@ void	export(t_shell *shell)
 	if (g_modes->has_pipe)
 		return ;
 	if (create_arr(arr, shell))
+	{
+		print_env(shell);
 		return ;
+	}
 	while (arr[i])
 	{
 		j = 0;

@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 06:01:17 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/21 16:37:49 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/22 00:51:42 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ void	reset(t_shell *shell)
 	shell->end = 0;
 	g_modes->input_mode = 0;
 	g_modes->output_mode = 0;
+	g_modes->has_pipe = 0;
 	free_all(shell);
+	shell->s = NULL;
 }
 
 int	main(const int ac, char **av, char **nv)

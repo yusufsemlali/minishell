@@ -40,7 +40,7 @@ void	squish(t_shell *shell)
 	av = ft_calloc(len_av(shell->av) + 1, sizeof(char *));
 	while (*shell->av)
 	{
-		while (*shell->av &&  !ft_strchr(*shell->av, -'#'))
+		while (*shell->av && !ft_strchr(*shell->av, -'#'))
 		{
 			ft_strlcat(buf, *shell->av, 1024);
 			free(*shell->av);

@@ -36,16 +36,11 @@ int	closed_checker(t_shell *shell, char *s)
 	return (1);
 }
 
-char	*get_line(void)
-{
-	if (g_modes->exit_mode == 0)
-		return (readline("🤍 \033[1;36mminishell \033[1;93m✗ \033[0m "));
-	return (readline("🖤 \033[1;36mminishell \033[1;93m✗ \033[0m "));
-}
+
 
 void	parse(t_shell *shell)
 {
-	shell->s = get_line();
+	shell->s = readline("\033[1;36mminishell \033[1;93m✗ \033[0m ");
 	if (error(shell->s, shell))
 		return ;
 	add_history(shell->s);
@@ -55,6 +50,6 @@ void	parse(t_shell *shell)
 		expand(shell);
 		squish(shell);
 		token_lst(shell);
-		// valid(shell);
+		valid(shell);
 	}
 }

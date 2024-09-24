@@ -219,6 +219,8 @@ int	execute(t_shell *shell)
 	if (g_modes->herdoc_mode != CTRL_C)
 		executing(shell);
 	free_herdoc(shell->herdoc);
+  if (shell->fd != 0)
+    close(shell->fd);
 	ft_free_tree(shell->tree);
 	if (shell->fd)
 		close(shell->fd);

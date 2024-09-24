@@ -51,7 +51,6 @@ void	pipe_error(t_shell *shell, t_oken *next)
 		return ;
 	if ((next->type != CMD && next->type != HEREDOC) || next->type == END)
 	{
-		printf("next->type: %d\n", next->type);
 		shell->err = ERR_SYNTAX;
 		if (next->type == END)
 			printf("minishell: syntax error near unexpected token `|'\n");
@@ -75,6 +74,8 @@ void	valid(t_shell *shell)
 		if ((token->type == OUTPUT || token->type == INPUT
 				|| token->type == APPEND) && token->next->type != ARGS)
 			redirect_error(shell, token->type, token->next);
+		if (ft_strcmp(token->value, "export") == 0 && token->next->type == ARGS)
+			export_error(shell, token->next);
 		if (shell->err == ERR_SYNTAX)
 			break ;
 		token = token->next;

@@ -26,6 +26,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <termios.h>
 
 # define ARGS 0    // arguments
 # define PIPE 1    // "|"
@@ -115,11 +116,12 @@ typedef struct s_var
 typedef struct s_mode
 {
 	int				input_mode;
+  pid_t       pid;
 	int				exit_mode;
 	int				output_mode;
 	int				has_pipe;
-	t_herdoc		*herdoc;
 	int				herdoc_mode;
+	t_herdoc		*herdoc;
 }					t_mode;
 
 
@@ -141,6 +143,7 @@ void        token_lst(t_shell *shell);
 void				valid(t_shell *shell);
 void        expand(t_shell *shell);
 void        squish(t_shell *shell);
+void        export_error(t_shell *shell, t_oken *next);
 //---execution---//
 int					execute(t_shell *shell);
 int					ft_size(char **av);

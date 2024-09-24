@@ -34,7 +34,7 @@ int	get_var(char *s, char *buf, t_env *nv)
 	if (ft_strncmp(s, "$?", 2) == 0)
 		return (ft_strlcat(buf, ft_itoa(g_modes->exit_mode), 1024), 2);
 	else if (ft_strncmp(s, "$$", 2) == 0)
-		return (ft_strlcat(buf, ft_itoa(getpid()), BUFFER_SIZE), 2);
+		return (ft_strlcat(buf, "$$", BUFFER_SIZE), 2);
 	else if (ft_strncmp(s, "$#", 2) == 0)
 		return (ft_strlcat(buf, "0", BUFFER_SIZE), 2);
 	else if (ft_strcmp(s, "$") == 0)

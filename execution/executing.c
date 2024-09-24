@@ -6,10 +6,9 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:26:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/20 21:16:55 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:19:27 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../includes/minishell.h"
 
@@ -58,42 +57,57 @@ void	cmd_maker(t_shell *shell, char **av)
 	av[i] = NULL;
 }
 
+void	copy_to_stack(char *src, char *dest, size_t dest_size)
+{
+	if (src == NULL || dest == NULL)
+		return ;
+	ft_strncpy(dest, src, dest_size - 1);
+	dest[dest_size - 1] = '\0';
+}
+
 void	ft_exec_bin(t_shell *shell)
 {
 	t_var	var;
 
-	var.pid = fork();
-	if (var.pid == -1)
+	g_modes->pid = fork();
+	if (g_modes->pid == -1)
 	{
 		perror("fork");
 		return ;
 	}
-	if (var.pid == 0)
+	if (g_modes->pid == 0)
 	{
 		cmd_maker(shell, var.av);
 		var.cmd_path = find_cmd_path(var.av);
 		if (!var.cmd_path)
 		{
 			printf("command not found\n");
-			var.av[0] = strdup("/bin/sh");
-			var.av[1] = strdup("-c");
-			var.av[2] = strdup("exit 42");
+			var.av[0] = "/bin/sh";
+			var.av[1] = "-c";
+			var.av[2] = "exit 42";
 			var.av[3] = NULL;
 			execve("/bin/sh", var.av, NULL);
 		}
 		var.env = creat_env(shell->nv);
-		if ((int)(g_modes->exit_mode = execve(var.cmd_path, var.av, var.env)) == -1)
-			perror("execve");
+		copy_to_stack(var.cmd_path, var.cpy_cmd_path, ft_strlen(var.cmd_path) + 1);
 		free(var.cmd_path);
-		s_free(var.env);
-		ft_exit(shell, 1);
+		if ((int)(g_modes->exit_mode = execve(var.cpy_cmd_path, var.av, var.env)) == -1)
+			perror("execve");
+		lazy_free(var.env, env_size(shell->nv));
+		lazy_free(var.av, ft_size(var.av));
+		free_all_shell(shell, 0);
 	}
 	else
-		waitpid(var.pid, &g_modes->exit_mode, 0);
+		waitpid(g_modes->pid, &g_modes->exit_mode, 0);
 	if (g_modes->exit_mode == 10752)
 		g_modes->exit_mode = 127;
 	else
-		g_modes->exit_mode = WIFEXITED(g_modes->exit_mode) ? WEXITSTATUS(g_modes->exit_mode) : 1;
+	{
+		if (WIFEXITED(g_modes->exit_mode))
+			g_modes->exit_mode = WEXITSTATUS(g_modes->exit_mode);
+		else
+			g_modes->exit_mode = 1;
+	}
 }
 
 void	ft_exec_cmd(t_shell *shell)
@@ -114,7 +128,7 @@ void	ft_exec_cmd(t_shell *shell)
 	else if (ft_strcmp(shell->tree->op, "unset") == 0)
 		unset(shell);
 	else if (ft_strcmp(shell->tree->op, "exit") == 0)
-		ft_exit(shell, 1);
+		ft_exit(shell, 1, 1);
 }
 
 void	executing(t_shell *shell)

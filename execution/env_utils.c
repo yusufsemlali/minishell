@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 12:27:46 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/06 16:24:51 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:25:14 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ char	**creat_env(t_env *nv)
 	while (tmp)
 	{
 		env[i] = ft_strjoin(tmp->key, "=");
-		if (!env[i] || (tmp->value && !(env[i] = ft_strjoin(env[i], tmp->value))))
+		if (!env[i] || (tmp->value && \
+			!(env[i] = ft_strjoin(env[i], tmp->value))))
 		{
 			lazy_free(env, i);
 			return (NULL);

@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/21 22:01:53 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:18:33 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct s_shell
 typedef struct s_var
 {
 	int				i;
+	int				j;
 	int				has_pipe;
 	int				has_rederect;
 	int				has_herd;
@@ -110,6 +111,10 @@ typedef struct s_var
 	char			**env;
 	int				size;
 	pid_t			pid;
+	char			*cpy_av[CMD_MAX_LENGTH];
+	char			*cpy_env[CMD_MAX_LENGTH];
+	char			*cpy_cmd_path;
+
 }					t_var;
 
 typedef struct s_mode
@@ -120,6 +125,7 @@ typedef struct s_mode
 	int				has_pipe;
 	t_herdoc		*herdoc;
 	int				herdoc_mode;
+	pid_t			pid;
 }					t_mode;
 
 
@@ -164,9 +170,11 @@ void				ft_pipe(t_shell *shell);
 int					is_herd(char *c);
 void				ft_exec_rederect_herd(t_shell *shell, int j);
 void				ft_str_cpy(char *dest, const char *src);
+char				*ft_strncpy(char *dest, char *src, unsigned int n);
 void 				free_herdoc(t_herdoc *herdoc);
 // -- built in -- //
-void				ft_exit(t_shell *shell, int i);
+void				ft_exit(t_shell *shell, int i, int j);
+void				free_all_shell(t_shell *shell, int i);
 void				echo(t_shell *shell);
 void				cd(t_shell *shell);
 void				env(t_shell *shell);

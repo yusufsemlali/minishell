@@ -6,10 +6,9 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:46:55 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/11 21:44:42 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/23 16:55:57 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../includes/minishell.h"
 
@@ -65,6 +64,7 @@ void	ft_free_tree(t_tree *root)
 	if (root->file_name)
 		free(root->file_name);
 	free(root);
+	root = NULL;
 }
 
 char	*ft_strcat(char *dest, char *src)
@@ -82,19 +82,5 @@ char	*ft_strcat(char *dest, char *src)
 		y++;
 	}
 	dest[x + y] = '\0';
-	return (dest);
-}
-
-char	*ft_strcpy(char *dest, char *src)
-{
-	int	z;
-
-	z = 0;
-	while (src[z])
-	{
-		dest[z] = src[z];
-		z++;
-	}
-	dest[z] = '\0';
 	return (dest);
 }

@@ -40,7 +40,10 @@ int	closed_checker(t_shell *shell, char *s)
 
 void	parse(t_shell *shell)
 {
-	shell->s = readline("\033[1;36mminishell \033[1;93m✗ \033[0m ");
+  if (g_modes->exit_mode != 0)
+	  shell->s = readline("🤬 \033[1;36mminishell \033[1;93m✗ \033[0m ");
+  else
+    shell->s= readline("😀 \033[1;36mminishell \033[1;93m✗ \033[0m ");
 	if (error(shell->s, shell))
 		return ;
 	add_history(shell->s);

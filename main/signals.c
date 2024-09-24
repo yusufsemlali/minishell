@@ -23,10 +23,6 @@ void	handle_signals(int sig)
 		  rl_replace_line("", 0);
       rl_redisplay();
 		  g_modes->exit_mode = CTRL_C;
-      if (g_modes->herdoc_mode == CTRL_C)
-        g_modes->herdoc_mode = 0;
-      else
-        g_modes->herdoc_mode = CTRL_C;
     }
     else {
       ft_putstr_fd("\n", 1);

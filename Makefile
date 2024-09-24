@@ -17,7 +17,6 @@ LIBS = -Llibft -lft -lreadline
 SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c \
 		    parsing/parse.c\
 		    parsing/token.c\
-		    parsing/exit.c\
 		    parsing/line.c\
 		    parsing/valid.c\
 				parsing/squish.c\

@@ -116,7 +116,7 @@ typedef struct s_var
 typedef struct s_mode
 {
 	int				input_mode;
-  int       pid;
+  pid_t       pid;
 	int				exit_mode;
 	int				output_mode;
 	int				has_pipe;

@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:03:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/22 01:04:35 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:30:24 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	create_arr(char **arr, t_shell *shell)
 		return (1);
 	i = 0;
 	tmp = shell->tree->right;
-	while(tmp)
+	while (tmp)
 	{
 		arr[i] = tmp->op;
 		tmp = tmp->right;
@@ -67,7 +67,9 @@ void	create_env(char *key, char *value, t_shell *shell)
 
 int	is_space(char c)
 {
-	return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r');
+	return (c == ' ' || c == '\t' || \
+		c == '\n' || c == '\v' || c == \
+			'\f' || c == '\r');
 }
 
 void	print_env(t_shell *shell)
@@ -135,8 +137,9 @@ void	export(t_shell *shell)
 void	found_key(t_shell *shell, char *key)
 {
 	t_env	*tmp;
-	t_env	*prev = NULL;
+	t_env	*prev;
 
+	prev = NULL;
 	tmp = shell->nv;
 	while (tmp)
 	{
@@ -153,7 +156,7 @@ void	found_key(t_shell *shell, char *key)
 		}
 		prev = tmp;
 		tmp = tmp->next;
-    }
+	}
 }
 
 void	unset(t_shell *shell)

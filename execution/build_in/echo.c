@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:29:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/11 00:40:16 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:30:45 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	is_flag(char *av)
 	return (1);
 }
 
-void echo(t_shell *shell)
+void	echo(t_shell *shell)
 {
 	t_tree	*tmp;
 	int		flag;

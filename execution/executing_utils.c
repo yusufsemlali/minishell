@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 20:54:13 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/11 21:54:17 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/23 16:59:40 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,11 @@ int	check_cmd(t_shell *shell)
 	return (0);
 }
 
-int		is_rederaction(char *c)
+int	is_rederaction(char *c)
 {
 	if (!ft_strcmp(c, ">") \
 		|| !ft_strcmp(c, "<") \
-			|| !ft_strcmp(c, ">>")
-				|| !ft_strcmp(c, "<<"))
+			|| !ft_strcmp(c, ">>") || !ft_strcmp(c, "<<"))
 		return (1);
 	return (0);
 }

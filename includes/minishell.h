@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/24 15:18:33 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/25 00:22:34 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_tree
 	char			*file_name;
 	struct s_tree	*left;
 	struct s_tree	*right;
+	int				mark;
 }					t_tree;
 
 typedef struct s_herdoc
@@ -121,13 +122,13 @@ typedef struct s_var
 typedef struct s_mode
 {
 	int				input_mode;
-  pid_t       pid;
 	int				exit_mode;
 	int				output_mode;
 	int				has_pipe;
 	int				herdoc_mode;
 	t_herdoc		*herdoc;
 	pid_t			pid;
+	int				pipe_count;
 }					t_mode;
 
 
@@ -175,6 +176,17 @@ void				ft_exec_rederect_herd(t_shell *shell, int j);
 void				ft_str_cpy(char *dest, const char *src);
 char				*ft_strncpy(char *dest, char *src, unsigned int n);
 void 				free_herdoc(t_herdoc *herdoc);
+t_tree				*create_tree(t_oken *tokens);
+t_tree				*creat_tree_red(t_oken *tokens, t_oken *last_r_pip);
+t_tree				*creat_tree_pipe(t_oken *tokens, t_oken *last_red_p);
+t_tree				*creat_tree_pipe(t_oken *tokens, t_oken *last_red_p);
+t_oken				*creat_token(t_oken *tokens, t_oken *last_redirection);
+t_tree				*creat_node(char *str, char *file_name);
+t_oken				*last_p_r(t_oken *tokens);
+void				free_herdoc(t_herdoc *herdoc);
+void				ft_free_token(t_oken *token);
+int					set(t_oken *token);
+int					isnt_red(int type);
 // -- built in -- //
 void				ft_exit(t_shell *shell, int i, int j);
 void				free_all_shell(t_shell *shell, int i);

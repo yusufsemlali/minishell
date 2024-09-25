@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 06:01:17 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/25 00:33:31 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:48:07 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main(const int ac, char **av, char **nv)
 		init(&shell, ac, av, NULL);
 	else
 		init(&shell, ac, av, nv);
-  ctrl_c_remove();
+	ctrl_c_remove();
 	while (shell->status == 0)
 	{
 		reset(shell);

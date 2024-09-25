@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 16:56:19 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/25 00:10:09 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/25 21:20:11 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,13 @@ int	isnt_red(int type)
 
 void	ft_free_token(t_oken *token)
 {
+	t_oken	*tmp;
+
 	while (token)
 	{
+		tmp = token->next;
 		free(token->value);
 		free(token);
-		token = token->next;
+		token = tmp;
 	}
 }

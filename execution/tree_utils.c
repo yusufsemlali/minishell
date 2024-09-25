@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 00:00:54 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/25 00:34:41 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/25 17:43:17 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ t_tree	*creat_node(char *str, char *file_name)
 	t_tree	*node;
 
 	node = malloc(sizeof(t_tree));
-	node->op = strdup(str);
+	node->op = ft_strdup(str);
 	if (file_name)
 		node->file_name = ft_strdup(file_name);
 	else
@@ -116,7 +116,7 @@ t_oken	*creat_token(t_oken *tokens, t_oken *last_redirection)
 	new = NULL;
 	while (current != last_redirection)
 	{
-		new = ft_lstnew(strdup(current->value), current->type);
+		new = ft_lstnew(ft_strdup(current->value), current->type);
 		new->read = current->read;
 		ft_lstadd_back(&tmp, new);
 		current = current->next;
@@ -124,7 +124,7 @@ t_oken	*creat_token(t_oken *tokens, t_oken *last_redirection)
 	current = last_redirection->next->next;
 	while (current && current->type != PIPE && isnt_red(current->type))
 	{
-		new = ft_lstnew(strdup(current->value), current->type);
+		new = ft_lstnew(ft_strdup(current->value), current->type);
 		new->read = current->read;
 		ft_lstadd_back(&tmp, new);
 		current = current->next;

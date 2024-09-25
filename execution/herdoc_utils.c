@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 00:07:08 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/25 00:08:19 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/25 20:04:19 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	free_herdoc(t_herdoc *herdoc)
 		}
 		free(herdoc->line);
 		free(herdoc);
+		herdoc = NULL;
 	}
 }
 

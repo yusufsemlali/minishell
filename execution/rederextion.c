@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:35:04 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/24 20:06:06 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/25 17:51:33 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,11 +145,22 @@ void	ft_exec_rederect_herd(t_shell *shell, int j)
 						continue ;
 					}
 					tmp = line;
-					if (!ft_strcmp(line = var(line, shell->nv), ""))
+					line = var(line, shell->nv);
+					if (!ft_strcmp(line, ""))
+					{
+						free(line);
 						line = tmp;
+					}
+					else
+						free(tmp);
 					write(shell->fd, line, ft_strlen(line));
 					write(shell->fd, "\n", 1);
 					free(line);
+				}
+				else
+				{
+					g_modes->exit_mode = 0;
+					exit(g_modes->exit_mode);
 				}
 			}
 			if (!shell->herdoc->herdoc || g_modes->herdoc_mode != CTRL_C)

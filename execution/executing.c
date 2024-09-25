@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:26:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/24 22:37:26 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/25 21:10:46 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,21 @@ void	copy_to_stack(char *src, char *dest, size_t dest_size)
 	dest[dest_size - 1] = '\0';
 }
 
+void	free_av1(char **av)
+{
+	int i;
+
+	if (!av)
+		return;
+	i = 0;
+	while (av[i])
+	{
+		free(av[i]);
+		i++;
+	}
+	free(av);
+}
+
 void	ft_exec_bin(t_shell *shell)
 {
 	t_var	var;
@@ -90,16 +105,19 @@ void	ft_exec_bin(t_shell *shell)
 			execve("/bin/sh", var.av, NULL);
 		}
 		var.env = creat_env(shell->nv);
-		if ((int)(g_modes->exit_mode = execve(var.cmd_path, var.av, var.env)) ==
-			-1)
+		// copy_to_stack(var.cmd_path, var.cpy_cmd_path, ft_strlen(var.cmd_path) + 1);
+		if ((int)(g_modes->exit_mode = execve(var.cmd_path, var.av, var.env)) == -1)
+		{
 			perror("execve");
-		copy_to_stack(var.cmd_path, var.cpy_cmd_path, ft_strlen(var.cmd_path) + 1);
-		free(var.cmd_path);
-		if ((int)(g_modes->exit_mode = execve(var.cpy_cmd_path, var.av, var.env)) == -1)
-			perror("execve");
-		lazy_free(var.env, env_size(shell->nv));
-		lazy_free(var.av, ft_size(var.av));
-		free_all_shell(shell, 0);
+			free(var.cmd_path);
+			lazy_free(var.env, env_size(shell->nv));
+			// free_av1(var.av);
+			exit(1);
+		}
+		// free(var.cmd_path);
+		// lazy_free(var.env, env_size(shell->nv));
+		// lazy_free(var.av, ft_size(var.av));
+		// exit(1);
 	}
 	else
 		waitpid(g_modes->pid, &g_modes->exit_mode, 0);

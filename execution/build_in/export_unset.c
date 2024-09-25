@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:03:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/23 17:30:24 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/25 23:10:49 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,16 +92,40 @@ void	print_env(t_shell *shell)
 	}
 }
 
-void	export(t_shell *shell)
+int	process_export_entry(char *entry, t_shell *shell)
 {
-	char	*arr[1024];
-	int		i;
 	int		j;
 	char	*key;
 	char	*value;
 
-	i = 0;
 	j = 0;
+	while (entry[j])
+	{
+		if (is_space(entry[j]))
+		{
+			ft_putstr_fd("export : not a valid identifier\n", STDERR);
+			g_modes->exit_mode = 1;
+			return (-1);
+		}
+		if (entry[j] == '=')
+		{
+			key = ft_substr(entry, 0, j);
+			value = ft_substr(entry, j + 1, ft_strlen(entry) - (j + 1));
+			create_env(key, value, shell);
+			g_modes->exit_mode = 0;
+			break ;
+		}
+		j++;
+	}
+	return (0);
+}
+
+void	export(t_shell *shell)
+{
+	char	*arr[1024];
+	int		i;
+
+	i = 0;
 	if (g_modes->has_pipe)
 		return ;
 	if (create_arr(arr, shell))
@@ -111,25 +135,8 @@ void	export(t_shell *shell)
 	}
 	while (arr[i])
 	{
-		j = 0;
-		while (arr[i][j])
-		{
-			if (is_space(arr[i][j]))
-			{
-				ft_putstr_fd("export : not a valide identifier\n", STDERR);
-				g_modes->exit_mode = 1;
-				return ;
-			}
-			if (arr[i][j] == '=')
-			{
-				key = ft_substr(arr[i], 0, j);
-				value = ft_substr(arr[i], j + 1, ft_strlen(arr[i]) - (j + 1));
-				create_env(key, value, shell);
-				g_modes->exit_mode = 0;
-				break ;
-			}
-			j++;
-		}
+		if (process_export_entry(arr[i], shell) == -1)
+			return ;
 		i++;
 	}
 }

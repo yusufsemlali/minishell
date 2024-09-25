@@ -6,16 +6,13 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 06:01:17 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/25 16:48:07 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/25 22:07:41 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 t_mode	*g_modes;
-
-
-
 
 void	ctrl_c_remove(void)
 {

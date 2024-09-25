@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:22:54 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/25 21:30:01 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/25 23:14:36 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	child_process(int fd[], t_shell *shell)
 	int		stdout_copy;
 	t_tree	*tmp;
 
-	printf("child %s\n", shell->tree->left->op);
 	tmp = shell->tree;
 	stdout_copy = dup(STDOUT);
 	close(fd[0]);

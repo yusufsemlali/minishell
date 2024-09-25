@@ -12,9 +12,8 @@
 
 #include "../includes/minishell.h"
 
-int	metachar(char c, char prev)
+int	metachar(char c)
 {
-	(void)prev;
 	return (ft_strchr("|<>", c) != NULL);
 }
 
@@ -41,36 +40,6 @@ int	inquotes(char *s, int i, int x)
 		return (one % 2 == 0 && two % 2 != 0);
 	return (one % 2 != 0 || two % 2 != 0);
 }
-/*
-int	new_line(char *s)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (s[i])
-	{
-		if (i && metachar(s[i], s[i - 1]) && !inquotes(s, i, 0))
-			count++;
-		i++;
-	}
-	// return (ft_calloc(i + (count * 2) + 1, sizeof(char)));
-	return(i + (count * 2) + 1);
-}
-*/
-
-/*
-char	*spacing(char *s)
-{
-  char new[ BUFFER_SIZE ];
-
-  if (!s)
-	return (ft_strdup(new));
-  if (*s ==
-  spacing(s);
-}
-*/
 
 char	*spacing(char *s)
 {
@@ -80,11 +49,12 @@ char	*spacing(char *s)
 
 	i = 0;
 	j = 0;
-	while (s[i])
+	bzero(new, BUFFER_SIZE);
+	while (s[i] && i < BUFFER_SIZE)
 	{
 		if (s[i] == '$' && !inquotes(s, i, 2))
 			new[j++] = -s[i++];
-		else if (metachar(s[i], s[i - 1]) && !inquotes(s, i, 0))
+		else if (metachar(s[i]) && !inquotes(s, i, 0))
 		{
 			new[j++] = ' ';
 			new[j++] = s[i++];
@@ -95,6 +65,5 @@ char	*spacing(char *s)
 		else
 			new[j++] = s[i++];
 	}
-	new[j] = '\0';
 	return (ft_strdup(new));
 }

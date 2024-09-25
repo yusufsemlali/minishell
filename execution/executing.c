@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:26:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/25 21:10:46 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/25 23:08:14 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	ft_exec_bin(t_shell *shell)
 	{
 		cmd_maker(shell, var.av);
 		var.cmd_path = find_cmd_path(var.av);
-		if (!var.cmd_path)
+		if (!var.cmd_path && ft_strcmp(var.av[0], "./minishell") != 0)
 		{
 			printf("command not found\n");
 			var.av[0] = "/bin/sh";
@@ -105,19 +105,13 @@ void	ft_exec_bin(t_shell *shell)
 			execve("/bin/sh", var.av, NULL);
 		}
 		var.env = creat_env(shell->nv);
-		// copy_to_stack(var.cmd_path, var.cpy_cmd_path, ft_strlen(var.cmd_path) + 1);
 		if ((int)(g_modes->exit_mode = execve(var.cmd_path, var.av, var.env)) == -1)
 		{
 			perror("execve");
 			free(var.cmd_path);
 			lazy_free(var.env, env_size(shell->nv));
-			// free_av1(var.av);
 			exit(1);
 		}
-		// free(var.cmd_path);
-		// lazy_free(var.env, env_size(shell->nv));
-		// lazy_free(var.av, ft_size(var.av));
-		// exit(1);
 	}
 	else
 		waitpid(g_modes->pid, &g_modes->exit_mode, 0);

@@ -14,6 +14,9 @@
 
 int	validate(char *s, t_shell *shell)
 {
+	char	*tmp;
+
+	tmp = s;
 	if (ft_isdigit(s[0]) || s[0] == '=')
 	{
 		printf("minishell: export: `%s': not a valid identifier\n", s);
@@ -28,7 +31,7 @@ int	validate(char *s, t_shell *shell)
 			|| *s == '|' || *s == '<' || *s == '>' || *s == '?' || *s == ','
 			|| *s == '.' || *s == '/' || *s == ' ')
 		{
-			printf("minishell: export: `%s': not a valid identifier\n", s);
+			printf("minishell: export: `%s': not a valid identifier\n", tmp);
 			return (shell->err = 1, g_modes->exit_mode = 1);
 		}
 		s++;

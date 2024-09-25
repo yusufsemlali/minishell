@@ -128,6 +128,7 @@ void	ft_exec_rederect_herd(t_shell *shell, int j)
 		g_modes->pid = fork();
 		if (g_modes->pid == 0)
 		{
+      signal(SIGINT, SIG_DFL);
 			while (shell->herdoc->herdoc && g_modes->herdoc_mode != CTRL_C)
 			{
 				line = readline("> ");
@@ -147,6 +148,8 @@ void	ft_exec_rederect_herd(t_shell *shell, int j)
 					write(shell->fd, "\n", 1);
 					free(line);
 				}
+        else 
+          break;
 			}
 			if (!shell->herdoc->herdoc || g_modes->herdoc_mode != CTRL_C)
 				g_modes->exit_mode = 0;

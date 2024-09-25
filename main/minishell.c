@@ -14,9 +14,6 @@
 
 t_mode	*g_modes;
 
-
-
-
 void	ctrl_c_remove(void)
 {
 	struct termios	t;
@@ -40,9 +37,10 @@ void	reset(t_shell *shell)
 	shell->end = 0;
 	g_modes->input_mode = 0;
 	g_modes->output_mode = 0;
-  g_modes->herdoc_mode = 0;
+	g_modes->herdoc_mode = 0;
 	g_modes->has_pipe = 0;
 	g_modes->herdoc_mode = 0;
+	g_modes->pid = 0;
 	free_all(shell);
 	shell->s = NULL;
 }
@@ -55,7 +53,7 @@ int	main(const int ac, char **av, char **nv)
 		init(&shell, ac, av, NULL);
 	else
 		init(&shell, ac, av, nv);
-  ctrl_c_remove();
+	ctrl_c_remove();
 	while (shell->status == 0)
 	{
 		reset(shell);

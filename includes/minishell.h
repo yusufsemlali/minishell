@@ -25,8 +25,8 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-# include <unistd.h>
 # include <termios.h>
+# include <unistd.h>
 
 # define ARGS 0    // arguments
 # define PIPE 1    // "|"
@@ -35,8 +35,8 @@
 # define INPUT 4   // "<"
 # define APPEND 5  // ">>"
 # define HEREDOC 6 // "<<"
-# define END 7 // ""
-# define DLEM 8 // delimiters
+# define END 7     // ""
+# define DLEM 8    // delimiters
 
 # define STDIN 0
 # define STDOUT 1
@@ -56,8 +56,16 @@
 // error custom
 # define ERR_SYNTAX 258 // syntax error
 
-# define BUFFER_SIZE 1024
+# define BUFFER_SIZE 40960 // 40 KB
 # define CMD_MAX_LENGTH 1024
+
+// ANSI color codes for ayu dark theme
+# define COLOR_BLUE "\033[0;34m"  // Blue
+# define COLOR_GREEN "\033[0;92m" // Bright green
+# define COLOR_RED "\033[0;91m"   // Bright red
+# define COLOR_RESET "\033[0m"    // Reset color
+# define BOLD_ON "\e[1m"
+# define BOLD_OFF "\e[m"
 
 typedef struct s_tree
 {
@@ -90,7 +98,7 @@ typedef struct s_shell
 	int				fd;
 	int				err;
 	int				begin;
-  int       end;
+	int				end;
 	t_herdoc		*herdoc;
 	t_tree			*tree;
 	t_oken			*token;
@@ -121,20 +129,18 @@ typedef struct s_var
 typedef struct s_mode
 {
 	int				input_mode;
-  pid_t       pid;
+	pid_t			pid;
 	int				exit_mode;
 	int				output_mode;
 	int				has_pipe;
 	int				herdoc_mode;
 	t_herdoc		*herdoc;
-	pid_t			pid;
 }					t_mode;
-
 
 // -- main -- //
 void				init(t_shell **shell, int ac, char **av, char **nv);
 void				handle_signals(int sig);
-void					free_all(t_shell *shell);
+void				free_all(t_shell *shell);
 void				free_nv(t_env **env);
 void				free_av(char ***av);
 int					error(void *ptr, t_shell *shell);
@@ -143,13 +149,14 @@ char				*var(char *s, t_env *nv);
 void				parse(t_shell *shell);
 void				handle_signals(int sig);
 int					inquotes(char *s, int i, int x);
-int					metachar(char c, char prev);
+int					metachar(char c);
 char				*spacing(char *s);
-void        token_lst(t_shell *shell);
+char				*get_env(t_env *nv, char *key);
+void				token_lst(t_shell *shell);
 void				valid(t_shell *shell);
-void        expand(t_shell *shell);
-void        squish(t_shell *shell);
-void        export_error(t_shell *shell, t_oken *next);
+void				expand(t_shell *shell);
+void				squish(t_shell *shell);
+void				export_error(t_shell *shell, t_oken *next);
 //---execution---//
 int					execute(t_shell *shell);
 int					ft_size(char **av);
@@ -174,7 +181,7 @@ int					is_herd(char *c);
 void				ft_exec_rederect_herd(t_shell *shell, int j);
 void				ft_str_cpy(char *dest, const char *src);
 char				*ft_strncpy(char *dest, char *src, unsigned int n);
-void 				free_herdoc(t_herdoc *herdoc);
+void				free_herdoc(t_herdoc *herdoc);
 // -- built in -- //
 void				ft_exit(t_shell *shell, int i, int j);
 void				free_all_shell(t_shell *shell, int i);

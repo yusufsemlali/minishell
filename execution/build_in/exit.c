@@ -70,7 +70,7 @@ void	exit_pipe(t_shell *shell)
 		}
 		if (shell->tree->right->right && !i)
 		{
-			ft_putstr_fd("minishell: exit: too many arguments\n", \
+			ft_putstr_fd("minishell: exit: too many arguments\n",
 				STDERR_FILENO);
 			g_modes->exit_mode = 1;
 			return ;
@@ -108,7 +108,11 @@ void	ft_exit(t_shell *shell, int i, int j)
 	if (shell->tree->right && j)
 	{
 		if (is_numeric(shell->tree->right->op) && !shell->tree->right->right)
+		{
 			g_modes->exit_mode = ft_atoi(shell->tree->right->op);
+			if (ft_atoi(shell->tree->right->op) == LONG_MAX)
+				return (handle_exit_error(shell, shell->tree->right->op, 2));
+		}
 		else if (!is_numeric(shell->tree->right->op))
 			return (handle_exit_error(shell, shell->tree->right->op, 2));
 		if (shell->tree->right->right && is_numeric(shell->tree->right->op))

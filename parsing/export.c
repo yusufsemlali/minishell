@@ -31,7 +31,7 @@ int	validate(char *s, t_shell *shell)
 			printf("minishell: export: `%s': not a valid identifier\n", s);
 			return (shell->err = 1, g_modes->exit_mode = 1);
 		}
-    s++;
+		s++;
 	}
 	return (0);
 }

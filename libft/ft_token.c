@@ -12,6 +12,29 @@
 
 #include "libft.h"
 
+static int	getcount(char *s)
+{
+	int	count;
+
+	count = 0;
+	while (*s)
+	{
+		if (ft_isspace(*s))
+		{
+			count++;
+			while (*s && ft_isspace(*s))
+				s++;
+		}
+		if (*s)
+		{
+			count++;
+			while (*s && !ft_isspace(*s))
+				s++;
+		}
+	}
+	return (count);
+}
+
 static char	*get_next_token(char **s, const char *d)
 {
 	char	*token;
@@ -39,7 +62,7 @@ char	**ft_token(char *s, char *d)
 
 	if (!s || !d)
 		return (NULL);
-	new = ft_calloc(ft_strlen(s) + 2, sizeof(char *));
+	new = ft_calloc(getcount(s) + 2, sizeof(char *));
 	tmp = s;
 	i = 0;
 	while (*s && ft_strchr(d, *s))
@@ -52,9 +75,9 @@ char	**ft_token(char *s, char *d)
 				s++;
 			if (!*s)
 				break ;
-			new[i++] = ft_strreplace(ft_strdup("#"), '#', -'#');
+			new[i++] = ft_strreplace(ft_strdup("#"), '#', - '#');
 		}
 		new[i++] = get_next_token(&s, d);
 	}
-	return (free(tmp), s = NULL, new[i] = NULL, new);
+	return (free(tmp), new[i] = NULL, new);
 }

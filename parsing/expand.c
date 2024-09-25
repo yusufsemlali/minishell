@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-static char	*get_env(t_env *nv, char *key)
+char	*get_env(t_env *nv, char *key)
 {
 	t_env	*tmp;
 
@@ -32,7 +32,7 @@ int	get_var(char *s, char *buf, t_env *nv)
 
 	ft_bzero(env, BUFFER_SIZE);
 	if (ft_strncmp(s, "$?", 2) == 0)
-		return (ft_strlcat(buf, ft_itoa(g_modes->exit_mode), 1024), 2);
+		return (ft_strlcat(buf, ft_itoa(g_modes->exit_mode), BUFFER_SIZE), 2);
 	else if (ft_strncmp(s, "$$", 2) == 0)
 		return (ft_strlcat(buf, "$$", BUFFER_SIZE), 2);
 	else if (ft_strncmp(s, "$#", 2) == 0)
@@ -70,9 +70,9 @@ void	expand(t_shell *shell)
 	token = shell->av;
 	while (*token)
 	{
-		if (ft_strchr(*token, -'$'))
+		if (ft_strchr(*token, - '$'))
 		{
-			expand = var(ft_strreplace(*token, -'$', '$'), shell->nv);
+			expand = var(ft_strreplace(*token, - '$', '$'), shell->nv);
 			free(*token);
 			*token = expand;
 		}

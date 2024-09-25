@@ -74,8 +74,8 @@ void	ft_free_token(t_oken *token)
 	while (token)
 	{
 		free(token->value);
-		free(token);
 		token = token->next;
+	  free(token);
 	}
 }
 

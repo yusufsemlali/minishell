@@ -36,14 +36,41 @@ int	closed_checker(t_shell *shell, char *s)
 	return (1);
 }
 
+char	*get_prompt(t_shell *shell)
+{
+	char	prompt[BUFFER_SIZE];
+	char	*pwd;
+	char	*home;
 
+	pwd = get_env(shell->nv, "PWD");
+	home = get_env(shell->nv, "HOME");
+	ft_bzero(prompt, BUFFER_SIZE);
+	ft_strlcat(prompt, COLOR_GREEN, BUFFER_SIZE);
+	ft_strlcat(prompt, get_env(shell->nv, "USER"), BUFFER_SIZE);
+	ft_strlcat(prompt, "@", BUFFER_SIZE);
+	ft_strlcat(prompt, get_env(shell->nv, "USERNAME"), BUFFER_SIZE);
+	ft_strlcat(prompt, COLOR_RED, BUFFER_SIZE);
+	ft_strlcat(prompt, ":", BUFFER_SIZE);
+	if (ft_strncmp(pwd, home, ft_strlen(home)) == 0)
+	{
+		ft_strlcat(prompt, "~", BUFFER_SIZE);
+		ft_strlcat(prompt, pwd + ft_strlen(home), BUFFER_SIZE);
+	}
+	else
+		ft_strlcat(prompt, pwd, BUFFER_SIZE);
+	ft_strlcat(prompt, COLOR_RESET, BUFFER_SIZE);
+	ft_strlcat(prompt, "$ ", BUFFER_SIZE);
+	return (ft_strdup(prompt));
+}
 
+/*shell->s= readline("\033[1;36mminishell \033[1;93m✗ \033[0m");*/
 void	parse(t_shell *shell)
 {
-  if (g_modes->exit_mode != 0)
-	  shell->s = readline("🤬 \033[1;36mminishell \033[1;93m✗ \033[0m ");
-  else
-    shell->s= readline("😀 \033[1;36mminishell \033[1;93m✗ \033[0m ");
+	char	*prompt;
+
+	prompt = get_prompt(shell);
+	shell->s = readline(prompt);
+	free(prompt);
 	if (error(shell->s, shell))
 		return ;
 	add_history(shell->s);

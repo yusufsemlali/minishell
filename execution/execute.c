@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+<<<<<<< HEAD
 void printAST(t_tree *root, int level, char *side) {
     if (root == NULL) return;
     for (int i = 0; i < level; i++) printf("    ");
@@ -19,6 +20,74 @@ void printAST(t_tree *root, int level, char *side) {
     printf("%s (%s)\n", root->op, side);
     printAST(root->left, level + 1, "left");
     printAST(root->right, level + 1, "right");
+=======
+// void printAST(t_tree *root, int level, char *side) {
+//     if (root == NULL) return;
+//     for (int i = 0; i < level; i++) printf("    ");
+//     printf("%s (%s)\n", root->op, side);
+//     printAST(root->left, level + 1, "left");
+//     printAST(root->right, level + 1, "right");
+// }
+
+t_tree	*creat_node(char *str, char *file_name)
+{
+	t_tree	*node;
+
+	node = malloc(sizeof(t_tree));
+	node->op = strdup(str);
+	if (file_name)
+		node->file_name = ft_strdup(file_name);
+	else
+		node->file_name = NULL;
+	node->left = NULL;
+	node->right = NULL;
+	return (node);
+}
+
+int	isnt_red(int type)
+{
+	if (type == OUTPUT || \
+		type == INPUT || type == APPEND || type == HEREDOC)
+		return (0);
+	return (1);
+}
+
+t_oken	*creat_token(t_oken *tokens, t_oken *last_redirection)
+{
+	t_oken	*current;
+	t_oken	*tmp;
+	t_oken	*new;
+
+	current = tokens;
+	tmp = NULL;
+	new = NULL;
+	while (current != last_redirection)
+	{
+		new = ft_lstnew(strdup(current->value), current->type);
+		new->read = current->read;
+		ft_lstadd_back(&tmp, new);
+		current = current->next;
+	}
+	current = last_redirection->next->next;
+	while (current && current->type != PIPE && isnt_red(current->type))
+	{
+		new = ft_lstnew(strdup(current->value), current->type);
+		new->read = current->read;
+		ft_lstadd_back(&tmp, new);
+		current = current->next;
+	}
+	return (tmp);
+}
+
+void	ft_free_token(t_oken *token)
+{
+	while (token)
+	{
+		free(token->value);
+		token = token->next;
+	  free(token);
+	}
+>>>>>>> origin
 }
 
 t_tree	*create_tree(t_oken *tokens)

@@ -158,11 +158,16 @@ void	ft_exec_rederect_herd(t_shell *shell, int j)
 					write(shell->fd, "\n", 1);
 					free(line);
 				}
+<<<<<<< HEAD
 				else
 				{
 					g_modes->exit_mode = 0;
 					exit(g_modes->exit_mode);
 				}
+=======
+        else 
+          break;
+>>>>>>> origin
 			}
 			if (!shell->herdoc->herdoc || g_modes->herdoc_mode != CTRL_C)
 				g_modes->exit_mode = 0;

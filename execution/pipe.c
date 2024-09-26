@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:22:54 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/23 16:55:01 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/25 23:14:36 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ void	parent_process(int fd[], t_shell *shell, pid_t pid)
 	dup2(fd[0], STDIN);
 	close(fd[0]);
 	shell->tree = shell->tree->right;
+	waitpid(pid, NULL, 0);
 	executing(shell);
 	shell->tree = tmp;
-	waitpid(pid, NULL, 0);
 	dup2(stdin_copy, STDIN);
 	close(stdin_copy);
 }
@@ -67,7 +67,7 @@ void	ft_pipe(t_shell *shell)
 	{
 		child_process(fd, shell);
 		exit(0);
-	}
+	
 	else
 		parent_process(fd, shell, g_modes->pid);
 }

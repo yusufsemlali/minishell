@@ -6,11 +6,21 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/23 17:23:59 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/25 21:53:51 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+<<<<<<< HEAD
+void printAST(t_tree *root, int level, char *side) {
+    if (root == NULL) return;
+    for (int i = 0; i < level; i++) printf("    ");
+	if (root->file_name)
+		printf("(%s)   ", root->file_name);
+    printf("%s (%s)\n", root->op, side);
+    printAST(root->left, level + 1, "left");
+    printAST(root->right, level + 1, "right");
+=======
 // void printAST(t_tree *root, int level, char *side) {
 //     if (root == NULL) return;
 //     for (int i = 0; i < level; i++) printf("    ");
@@ -77,64 +87,23 @@ void	ft_free_token(t_oken *token)
 		token = token->next;
 	  free(token);
 	}
+>>>>>>> origin
 }
 
 t_tree	*create_tree(t_oken *tokens)
 {
 	t_tree	*root;
-	t_oken	*current;
 	t_oken	*last_redirection_pipe;
-	t_oken	*new_token;
-	t_oken	*tmp;
 
 	root = NULL;
-	current = tokens;
 	last_redirection_pipe = NULL;
-	new_token = NULL;
-	tmp = NULL;
-	while (current)
-	{
-		if ((current->type == PIPE || !isnt_red(current->type)) && \
-			current->read == 0)
-			last_redirection_pipe = current;
-		current = current->next;
-	}
+	last_redirection_pipe = last_p_r(tokens);
 	if (last_redirection_pipe && last_redirection_pipe->read == 0 && \
 		last_redirection_pipe->type == PIPE)
-	{
-		last_redirection_pipe->read = 1;
-		g_modes->has_pipe = 1;
-		root = creat_node(last_redirection_pipe->value, NULL);
-		root->left = create_tree(tokens);
-		if (last_redirection_pipe->next)
-			root->right = create_tree(last_redirection_pipe->next);
-		return (root);
-	}
+		return (creat_tree_pipe(tokens, last_redirection_pipe));
 	else if (last_redirection_pipe && last_redirection_pipe->read == 0 && \
 		!isnt_red(last_redirection_pipe->type))
-	{
-		last_redirection_pipe->read = 1;
-		if (last_redirection_pipe->next)
-		{
-			root = creat_node(last_redirection_pipe->value, last_redirection_pipe->next->value);
-			if (last_redirection_pipe->next->next)
-			{
-				new_token = creat_token(tokens, last_redirection_pipe);
-				root->left = create_tree(new_token);
-				ft_free_token(new_token);
-			}
-			else if (last_redirection_pipe != tokens)
-				root->left = create_tree(tokens);
-			tmp = last_redirection_pipe->next->next;
-			while (tmp && (tmp->type != PIPE || isnt_red(tmp->type)))
-				tmp = tmp->next;
-			if (last_redirection_pipe->next->next && tmp && tmp->read == 0)
-				root->right = create_tree(tmp);
-			else
-				root->right = NULL;
-		}
-		return (root);
-	}
+		return (creat_tree_red(tokens, last_redirection_pipe));
 	if (tokens)
 	{
 		root = creat_node(tokens->value, NULL);
@@ -146,20 +115,14 @@ t_tree	*create_tree(t_oken *tokens)
 	return (root);
 }
 
-int	set(t_oken *token)
+t_herdoc	*s(int i)
 {
-	t_oken	*tmp;
-	int		i;
+	t_herdoc	*herdoc;
 
-	i = 0;
-	tmp = token;
-	while (tmp)
-	{
-		if (tmp->type == HEREDOC)
-			i++;
-		tmp = tmp->next;
-	}
-	return (i);
+	herdoc = malloc(sizeof(t_herdoc));
+	herdoc->line = malloc(sizeof(char *) * (i + 1));
+	herdoc->line[i] = NULL;
+	return (herdoc);
 }
 
 t_herdoc	*set_up(t_oken *token)
@@ -179,15 +142,8 @@ t_herdoc	*set_up(t_oken *token)
 		{
 			current = current->next;
 			if (!herdoc)
-			{
-				herdoc = malloc(sizeof(t_herdoc));
-				herdoc->line = malloc(sizeof(char *) * (i + 1));
-				herdoc->line[j] = ft_strdup(current->value);
-				herdoc->line[i] = NULL;
-			}
-			else
-				herdoc->line[j] = ft_strdup(current->value);
-			j++;
+				herdoc = s(i);
+			herdoc->line[j++] = ft_strdup(current->value);
 		}
 		current = current->next;
 	}
@@ -196,29 +152,28 @@ t_herdoc	*set_up(t_oken *token)
 	return (herdoc);
 }
 
-void	free_herdoc(t_herdoc *herdoc)
+int	pipe_count(t_oken *token)
 {
-	int	i;
+	t_oken	*tmp;
+	int		i;
 
+	tmp = token;
 	i = 0;
-	if (herdoc)
+	while (tmp)
 	{
-		while (herdoc->line[i])
-		{
-			free(herdoc->line[i]);
+		if (tmp->type == PIPE)
 			i++;
-		}
-		free(herdoc->line);
-		free(herdoc);
+		tmp = tmp->next;
 	}
+	return (i);
 }
 
 int	execute(t_shell *shell)
 {
 	t_oken	*tmp;
 
+	g_modes->pipe_count = pipe_count(shell->token);
 	shell->tree = create_tree(shell->token);
-	// printAST(shell->tree, 0, "root");
 	tmp = shell->token;
 	shell->herdoc = set_up(tmp);
 	if (shell->herdoc != NULL)
@@ -229,8 +184,9 @@ int	execute(t_shell *shell)
 	if (g_modes->herdoc_mode != CTRL_C)
 		executing(shell);
 	free_herdoc(shell->herdoc);
-  if (shell->fd != 0)
-    close(shell->fd);
+	if (shell->fd != 0)
+    	close(shell->fd);
+	// printAST(shell->tree, 0, "root");
 	ft_free_tree(shell->tree);
 	if (shell->fd)
 		close(shell->fd);

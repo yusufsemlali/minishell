@@ -6,7 +6,7 @@
 #    By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/25 21:41:51 by ysemlali          #+#    #+#              #
-#    Updated: 2024/09/23 16:57:27 by aclakhda         ###   ########.fr        #
+#    Updated: 2024/09/25 21:17:11 by aclakhda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,8 @@ SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c \
 		    execution/execute.c\
 		    execution/rederextion.c\
 		    execution/pipe.c\
+			execution/tree_utils.c\
+			execution/herdoc_utils.c\
 
 
 OBJS = $(SRCS:.c=.o)

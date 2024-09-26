@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:03:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/23 17:30:24 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/25 23:48:23 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,17 @@ void	create_env(char *key, char *value, t_shell *shell)
 		tmp = tmp->next;
 	}
 	new = (t_env *)malloc(sizeof(t_env));
-	new->key = key;
-	new->value = value;
+	new->key = malloc((ft_strlen(key) + 1) * sizeof(char));
+	new->value = malloc((ft_strlen(value) + 1) * sizeof(char));
+	if (!new->key || !new->value)
+	{
+		free(new->key);
+		free(new->value);
+		free(new);
+		return;
+	}
+	ft_str_cpy(new->key, key);
+	ft_str_cpy(new->value, value);
 	new->next = NULL;
 	tmp = shell->nv;
 	if (!tmp)
@@ -125,6 +134,8 @@ void	export(t_shell *shell)
 				key = ft_substr(arr[i], 0, j);
 				value = ft_substr(arr[i], j + 1, ft_strlen(arr[i]) - (j + 1));
 				create_env(key, value, shell);
+				free(key);
+				free(value);
 				g_modes->exit_mode = 0;
 				break ;
 			}

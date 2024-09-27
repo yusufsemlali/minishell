@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 06:01:17 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/25 22:07:41 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/26 01:58:39 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,9 @@ void	reset(t_shell *shell)
 	g_modes->herdoc_mode = 0;
 	g_modes->has_pipe = 0;
 	g_modes->herdoc_mode = 0;
-<<<<<<< HEAD
 	g_modes->pipe_count = 0;
-=======
+	g_modes->pid2 = 0;
 	g_modes->pid = 0;
->>>>>>> origin
 	free_all(shell);
 	shell->s = NULL;
 }

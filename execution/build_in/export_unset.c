@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:03:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/25 23:48:23 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/26 23:17:15 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,26 @@ int	create_arr(char **arr, t_shell *shell)
 	return (0);
 }
 
+t_env	*create_new_env(const char *key, const char *value)
+{
+	t_env	*new;
+
+	new = (t_env *)malloc(sizeof(t_env));
+	if (!new)
+		return (NULL);
+	new->key = strdup(key);
+	new->value = strdup(value);
+	if (!new->key || !new->value)
+	{
+		free(new->key);
+		free(new->value);
+		free(new);
+		return (NULL);
+	}
+	new->next = NULL;
+	return (new);
+}
+
 void	create_env(char *key, char *value, t_shell *shell)
 {
 	t_env	*tmp;
@@ -41,76 +61,25 @@ void	create_env(char *key, char *value, t_shell *shell)
 	{
 		if (!ft_strcmp(tmp->key, key))
 		{
-			free(tmp->value);
-			tmp->value = malloc((ft_strlen(value) + 1));
-			if (!tmp->value)
-				return ;
-			ft_str_cpy(tmp->value, value);
+			update_existing_env(tmp, value);
 			return ;
 		}
 		tmp = tmp->next;
 	}
-	new = (t_env *)malloc(sizeof(t_env));
-	new->key = malloc((ft_strlen(key) + 1) * sizeof(char));
-	new->value = malloc((ft_strlen(value) + 1) * sizeof(char));
-	if (!new->key || !new->value)
-	{
-		free(new->key);
-		free(new->value);
-		free(new);
-		return;
-	}
-	ft_str_cpy(new->key, key);
-	ft_str_cpy(new->value, value);
-	new->next = NULL;
-	tmp = shell->nv;
-	if (!tmp)
-	{
-		shell->nv = new;
+	new = create_new_env(key, value);
+	if (!new)
 		return ;
-	}
+	tmp = shell->nv;
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;
-}
-
-int	is_space(char c)
-{
-	return (c == ' ' || c == '\t' || \
-		c == '\n' || c == '\v' || c == \
-			'\f' || c == '\r');
-}
-
-void	print_env(t_shell *shell)
-{
-	t_env	*tmp;
-
-	tmp = shell->nv;
-	while (tmp)
-	{
-		ft_putstr_fd("declare -x ", STDOUT);
-		ft_putstr_fd(tmp->key, STDOUT);
-		if (tmp->value)
-		{
-			ft_putstr_fd("=\"", STDOUT);
-			ft_putstr_fd(tmp->value, STDOUT);
-			ft_putstr_fd("\"", STDOUT);
-		}
-		ft_putstr_fd("\n", STDOUT);
-		tmp = tmp->next;
-	}
 }
 
 void	export(t_shell *shell)
 {
 	char	*arr[1024];
 	int		i;
-	int		j;
-	char	*key;
-	char	*value;
 
-	i = 0;
-	j = 0;
 	if (g_modes->has_pipe)
 		return ;
 	if (create_arr(arr, shell))
@@ -118,56 +87,13 @@ void	export(t_shell *shell)
 		print_env(shell);
 		return ;
 	}
+	i = 0;
 	while (arr[i])
 	{
-		j = 0;
-		while (arr[i][j])
-		{
-			if (is_space(arr[i][j]))
-			{
-				ft_putstr_fd("export : not a valide identifier\n", STDERR);
-				g_modes->exit_mode = 1;
-				return ;
-			}
-			if (arr[i][j] == '=')
-			{
-				key = ft_substr(arr[i], 0, j);
-				value = ft_substr(arr[i], j + 1, ft_strlen(arr[i]) - (j + 1));
-				create_env(key, value, shell);
-				free(key);
-				free(value);
-				g_modes->exit_mode = 0;
-				break ;
-			}
-			j++;
-		}
+		process_export_entry(arr[i], shell);
 		i++;
 	}
-}
-
-void	found_key(t_shell *shell, char *key)
-{
-	t_env	*tmp;
-	t_env	*prev;
-
-	prev = NULL;
-	tmp = shell->nv;
-	while (tmp)
-	{
-		if (!ft_strcmp(tmp->key, key))
-		{
-			if (prev)
-				prev->next = tmp->next;
-			else
-				shell->nv = tmp->next;
-			free(tmp->key);
-			free(tmp->value);
-			free(tmp);
-			return ;
-		}
-		prev = tmp;
-		tmp = tmp->next;
-	}
+	g_modes->exit_mode = 0;
 }
 
 void	unset(t_shell *shell)

@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:55:33 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/23 17:27:38 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/26 22:43:50 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,6 @@ int	is_numeric(char *str)
 	return (1);
 }
 
-size_t	overfl(int exit_mode)
-{
-	if (exit_mode < 0)
-		return (256 + (exit_mode % 256));
-	return (exit_mode % 256);
-}
-
 void	free_all_shell(t_shell *shell, int i)
 {
 	if (i)
@@ -49,36 +42,6 @@ void	free_all_shell(t_shell *shell, int i)
 		unlink("tmp");
 	free_all(shell);
 	exit(g_modes->exit_mode);
-}
-
-void	exit_pipe(t_shell *shell)
-{
-	int	i;
-
-	i = 0;
-	if (shell->tree->right)
-	{
-		if (is_numeric(shell->tree->right->op))
-			g_modes->exit_mode = ft_atoi(shell->tree->right->op);
-		else
-		{
-			i++;
-			ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
-			ft_putstr_fd(shell->tree->right->op, STDERR_FILENO);
-			ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
-			g_modes->exit_mode = 2;
-		}
-		if (shell->tree->right->right && !i)
-		{
-			ft_putstr_fd("minishell: exit: too many arguments\n",
-				STDERR_FILENO);
-			g_modes->exit_mode = 1;
-			return ;
-		}
-	}
-	else
-		g_modes->exit_mode = 0;
-	free_all_shell(shell, 1);
 }
 
 void	handle_exit_error(t_shell *shell, char *msg, int exit_code)

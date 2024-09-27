@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:26:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/27 16:28:19 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/27 18:01:39 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,20 @@ void	ft_exec_cmd(t_shell *shell)
 
 void	executing(t_shell *shell)
 {
+	int	status;
+
+	status = 0;
 	if (!shell->tree)
 		return ;
 	else if (!ft_strcmp(shell->tree->op, "|"))
+	{
 		ft_pipe(shell);
+		waitpid(g_modes->pid2, &status, 0);
+		if (WIFEXITED(status))
+			g_modes->exit_mode = WEXITSTATUS(status);
+		else
+			g_modes->exit_mode = 1;
+	}
 	else if (is_rederaction(shell->tree->op))
 		ft_exec_rederect(shell);
 	else if (check_cmd(shell))

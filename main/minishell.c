@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 06:01:17 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/27 16:50:01 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/27 20:11:48 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	reset(t_shell *shell)
 	shell->begin = 0;
 	shell->status = 0;
 	shell->end = 0;
+	g_modes->has_pipe = 0;
 	g_modes->input_mode = 0;
 	g_modes->output_mode = 0;
 	g_modes->herdoc_mode = 0;

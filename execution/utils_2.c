@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 16:56:19 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/25 21:20:11 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/26 21:36:06 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,30 @@ void	ft_free_token(t_oken *token)
 		free(token->value);
 		free(token);
 		token = tmp;
+	}
+}
+
+void	found_key(t_shell *shell, char *key)
+{
+	t_env	*tmp;
+	t_env	*prev;
+
+	prev = NULL;
+	tmp = shell->nv;
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->key, key))
+		{
+			if (prev)
+				prev->next = tmp->next;
+			else
+				shell->nv = tmp->next;
+			free(tmp->key);
+			free(tmp->value);
+			free(tmp);
+			return ;
+		}
+		prev = tmp;
+		tmp = tmp->next;
 	}
 }

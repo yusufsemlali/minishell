@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/25 21:56:36 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/27 16:49:57 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ typedef struct s_var
 	int				has_pipe;
 	int				has_rederect;
 	int				has_herd;
-	char			*av[CMD_MAX_LENGTH];
+	char			**av;
 	char			*cmd_path;
 	int				value_len;
 	int				key_len;
@@ -123,6 +123,7 @@ typedef struct s_var
 	char			*cpy_av[CMD_MAX_LENGTH];
 	char			*cpy_env[CMD_MAX_LENGTH];
 	char			*cpy_cmd_path;
+	int				len;
 
 }					t_var;
 
@@ -135,6 +136,7 @@ typedef struct s_mode
 	int				herdoc_mode;
 	t_herdoc		*herdoc;
 	pid_t			pid;
+	pid_t			pid2;
 	int				pipe_count;
 }					t_mode;
 
@@ -172,7 +174,6 @@ char				*creating_cmd_path(int len, char **path_split, int i,
 void				s_free(char **av);
 int					check_cmd(t_shell *shell);
 int					is_rederaction(char *c);
-void				cmd_maker(t_shell *shell, char **av);
 char				**creat_env(t_env *nv);
 void				lazy_free(char **env, int i);
 int					env_size(t_env *nv);
@@ -194,7 +195,47 @@ void				free_herdoc(t_herdoc *herdoc);
 void				ft_free_token(t_oken *token);
 int					set(t_oken *token);
 int					isnt_red(int type);
-void				free_herdoc(t_herdoc *herdoc);
+void				process_export_entry(char *entry, t_shell *shell);
+void				handle_export_error(void);
+void				print_env(t_shell *shell);
+int					is_space(char c);
+void				create_env(char *key, char *value, t_shell *shell);
+void				update_existing_env(t_env *env, const char *value);
+void				found_key(t_shell *shell, char *key);
+void				update_paths(t_shell *shell, char *past_path);
+void				handle_home_directory(t_shell *shell);
+void				change_directory(t_shell *shell, char *path, char **av);
+void				update_env(t_env *nv, char *key, char *value);
+char				*get_env_cd(t_env *nv, char *key);
+void				exit_pipe(t_shell *shell);
+void				handle_exit_too_many_args(void);
+void				handle_exit_numeric(t_shell *shell);
+size_t				overfl(int exit_mode);
+int					is_numeric(char *str);
+void				ft_exec_rederect_herd(t_shell *shell, int j);
+void				redirect_output(t_shell *shell, int fd);
+int					open_file_for_writing(char *file_name);
+void				handle_open_error(void);
+void				handle_left_subtree(t_tree *root, t_oken *tokens,
+						t_oken *last_r_pip);
+void				handle_right_subtree(t_tree *root, t_oken *last_r_pip);
+t_tree				*creat_node(char *str, char *file_name);
+t_oken				*creat_token(t_oken *tokens, t_oken *last_redirection);
+t_oken				*last_p_r(t_oken *tokens);
+t_oken				*find_last_redirection(t_oken *tokens);
+t_oken				*find_last_pipe(t_oken *tokens);
+t_oken				*find_next_token(t_oken *current);
+int					pipe_count(t_oken *token);
+t_herdoc			*s(int i);
+t_tree				*create_simple_tree(t_oken *tokens);
+char				*check_access(char **path_split, char *av);
+char				**get_path_split(void);
+char				*find_cmd_path(char **av, t_env *nv);
+void				free_av1(char **av);
+char				**cmd_maker(t_shell *shell);
+void				handle_exec_error(t_var *var, t_shell *shell);
+void				count_tree_nodes(t_tree *tree, int *count);
+char				**av_m(void);
 // -- built in -- //
 void				ft_exit(t_shell *shell, int i, int j);
 void				free_all_shell(t_shell *shell, int i);

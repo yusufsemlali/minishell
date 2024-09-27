@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/27 16:28:53 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/27 16:49:57 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@
 # define APPEND 5  // ">>"
 # define HEREDOC 6 // "<<"
 # define END 7     // ""
-# define DLEM 8    // delimiters
 
 # define STDIN 0
 # define STDOUT 1

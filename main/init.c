@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:37:19 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/25 22:06:43 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/18 10:37:19 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,7 @@ void	init(t_shell **shell, int ac, char **av, char **nv)
 	(*shell)->status = 0;
 	g_modes = ft_calloc(1, sizeof(t_mode));
 	if (nv == NULL)
-	{
 		init_basic_env(shell, basic);
-		for(t_env *tmp = (*shell)->nv; tmp; tmp = tmp->next)
-			printf("%s=%s\n", tmp->key, tmp->value);
-
-	}
 	else
 		init_env(shell, nv);
 	signal(SIGINT, handle_signals);

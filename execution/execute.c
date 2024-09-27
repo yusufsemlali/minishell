@@ -11,16 +11,6 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-<<<<<<< HEAD
-void printAST(t_tree *root, int level, char *side) {
-    if (root == NULL) return;
-    for (int i = 0; i < level; i++) printf("    ");
-	if (root->file_name)
-		printf("(%s)   ", root->file_name);
-    printf("%s (%s)\n", root->op, side);
-    printAST(root->left, level + 1, "left");
-    printAST(root->right, level + 1, "right");
-=======
 // void printAST(t_tree *root, int level, char *side) {
 //     if (root == NULL) return;
 //     for (int i = 0; i < level; i++) printf("    ");
@@ -28,7 +18,7 @@ void printAST(t_tree *root, int level, char *side) {
 //     printAST(root->left, level + 1, "left");
 //     printAST(root->right, level + 1, "right");
 // }
-
+/*
 t_tree	*creat_node(char *str, char *file_name)
 {
 	t_tree	*node;
@@ -43,7 +33,8 @@ t_tree	*creat_node(char *str, char *file_name)
 	node->right = NULL;
 	return (node);
 }
-
+*/
+/*
 int	isnt_red(int type)
 {
 	if (type == OUTPUT || \
@@ -51,7 +42,12 @@ int	isnt_red(int type)
 		return (0);
 	return (1);
 }
+*/
 
+
+
+
+/*
 t_oken	*creat_token(t_oken *tokens, t_oken *last_redirection)
 {
 	t_oken	*current;
@@ -78,7 +74,10 @@ t_oken	*creat_token(t_oken *tokens, t_oken *last_redirection)
 	}
 	return (tmp);
 }
+*/
 
+
+/*
 void	ft_free_token(t_oken *token)
 {
 	while (token)
@@ -87,8 +86,8 @@ void	ft_free_token(t_oken *token)
 		token = token->next;
 	  free(token);
 	}
->>>>>>> origin
 }
+*/
 
 t_tree	*create_tree(t_oken *tokens)
 {

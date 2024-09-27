@@ -36,7 +36,6 @@
 # define APPEND 5  // ">>"
 # define HEREDOC 6 // "<<"
 # define END 7     // ""
-# define DLEM 8    // delimiters
 
 # define STDIN 0
 # define STDOUT 1
@@ -130,20 +129,13 @@ typedef struct s_var
 typedef struct s_mode
 {
 	int				input_mode;
-<<<<<<< HEAD
-=======
-	pid_t			pid;
->>>>>>> origin
 	int				exit_mode;
 	int				output_mode;
 	int				has_pipe;
 	int				herdoc_mode;
 	t_herdoc		*herdoc;
-<<<<<<< HEAD
 	pid_t			pid;
 	int				pipe_count;
-=======
->>>>>>> origin
 }					t_mode;
 
 // -- main -- //
@@ -190,8 +182,7 @@ int					is_herd(char *c);
 void				ft_exec_rederect_herd(t_shell *shell, int j);
 void				ft_str_cpy(char *dest, const char *src);
 char				*ft_strncpy(char *dest, char *src, unsigned int n);
-<<<<<<< HEAD
-void 				free_herdoc(t_herdoc *herdoc);
+void				free_herdoc(t_herdoc *herdoc);
 t_tree				*create_tree(t_oken *tokens);
 t_tree				*creat_tree_red(t_oken *tokens, t_oken *last_r_pip);
 t_tree				*creat_tree_pipe(t_oken *tokens, t_oken *last_red_p);
@@ -203,9 +194,7 @@ void				free_herdoc(t_herdoc *herdoc);
 void				ft_free_token(t_oken *token);
 int					set(t_oken *token);
 int					isnt_red(int type);
-=======
 void				free_herdoc(t_herdoc *herdoc);
->>>>>>> origin
 // -- built in -- //
 void				ft_exit(t_shell *shell, int i, int j);
 void				free_all_shell(t_shell *shell, int i);

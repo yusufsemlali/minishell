@@ -67,7 +67,7 @@ void	ft_pipe(t_shell *shell)
 	{
 		child_process(fd, shell);
 		exit(0);
-	
+  }
 	else
 		parent_process(fd, shell, g_modes->pid);
 }

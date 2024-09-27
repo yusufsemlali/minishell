@@ -38,13 +38,10 @@ void	reset(t_shell *shell)
 	g_modes->input_mode = 0;
 	g_modes->output_mode = 0;
 	g_modes->herdoc_mode = 0;
-	g_modes->has_pipe = 0;
 	g_modes->herdoc_mode = 0;
-<<<<<<< HEAD
+	g_modes->has_pipe = 0;
 	g_modes->pipe_count = 0;
-=======
 	g_modes->pid = 0;
->>>>>>> origin
 	free_all(shell);
 	shell->s = NULL;
 }

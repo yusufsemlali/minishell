@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:22:54 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/27 18:07:37 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/28 16:27:14 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	handle_child_process(int fd[], t_shell *shell)
 {
 	int	status;
 
+	status = 0;
 	g_modes->pid = fork();
 	if (g_modes->pid == 0)
 		child_process(fd, shell);
@@ -64,9 +65,19 @@ void	handle_child_process(int fd[], t_shell *shell)
 
 void	handle_child_2_process(int fd[], t_shell *shell)
 {
+	int	status;
+
+	status = 0;
 	g_modes->pid2 = fork();
 	if (g_modes->pid2 == 0)
 		child_2(shell, fd);
+	close(fd[0]);
+	close(fd[1]);
+	waitpid(g_modes->pid2, &status, 0);
+	if (WIFEXITED(status))
+		g_modes->exit_mode = WEXITSTATUS(status);
+	else
+		g_modes->exit_mode = 1;
 }
 
 void	ft_pipe(t_shell *shell)
@@ -79,13 +90,5 @@ void	ft_pipe(t_shell *shell)
 		return ;
 	}
 	handle_child_process(fd, shell);
-	if (g_modes->exit_mode == 130)
-	{
-		close(fd[0]);
-		close(fd[1]);
-		return ;
-	}
 	handle_child_2_process(fd, shell);
-	close(fd[0]);
-	close(fd[1]);
 }

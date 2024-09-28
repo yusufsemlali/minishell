@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/27 17:54:15 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/28 14:10:10 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 t_tree	*create_tree(t_oken *tokens)
 {
-	t_tree	*root;
 	t_oken	*last_redirection_pipe;
 
-	root = NULL;
 	last_redirection_pipe = NULL;
 	last_redirection_pipe = last_p_r(tokens);
 	if (last_redirection_pipe && last_redirection_pipe->read == 0 && \

@@ -6,13 +6,13 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 21:30:46 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/27 20:08:58 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:20:24 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	process_export_entry(char *entry, t_shell *shell)
+void	process_export_entry(char *entry, t_shell *shell, int *check)
 {
 	char	*key;
 	char	*value;
@@ -28,6 +28,7 @@ void	process_export_entry(char *entry, t_shell *shell)
 		}
 		if (entry[j] == '=')
 		{
+			*check = 1;
 			key = ft_substr(entry, 0, j);
 			value = ft_substr(entry, j + 1, ft_strlen(entry) - (j + 1));
 			create_env(key, value, shell);
@@ -53,15 +54,12 @@ void	print_env(t_shell *shell)
 	tmp = shell->nv;
 	while (tmp)
 	{
-		ft_putstr_fd("declare -x ", STDOUT);
-		ft_putstr_fd(tmp->key, STDOUT);
+		printf("declare -x %s", tmp->key);
 		if (tmp->value)
 		{
-			ft_putstr_fd("=\"", STDOUT);
-			ft_putstr_fd(tmp->value, STDOUT);
-			ft_putstr_fd("\"", STDOUT);
+			printf("=\"%s\"", tmp->value);
 		}
-		ft_putstr_fd("\n", STDOUT);
+		printf("\n");
 		tmp = tmp->next;
 	}
 }

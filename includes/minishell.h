@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/27 16:49:57 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:44:32 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,9 @@ typedef struct s_var
 	char			*cpy_env[CMD_MAX_LENGTH];
 	char			*cpy_cmd_path;
 	int				len;
+	char			*key;
+	char			*value;
+	int				check;
 
 }					t_var;
 
@@ -195,7 +198,7 @@ void				free_herdoc(t_herdoc *herdoc);
 void				ft_free_token(t_oken *token);
 int					set(t_oken *token);
 int					isnt_red(int type);
-void				process_export_entry(char *entry, t_shell *shell);
+void				process_export_entry(char *entry, t_shell *shell, int *check);
 void				handle_export_error(void);
 void				print_env(t_shell *shell);
 int					is_space(char c);
@@ -236,6 +239,7 @@ char				**cmd_maker(t_shell *shell);
 void				handle_exec_error(t_var *var, t_shell *shell);
 void				count_tree_nodes(t_tree *tree, int *count);
 char				**av_m(void);
+int					already_exist(char *key, t_shell *shell);
 // -- built in -- //
 void				ft_exit(t_shell *shell, int i, int j);
 void				free_all_shell(t_shell *shell, int i);

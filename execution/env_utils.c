@@ -6,11 +6,27 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 12:27:46 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/26 22:48:28 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:34:13 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	env_sizze(t_env *nv)
+{
+	int		i;
+	t_env	*tmp;
+
+	i = 0;
+	tmp = nv;
+	while (tmp)
+	{
+		if (tmp->value)
+			i++;
+		tmp = tmp->next;
+	}
+	return (i);
+}
 
 char	*join_key_value(char *key, char *value)
 {
@@ -36,16 +52,19 @@ char	**creat_env(t_env *nv)
 	int		i;
 
 	tmp = nv;
-	env = malloc(sizeof(char *) * (env_size(nv) + 1));
+	env = malloc(sizeof(char *) * (env_sizze(nv) + 1));
 	if (!env)
 		return (NULL);
 	i = 0;
 	while (tmp)
 	{
-		env[i] = join_key_value(tmp->key, tmp->value);
-		if (!env[i])
-			return (lazy_free(env, i), NULL);
-		i++;
+		if (tmp->value)
+		{
+			env[i] = join_key_value(tmp->key, tmp->value);
+			if (!env[i])
+				return (lazy_free(env, i), NULL);
+			i++;
+		}
 		tmp = tmp->next;
 	}
 	env[i] = NULL;
@@ -76,3 +95,4 @@ void	lazy_free(char **env, int i)
 	}
 	free(env);
 }
+

@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:03:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/27 20:17:12 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:44:17 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ t_env	*create_new_env(const char *key, const char *value)
 	new = (t_env *)malloc(sizeof(t_env));
 	if (!new)
 		return (NULL);
-	new->key = strdup(key);
-	new->value = strdup(value);
-	if (!new->key || !new->value)
+	new->key = ft_strdup(key);
+	new->value = ft_strdup(value);
+	if (!new->key)
 	{
 		free(new->key);
 		free(new->value);
@@ -78,20 +78,27 @@ void	create_env(char *key, char *value, t_shell *shell)
 void	export(t_shell *shell)
 {
 	char	*arr[1024];
-	int		i;
+	t_var	tmp;
 
-	if (g_modes->has_pipe)
-		return ;
+	tmp.check = 0;
 	if (create_arr(arr, shell))
 	{
 		print_env(shell);
 		return ;
 	}
-	i = 0;
-	while (arr[i])
+	if (g_modes->has_pipe)
+		return ;
+	tmp.i = 0;
+	while (arr[tmp.i])
 	{
-		process_export_entry(arr[i], shell);
-		i++;
+		process_export_entry(arr[tmp.i], shell, &tmp.check);
+		if (!tmp.check && already_exist(arr[tmp.i], shell))
+		{
+			tmp.key = ft_substr(arr[tmp.i], 0, ft_strlen(arr[tmp.i]));
+			create_env(tmp.key, NULL, shell);
+			free(tmp.key);
+		}
+		tmp.i++;
 	}
 	g_modes->exit_mode = 0;
 }

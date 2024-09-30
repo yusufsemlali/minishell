@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 00:07:08 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/27 02:54:13 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:44:20 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,18 @@ int	set(t_oken *token)
 		tmp = tmp->next;
 	}
 	return (i);
+}
+
+int	already_exist(char *key, t_shell *shell)
+{
+	t_env	*tmp;
+
+	tmp = shell->nv;
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->key, key))
+			return (0);
+		tmp = tmp->next;
+	}
+	return (1);
 }

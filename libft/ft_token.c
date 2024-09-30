@@ -62,7 +62,7 @@ char	**ft_token(char *s, char *d)
 
 	if (!s || !d)
 		return (NULL);
-	new = ft_calloc(getcount(s) + 2, sizeof(char *));
+	new = ft_calloc(getcount(s) * 2, sizeof(char *));
 	tmp = s;
 	i = 0;
 	while (*s && ft_strchr(d, *s))

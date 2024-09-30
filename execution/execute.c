@@ -14,10 +14,8 @@
 
 t_tree	*create_tree(t_oken *tokens)
 {
-	t_tree	*root;
 	t_oken	*last_redirection_pipe;
 
-	root = NULL;
 	last_redirection_pipe = NULL;
 	last_redirection_pipe = last_p_r(tokens);
 	if (last_redirection_pipe && last_redirection_pipe->read == 0 && \

@@ -34,16 +34,17 @@ int	inquotes(char *s, int i, int x)
 			two++;
 		p++;
 	}
-	if (x == 2)
-		return (one % 2 != 0 && two % 2 == 0);
 	if (x == 1)
 		return (one % 2 == 0 && two % 2 != 0);
+	if (x == 2)
+		return (one % 2 != 0 && two % 2 == 0);
 	return (one % 2 != 0 || two % 2 != 0);
 }
 
-char	*spacing(char *s)
+void	spacing(t_shell *shell)
 {
 	char	new[BUFFER_SIZE];
+  char *s = shell->s;
 	int		i;
 	int		j;
 
@@ -52,7 +53,7 @@ char	*spacing(char *s)
 	bzero(new, BUFFER_SIZE);
 	while (s[i] && i < BUFFER_SIZE)
 	{
-		if (s[i] == '$' && !inquotes(s, i, 2))
+		if (s[i] == '$' && inquotes(s, i, 2))
 			new[j++] = -s[i++];
 		else if (metachar(s[i]) && !inquotes(s, i, 0))
 		{
@@ -65,5 +66,6 @@ char	*spacing(char *s)
 		else
 			new[j++] = s[i++];
 	}
-	return (ft_strdup(new));
+  free(shell->s);
+	shell->s = ft_strdup(new);
 }

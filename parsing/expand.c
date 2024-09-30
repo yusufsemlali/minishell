@@ -43,7 +43,7 @@ int	get_var(char *s, char *buf, t_env *nv)
 		return (ft_strlcat(buf, "minishell", BUFFER_SIZE), 2);
 	else if (*s == '$' && !ft_isspace(*(s + 1)) && *(s + 1) != '/')
 	{
-		ft_strlcpy(env, s + 1, ft_strcspn(s + 1, "$ ='\t\f\v\r/") + 1);
+		ft_strlcpy(env, s + 1, ft_strcspn(s + 1, "$ =\'\"\t\f\v\r/") + 1);
 		ft_strlcat(buf, get_env(nv, env), BUFFER_SIZE);
 		return (ft_strlen(env) + 1);
 	}
@@ -64,18 +64,11 @@ char	*var(char *s, t_env *nv)
 
 void	expand(t_shell *shell)
 {
-	char	**token;
-	char	*expand;
-
-	token = shell->av;
-	while (*token)
-	{
-		if (ft_strchr(*token, - '$'))
-		{
-			expand = var(ft_strreplace(*token, - '$', '$'), shell->nv);
-			free(*token);
-			*token = expand;
-		}
-		token++;
-	}
+  char *expand;
+	expand = var(shell->s, shell->nv);
+  if(*expand != 0)
+  {
+    free(shell->s);
+    shell->s = ft_strreplace(expand, - '$', '$');
+  }
 }

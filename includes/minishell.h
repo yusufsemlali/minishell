@@ -150,19 +150,21 @@ void				free_all(t_shell *shell);
 void				free_nv(t_env **env);
 void				free_av(char ***av);
 int					error(void *ptr, t_shell *shell);
-char				*var(char *s, t_env *nv);
+void				handle_signals(int sig);
 // -- parsing -- //
 void				parse(t_shell *shell);
-void				handle_signals(int sig);
-int					inquotes(char *s, int i, int x);
-int					metachar(char c);
-char				*spacing(char *s);
-char				*get_env(t_env *nv, char *key);
+void				spacing(t_shell *shell);
+void				expand(t_shell *shell);
+void	      ft_token(t_shell *shell);
+void				squish(t_shell *shell);
 void				token_lst(t_shell *shell);
 void				valid(t_shell *shell);
-void				expand(t_shell *shell);
-void				squish(t_shell *shell);
 void				export_error(t_shell *shell, t_oken *next);
+//--- parse utils ----//
+char				*get_env(t_env *nv, char *key);
+int					inquotes(char *s, int i, int x);
+int					metachar(char c);
+char				*var(char *s, t_env *nv);
 //---execution---//
 int					execute(t_shell *shell);
 int					ft_size(char **av);

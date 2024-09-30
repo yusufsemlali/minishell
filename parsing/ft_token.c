@@ -54,17 +54,15 @@ static char	*get_next_token(char **s, const char *d)
 	return (free(dlem), token);
 }
 
-char	**ft_token(char *s, char *d)
+void	ft_token(t_shell *shell)
 {
 	char	**new;
-	char	*tmp;
+  char *s;
 	int		i;
 
-	if (!s || !d)
-		return (NULL);
-	new = ft_calloc(getcount(s) * 2, sizeof(char *));
-	tmp = s;
+	new = ft_calloc(getcount(shell->s) * 2, sizeof(char *));
 	i = 0;
+  s = shell->s;
 	while (*s && ft_strchr(d, *s))
 		s++;
 	while (*s)
@@ -79,5 +77,6 @@ char	**ft_token(char *s, char *d)
 		}
 		new[i++] = get_next_token(&s, d);
 	}
-	return (free(tmp), new[i] = NULL, new);
+  new[i] = NULL;
+  shell->av = new;    
 }

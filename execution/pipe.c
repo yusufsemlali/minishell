@@ -50,17 +50,9 @@ void	child_process(int fd[], t_shell *shell)
 
 void	handle_child_process(int fd[], t_shell *shell)
 {
-	// int	status;
-
-	// status = 0;
 	g_modes->pid = fork();
 	if (g_modes->pid == 0)
 		child_process(fd, shell);
-	// waitpid(g_modes->pid, &status, 0);
-	// if (WIFEXITED(status))
-	// 	g_modes->exit_mode = WEXITSTATUS(status);
-	// else
-	// 	g_modes->exit_mode = 1;
 }
 
 void	handle_child_2_process(int fd[], t_shell *shell)

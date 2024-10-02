@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:15:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/26 23:31:07 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:56:10 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,9 @@ void	process_heredoc(t_shell *shell)
 
 void	ft_exec_rederect_herd(t_shell *shell, int j)
 {
+	int	status;
+
+	status = 0;
 	if (j)
 	{
 		g_modes->pid = fork();
@@ -94,7 +97,9 @@ void	ft_exec_rederect_herd(t_shell *shell, int j)
 			process_heredoc(shell);
 		}
 		else
-			waitpid(g_modes->pid, &g_modes->exit_mode, 0);
+			waitpid(g_modes->pid, &status, 0);
+		if (WIFEXITED(status))
+			g_modes->exit_mode = WEXITSTATUS(status);
 	}
 	else
 	{

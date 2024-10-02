@@ -44,10 +44,11 @@ int	inquotes(char *s, int i, int x)
 void	spacing(t_shell *shell)
 {
 	char	new[BUFFER_SIZE];
-  char *s = shell->s;
+	char	*s;
 	int		i;
 	int		j;
 
+	s = shell->s;
 	i = 0;
 	j = 0;
 	bzero(new, BUFFER_SIZE);
@@ -66,6 +67,6 @@ void	spacing(t_shell *shell)
 		else
 			new[j++] = s[i++];
 	}
-  free(shell->s);
+	free(shell->s);
 	shell->s = ft_strdup(new);
 }

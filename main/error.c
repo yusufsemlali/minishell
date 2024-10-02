@@ -17,7 +17,7 @@ int	error(void *ptr, t_shell *shell)
 	if (ptr == NULL)
 	{
 		ft_putendl_fd("exit", 0);
-		// rl_clear_history();
+		rl_clear_history();
 		shell->end = 1;
 		free_all(shell);
 		exit(g_modes->exit_mode);

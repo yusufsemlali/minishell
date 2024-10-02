@@ -76,12 +76,13 @@ void	parse(t_shell *shell)
 	add_history(shell->s);
 	if (closed_checker(shell, shell->s))
 	{
-    spacing(shell);
+		spacing(shell);
 		expand(shell);
-    printf("[%s]\n", shell->s);
-    ft_token(shell);
-		// shell->av = ft_token(spacing(shell->s), " \t\r\f\v");
+		lexer(shell);
 		squish(shell);
+    for (int i=0;shell->av[i];i++)
+      printf("[%s] ",shell->av[i]);
+    printf("\n");
 		token_lst(shell);
 		valid(shell);
 	}

@@ -155,7 +155,7 @@ void				handle_signals(int sig);
 void				parse(t_shell *shell);
 void				spacing(t_shell *shell);
 void				expand(t_shell *shell);
-void	      ft_token(t_shell *shell);
+void				lexer(t_shell *shell);
 void				squish(t_shell *shell);
 void				token_lst(t_shell *shell);
 void				valid(t_shell *shell);
@@ -200,7 +200,8 @@ void				free_herdoc(t_herdoc *herdoc);
 void				ft_free_token(t_oken *token);
 int					set(t_oken *token);
 int					isnt_red(int type);
-void				process_export_entry(char *entry, t_shell *shell, int *check);
+void				process_export_entry(char *entry, t_shell *shell,
+						int *check);
 void				handle_export_error(void);
 void				print_env(t_shell *shell);
 int					is_space(char c);

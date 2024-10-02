@@ -64,11 +64,12 @@ char	*var(char *s, t_env *nv)
 
 void	expand(t_shell *shell)
 {
-  char *expand;
+	char	*expand;
+
 	expand = var(shell->s, shell->nv);
-  if(*expand != 0)
-  {
-    free(shell->s);
-    shell->s = ft_strreplace(expand, - '$', '$');
-  }
+	if (*expand != 0)
+	{
+		free(shell->s);
+		shell->s = ft_strreplace(expand, -'$', '$');
+	}
 }

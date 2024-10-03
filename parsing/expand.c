@@ -70,6 +70,6 @@ void	expand(t_shell *shell)
 	if (*expand != 0)
 	{
 		free(shell->s);
-		shell->s = ft_strreplace(expand, -'$', '$');
+		shell->s = ft_strreplace(expand, - '$', '$');
 	}
 }

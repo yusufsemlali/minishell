@@ -95,4 +95,3 @@ void	lazy_free(char **env, int i)
 	}
 	free(env);
 }
-

@@ -41,32 +41,46 @@ int	inquotes(char *s, int i, int x)
 	return (one % 2 != 0 || two % 2 != 0);
 }
 
+int	space(char *new, char *s, int *i)
+{
+	char	buf[5];
+
+	bzero(buf, 5);
+	buf[0] = ' ';
+	buf[1] = s[*i];
+	*i += 1;
+	if (ft_strchr("<>", s[*i]) && s[*i] == s[*i - 1] && !inquotes(s, *i, 0))
+	{
+		buf[2] = s[*i];
+		buf[3] = ' ';
+		*i += 1;
+	}
+	else
+		buf[2] = ' ';
+	ft_strlcat(new, buf, 5);
+	return (ft_strlen(buf));
+}
+
 void	spacing(t_shell *shell)
 {
-	char	new[BUFFER_SIZE];
+	char	buf[BUFFER_SIZE];
 	char	*s;
+	char	*new;
 	int		i;
-	int		j;
 
 	s = shell->s;
+	new = buf;
 	i = 0;
-	j = 0;
 	bzero(new, BUFFER_SIZE);
 	while (s[i] && i < BUFFER_SIZE)
 	{
 		if (s[i] == '$' && inquotes(s, i, 2))
-			new[j++] = -s[i++];
+			*new ++ = -s[i++];
 		else if (metachar(s[i]) && !inquotes(s, i, 0))
-		{
-			new[j++] = ' ';
-			new[j++] = s[i++];
-			if (ft_strchr("<>", s[i]) && s[i] == s[i - 1] && !inquotes(s, i, 0))
-				new[j++] = s[i++];
-			new[j++] = ' ';
-		}
+			new += space(new, s, &i);
 		else
-			new[j++] = s[i++];
+			*new ++ = s[i++];
 	}
 	free(shell->s);
-	shell->s = ft_strdup(new);
+	shell->s = ft_strdup(buf);
 }

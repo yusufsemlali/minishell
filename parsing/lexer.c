@@ -71,7 +71,7 @@ void	lexer(t_shell *shell)
 				s++;
 			if (!*s)
 				break ;
-			new[i++] = ft_strreplace(ft_strdup("#"), '#', -'#');
+			new[i++] = ft_strreplace(ft_strdup("#"), '#', - '#');
 		}
 		new[i++] = get_next_token(&s, " \t\r\v\f\"\'");
 	}

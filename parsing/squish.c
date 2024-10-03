@@ -20,7 +20,7 @@ size_t	len_av(char **av)
 	while (*av)
 	{
 		len++;
-		if (ft_strchr(*av, -'#'))
+		if (ft_strchr(*av, - '#'))
 			len--;
 		av++;
 	}
@@ -40,12 +40,12 @@ void	squish(t_shell *shell)
 	av = ft_calloc(len_av(shell->av) + 1, sizeof(char *));
 	while (*shell->av)
 	{
-		while (*shell->av && !ft_strchr(*shell->av, -'#'))
+		while (*shell->av && !ft_strchr(*shell->av, - '#'))
 		{
 			ft_strlcat(buf, *shell->av, BUFFER_SIZE);
 			free(*shell->av++);
 		}
-		if (*shell->av && ft_strchr(*shell->av, -'#'))
+		if (*shell->av && ft_strchr(*shell->av, - '#'))
 			free(*shell->av++);
 		av[index++] = ft_strdup(buf);
 		ft_bzero(buf, BUFFER_SIZE);

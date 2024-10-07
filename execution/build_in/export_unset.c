@@ -75,12 +75,22 @@ void	create_env(char *key, char *value, t_shell *shell)
 	tmp->next = new;
 }
 
+void  error_export(char *s)
+{
+  g_modes->exit_mode = 1;
+
+  ft_putstr_fd(s, 2);
+  ft_putstr_fd("\n", 1);
+}
+
 void	export(t_shell *shell)
 {
 	char	*arr[1024];
 	t_var	tmp;
 
 	tmp.check = 0;
+  if (shell->export_error)
+    return(error_export(shell->export_error));
 	if (create_arr(arr, shell))
 	{
 		print_env(shell);

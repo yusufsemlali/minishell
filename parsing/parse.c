@@ -36,14 +36,12 @@ int	closed_checker(t_shell *shell, char *s)
 	return (1);
 }
 
-char	*get_prompt(t_shell *shell)
+char	*prompt(t_shell *shell, char *pwd, char *home)
 {
-	char	prompt[BUFFER_SIZE];
-	char	*pwd;
-	char	*home;
+	static char	prompt[BUFFER_SIZE];
 
-	pwd = get_env(shell->nv, "PWD");
-	home = get_env(shell->nv, "HOME");
+	pwd = get_env(shell->nv, pwd);
+	home = get_env(shell->nv, home);
 	ft_bzero(prompt, BUFFER_SIZE);
 	ft_strlcat(prompt, COLOR_GREEN, BUFFER_SIZE);
 	ft_strlcat(prompt, get_env(shell->nv, "USER"), BUFFER_SIZE);
@@ -60,24 +58,20 @@ char	*get_prompt(t_shell *shell)
 		ft_strlcat(prompt, pwd, BUFFER_SIZE);
 	ft_strlcat(prompt, COLOR_RESET, BUFFER_SIZE);
 	ft_strlcat(prompt, "$ ", BUFFER_SIZE);
-	return (ft_strdup(prompt));
+	return (prompt);
 }
 
-/*shell->s= readline("\033[1;36mminishell \033[1;93m✗ \033[0m");*/
 void	parse(t_shell *shell)
 {
-	char	*prompt;
-
-	prompt = get_prompt(shell);
-	shell->s = readline(prompt);
-	free(prompt);
+	shell->s = readline(prompt(shell, "PWD", "HOME"));
 	if (error(shell->s, shell))
 		return ;
 	add_history(shell->s);
 	if (closed_checker(shell, shell->s))
 	{
-		shell->av = ft_token(spacing(shell->s), " \t\r\f\v");
+		spacing(shell);
 		expand(shell);
+		lexer(shell);
 		squish(shell);
 		token_lst(shell);
 		valid(shell);

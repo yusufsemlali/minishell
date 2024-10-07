@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minishell.h"
 
 static int	getcount(char *s)
 {
@@ -35,12 +35,10 @@ static int	getcount(char *s)
 	return (count);
 }
 
-static char	*get_next_token(char **s, const char *d)
+static char	*get_next_token(char **s, const char *dlem)
 {
 	char	*token;
-	char	*dlem;
 
-	dlem = ft_strjoin((char *)d, "\"\'");
 	if (**s == '\"' || **s == '\'')
 	{
 		token = ft_strndup(*s + 1, ft_strchr(*s + 1, **s) - *s - 1);
@@ -51,33 +49,32 @@ static char	*get_next_token(char **s, const char *d)
 		token = ft_strndup(*s, ft_strcspn(*s, (char *)dlem));
 		*s += ft_strcspn(*s, (char *)dlem);
 	}
-	return (free(dlem), token);
+	return (token);
 }
 
-char	**ft_token(char *s, char *d)
+void	lexer(t_shell *shell)
 {
 	char	**new;
-	char	*tmp;
+	char	*s;
 	int		i;
 
-	if (!s || !d)
-		return (NULL);
-	new = ft_calloc(getcount(s) * 2, sizeof(char *));
-	tmp = s;
+	new = ft_calloc(getcount(shell->s) * 2, sizeof(char *));
 	i = 0;
-	while (*s && ft_strchr(d, *s))
+	s = shell->s;
+	while (*s && ft_strchr(" \t\r\v\f", *s))
 		s++;
 	while (*s)
 	{
 		if (ft_isspace(*s))
 		{
-			while (*s && ft_strchr(d, *s))
+			while (*s && ft_strchr(" \t\r\v\f", *s))
 				s++;
 			if (!*s)
 				break ;
 			new[i++] = ft_strreplace(ft_strdup("#"), '#', - '#');
 		}
-		new[i++] = get_next_token(&s, d);
+		new[i++] = get_next_token(&s, " \t\r\v\f\"\'");
 	}
-	return (free(tmp), new[i] = NULL, new);
+	new[i] = NULL;
+	shell->av = new;
 }

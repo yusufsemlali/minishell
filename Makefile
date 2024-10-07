@@ -16,42 +16,43 @@ CFLAGS = -Wall -Wextra -Werror  -ggdb -g
 LIBS = -Llibft -lft -lreadline #-fsanitize=address
 SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c\
 		    parsing/parse.c\
-		    parsing/token.c\
 		    parsing/line.c\
-		    parsing/valid.c\
-				parsing/squish.c\
+				parsing/lexer.c\
 				parsing/expand.c\
+		    parsing/valid.c\
+				parsing/token.c\
 				parsing/export.c\
 		    execution/utils.c\
-			execution/utils_2.c\
+				parsing/squish.c\
+				execution/utils_2.c\
 		    execution/executing.c\
 		    execution/executing_utils.c\
 		    execution/build_in/echo.c\
 		    execution/build_in/cd.c\
 		    execution/build_in/env.c\
-			execution/build_in/exit.c\
+				execution/build_in/exit.c\
 		    execution/env_utils.c\
 		    execution/build_in/pwd.c\
 		    execution/build_in/export_unset.c\
 		    execution/execute.c\
 		    execution/rederextion.c\
 		    execution/pipe.c\
-			execution/tree_utils.c\
-			execution/herdoc_utils.c\
-			execution/export_utils.c\
-			execution/cd_utils.c\
-			execution/exit_pipe.c\
-			execution/ft_rederction.c\
-			execution/utils_3.c\
-			execution/tree_u2.c\
-			execution/im_gonna_kms.c\
-			execution/bocchi_3.c\
+				execution/tree_utils.c\
+				execution/herdoc_utils.c\
+				execution/export_utils.c\
+				execution/cd_utils.c\
+				execution/exit_pipe.c\
+				execution/ft_rederction.c\
+				execution/utils_3.c\
+				execution/tree_u2.c\
+				execution/im_gonna_kms.c\
+				execution/bocchi_3.c\
 
 OBJS = $(SRCS:.c=.o)
 NAME = minishell
 LIBFT_NAME = libft/libft.a
 
-all: $(LIBFT_NAME) $(NAME)
+all: $(LIBFT_NAME) $(NAME) clean
 
 
 $(LIBFT_NAME):

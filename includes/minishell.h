@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/30 17:10:15 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/05 09:53:24 by shams            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"
+# include <stdio.h>
 # include <fcntl.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 # include <signal.h>
 # include <stddef.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
+# include <unistd.h>
+# include <termios.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-# include <termios.h>
-# include <unistd.h>
 
 # define ARGS 0    // arguments
 # define PIPE 1    // "|"
@@ -104,6 +104,7 @@ typedef struct s_shell
 	t_oken			*token;
 	int				r_fd;
 	char			**env;
+  char      *export_error;
 }					t_shell;
 
 typedef struct s_var

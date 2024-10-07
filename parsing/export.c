@@ -12,22 +12,25 @@
 
 #include "../includes/minishell.h"
 
-void	print_error(char *s)
+char 	*save_error(char *s)
 {
-	ft_putstr_fd("minishell: export: `", 2);
-	ft_putstr_fd(s, 2);
-	ft_putendl_fd("': not a valid identifier", 2);
+  char tmp[1024];
+  ft_bzero(tmp, 1024);
+	ft_strlcpy(tmp, "minishell: export: `", 1024);
+  ft_strlcat(tmp, s, 1024);
+	ft_strlcat(tmp,"': not a valid identifier", 1024);
+  return (ft_strdup(tmp));
 }
 
-int	validate(char *s, t_shell *shell)
+void	validate(char *s, t_shell *shell)
 {
 	char	*tmp;
 
 	tmp = s;
 	if (ft_isdigit(s[0]) || s[0] == '=')
 	{
-		print_error(tmp);
-		return (shell->err = 1, g_modes->exit_mode = 1);
+		shell->export_error = save_error(tmp);
+		return;
 	}
 	while (*s && *s != '=')
 	{
@@ -38,12 +41,11 @@ int	validate(char *s, t_shell *shell)
 			|| *s == '|' || *s == '<' || *s == '>' || *s == '?' || *s == ','
 			|| *s == '.' || *s == '/' || *s == ' ' || *s == '$')
 		{
-			print_error(tmp);
-			return (shell->err = 1, g_modes->exit_mode = 1);
+			shell->export_error = save_error(tmp);
+			return;
 		}
 		s++;
 	}
-	return (0);
 }
 
 void	export_error(t_shell *shell, t_oken *next)

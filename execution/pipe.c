@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:22:54 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/28 19:27:06 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:16:25 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	handle_child_2_process(int fd[], t_shell *shell)
 	if (WIFEXITED(status))
 		g_modes->exit_mode = WEXITSTATUS(status);
 	else
-		g_modes->exit_mode = 1;
+		g_modes->exit_mode = CTRL_C;
 }
 
 void	ft_pipe(t_shell *shell)

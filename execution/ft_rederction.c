@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:15:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/10/02 14:56:10 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:28:47 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_continue_rederect_herd(t_shell *shell)
 	int		stdin_copy;
 	t_tree	*tmp;
 
-	fd = open("tmp", O_RDWR);
+	fd = open(".tmp", O_RDWR);
 	if (fd < 0)
 	{
 		printf("Error: open failed\n");

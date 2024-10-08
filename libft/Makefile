@@ -1,4 +1,5 @@
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror 
+
 NAME = libft.a
 
 SRCS = ft_strnstr.c ft_itoa.c ft_strtrim.c ft_substr.c ft_strmapi.c \
@@ -19,7 +20,6 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@ar -rc $(NAME) $(OBJS)
-
 
 %.o: %.c
 	@cc $(CFLAGS) -c $< -o $@

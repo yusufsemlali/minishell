@@ -6,31 +6,30 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 11:14:36 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/26 21:31:29 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:00:08 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char 	*save_error(char *s)
+void	write_error(char *s)
 {
-  char tmp[1024];
-  ft_bzero(tmp, 1024);
-	ft_strlcpy(tmp, "minishell: export: `", 1024);
-  ft_strlcat(tmp, s, 1024);
-	ft_strlcat(tmp,"': not a valid identifier", 1024);
-  return (ft_strdup(tmp));
+	ft_putstr_fd("MiniShell: export: `", 2);
+	ft_putstr_fd(s, 2);
+	ft_putendl_fd("': not a valid identifier", 2);
+	g_modes->d_change = 1;
+	g_modes->exit_mode = 1;
 }
 
-void	validate(char *s, t_shell *shell)
+int	validate(char *s)
 {
 	char	*tmp;
 
 	tmp = s;
 	if (ft_isdigit(s[0]) || s[0] == '=')
 	{
-		shell->export_error = save_error(tmp);
-		return;
+		write_error(tmp);
+		return (1);
 	}
 	while (*s && *s != '=')
 	{
@@ -41,18 +40,10 @@ void	validate(char *s, t_shell *shell)
 			|| *s == '|' || *s == '<' || *s == '>' || *s == '?' || *s == ','
 			|| *s == '.' || *s == '/' || *s == ' ' || *s == '$')
 		{
-			shell->export_error = save_error(tmp);
-			return;
+			write_error(tmp);
+			return (1);
 		}
 		s++;
 	}
-}
-
-void	export_error(t_shell *shell, t_oken *next)
-{
-	while (next->type == ARGS)
-	{
-		validate(next->value, shell);
-		next = next->next;
-	}
+	return (0);
 }

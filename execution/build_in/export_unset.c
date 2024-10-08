@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:03:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/30 16:44:17 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:58:19 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,22 +75,12 @@ void	create_env(char *key, char *value, t_shell *shell)
 	tmp->next = new;
 }
 
-void  error_export(char *s)
-{
-  g_modes->exit_mode = 1;
-
-  ft_putstr_fd(s, 2);
-  ft_putstr_fd("\n", 1);
-}
-
 void	export(t_shell *shell)
 {
 	char	*arr[1024];
 	t_var	tmp;
 
 	tmp.check = 0;
-  if (shell->export_error)
-    return(error_export(shell->export_error));
 	if (create_arr(arr, shell))
 	{
 		print_env(shell);
@@ -110,7 +100,6 @@ void	export(t_shell *shell)
 		}
 		tmp.i++;
 	}
-	g_modes->exit_mode = 0;
 }
 
 void	unset(t_shell *shell)

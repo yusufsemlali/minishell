@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/10/05 09:53:24 by shams            ###   ########.fr       */
+/*   Updated: 2024/10/08 15:45:15 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,8 @@ typedef struct s_shell
 	t_oken			*token;
 	int				r_fd;
 	char			**env;
-  char      *export_error;
+	char			*export_error;
+	int				st;
 }					t_shell;
 
 typedef struct s_var
@@ -142,6 +143,7 @@ typedef struct s_mode
 	pid_t			pid;
 	pid_t			pid2;
 	int				pipe_count;
+	int				d_change;
 }					t_mode;
 
 // -- main -- //
@@ -160,7 +162,7 @@ void				lexer(t_shell *shell);
 void				squish(t_shell *shell);
 void				token_lst(t_shell *shell);
 void				valid(t_shell *shell);
-void				export_error(t_shell *shell, t_oken *next);
+int					validate(char *s);
 //--- parse utils ----//
 char				*get_env(t_env *nv, char *key);
 int					inquotes(char *s, int i, int x);
@@ -244,7 +246,7 @@ void				handle_exec_error(t_var *var, t_shell *shell);
 void				count_tree_nodes(t_tree *tree, int *count);
 char				**av_m(void);
 int					already_exist(char *key, t_shell *shell);
-
+void				free_keys(char *key, char *value);
 // -- built in -- //
 void				ft_exit(t_shell *shell, int i, int j);
 void				free_all_shell(t_shell *shell, int i);

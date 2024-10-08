@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 21:30:46 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/30 16:20:24 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:46:08 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,27 @@
 
 void	process_export_entry(char *entry, t_shell *shell, int *check)
 {
-	char	*key;
-	char	*value;
-	int		j;
+	char		*key;
+	char		*value;
+	int			j;
 
 	j = 0;
+	if (validate(entry))
+	{
+		*check = 1;
+		return ;
+	}
 	while (entry[j])
 	{
-		if (is_space(entry[j]))
-		{
-			handle_export_error();
-			return ;
-		}
 		if (entry[j] == '=')
 		{
 			*check = 1;
 			key = ft_substr(entry, 0, j);
 			value = ft_substr(entry, j + 1, ft_strlen(entry) - (j + 1));
 			create_env(key, value, shell);
-			free(key);
-			free(value);
-			g_modes->exit_mode = 0;
+			free_keys(key, value);
+			if (!g_modes->d_change)
+				g_modes->exit_mode = 0;
 			return ;
 		}
 		j++;

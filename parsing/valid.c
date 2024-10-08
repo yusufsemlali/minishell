@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:38:43 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/21 22:01:38 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:45:15 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ void	valid(t_shell *shell)
 		if ((token->type == OUTPUT || token->type == INPUT
 				|| token->type == APPEND) && token->next->type != ARGS)
 			redirect_error(shell, token->type, token->next);
-		if (ft_strcmp(token->value, "export") == 0 && token->next->type == ARGS)
-			export_error(shell, token->next);
 		if (shell->err == ERR_SYNTAX)
 			break ;
 		token = token->next;

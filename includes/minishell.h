@@ -14,19 +14,19 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"
-# include <stdio.h>
 # include <fcntl.h>
 # include <signal.h>
 # include <stddef.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include <unistd.h>
-# include <termios.h>
-# include <readline/readline.h>
-# include <readline/history.h>
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <termios.h>
+# include <unistd.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 
 # define ARGS 0    // arguments
 # define PIPE 1    // "|"
@@ -154,6 +154,8 @@ void				free_nv(t_env **env);
 void				free_av(char ***av);
 int					error(void *ptr, t_shell *shell);
 void				handle_signals(int sig);
+void				ignore_signal(int sig);
+
 // -- parsing -- //
 void				parse(t_shell *shell);
 void				spacing(t_shell *shell);

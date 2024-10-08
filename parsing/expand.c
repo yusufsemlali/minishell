@@ -29,10 +29,15 @@ char	*get_env(t_env *nv, char *key)
 int	get_var(char *s, char *buf, t_env *nv)
 {
 	char	env[BUFFER_SIZE];
+	char	*tmp;
 
 	ft_bzero(env, BUFFER_SIZE);
+	tmp = NULL;
 	if (ft_strncmp(s, "$?", 2) == 0)
-		return (ft_strlcat(buf, ft_itoa(g_modes->exit_mode), BUFFER_SIZE), 2);
+	{
+		tmp = ft_itoa(g_modes->exit_mode);
+		return (ft_strlcat(buf, tmp, BUFFER_SIZE), free(tmp), 2);
+	}
 	else if (ft_strncmp(s, "$$", 2) == 0)
 		return (ft_strlcat(buf, "$$", BUFFER_SIZE), 2);
 	else if (ft_strncmp(s, "$#", 2) == 0)

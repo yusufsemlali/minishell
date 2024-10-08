@@ -96,5 +96,5 @@ void	init(t_shell **shell, int ac, char **av, char **nv)
 	else
 		init_env(shell, nv);
 	signal(SIGINT, handle_signals);
-	signal(SIGQUIT, handle_signals);
+	signal(SIGQUIT, SIG_IGN);
 }

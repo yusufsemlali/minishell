@@ -12,8 +12,8 @@
 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror  -ggdb -g
-LIBS = -Llibft -lft -lreadline #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
+LIBS = -Llibft -lft -lreadline
 SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c\
 		    parsing/parse.c\
 		    parsing/line.c\
@@ -52,7 +52,7 @@ OBJS = $(SRCS:.c=.o)
 NAME = minishell
 LIBFT_NAME = libft/libft.a
 
-all: $(LIBFT_NAME) $(NAME) clean
+all: $(LIBFT_NAME) $(NAME)
 
 
 $(LIBFT_NAME):

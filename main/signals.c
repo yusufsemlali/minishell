@@ -31,6 +31,4 @@ void	handle_signals(int sig)
 			g_modes->herdoc_mode = CTRL_C;
 		}
 	}
-	else if (sig == SIGQUIT)
-		return ;
 }

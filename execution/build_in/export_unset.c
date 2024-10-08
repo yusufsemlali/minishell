@@ -86,8 +86,6 @@ void	export(t_shell *shell)
 		print_env(shell);
 		return ;
 	}
-	if (g_modes->has_pipe)
-		return ;
 	tmp.i = 0;
 	while (arr[tmp.i])
 	{

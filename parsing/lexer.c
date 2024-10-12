@@ -12,28 +12,6 @@
 
 #include "../includes/minishell.h"
 
-static int	getcount(char *s)
-{
-	int	count;
-
-	count = 0;
-	while (*s)
-	{
-		if (ft_isspace(*s))
-		{
-			count++;
-			while (*s && ft_isspace(*s))
-				s++;
-		}
-		if (*s)
-		{
-			count++;
-			while (*s && !ft_isspace(*s))
-				s++;
-		}
-	}
-	return (count);
-}
 
 static char	*get_next_token(char **s, const char *dlem)
 {

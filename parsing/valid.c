@@ -37,8 +37,6 @@ void	redirect_error(t_shell *shell, int type, t_oken *next)
 {
 	if (shell->err == ERR_SYNTAX)
 		return ;
-	if (type == INPUT && next->type == OUTPUT)
-		return ;
 	if ((type == OUTPUT || type == INPUT || type == APPEND)
 		&& next->type != ARGS)
 	{
@@ -58,11 +56,11 @@ void	redirect_error(t_shell *shell, int type, t_oken *next)
 	}
 }
 
-void	pipe_error(t_shell *shell, t_oken *next)
+void	pipe_error(t_shell *shell,t_oken *token, t_oken *next)
 {
 	if (shell->err == ERR_SYNTAX)
 		return ;
-	if (next->type == END || next->type == PIPE)
+	if (next->type == END || next->type == PIPE || token->index == 0)
 	{
 		ft_putendl_fd("minishell: syntax error near unexpected token `|'", 2);
 		shell->err = ERR_SYNTAX;
@@ -77,8 +75,9 @@ void	valid(t_shell *shell)
 	token = shell->token;
 	while (token->next)
 	{
+    /*printf("%s %d\n", token->value, token->type);*/
 		if (token->type == PIPE)
-			pipe_error(shell, token->next);
+			pipe_error(shell,token, token->next);
 		if (token->type == HEREDOC)
 			heredoc_error(shell, token->type, token->next);
 		if ((token->type == OUTPUT || token->type == INPUT

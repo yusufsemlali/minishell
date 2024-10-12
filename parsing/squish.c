@@ -12,21 +12,6 @@
 
 #include "../includes/minishell.h"
 
-size_t	len_av(char **av)
-{
-	size_t	len;
-
-	len = 0;
-	while (*av)
-	{
-		len++;
-		if (ft_strchr(*av, - '#'))
-			len--;
-		av++;
-	}
-	return (len);
-}
-
 void	squish(t_shell *shell)
 {
 	char	buf[BUFFER_SIZE];

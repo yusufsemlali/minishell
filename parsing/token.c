@@ -31,19 +31,21 @@ int	t_type(char *s)
 void	token_lst(t_shell *shell)
 {
 	int		i;
+  int   t;
 	char	*v;
 
 	i = 0;
 	while (shell->av[i])
 	{
 		v = shell->av[i];
-		if (t_type(v) == ARGS && i == 0)
-			shell->token = ft_lstnew(ft_strdup(v), CMD);
-		else if (i > 0 && t_type(v) == ARGS && t_type(shell->av[i - 1]) == PIPE)
-			ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup(v), CMD));
+    t = t_type(v);
+		if (t == ARGS && i == 0)
+			shell->token = ft_lstnew(ft_strdup(v), CMD, i);
+		else if (i > 0 && t == ARGS && t_type(shell->av[i - 1]) == PIPE)
+			ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup(v), CMD,i));
 		else
-			ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup(v), t_type(v)));
+			ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup(v), t, i));
 		i++;
 	}
-	ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup("END"), END));
+	ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup("END"), END,i));
 }

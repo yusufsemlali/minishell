@@ -12,11 +12,6 @@
 
 #include "../includes/minishell.h"
 
-int	metachar(char c)
-{
-	return (ft_strchr("|<>", c) != NULL);
-}
-
 int	inquotes(char *s, int i, int x)
 {
 	int		one;
@@ -63,7 +58,7 @@ int	space(char *new, char *s, int *i)
 
 void	spacing(t_shell *shell)
 {
-	char	buf[BUFFER_SIZE];
+	char	buf[BUFFER_BIG];
 	char	*s;
 	char	*new;
 	int		i;
@@ -71,8 +66,8 @@ void	spacing(t_shell *shell)
 	s = shell->s;
 	new = buf;
 	i = 0;
-	bzero(new, BUFFER_SIZE);
-	while (s[i] && i < BUFFER_SIZE)
+	bzero(new, BUFFER_BIG);
+	while (s[i] && i < BUFFER_BIG)
 	{
 		if (s[i] == '$' && inquotes(s, i, 2))
 			*new ++ = -s[i++];

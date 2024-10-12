@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:44:55 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/25 16:45:52 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/09 16:33:01 by shams            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,18 @@ int	closed_checker(t_shell *shell, char *s)
 
 char	*prompt(t_shell *shell, char *pwd, char *home)
 {
-	static char	prompt[BUFFER_SIZE];
+	static char	prompt[BUFFER_BIG];
 
 	pwd = get_env(shell->nv, pwd);
 	home = get_env(shell->nv, home);
 	ft_bzero(prompt, BUFFER_SIZE);
 	ft_strlcat(prompt, COLOR_GREEN, BUFFER_SIZE);
-	ft_strlcat(prompt, get_env(shell->nv, "USER"), BUFFER_SIZE);
+	ft_strlcat(prompt, getenv("USER"), BUFFER_SIZE);
 	ft_strlcat(prompt, "@", BUFFER_SIZE);
-	ft_strlcat(prompt, get_env(shell->nv, "USERNAME"), BUFFER_SIZE);
+	ft_strlcat(prompt, getenv("USERNAME"), BUFFER_SIZE);
 	ft_strlcat(prompt, COLOR_RED, BUFFER_SIZE);
 	ft_strlcat(prompt, ":", BUFFER_SIZE);
-	if (ft_strncmp(pwd, home, ft_strlen(home)) == 0)
+	if (pwd && home && ft_strncmp(pwd, home, ft_strlen(home)))
 	{
 		ft_strlcat(prompt, "~", BUFFER_SIZE);
 		ft_strlcat(prompt, pwd + ft_strlen(home), BUFFER_SIZE);

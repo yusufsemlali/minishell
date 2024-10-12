@@ -28,14 +28,15 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 
-# define ARGS 0    // arguments
-# define PIPE 1    // "|"
-# define CMD 2     // command
-# define OUTPUT 3  // ">"
-# define INPUT 4   // "<"
-# define APPEND 5  // ">>"
-# define HEREDOC 6 // "<<"
-# define END 7     // ""
+# define ARGS 0     // arguments
+# define PIPE 1     // "|"
+# define CMD 2      // command
+# define OUTPUT 3   // ">"
+# define INPUT 4    // "<"
+# define APPEND 5   // ">>"
+# define HEREDOC 6  // "<<"
+# define END 7      // ""
+# define ARG 8      // "\"\'"
 
 # define STDIN 0
 # define STDOUT 1
@@ -54,8 +55,8 @@
 
 // error custom
 # define ERR_SYNTAX 258 // syntax error
-
-# define BUFFER_SIZE 40960 // 40 KB
+# define BUFFER_SML 
+# define BUFFER_BIG 2097152 // 2M
 # define CMD_MAX_LENGTH 1024
 
 // ANSI color codes for ayu dark theme
@@ -148,6 +149,7 @@ typedef struct s_mode
 
 // -- main -- //
 void				init(t_shell **shell, int ac, char **av, char **nv);
+void        init_env(t_shell **shell, char **nv);
 void				handle_signals(int sig);
 void				free_all(t_shell *shell);
 void				free_nv(t_env **env);
@@ -167,9 +169,13 @@ void				valid(t_shell *shell);
 int					validate(char *s);
 //--- parse utils ----//
 char				*get_env(t_env *nv, char *key);
+int					metachar(char c);
+int					t_type(char *s);
+int					getcount(char *s);
 int					inquotes(char *s, int i, int x);
 int					metachar(char c);
 char				*var(char *s, t_env *nv);
+size_t				len_av(char **av);
 //---execution---//
 int					execute(t_shell *shell);
 int					ft_size(char **av);

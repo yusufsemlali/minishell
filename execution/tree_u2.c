@@ -67,7 +67,7 @@ t_oken	*creat_token(t_oken *tokens, t_oken *last_redirection)
 	new = NULL;
 	while (current != last_redirection)
 	{
-		new = ft_lstnew(ft_strdup(current->value), current->type);
+		new = ft_lstnew(ft_strdup(current->value), current->type, 0);
 		new->read = current->read;
 		ft_lstadd_back(&tmp, new);
 		current = current->next;
@@ -75,7 +75,7 @@ t_oken	*creat_token(t_oken *tokens, t_oken *last_redirection)
 	current = last_redirection->next->next;
 	while (current && current->type != PIPE && isnt_red(current->type))
 	{
-		new = ft_lstnew(ft_strdup(current->value), current->type);
+		new = ft_lstnew(ft_strdup(current->value), current->type, 0);
 		new->read = current->read;
 		ft_lstadd_back(&tmp, new);
 		current = current->next;

@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:03:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/10/07 15:58:19 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/11 19:01:37 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_env	*create_new_env(const char *key, const char *value)
 	return (new);
 }
 
-void	create_env(char *key, char *value, t_shell *shell)
+void	create_env(char *key, char *value, t_shell *shell, int i)
 {
 	t_env	*tmp;
 	t_env	*new;
@@ -61,7 +61,7 @@ void	create_env(char *key, char *value, t_shell *shell)
 	{
 		if (!ft_strcmp(tmp->key, key))
 		{
-			update_existing_env(tmp, value);
+			update_existing_env(tmp, value, i);
 			return ;
 		}
 		tmp = tmp->next;
@@ -93,7 +93,7 @@ void	export(t_shell *shell)
 		if (!tmp.check && already_exist(arr[tmp.i], shell))
 		{
 			tmp.key = ft_substr(arr[tmp.i], 0, ft_strlen(arr[tmp.i]));
-			create_env(tmp.key, NULL, shell);
+			create_env(tmp.key, NULL, shell, 0);
 			free(tmp.key);
 		}
 		tmp.i++;

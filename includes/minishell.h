@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/10/08 15:45:15 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/11 19:00:32 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,8 +210,8 @@ void				process_export_entry(char *entry, t_shell *shell,
 void				handle_export_error(void);
 void				print_env(t_shell *shell);
 int					is_space(char c);
-void				create_env(char *key, char *value, t_shell *shell);
-void				update_existing_env(t_env *env, const char *value);
+void				create_env(char *key, char *value, t_shell *shell, int i);
+void				update_existing_env(t_env *env, const char *value, int i);
 void				found_key(t_shell *shell, char *key);
 void				update_paths(t_shell *shell, char *past_path);
 void				handle_home_directory(t_shell *shell);

@@ -38,26 +38,26 @@ int	closed_checker(t_shell *shell, char *s)
 
 char	*prompt(t_shell *shell, char *pwd, char *home)
 {
-	static char	prompt[BUFFER_BIG];
+	static char	prompt[BUFFER_SML];
 
 	pwd = get_env(shell->nv, pwd);
 	home = get_env(shell->nv, home);
-	ft_bzero(prompt, BUFFER_SIZE);
-	ft_strlcat(prompt, COLOR_GREEN, BUFFER_SIZE);
-	ft_strlcat(prompt, getenv("USER"), BUFFER_SIZE);
-	ft_strlcat(prompt, "@", BUFFER_SIZE);
-	ft_strlcat(prompt, getenv("USERNAME"), BUFFER_SIZE);
-	ft_strlcat(prompt, COLOR_RED, BUFFER_SIZE);
-	ft_strlcat(prompt, ":", BUFFER_SIZE);
+	ft_bzero(prompt, BUFFER_SML);
+	ft_strlcat(prompt, COLOR_GREEN, BUFFER_SML);
+	ft_strlcat(prompt, getenv("USER"), BUFFER_SML);
+	ft_strlcat(prompt, "@", BUFFER_SML);
+	ft_strlcat(prompt, getenv("USERNAME"), BUFFER_SML);
+	ft_strlcat(prompt, COLOR_RED, BUFFER_SML);
+	ft_strlcat(prompt, ":", BUFFER_SML);
 	if (pwd && home && ft_strncmp(pwd, home, ft_strlen(home)))
 	{
-		ft_strlcat(prompt, "~", BUFFER_SIZE);
-		ft_strlcat(prompt, pwd + ft_strlen(home), BUFFER_SIZE);
+		ft_strlcat(prompt, "~", BUFFER_SML);
+		ft_strlcat(prompt, pwd + ft_strlen(home), BUFFER_SML);
 	}
 	else
-		ft_strlcat(prompt, pwd, BUFFER_SIZE);
-	ft_strlcat(prompt, COLOR_RESET, BUFFER_SIZE);
-	ft_strlcat(prompt, "$ ", BUFFER_SIZE);
+		ft_strlcat(prompt, pwd, BUFFER_SML);
+	ft_strlcat(prompt, COLOR_RESET, BUFFER_SML);
+	ft_strlcat(prompt, "$ ", BUFFER_SML);
 	return (prompt);
 }
 

@@ -54,8 +54,10 @@
 # define CMD_NOT_FOUND 127 // comand not found
 
 // error custom
-# define ERR_SYNTAX 258 // syntax error
-# define BUFFER_SML 
+# define ERR_SYNTAX 258     // syntax error
+
+
+# define BUFFER_SML 40960   // 40KB
 # define BUFFER_BIG 2097152 // 2M
 # define CMD_MAX_LENGTH 1024
 

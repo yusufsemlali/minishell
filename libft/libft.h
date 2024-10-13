@@ -22,7 +22,7 @@ typedef struct s_token
 	char			*value;
 	int				type;
 	int				read;
-  int       index;
+	int				index;
 	struct s_token	*next;
 }					t_oken;
 
@@ -73,7 +73,7 @@ char				*ft_strjoin(char *s1, char *s2);
 char				*ft_itoa(int n);
 
 // bonus
-t_oken        *ft_lstnew(char *value, int type, int index);
+t_oken				*ft_lstnew(char *value, int type, int index);
 t_oken				*ft_lstlast(t_oken *token);
 int					ft_lstsize(t_oken *token);
 void				ft_lstclear(t_oken **token, void (*del)(void *));

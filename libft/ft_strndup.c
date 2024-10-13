@@ -22,10 +22,10 @@ char	*ft_strndup(const char *s, size_t n)
 		i++;
 	new = ft_calloc(i + 1, sizeof(char));
 	if (new)
-  {
-    i = 0;
-	  while (*s && n--)
-      new[i++] = *s++;
-  }
+	{
+		i = 0;
+		while (*s && n--)
+			new[i++] = *s++;
+	}
 	return (new);
 }

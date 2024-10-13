@@ -49,7 +49,7 @@ char	*prompt(t_shell *shell, char *pwd, char *home)
 	ft_strlcat(prompt, getenv("USERNAME"), BUFFER_SML);
 	ft_strlcat(prompt, COLOR_RED, BUFFER_SML);
 	ft_strlcat(prompt, ":", BUFFER_SML);
-	if (pwd && home && ft_strncmp(pwd, home, ft_strlen(home)))
+	if (pwd && home && !ft_strncmp(pwd, home, ft_strlen(home)))
 	{
 		ft_strlcat(prompt, "~", BUFFER_SML);
 		ft_strlcat(prompt, pwd + ft_strlen(home), BUFFER_SML);
@@ -72,8 +72,6 @@ void	parse(t_shell *shell)
 		spacing(shell);
 		expand(shell);
 		lexer(shell);
-		squish(shell);
-		token_lst(shell);
 		valid(shell);
 	}
 }

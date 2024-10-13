@@ -28,15 +28,14 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 
-# define ARGS 0     // arguments
-# define PIPE 1     // "|"
-# define CMD 2      // command
-# define OUTPUT 3   // ">"
-# define INPUT 4    // "<"
-# define APPEND 5   // ">>"
-# define HEREDOC 6  // "<<"
-# define END 7      // ""
-# define ARG 8      // "\"\'"
+# define ARGS 0    // arguments
+# define PIPE 1    // "|"
+# define CMD 2     // command
+# define OUTPUT 3  // ">"
+# define INPUT 4   // "<"
+# define APPEND 5  // ">>"
+# define HEREDOC 6 // "<<"
+# define END 7     // ""
 
 # define STDIN 0
 # define STDOUT 1
@@ -54,8 +53,7 @@
 # define CMD_NOT_FOUND 127 // comand not found
 
 // error custom
-# define ERR_SYNTAX 258     // syntax error
-
+# define ERR_SYNTAX 258 // syntax error
 
 # define BUFFER_SML 40960   // 40KB
 # define BUFFER_BIG 2097152 // 2M
@@ -151,7 +149,7 @@ typedef struct s_mode
 
 // -- main -- //
 void				init(t_shell **shell, int ac, char **av, char **nv);
-void        init_env(t_shell **shell, char **nv);
+void				init_env(t_shell **shell, char **nv);
 void				handle_signals(int sig);
 void				free_all(t_shell *shell);
 void				free_nv(t_env **env);

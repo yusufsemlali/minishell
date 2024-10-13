@@ -31,8 +31,6 @@ char	*get_env(t_env *nv, char *key)
 	return (NULL);
 }
 
-
-
 size_t	len_av(char **av)
 {
 	size_t	len;
@@ -70,7 +68,3 @@ int	getcount(char *s)
 	}
 	return (count);
 }
-
-
-
-

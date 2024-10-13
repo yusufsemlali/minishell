@@ -56,7 +56,7 @@ void	redirect_error(t_shell *shell, int type, t_oken *next)
 	}
 }
 
-void	pipe_error(t_shell *shell,t_oken *token, t_oken *next)
+void	pipe_error(t_shell *shell, t_oken *token, t_oken *next)
 {
 	if (shell->err == ERR_SYNTAX)
 		return ;
@@ -75,9 +75,8 @@ void	valid(t_shell *shell)
 	token = shell->token;
 	while (token->next)
 	{
-    /*printf("%s %d\n", token->value, token->type);*/
 		if (token->type == PIPE)
-			pipe_error(shell,token, token->next);
+			pipe_error(shell, token, token->next);
 		if (token->type == HEREDOC)
 			heredoc_error(shell, token->type, token->next);
 		if ((token->type == OUTPUT || token->type == INPUT

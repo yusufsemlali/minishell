@@ -55,6 +55,6 @@ void	free_all(t_shell *shell)
 	{
 		free_nv(&(shell->nv));
 		free(shell);
-    free(g_modes);
+		free(g_modes);
 	}
 }

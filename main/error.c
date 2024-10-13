@@ -14,7 +14,9 @@
 
 int	error(void *ptr, t_shell *shell)
 {
-  int exit_status = g_modes->exit_mode;
+	int	exit_status;
+
+	exit_status = g_modes->exit_mode;
 	if (ptr == NULL)
 	{
 		ft_putendl_fd("exit", 0);

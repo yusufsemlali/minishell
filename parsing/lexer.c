@@ -12,47 +12,80 @@
 
 #include "../includes/minishell.h"
 
-
-static char	*get_next_token(char **s, const char *dlem)
+int	t_type(char *s)
 {
-	char	*token;
-
-	if (**s == '\"' || **s == '\'')
-	{
-		token = ft_strndup(*s + 1, ft_strchr(*s + 1, **s) - *s - 1);
-		*s += ft_strchr(*s + 1, **s) - *s + 1;
-	}
+	if (ft_strcmp(s, "|") == 0)
+		return (PIPE);
+	else if (ft_strcmp(s, "<") == 0)
+		return (INPUT);
+	else if (ft_strcmp(s, ">") == 0)
+		return (OUTPUT);
+	else if (ft_strcmp(s, ">>") == 0)
+		return (APPEND);
+	else if (ft_strcmp(s, "<<") == 0)
+		return (HEREDOC);
 	else
+		return (ARGS);
+}
+
+int	get_next_token(char **str, char *token)
+{
+	int		i;
+	int		x;
+	char	*s;
+
+	i = 0;
+	x = 0;
+	s = *str;
+	while (s[i])
 	{
-		token = ft_strndup(*s, ft_strcspn(*s, (char *)dlem));
-		*s += ft_strcspn(*s, (char *)dlem);
+		while ((s[i] == '\"' || s[i] == '\'') && !inquotes(s, i, 0))
+			x = s[i++];
+		if (s[i] == '\0' || (ft_isspace(s[i]) && !inquotes(s, i, 0)))
+			break ;
+		if (s[i] != '\0' && x != s[i])
+			ft_strlcat(token, s + i, ft_strlen(token) + 2);
+		i++;
 	}
-	return (token);
+	*str += i;
+	if (x != 0)
+		return (ARGS);
+	return (t_type(token));
+}
+
+int	skip_whitespace(char **s)
+{
+	while (**s && ft_strchr(" \t\r\v\f", **s))
+		(*s)++;
+	if (!*s)
+		return (-1);
+	return (0);
 }
 
 void	lexer(t_shell *shell)
 {
-	char	**new;
+	char	token[BUFFER_SML];
 	char	*s;
 	int		i;
+	int		type;
 
-	new = ft_calloc(getcount(shell->s) * 2, sizeof(char *));
 	i = 0;
 	s = shell->s;
-	while (*s && ft_strchr(" \t\r\v\f", *s))
-		s++;
+	i = 0;
+	type = 0;
+	ft_bzero(token, BUFFER_SML);
+	skip_whitespace(&s);
 	while (*s)
 	{
-		if (ft_isspace(*s))
-		{
-			while (*s && ft_strchr(" \t\r\v\f", *s))
-				s++;
-			if (!*s)
-				break ;
-			new[i++] = ft_strreplace(ft_strdup("#"), '#', - '#');
-		}
-		new[i++] = get_next_token(&s, " \t\r\v\f\"\'");
+		if (skip_whitespace(&s))
+			break ;
+		type = get_next_token(&s, token);
+		if (i == 0 && type == ARGS)
+			shell->token = ft_lstnew(ft_strdup(token), CMD, i++);
+		else
+			ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup(token), type,
+					i++));
+		ft_bzero(token, BUFFER_SML);
 	}
-	new[i] = NULL;
-	shell->av = new;
+	ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup("END"), END, i));
 }

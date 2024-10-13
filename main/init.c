@@ -34,23 +34,23 @@ void	init_basic_env(t_shell **shell, char **nv)
 
 	i = 0;
 	(*shell)->nv = ft_calloc(1, sizeof(t_env));
-  if ((*shell)->nv)
-  {
-	tmp = (*shell)->nv;
-	while (nv[i])
+	if ((*shell)->nv)
 	{
-		(*shell)->nv->key = ft_strdup(nv[i]);
-		(*shell)->nv->value = get_value(nv[i]);
-		if (nv[i + 1] != NULL)
+		tmp = (*shell)->nv;
+		while (nv[i])
 		{
-			(*shell)->nv->next = ft_calloc(1, sizeof(t_env));
-			(*shell)->nv = (*shell)->nv->next;
+			(*shell)->nv->key = ft_strdup(nv[i]);
+			(*shell)->nv->value = get_value(nv[i]);
+			if (nv[i + 1] != NULL)
+			{
+				(*shell)->nv->next = ft_calloc(1, sizeof(t_env));
+				(*shell)->nv = (*shell)->nv->next;
+			}
+			i++;
 		}
-		i++;
+		(*shell)->nv->next = NULL;
+		(*shell)->nv = tmp;
 	}
-	(*shell)->nv->next = NULL;
-	(*shell)->nv = tmp;
-  }
 }
 
 void	init(t_shell **shell, int ac, char **av, char **nv)

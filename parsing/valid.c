@@ -68,6 +68,8 @@ void	pipe_error(t_shell *shell, t_oken *token, t_oken *next)
 	}
 }
 
+	/*for (t_oken *t = shell->token; t; t = t->next)*/
+	/*	printf("[%s] [%d] [%d] \n", t->value, t->type, t->index);*/
 void	valid(t_shell *shell)
 {
 	t_oken	*token;

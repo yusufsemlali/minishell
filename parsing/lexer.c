@@ -57,35 +57,49 @@ int	skip_whitespace(char **s)
 {
 	while (**s && ft_strchr(" \t\r\v\f", **s))
 		(*s)++;
-	if (!*s)
+	if (**s == '\0')
 		return (-1);
 	return (0);
 }
 
+void	token(t_shell *shell, int type, char *buf, int *i)
+{
+	static int	prev = -1;
+
+	if (*i == 0 && type == ARGS)
+	{
+		shell->token = ft_lstnew(ft_strdup(buf), CMD, *i);
+		prev = type;
+	}
+	else if (*i > 0 && type == ARGS && prev == PIPE)
+	{
+		ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup(buf), CMD, *i));
+		prev = type;
+	}
+	else
+	{
+		ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup(buf), type, *i));
+		prev = type;
+	}
+	(*i)++;
+	ft_bzero(buf, BUFFER_SML);
+}
+
 void	lexer(t_shell *shell)
 {
-	char	token[BUFFER_SML];
+	char	buf[BUFFER_SML];
 	char	*s;
 	int		i;
-	int		type;
 
 	i = 0;
 	s = shell->s;
-	i = 0;
-	type = 0;
-	ft_bzero(token, BUFFER_SML);
+	ft_bzero(buf, BUFFER_SML);
 	skip_whitespace(&s);
 	while (*s)
 	{
-		if (skip_whitespace(&s))
+		if (skip_whitespace(&s) != 0)
 			break ;
-		type = get_next_token(&s, token);
-		if (i == 0 && type == ARGS)
-			shell->token = ft_lstnew(ft_strdup(token), CMD, i++);
-		else
-			ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup(token), type,
-					i++));
-		ft_bzero(token, BUFFER_SML);
+		token(shell, get_next_token(&s, buf), buf, &i);
 	}
 	ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup("END"), END, i));
 }

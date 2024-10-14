@@ -31,21 +31,6 @@ char	*get_env(t_env *nv, char *key)
 	return (NULL);
 }
 
-size_t	len_av(char **av)
-{
-	size_t	len;
-
-	len = 0;
-	while (*av)
-	{
-		len++;
-		if (ft_strchr(*av, - '#'))
-			len--;
-		av++;
-	}
-	return (len);
-}
-
 int	getcount(char *s)
 {
 	int	count;

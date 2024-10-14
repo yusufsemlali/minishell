@@ -17,7 +17,7 @@ int	get_var(char *s, char *buf, t_env *nv)
 	char	*env;
 	char	*tmp;
 
-  env = ft_calloc(BUFFER_SML , 1);
+	env = ft_calloc(BUFFER_SML, 1);
 	if (ft_strncmp(s, "$?", 2) == 0)
 		return (ft_strlcat(buf, (tmp = ft_itoa(g_modes->exit_mode)),
 				BUFFER_SML), free(tmp), 2);
@@ -37,14 +37,14 @@ int	get_var(char *s, char *buf, t_env *nv)
 		ft_strlcat(buf, get_env(nv, env), BUFFER_SML);
 		return (ft_strlen(env) + 1);
 	}
-	return (ft_strlcat(buf, s, ft_strlen(buf) + 2),free(env), 1);
+	return (ft_strlcat(buf, s, ft_strlen(buf) + 2), free(env), 1);
 }
 
 char	*var(char *s, t_env *nv)
 {
 	char	*buf;
 
-  buf = ft_calloc(BUFFER_BIG , 1);
+	buf = ft_calloc(BUFFER_BIG, 1);
 	while (*s)
 		s += get_var(s, buf, nv);
 	return (buf);

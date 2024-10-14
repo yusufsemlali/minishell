@@ -12,6 +12,22 @@
 
 #include "../includes/minishell.h"
 
+int	getlen(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (*s)
+	{
+		if (metachar(*s))
+			i += 3;
+		else
+			i++;
+		s++;
+	}
+	return (i);
+}
+
 int	inquotes(char *s, int i, int x)
 {
 	int		one;
@@ -59,28 +75,26 @@ int	space(char *new, char *s, int *i)
 void	spacing(t_shell *shell)
 {
 	char	*new;
-  char  *tmp;
+	char	*tmp;
 	char	*s;
 	int		i;
 
 	s = shell->s;
-  new = ft_calloc(ft_strlen(shell->s) * 2 , 1);
-  if (new)
-  {
-    tmp = new;
-
-	i = 0;
-	while (s[i] && i < BUFFER_BIG)
+	new = ft_calloc(getlen(shell->s) * 2, 1);
+	if (new)
 	{
-		if (s[i] == '$' && inquotes(s, i, 2))
-			*new ++ = -s[i++];
-		else if (metachar(s[i]) && !inquotes(s, i, 0))
-			new += space(new, s, &i);
-		else
-			*new ++ = s[i++];
+		tmp = new;
+		i = 0;
+		while (s[i] && i < BUFFER_BIG)
+		{
+			if (s[i] == '$' && inquotes(s, i, 2))
+				*new ++ = -s[i++];
+			else if (metachar(s[i]) && !inquotes(s, i, 0))
+				new += space(new, s, &i);
+			else
+				*new ++ = s[i++];
+		}
+		free(shell->s);
+		shell->s = tmp;
 	}
-	free(shell->s);
-	shell->s = tmp;
-  printf("%s\n", shell->s);
-  }
 }

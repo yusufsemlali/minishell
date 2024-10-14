@@ -71,7 +71,7 @@ void	parse(t_shell *shell)
 	{
 		spacing(shell);
 		expand(shell);
-		/*lexer(shell);*/
-		/*valid(shell);*/
+		lexer(shell);
+		valid(shell);
 	}
 }

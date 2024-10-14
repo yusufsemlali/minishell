@@ -19,7 +19,7 @@ int	error(void *ptr, t_shell *shell)
 	exit_status = g_modes->exit_mode;
 	if (ptr == NULL)
 	{
-    printf("erro here\n");
+		printf("erro here\n");
 		ft_putendl_fd("exit", 0);
 		rl_clear_history();
 		shell->end = 1;

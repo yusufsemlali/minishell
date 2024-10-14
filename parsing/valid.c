@@ -73,8 +73,6 @@ void	valid(t_shell *shell)
 	t_oken	*token;
 
 	token = shell->token;
-	/*for (t_oken *t = shell->token; t; t = t->next)*/
-	/*	printf("[%s] [%d] [%d] \n", t->value, t->type, t->index);*/
 	while (token->next)
 	{
 		if (token->type == PIPE)

@@ -41,7 +41,7 @@ char	*prompt(t_shell *shell, char *pwd, char *home)
 	static char	prompt[BUFFER_SML];
 
 	pwd = get_env(shell->nv, pwd);
-	home = get_env(shell->nv, home);
+	home = getenv(home);
 	ft_bzero(prompt, BUFFER_SML);
 	ft_strlcat(prompt, COLOR_GREEN, BUFFER_SML);
 	ft_strlcat(prompt, getenv("USER"), BUFFER_SML);
@@ -71,7 +71,7 @@ void	parse(t_shell *shell)
 	{
 		spacing(shell);
 		expand(shell);
-		lexer(shell);
-		valid(shell);
+		/*lexer(shell);*/
+		/*valid(shell);*/
 	}
 }

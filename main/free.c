@@ -53,6 +53,7 @@ void	free_all(t_shell *shell)
 	ft_lstclear(&shell->token, del);
 	if (shell->end != 0)
 	{
+
 		free_nv(&(shell->nv));
 		free(shell);
 		free(g_modes);

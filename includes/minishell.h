@@ -55,8 +55,8 @@
 // error custom
 # define ERR_SYNTAX 258 // syntax error
 
-# define BUFFER_SML 40960   // 40KB
-# define BUFFER_BIG 2097152 // 2M
+# define BUFFER_SML 40960     // 40KB
+# define BUFFER_BIG 10485760  // 10MB
 # define CMD_MAX_LENGTH 1024
 
 // ANSI color codes for ayu dark theme
@@ -98,6 +98,7 @@ typedef struct s_shell
 	int				status;
 	int				fd;
 	int				err;
+  int       len;
 	int				begin;
 	int				end;
 	t_herdoc		*herdoc;

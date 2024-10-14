@@ -58,15 +58,18 @@ int	space(char *new, char *s, int *i)
 
 void	spacing(t_shell *shell)
 {
-	char	buf[BUFFER_BIG];
-	char	*s;
 	char	*new;
+  char  *tmp;
+	char	*s;
 	int		i;
 
 	s = shell->s;
-	new = buf;
+  new = ft_calloc(ft_strlen(shell->s) * 2 , 1);
+  if (new)
+  {
+    tmp = new;
+
 	i = 0;
-	bzero(new, BUFFER_BIG);
 	while (s[i] && i < BUFFER_BIG)
 	{
 		if (s[i] == '$' && inquotes(s, i, 2))
@@ -77,5 +80,7 @@ void	spacing(t_shell *shell)
 			*new ++ = s[i++];
 	}
 	free(shell->s);
-	shell->s = ft_strdup(buf);
+	shell->s = tmp;
+  printf("%s\n", shell->s);
+  }
 }

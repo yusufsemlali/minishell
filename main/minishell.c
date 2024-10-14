@@ -68,8 +68,8 @@ int	main(const int ac, char **av, char **nv)
 		reset(shell);
 		parse(shell);
 		shell->r_fd = 0;
-		if (shell->err == 0)
-			minishell(shell);
+		/*if (shell->err == 0)*/
+		/*	minishell(shell);*/
 	}
 	return (0);
 }

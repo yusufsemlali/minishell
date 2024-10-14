@@ -12,9 +12,20 @@
 
 #include "../includes/minishell.h"
 
-int	metachar(char c)
+int	getlen(char *s)
 {
-	return (ft_strchr("|<>", c) != NULL);
+	int	i;
+
+	i = 0;
+	while (*s)
+	{
+		if (metachar(*s))
+			i += 3;
+		else
+			i++;
+		s++;
+	}
+	return (i);
 }
 
 int	inquotes(char *s, int i, int x)
@@ -63,24 +74,27 @@ int	space(char *new, char *s, int *i)
 
 void	spacing(t_shell *shell)
 {
-	char	buf[BUFFER_SIZE];
-	char	*s;
 	char	*new;
+	char	*tmp;
+	char	*s;
 	int		i;
 
 	s = shell->s;
-	new = buf;
-	i = 0;
-	bzero(new, BUFFER_SIZE);
-	while (s[i] && i < BUFFER_SIZE)
+	new = ft_calloc(getlen(shell->s) * 2, 1);
+	if (new)
 	{
-		if (s[i] == '$' && inquotes(s, i, 2))
-			*new ++ = -s[i++];
-		else if (metachar(s[i]) && !inquotes(s, i, 0))
-			new += space(new, s, &i);
-		else
-			*new ++ = s[i++];
+		tmp = new;
+		i = 0;
+		while (s[i] && i < BUFFER_BIG)
+		{
+			if (s[i] == '$' && inquotes(s, i, 2))
+				*new ++ = -s[i++];
+			else if (metachar(s[i]) && !inquotes(s, i, 0))
+				new += space(new, s, &i);
+			else
+				*new ++ = s[i++];
+		}
+		free(shell->s);
+		shell->s = tmp;
 	}
-	free(shell->s);
-	shell->s = ft_strdup(buf);
 }

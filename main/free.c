@@ -43,7 +43,6 @@ void	free_nv(t_env **env)
 		free(tmp);
 		tmp = next;
 	}
-	free(tmp);
 	*env = NULL;
 }
 
@@ -56,5 +55,6 @@ void	free_all(t_shell *shell)
 	{
 		free_nv(&(shell->nv));
 		free(shell);
+		free(g_modes);
 	}
 }

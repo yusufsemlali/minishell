@@ -14,13 +14,17 @@
 
 int	error(void *ptr, t_shell *shell)
 {
+	int	exit_status;
+
+	exit_status = g_modes->exit_mode;
 	if (ptr == NULL)
 	{
+		printf("erro here\n");
 		ft_putendl_fd("exit", 0);
 		rl_clear_history();
 		shell->end = 1;
 		free_all(shell);
-		exit(g_modes->exit_mode);
+		exit(exit_status);
 	}
 	else if (ft_strncmp(ptr, "", 1) == 0)
 		return (shell->err = 1, 1);

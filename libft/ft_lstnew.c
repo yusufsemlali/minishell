@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-t_oken	*ft_lstnew(char *value, int type)
+t_oken	*ft_lstnew(char *value, int type, int index)
 {
 	t_oken	*result;
 
@@ -22,6 +22,7 @@ t_oken	*ft_lstnew(char *value, int type)
 	result->value = value;
 	result->type = type;
 	result->read = 0;
+	result->index = index;
 	result->next = NULL;
 	return (result);
 }

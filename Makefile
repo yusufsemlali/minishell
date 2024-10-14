@@ -12,18 +12,17 @@
 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -ggdb 
 LIBS = -Llibft -lft -lreadline
-SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c\
+SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c main/init_utils.c\
 		    parsing/parse.c\
 		    parsing/line.c\
 				parsing/lexer.c\
 				parsing/expand.c\
 		    parsing/valid.c\
-				parsing/token.c\
 				parsing/export.c\
+				parsing/utils.c\
 		    execution/utils.c\
-				parsing/squish.c\
 				execution/utils_2.c\
 		    execution/executing.c\
 		    execution/executing_utils.c\

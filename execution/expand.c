@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/15 18:43:00 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/10/15 18:46:23 by ysemlali         ###   ########.fr       */
+/*   Created: 2024/10/14 23:09:14 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/10/14 23:09:16 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	get_variables(char *s, char *buf, t_env *nv)
+int	get_var(char *s, char *buf, t_env *nv)
 {
 	char	*env;
 	char	*tmp;
@@ -40,24 +40,12 @@ int	get_variables(char *s, char *buf, t_env *nv)
 	return (ft_strlcat(buf, s, ft_strlen(buf) + 2), free(env), 1);
 }
 
-char	*expanding(char *s, t_env *nv)
+char	*var(char *s, t_env *nv)
 {
 	char	*buf;
 
 	buf = ft_calloc(BUFFER_BIG, 1);
 	while (*s)
-		s += get_variables(s, buf, nv);
+		s += get_var(s, buf, nv);
 	return (buf);
-}
-
-void	expand(t_shell *shell)
-{
-	char	*expand;
-
-	expand = expanding(shell->s, shell->nv);
-	if (*expand != 0)
-	{
-		free(shell->s);
-		shell->s = ft_strreplace(expand, - '$', '$');
-	}
 }

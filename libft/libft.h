@@ -24,6 +24,7 @@ typedef struct s_token
 	int				read;
 	int				index;
 	struct s_token	*next;
+	struct s_token	*prev;
 }					t_oken;
 
 // mandatory

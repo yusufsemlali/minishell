@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+         #
+#    By: aclakhda <aclakhda@student.2.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/25 21:41:51 by ysemlali          #+#    #+#              #
-#    Updated: 2024/09/27 16:49:19 by aclakhda         ###   ########.fr        #
+#    Updated: 2024/10/14 23:08:25 by ysemlali         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,9 @@ SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c ma
 		    parsing/parse.c\
 		    parsing/line.c\
 				parsing/lexer.c\
-				parsing/expand.c\
 		    parsing/valid.c\
 				parsing/export.c\
+				parsing/expand.c\
 				parsing/utils.c\
 		    execution/utils.c\
 				execution/utils_2.c\
@@ -35,6 +35,7 @@ SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c ma
 		    execution/build_in/export_unset.c\
 		    execution/execute.c\
 		    execution/rederextion.c\
+				execution/expand.c\
 		    execution/pipe.c\
 				execution/tree_utils.c\
 				execution/herdoc_utils.c\

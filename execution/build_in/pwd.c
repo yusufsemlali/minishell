@@ -26,5 +26,5 @@ void	pwd(t_shell *shell)
 		}
 		tmp = tmp->next;
 	}
-	g_modes->exit_mode = 0;
+	g_modes.exit_mode = 0;
 }

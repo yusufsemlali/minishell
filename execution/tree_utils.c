@@ -71,9 +71,9 @@ t_tree	*creat_tree_pipe(t_oken *tokens, t_oken *last_red_p)
 	pipe_left = creat_token_pipe(tokens, last_red_p);
 	pipe_right = last_red_p->next;
 	root = NULL;
-	g_modes->pipe_count--;
+	g_modes.pipe_count--;
 	last_red_p->read = 1;
-	g_modes->has_pipe = 1;
+	g_modes.has_pipe = 1;
 	root = creat_node(last_red_p->value, NULL);
 	if (last_red_p->next)
 		root->right = create_tree(pipe_right);

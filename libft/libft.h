@@ -21,8 +21,8 @@ typedef struct s_token
 {
 	char			*value;
 	int				type;
-	int				read;
 	int				index;
+	int				read;
 	struct s_token	*next;
 }					t_oken;
 
@@ -71,15 +71,15 @@ void				ft_putnbr_fd(int n, int fd);
 char				*ft_strnstr(const char *h, const char *n, size_t l);
 char				*ft_strjoin(char *s1, char *s2);
 char				*ft_itoa(int n);
+int					get_num_len(long n);
 
 // bonus
 t_oken				*ft_lstnew(char *value, int type, int index);
 t_oken				*ft_lstlast(t_oken *token);
 int					ft_lstsize(t_oken *token);
-void				ft_lstclear(t_oken **token, void (*del)(void *));
+void				ft_lstclear(t_oken **lst);
 void				ft_lstadd_front(t_oken **token, t_oken *new);
 void				ft_lstadd_back(t_oken **token, t_oken *new);
-void				ft_lstdelone(t_oken *lst, void (*del)(void *));
-void				ft_dellast(t_oken **lst, void (*del)(void *));
-void				del(void *value);
+void				ft_lstdelone(t_oken *lst);
+void				ft_dellast(t_oken **lst);
 #endif

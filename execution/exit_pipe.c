@@ -17,33 +17,33 @@ void	exit_pipe(t_shell *shell)
 	if (shell->tree->right)
 	{
 		handle_exit_numeric(shell);
-		if (shell->tree->right->right && g_modes->exit_mode != 2)
+		if (shell->tree->right->right && g_modes.exit_mode != 2)
 		{
 			handle_exit_too_many_args();
 			return ;
 		}
 	}
 	else
-		g_modes->exit_mode = 0;
+		g_modes.exit_mode = 0;
 	free_all_shell(shell, 1);
 }
 
 void	handle_exit_too_many_args(void)
 {
 	ft_putstr_fd("minishell: exit: too many arguments\n", STDERR_FILENO);
-	g_modes->exit_mode = 1;
+	g_modes.exit_mode = 1;
 }
 
 void	handle_exit_numeric(t_shell *shell)
 {
 	if (is_numeric(shell->tree->right->op))
-		g_modes->exit_mode = ft_atoi(shell->tree->right->op);
+		g_modes.exit_mode = ft_atoi(shell->tree->right->op);
 	else
 	{
 		ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
 		ft_putstr_fd(shell->tree->right->op, STDERR_FILENO);
 		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
-		g_modes->exit_mode = 2;
+		g_modes.exit_mode = 2;
 	}
 }
 

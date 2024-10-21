@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 10:37:42 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/25 17:13:41 by aclakhda         ###   ########.fr       */
+/*   Created: 2024/10/14 23:08:04 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/10/14 23:08:06 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,18 @@ int	space(char *new, char *s, int *i)
 	return (ft_strlen(buf));
 }
 
+int	isheredoc(char *s, int i)
+{
+	while (i > 0)
+	{
+		if (s[i - 1] == '<' && s[i - 2] == '<')
+			if (!inquotes(s, i, 0))
+				return (1);
+		i--;
+	}
+	return (0);
+}
+
 void	spacing(t_shell *shell)
 {
 	char	*new;
@@ -85,9 +97,10 @@ void	spacing(t_shell *shell)
 	{
 		tmp = new;
 		i = 0;
-		while (s[i] && i < BUFFER_BIG)
+		while (s[i])
 		{
-			if (s[i] == '$' && inquotes(s, i, 2))
+			if ((s[i] == '$' && inquotes(s, i, 2)) || (s[i] == '$'
+					&& isheredoc(s, i)))
 				*new ++ = -s[i++];
 			else if (metachar(s[i]) && !inquotes(s, i, 0))
 				new += space(new, s, &i);

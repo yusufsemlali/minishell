@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/22 11:14:36 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/10/07 16:00:08 by aclakhda         ###   ########.fr       */
+/*   Created: 2024/10/14 23:07:43 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/10/14 23:07:43 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	write_error(char *s)
 	ft_putstr_fd("MiniShell: export: `", 2);
 	ft_putstr_fd(s, 2);
 	ft_putendl_fd("': not a valid identifier", 2);
-	g_modes->d_change = 1;
-	g_modes->exit_mode = 1;
+	g_modes.d_change = 1;
+	g_modes.exit_mode = 1;
 }
 
 int	valid_plus(char current, char next)

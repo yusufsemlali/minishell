@@ -35,7 +35,7 @@ void	handle_exec_error(t_var *var, t_shell *shell)
 	perror("execve");
 	free(var->cmd_path);
 	lazy_free(var->env, env_size(shell->nv));
-	exit(g_modes->exit_mode);
+	exit(g_modes.exit_mode);
 }
 
 int	set(t_oken *token)

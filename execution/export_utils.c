@@ -33,8 +33,8 @@ void	process_export_entry(char *entry, t_shell *shell, int *check)
 			value = ft_substr(entry, j + 1, ft_strlen(entry) - (j + 1));
 			create_env(key, value, shell);
 			free_keys(key, value);
-			if (!g_modes->d_change)
-				g_modes->exit_mode = 0;
+			if (!g_modes.d_change)
+				g_modes.exit_mode = 0;
 			return ;
 		}
 		j++;
@@ -44,7 +44,7 @@ void	process_export_entry(char *entry, t_shell *shell, int *check)
 void	handle_export_error(void)
 {
 	ft_putstr_fd("export : not a valid identifier\n", STDERR);
-	g_modes->exit_mode = 1;
+	g_modes.exit_mode = 1;
 }
 
 void	print_env(t_shell *shell)

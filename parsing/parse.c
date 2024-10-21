@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 10:44:55 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/10/09 16:33:01 by shams            ###   ########.fr       */
+/*   Created: 2024/10/14 23:05:03 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/10/14 23:05:03 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	closed_checker(t_shell *shell, char *s)
 	if (two_open % 2 != 0)
 		ft_putendl_fd("minishell: syntax error near unexpected token `\"'", 2);
 	if (one_open % 2 != 0 || two_open % 2 != 0)
-		return (g_modes->exit_mode = 127, shell->err = ERR_SYNTAX, 0);
+		return (g_modes.exit_mode = 127, shell->err = ERR_SYNTAX, 0);
 	return (1);
 }
 
@@ -67,6 +67,7 @@ void	parse(t_shell *shell)
 	if (error(shell->s, shell))
 		return ;
 	add_history(shell->s);
+	shell->len = ft_strlen(shell->s);
 	if (closed_checker(shell, shell->s))
 	{
 		spacing(shell);

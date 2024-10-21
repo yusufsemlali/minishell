@@ -12,16 +12,16 @@
 
 #include "libft.h"
 
-void	ft_dellast(t_oken **lst, void (*del)(void *))
+void	ft_dellast(t_oken **lst)
 {
 	t_oken	*current;
 	t_oken	*prev;
 
-	if (lst && *lst && del)
+	if (lst && *lst)
 	{
 		if (!(*lst)->next)
 		{
-			ft_lstdelone(*lst, del);
+			ft_lstdelone(*lst);
 			*lst = NULL;
 			return ;
 		}
@@ -33,6 +33,6 @@ void	ft_dellast(t_oken **lst, void (*del)(void *))
 			current = current->next;
 		}
 		prev->next = NULL;
-		ft_lstdelone(current, del);
+		ft_lstdelone(current);
 	}
 }

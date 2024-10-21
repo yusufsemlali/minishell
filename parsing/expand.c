@@ -43,10 +43,9 @@ int	get_variable_size(char *s, t_env *nv)
 
 int	get_variables(char *s, char *buf, t_env *nv)
 {
-	char	*env;
+	char	env[1024];
 	char	*tmp;
 
-	env = ft_calloc(BUFFER_SML, 1);
 	if (ft_strncmp(s, "$?", 2) == 0)
 		return (ft_strlcat(buf, (tmp = ft_itoa(g_modes.exit_mode)), BUFFER_SML),
 			free(tmp), 2);
@@ -66,7 +65,7 @@ int	get_variables(char *s, char *buf, t_env *nv)
 		ft_strlcat(buf, get_env(nv, env), BUFFER_SML);
 		return (ft_strlen(env) + 1);
 	}
-	return (ft_strlcat(buf, s, ft_strlen(buf) + 2), free(env), 1);
+	return (ft_strlcat(buf, s, ft_strlen(buf) + 2), 1);
 }
 
 char	*expanding(t_shell *shell)
@@ -76,7 +75,6 @@ char	*expanding(t_shell *shell)
 
 	s = shell->s;
 	buf = ft_calloc(get_variable_size(s, shell->nv), 1);
-	printf("%d\n", get_variable_size(s, shell->nv));
 	while (*s)
 		s += get_variables(s, buf, shell->nv);
 	return (buf);

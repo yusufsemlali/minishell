@@ -19,7 +19,7 @@ int	get_var(char *s, char *buf, t_env *nv)
 
 	env = ft_calloc(BUFFER_SML, 1);
 	if (ft_strncmp(s, "$?", 2) == 0)
-		return (ft_strlcat(buf, (tmp = ft_itoa(g_modes->exit_mode)),
+		return (ft_strlcat(buf, (tmp = ft_itoa(g_modes.exit_mode)),
 				BUFFER_SML), free(tmp), 2);
 	if (ft_strncmp(s, "$$", 2) == 0)
 		return (ft_strlcat(buf, "$$", BUFFER_SML), 2);

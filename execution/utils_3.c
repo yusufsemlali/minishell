@@ -15,7 +15,7 @@
 void	handle_open_error(void)
 {
 	printf("Error: open failed\n");
-	g_modes->exit_mode = 1;
+	g_modes.exit_mode = 1;
 }
 
 int	open_file_for_writing(char *file_name)

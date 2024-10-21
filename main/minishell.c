@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-t_mode	*g_modes;
+t_mode	g_modes;
 
 void	ctrl_c_remove(void)
 {
@@ -41,15 +41,15 @@ void	reset(t_shell *shell)
 	shell->begin = 0;
 	shell->status = 0;
 	shell->end = 0;
-	g_modes->has_pipe = 0;
-	g_modes->input_mode = 0;
-	g_modes->output_mode = 0;
-	g_modes->herdoc_mode = 0;
-	g_modes->herdoc_mode = 0;
-	g_modes->pipe_count = 0;
-	g_modes->pid2 = 0;
-	g_modes->pid = 0;
-	g_modes->d_change = 0;
+	g_modes.has_pipe = 0;
+	g_modes.input_mode = 0;
+	g_modes.output_mode = 0;
+	g_modes.herdoc_mode = 0;
+	g_modes.herdoc_mode = 0;
+	g_modes.pipe_count = 0;
+	g_modes.pid2 = 0;
+	g_modes.pid = 0;
+	g_modes.d_change = 0;
 	free_all(shell);
 	shell->s = NULL;
 }

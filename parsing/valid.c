@@ -6,7 +6,7 @@
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 23:08:58 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/10/14 23:09:00 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/10/20 11:06:34 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ void	heredoc_error(t_shell *shell, int type, t_oken *next)
 	if (type == HEREDOC && next->type == END)
 	{
 		shell->err = ERR_SYNTAX;
-		g_modes->exit_mode = 2;
+		g_modes.exit_mode = 2;
 		ft_putendl_fd("minishell: syntax error near unexpected token `newline'",
 			2);
 	}
 	else if (type == HEREDOC && next->type != END && next->type != ARGS)
 	{
 		shell->err = ERR_SYNTAX;
-		g_modes->exit_mode = 2;
+		g_modes.exit_mode = 2;
 		ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
 		ft_putstr_fd(next->value, 2);
 		ft_putstr_fd("'\n", 2);
@@ -41,7 +41,7 @@ void	redirect_error(t_shell *shell, int type, t_oken *next)
 		&& next->type != ARGS)
 	{
 		shell->err = ERR_SYNTAX;
-		g_modes->exit_mode = 2;
+		g_modes.exit_mode = 2;
 		if (next->type == END)
 		{
 			ft_putstr_fd("minishell: syntax error near unexpected token", 2);
@@ -64,7 +64,7 @@ void	pipe_error(t_shell *shell, t_oken *token, t_oken *next)
 	{
 		ft_putendl_fd("minishell: syntax error near unexpected token `|'", 2);
 		shell->err = ERR_SYNTAX;
-		g_modes->exit_mode = 2;
+		g_modes.exit_mode = 2;
 	}
 }
 
@@ -86,5 +86,5 @@ void	valid(t_shell *shell)
 			break ;
 		token = token->next;
 	}
-	ft_dellast(&shell->token, del);
+	ft_dellast(&shell->token);
 }

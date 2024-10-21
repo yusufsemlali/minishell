@@ -50,8 +50,8 @@ void	child_process(int fd[], t_shell *shell)
 
 void	handle_child_process(int fd[], t_shell *shell)
 {
-	g_modes->pid = fork();
-	if (g_modes->pid == 0)
+	g_modes.pid = fork();
+	if (g_modes.pid == 0)
 		child_process(fd, shell);
 }
 
@@ -62,17 +62,17 @@ void	handle_child_2_process(int fd[], t_shell *shell)
 
 	bocchi = 0;
 	status = 0;
-	g_modes->pid2 = fork();
-	if (g_modes->pid2 == 0)
+	g_modes.pid2 = fork();
+	if (g_modes.pid2 == 0)
 		child_2(shell, fd);
 	close(fd[0]);
 	close(fd[1]);
-	waitpid(g_modes->pid, &bocchi, 0);
-	waitpid(g_modes->pid2, &status, 0);
+	waitpid(g_modes.pid, &bocchi, 0);
+	waitpid(g_modes.pid2, &status, 0);
 	if (WIFEXITED(status))
-		g_modes->exit_mode = WEXITSTATUS(status);
+		g_modes.exit_mode = WEXITSTATUS(status);
 	else
-		g_modes->exit_mode = CTRL_C;
+		g_modes.exit_mode = CTRL_C;
 }
 
 void	ft_pipe(t_shell *shell)

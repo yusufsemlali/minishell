@@ -266,5 +266,5 @@ void				pwd(t_shell *shell);
 void				export(t_shell *shell);
 void				unset(t_shell *shell);
 
-extern t_mode		*g_modes;
+extern t_mode		g_modes;
 #endif

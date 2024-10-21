@@ -29,32 +29,30 @@ void	free_av(char ***av)
 	*av = NULL;
 }
 
-void	free_nv(t_env **env)
+void	cleanup_env(t_env *env)
 {
-	t_env	*tmp;
+	t_env	*current;
 	t_env	*next;
 
-	tmp = *env;
-	while (tmp)
+	current = env;
+	while (current)
 	{
-		next = tmp->next;
-		free(tmp->key);
-		free(tmp->value);
-		free(tmp);
-		tmp = next;
+		next = current->next;
+		free(current->key);
+		free(current->value);
+		free(current);
+		current = next;
 	}
-	*env = NULL;
+	env = NULL;
 }
 
 void	free_all(t_shell *shell)
 {
 	free(shell->s);
-	free_av(&(shell->av));
-	ft_lstclear(&shell->token, del);
+	ft_lstclear(&shell->token);
 	if (shell->end != 0)
 	{
-		free_nv(&(shell->nv));
+		cleanup_env(shell->nv);
 		free(shell);
-		free(g_modes);
 	}
 }

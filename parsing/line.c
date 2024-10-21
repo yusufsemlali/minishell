@@ -97,7 +97,7 @@ void	spacing(t_shell *shell)
 	{
 		tmp = new;
 		i = 0;
-		while (s[i] && i < BUFFER_BIG)
+		while (s[i])
 		{
 			if ((s[i] == '$' && inquotes(s, i, 2)) || (s[i] == '$'
 					&& isheredoc(s, i)))

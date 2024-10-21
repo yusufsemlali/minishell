@@ -5,12 +5,26 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 23:04:53 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/10/14 23:04:53 by ysemlali         ###   ########.fr       */
+/*   Created: 2024/09/18 10:37:19 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/10/11 15:02:58 by shams            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	init_g_modes(void)
+{
+	g_modes.input_mode = 0;
+	g_modes.exit_mode = 0;
+	g_modes.output_mode = 0;
+	g_modes.has_pipe = 0;
+	g_modes.herdoc_mode = 0;
+	g_modes.herdoc = NULL;
+	g_modes.pid = 0;
+	g_modes.pid2 = 0;
+	g_modes.pipe_count = 0;
+	g_modes.d_change = 0;
+}
 
 char	*get_value(char *key)
 {
@@ -57,6 +71,8 @@ void	init(t_shell **shell, int ac, char **av, char **nv)
 {
 	char	*basic[4];
 
+	signal(SIGINT, handle_signals);
+	signal(SIGQUIT, SIG_IGN);
 	basic[0] = "PWD";
 	basic[1] = "SHLVL";
 	basic[2] = "_";
@@ -65,11 +81,9 @@ void	init(t_shell **shell, int ac, char **av, char **nv)
 	(void)av;
 	*shell = ft_calloc(1, sizeof(t_shell));
 	(*shell)->status = 0;
-	g_modes = ft_calloc(1, sizeof(t_mode));
+	init_g_modes();
 	if (nv == NULL)
 		init_basic_env(shell, basic);
 	else
 		init_env(shell, nv);
-	signal(SIGINT, handle_signals);
-	signal(SIGQUIT, SIG_IGN);
 }

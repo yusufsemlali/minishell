@@ -16,7 +16,7 @@ t_oken	*ft_lstnew(char *value, int type, int index)
 {
 	t_oken	*result;
 
-	result = malloc(sizeof(t_oken));
+	result = ft_calloc(1, sizeof(t_oken));
 	if (!result)
 		return (NULL);
 	result->value = value;

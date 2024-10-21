@@ -23,7 +23,7 @@ t_oken	*find_last_pipe(t_oken *tokens)
 	{
 		if (current->type == PIPE && current->read == 0)
 			last_pipe = current;
-		else if (!g_modes->pipe_count)
+		else if (!g_modes.pipe_count)
 			return (NULL);
 		current = current->next;
 	}

@@ -87,8 +87,8 @@ void	ft_exec_rederect_out_append(t_shell *shell)
 	fd = open(shell->tree->file_name, O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (fd < 0)
 	{
-		print_errrror(shell->tree->file_name);
-		g_modes->exit_mode = 1;
+		printf("Error: open failed\n");
+		g_modes.exit_mode = 1;
 		return ;
 	}
 	redirect_output(shell, fd);

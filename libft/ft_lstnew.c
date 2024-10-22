@@ -12,16 +12,17 @@
 
 #include "libft.h"
 
-t_oken	*ft_lstnew(char *value, int type)
+t_oken	*ft_lstnew(char *value, int type, int index)
 {
 	t_oken	*result;
 
-	result = malloc(sizeof(t_oken));
+	result = ft_calloc(1, sizeof(t_oken));
 	if (!result)
 		return (NULL);
 	result->value = value;
 	result->type = type;
 	result->read = 0;
+	result->index = index;
 	result->next = NULL;
 	return (result);
 }

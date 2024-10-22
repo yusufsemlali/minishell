@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/15 18:43:00 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/10/15 18:46:23 by ysemlali         ###   ########.fr       */
+/*   Created: 2024/10/14 23:09:14 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/10/14 23:09:16 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	get_variable_size(char *s, t_env *nv)
+static int	get_size(char *s, t_env *nv)
 {
 	int		len;
 	char	env[BUFFER_SML];
@@ -41,7 +41,7 @@ int	get_variable_size(char *s, t_env *nv)
 	return (len);
 }
 
-int	get_variables(char *s, char *buf, t_env *nv)
+int	get_vars(char *s, char *buf, t_env *nv)
 {
 	char	env[1024];
 	char	*tmp;
@@ -68,26 +68,12 @@ int	get_variables(char *s, char *buf, t_env *nv)
 	return (ft_strlcat(buf, s, ft_strlen(buf) + 2), 1);
 }
 
-char	*expanding(t_shell *shell)
+char	*var(char *s, t_env *nv)
 {
 	char	*buf;
-	char	*s;
 
-	s = shell->s;
-	buf = ft_calloc(get_variable_size(s, shell->nv), 1);
+	buf = ft_calloc(get_size(s, nv), 1);
 	while (*s)
-		s += get_variables(s, buf, shell->nv);
+		s += get_vars(s, buf, nv);
 	return (buf);
-}
-
-void	expand(t_shell *shell)
-{
-	char	*expand;
-
-	expand = expanding(shell);
-	if (*expand != 0)
-	{
-		free(shell->s);
-		shell->s = ft_strreplace(expand, - '$', '$');
-	}
 }

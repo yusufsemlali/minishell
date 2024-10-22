@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/10/16 16:19:18 by aclakhda         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -55,7 +44,8 @@
 // error custom
 # define ERR_SYNTAX 258 // syntax error
 
-# define BUFFER_SIZE 40960 // 40 KB
+# define BUFFER_SML 40960    // 40KB
+# define BUFFER_BIG 10485760 // 10MB
 # define CMD_MAX_LENGTH 1024
 
 // ANSI color codes for ayu dark theme
@@ -97,6 +87,7 @@ typedef struct s_shell
 	int				status;
 	int				fd;
 	int				err;
+	int				len;
 	int				begin;
 	int				end;
 	t_herdoc		*herdoc;
@@ -148,6 +139,7 @@ typedef struct s_mode
 
 // -- main -- //
 void				init(t_shell **shell, int ac, char **av, char **nv);
+void				init_env(t_shell **shell, char **nv);
 void				handle_signals(int sig);
 void				free_all(t_shell *shell);
 void				free_nv(t_env **env);
@@ -167,9 +159,13 @@ void				valid(t_shell *shell);
 int					validate(char *s);
 //--- parse utils ----//
 char				*get_env(t_env *nv, char *key);
+int					metachar(char c);
+int					t_type(char *s);
+int					getcount(char *s);
 int					inquotes(char *s, int i, int x);
 int					metachar(char c);
 char				*var(char *s, t_env *nv);
+size_t				len_av(char **av);
 //---execution---//
 int					execute(t_shell *shell);
 int					ft_size(char **av);
@@ -260,5 +256,5 @@ void				pwd(t_shell *shell);
 void				export(t_shell *shell);
 void				unset(t_shell *shell);
 
-extern t_mode		*g_modes;
+extern t_mode		g_modes;
 #endif

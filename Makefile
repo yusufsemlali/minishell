@@ -3,27 +3,27 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+         #
+#    By: aclakhda <aclakhda@student.2.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/25 21:41:51 by ysemlali          #+#    #+#              #
 #    Updated: 2024/10/16 16:20:06 by aclakhda         ###   ########.fr        #
+#    Updated: 2024/10/14 23:08:25 by ysemlali         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -ggdb 
 LIBS = -Llibft -lft -lreadline
-SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c\
+SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c main/init_utils.c\
 		    parsing/parse.c\
 		    parsing/line.c\
 				parsing/lexer.c\
-				parsing/expand.c\
 		    parsing/valid.c\
-				parsing/token.c\
 				parsing/export.c\
+				parsing/expand.c\
+				parsing/utils.c\
 		    execution/utils.c\
-				parsing/squish.c\
 				execution/utils_2.c\
 		    execution/executing.c\
 		    execution/executing_utils.c\
@@ -36,6 +36,7 @@ SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c\
 		    execution/build_in/export_unset.c\
 		    execution/execute.c\
 		    execution/rederextion.c\
+				execution/expand.c\
 		    execution/pipe.c\
 				execution/tree_utils.c\
 				execution/herdoc_utils.c\

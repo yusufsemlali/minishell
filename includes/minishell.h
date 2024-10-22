@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/10/11 19:00:32 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:19:18 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,7 @@ void				count_tree_nodes(t_tree *tree, int *count);
 char				**av_m(void);
 int					already_exist(char *key, t_shell *shell);
 void				free_keys(char *key, char *value);
+void				print_errrror(char *file_name);
 // -- built in -- //
 void				ft_exit(t_shell *shell, int i, int j);
 void				free_all_shell(t_shell *shell, int i);

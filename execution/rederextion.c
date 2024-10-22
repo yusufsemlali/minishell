@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:35:04 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/10/10 20:49:50 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:22:05 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_exec_rederect_in(t_shell *shell)
 		fd = open(shell->tree->file_name, O_RDWR | O_CREAT, 0644);
 	else
 	{
-		ft_putstr_fd("minishell: failed to open file >~<\n", 2);
+		print_errrror(shell->tree->file_name);
 		g_modes->exit_mode = 1;
 		return ;
 	}
@@ -63,7 +63,7 @@ void	ft_exec_rederect_out(t_shell *shell)
 	fd = open_file_for_writing(shell->tree->file_name);
 	if (fd < 0)
 	{
-		ft_putstr_fd("minishell: failed to open file >~<\n", 2);
+		print_errrror(shell->tree->file_name);
 		g_modes->exit_mode = 1;
 		return ;
 	}
@@ -87,7 +87,7 @@ void	ft_exec_rederect_out_append(t_shell *shell)
 	fd = open(shell->tree->file_name, O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (fd < 0)
 	{
-		ft_putstr_fd("minishell: failed to open file >~<\n", 2);
+		print_errrror(shell->tree->file_name);
 		g_modes->exit_mode = 1;
 		return ;
 	}

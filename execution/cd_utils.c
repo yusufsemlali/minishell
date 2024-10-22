@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 21:53:08 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/10/10 17:40:54 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/13 17:37:28 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	handle_home_directory(t_shell *shell)
 		g_modes->exit_mode = 1;
 		return ;
 	}
-	printf("%s\n", home);
 	change_directory(shell, home, NULL);
 }
 

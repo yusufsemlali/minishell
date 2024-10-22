@@ -6,6 +6,7 @@
 #    By: aclakhda <aclakhda@student.2.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/25 21:41:51 by ysemlali          #+#    #+#              #
+#    Updated: 2024/10/16 16:20:06 by aclakhda         ###   ########.fr        #
 #    Updated: 2024/10/14 23:08:25 by ysemlali         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -47,6 +48,7 @@ SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c ma
 				execution/tree_u2.c\
 				execution/im_gonna_kms.c\
 				execution/bocchi_3.c\
+				execution/help.c\
 
 OBJS = $(SRCS:.c=.o)
 NAME = minishell

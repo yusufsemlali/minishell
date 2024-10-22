@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 23:06:55 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/10/14 23:06:57 by ysemlali         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -217,8 +206,8 @@ void				process_export_entry(char *entry, t_shell *shell,
 void				handle_export_error(void);
 void				print_env(t_shell *shell);
 int					is_space(char c);
-void				create_env(char *key, char *value, t_shell *shell);
-void				update_existing_env(t_env *env, const char *value);
+void				create_env(char *key, char *value, t_shell *shell, int i);
+void				update_existing_env(t_env *env, const char *value, int i);
 void				found_key(t_shell *shell, char *key);
 void				update_paths(t_shell *shell, char *past_path);
 void				handle_home_directory(t_shell *shell);
@@ -256,6 +245,7 @@ void				count_tree_nodes(t_tree *tree, int *count);
 char				**av_m(void);
 int					already_exist(char *key, t_shell *shell);
 void				free_keys(char *key, char *value);
+void				print_errrror(char *file_name);
 // -- built in -- //
 void				ft_exit(t_shell *shell, int i, int j);
 void				free_all_shell(t_shell *shell, int i);

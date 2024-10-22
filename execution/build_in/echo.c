@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:29:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/23 17:30:45 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:39:02 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ void	echo(t_shell *shell)
 		}
 		else
 		{
-			printf("%s", tmp->op);
+			ft_putstr_fd(tmp->op, 1);
 			if (tmp->right)
-				printf(" ");
+				ft_putstr_fd(" ", 1);
 			j = 1;
 		}
 		tmp = tmp->right;
 	}
 	if (flag == 0)
-		printf("\n");
+		ft_putstr_fd("\n", 1);
 }

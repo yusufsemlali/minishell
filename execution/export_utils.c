@@ -6,17 +6,29 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 21:30:46 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/10/08 15:46:08 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/11 19:03:57 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+void	extract_and_create_env(char *entry, int j, t_shell *shell)
+{
+	char	*key;
+	char	*value;
+
+	key = ft_substr(entry, 0, j);
+	value = ft_substr(entry, j + 1, ft_strlen(entry) - (j + 1));
+	if (entry[j - 1] == '+')
+		create_env(key, value, shell, 1);
+	else
+		create_env(key, value, shell, 0);
+	free_keys(key, value);
+}
+
 void	process_export_entry(char *entry, t_shell *shell, int *check)
 {
-	char		*key;
-	char		*value;
-	int			j;
+	int	j;
 
 	j = 0;
 	if (validate(entry))
@@ -29,10 +41,7 @@ void	process_export_entry(char *entry, t_shell *shell, int *check)
 		if (entry[j] == '=')
 		{
 			*check = 1;
-			key = ft_substr(entry, 0, j);
-			value = ft_substr(entry, j + 1, ft_strlen(entry) - (j + 1));
-			create_env(key, value, shell);
-			free_keys(key, value);
+			extract_and_create_env(entry, j, shell);
 			if (!g_modes.d_change)
 				g_modes.exit_mode = 0;
 			return ;
@@ -71,8 +80,14 @@ int	is_space(char c)
 			'\f' || c == '\r');
 }
 
-void	update_existing_env(t_env *env, const char *value)
+void	update_existing_env(t_env *env, const char *value, int i)
 {
+	if (i)
+	{
+		env->value = ft_strjoin(env->value, (char *)value);
+		free((char *)value);
+		return ;
+	}
 	free(env->value);
 	env->value = strdup(value);
 }

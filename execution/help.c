@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   help.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 23:06:25 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/10/14 23:06:33 by ysemlali         ###   ########.fr       */
+/*   Created: 2024/10/16 16:18:41 by aclakhda          #+#    #+#             */
+/*   Updated: 2024/10/16 16:18:57 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	error(void *ptr, t_shell *shell)
+void	print_errrror(char *file_name)
 {
-	if (ptr == NULL)
-	{
-		ft_putendl_fd("exit", 0);
-		// rl_clear_history();
-		shell->end = 1;
-		free_all(shell);
-		exit(g_modes.exit_mode);
-	}
-	else if (ft_strncmp(ptr, "", 1) == 0)
-		return (shell->err = 1, 1);
-	return (0);
+	ft_putstr_fd("minishell: failed to open file \"", 2);
+	ft_putstr_fd(file_name, 2);
+	ft_putstr_fd("\" >~<\n", 2);
 }

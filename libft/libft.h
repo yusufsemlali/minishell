@@ -82,4 +82,20 @@ void				ft_lstadd_front(t_oken **token, t_oken *new);
 void				ft_lstadd_back(t_oken **token, t_oken *new);
 void				ft_lstdelone(t_oken *lst);
 void				ft_dellast(t_oken **lst);
+
+// get_next_line 
+
+# ifndef B_S
+#  define B_S 32
+# endif
+
+char	*get_next_line(int fd);
+size_t	ln_exists(char *buf);
+size_t	ln_index(char *buf);
+char	*join_string(char *line, char *buf);
+char	*cutstr(char *s, unsigned int start, size_t len);
+size_t	catnate(char *dst, char *src, size_t dstsize);
+
+
+
 #endif

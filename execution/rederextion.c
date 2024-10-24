@@ -39,7 +39,7 @@ void	ft_exec_rederect_in(t_shell *shell)
 	else
 	{
 		print_errrror(shell->tree->file_name);
-		g_modes->exit_mode = 1;
+		g_modes.exit_mode = 1;
 		return ;
 	}
 	stdin_copy = dup(STDIN);
@@ -64,7 +64,7 @@ void	ft_exec_rederect_out(t_shell *shell)
 	if (fd < 0)
 	{
 		print_errrror(shell->tree->file_name);
-		g_modes->exit_mode = 1;
+		g_modes.exit_mode = 1;
 		return ;
 	}
 	redirect_output(shell, fd);

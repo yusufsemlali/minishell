@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:22:54 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/28 19:27:06 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/25 18:31:42 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ void	handle_child_2_process(int fd[], t_shell *shell)
 	g_modes->pid2 = fork();
 	if (g_modes->pid2 == 0)
 		child_2(shell, fd);
+	waitpid(g_modes->pid2, &status, 0);
+	waitpid(g_modes->pid, &bocchi, 0);
 	close(fd[0]);
 	close(fd[1]);
-	waitpid(g_modes->pid, &bocchi, 0);
-	waitpid(g_modes->pid2, &status, 0);
 	if (WIFEXITED(status))
 		g_modes->exit_mode = WEXITSTATUS(status);
 	else
@@ -85,9 +85,15 @@ void	handle_child_2_process(int fd[], t_shell *shell)
 
 void	ft_pipe(t_shell *shell)
 {
-	int	fd[2];
+	int		fd[2];
+	char	*line;
 
 	if (pipe(fd) == -1)
+	{
+		printf("Error: pipe failed\n");
+		return ;
+	}
+	if (pipe(g_modes->fd_childs) == -1)
 	{
 		printf("Error: pipe failed\n");
 		return ;

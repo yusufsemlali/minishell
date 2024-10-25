@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/27 16:49:57 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/25 18:25:10 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ typedef struct s_mode
 	pid_t			pid;
 	pid_t			pid2;
 	int				pipe_count;
+	int				fd_childs[2];
 }					t_mode;
 
 // -- main -- //

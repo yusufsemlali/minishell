@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:26:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/28 16:23:58 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/25 18:28:25 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ void	exec_child_process(t_shell *shell, t_var *var)
 	var->cmd_path = find_cmd_path(var->av, shell->nv);
 	if (!var->cmd_path && ft_strcmp(var->av[0], "./minishell") != 0)
 	{
-		printf("command not found\n");
+		ft_putstr_fd("minishell: ", g_modes->fd_childs[1]);
+		ft_putstr_fd(var->av[0], g_modes->fd_childs[1]);
+		ft_putstr_fd(": command not found\n",g_modes->fd_childs[1]);
 		free(var->av);
 		var->av = av_m();
 		execve("/bin/sh", var->av, NULL);

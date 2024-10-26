@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/10/25 18:25:10 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/26 23:13:06 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ void				free_nv(t_env **env);
 void				free_av(char ***av);
 int					error(void *ptr, t_shell *shell);
 char				*var(char *s, t_env *nv);
+char				*get_next_line(int fd);
 // -- parsing -- //
 void				parse(t_shell *shell);
 void				handle_signals(int sig);
@@ -234,7 +235,7 @@ char				**get_path_split(void);
 char				*find_cmd_path(char **av, t_env *nv);
 void				free_av1(char **av);
 char				**cmd_maker(t_shell *shell);
-void				handle_exec_error(t_var *var, t_shell *shell);
+void				handle_exec_error(t_var *var, t_shell *shell, int i);
 void				count_tree_nodes(t_tree *tree, int *count);
 char				**av_m(void);
 // -- built in -- //

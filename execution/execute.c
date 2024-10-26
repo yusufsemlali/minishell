@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/28 14:10:10 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/26 15:17:48 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,24 @@ t_herdoc	*set_up(t_oken *token)
 	return (herdoc);
 }
 
+
+void printAST(t_tree *root, int level, char *side) {
+    if (root == NULL) return;
+    for (int i = 0; i < level; i++) printf("    ");
+    printf("%s (%s)\n", root->op, side);
+    printAST(root->left, level + 1, "left");
+    printAST(root->right, level + 1, "right");
+}
+
 int	execute(t_shell *shell)
 {
 	t_oken	*tmp;
+	t_tree	*root;
 
 	g_modes->pipe_count = pipe_count(shell->token);
 	shell->tree = create_tree(shell->token);
+	root = shell->tree;
+	printAST(root, 0, "root");
 	tmp = shell->token;
 	shell->herdoc = set_up(tmp);
 	if (shell->herdoc != NULL)

@@ -5,35 +5,51 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/26 21:30:46 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/27 20:08:58 by aclakhda         ###   ########.fr       */
+/*   Created: 2024/10/27 00:31:10 by aclakhda          #+#    #+#             */
+/*   Updated: 2024/10/27 00:57:31 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	process_export_entry(char *entry, t_shell *shell)
+void	free_keys(char *key, char *value)
+{
+	free(key);
+	free(value);
+}
+
+void	extract_and_create_env(char *entry, int j, t_shell *shell)
 {
 	char	*key;
 	char	*value;
-	int		j;
+
+	key = ft_substr(entry, 0, j);
+	value = ft_substr(entry, j + 1, ft_strlen(entry) - (j + 1));
+	if (entry[j - 1] == '+')
+		create_env(key, value, shell, 1);
+	else
+		create_env(key, value, shell, 0);
+	free_keys(key, value);
+}
+
+void	process_export_entry(char *entry, t_shell *shell, int *check)
+{
+	int	j;
 
 	j = 0;
+	if (validate(entry, shell))
+	{
+		*check = 1;
+		return ;
+	}
 	while (entry[j])
 	{
-		if (is_space(entry[j]))
-		{
-			handle_export_error();
-			return ;
-		}
 		if (entry[j] == '=')
 		{
-			key = ft_substr(entry, 0, j);
-			value = ft_substr(entry, j + 1, ft_strlen(entry) - (j + 1));
-			create_env(key, value, shell);
-			free(key);
-			free(value);
-			g_modes->exit_mode = 0;
+			*check = 1;
+			extract_and_create_env(entry, j, shell);
+			if (!g_modes->d_change)
+				g_modes->exit_mode = 0;
 			return ;
 		}
 		j++;
@@ -42,7 +58,7 @@ void	process_export_entry(char *entry, t_shell *shell)
 
 void	handle_export_error(void)
 {
-	ft_putstr_fd("export : not a valid identifier\n", STDERR);
+	ft_putstr_fd("export : not a valid identifier\n", 2);
 	g_modes->exit_mode = 1;
 }
 
@@ -53,15 +69,12 @@ void	print_env(t_shell *shell)
 	tmp = shell->nv;
 	while (tmp)
 	{
-		ft_putstr_fd("declare -x ", STDOUT);
-		ft_putstr_fd(tmp->key, STDOUT);
+		printf("declare -x %s", tmp->key);
 		if (tmp->value)
 		{
-			ft_putstr_fd("=\"", STDOUT);
-			ft_putstr_fd(tmp->value, STDOUT);
-			ft_putstr_fd("\"", STDOUT);
+			printf("=\"%s\"", tmp->value);
 		}
-		ft_putstr_fd("\n", STDOUT);
+		printf("\n");
 		tmp = tmp->next;
 	}
 }
@@ -73,8 +86,14 @@ int	is_space(char c)
 			'\f' || c == '\r');
 }
 
-void	update_existing_env(t_env *env, const char *value)
+void	update_existing_env(t_env *env, const char *value, int i)
 {
+	if (i)
+	{
+		env->value = ft_strjoin(env->value, (char *)value);
+		free((char *)value);
+		return ;
+	}
 	free(env->value);
 	env->value = strdup(value);
 }

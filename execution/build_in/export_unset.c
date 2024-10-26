@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:03:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/27 20:17:12 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/27 00:50:55 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ t_env	*create_new_env(const char *key, const char *value)
 	new = (t_env *)malloc(sizeof(t_env));
 	if (!new)
 		return (NULL);
-	new->key = strdup(key);
-	new->value = strdup(value);
-	if (!new->key || !new->value)
+	new->key = ft_strdup(key);
+	new->value = ft_strdup(value);
+	if (!new->key)
 	{
 		free(new->key);
 		free(new->value);
@@ -51,7 +51,7 @@ t_env	*create_new_env(const char *key, const char *value)
 	return (new);
 }
 
-void	create_env(char *key, char *value, t_shell *shell)
+void	create_env(char *key, char *value, t_shell *shell, int i)
 {
 	t_env	*tmp;
 	t_env	*new;
@@ -61,7 +61,7 @@ void	create_env(char *key, char *value, t_shell *shell)
 	{
 		if (!ft_strcmp(tmp->key, key))
 		{
-			update_existing_env(tmp, value);
+			update_existing_env(tmp, value, i);
 			return ;
 		}
 		tmp = tmp->next;
@@ -75,25 +75,43 @@ void	create_env(char *key, char *value, t_shell *shell)
 	tmp->next = new;
 }
 
+int	already_exist(char *key, t_shell *shell)
+{
+	t_env	*tmp;
+
+	tmp = shell->nv;
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->key, key))
+			return (0);
+		tmp = tmp->next;
+	}
+	return (1);
+}
+
 void	export(t_shell *shell)
 {
 	char	*arr[1024];
-	int		i;
+	t_var	tmp;
 
-	if (g_modes->has_pipe)
-		return ;
+	tmp.check = 0;
 	if (create_arr(arr, shell))
 	{
 		print_env(shell);
 		return ;
 	}
-	i = 0;
-	while (arr[i])
+	tmp.i = 0;
+	while (arr[tmp.i])
 	{
-		process_export_entry(arr[i], shell);
-		i++;
+		process_export_entry(arr[tmp.i], shell, &tmp.check);
+		if (!tmp.check && already_exist(arr[tmp.i], shell))
+		{
+			tmp.key = ft_substr(arr[tmp.i], 0, ft_strlen(arr[tmp.i]));
+			create_env(tmp.key, NULL, shell, 0);
+			free(tmp.key);
+		}
+		tmp.i++;
 	}
-	g_modes->exit_mode = 0;
 }
 
 void	unset(t_shell *shell)

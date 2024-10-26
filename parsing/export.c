@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 11:14:36 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/26 21:31:29 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/27 00:56:06 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	print_error(char *s)
 	ft_putstr_fd("minishell: export: `", 2);
 	ft_putstr_fd(s, 2);
 	ft_putendl_fd("': not a valid identifier", 2);
+	g_modes->d_change = 1;
+	g_modes->exit_mode = 1;
 }
 
 int	validate(char *s, t_shell *shell)

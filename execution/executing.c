@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:26:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/10/26 23:43:28 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/27 00:58:14 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,12 +111,12 @@ void check_directory(t_var *var, t_shell *shell)
 			g_modes->exit_mode = 126;
 			handle_exec_error(var, shell, 0);
 		}
-		else if (S_ISREG(path_stat.st_mode))
-		{
-			print_err(var->av[0], 2);
-			g_modes->exit_mode = 127;
-			handle_exec_error(var, shell, 0);
-		}
+		// else if (S_ISREG(path_stat.st_mode))
+		// {
+		// 	print_err(var->av[0], 2);
+		// 	g_modes->exit_mode = 127;
+		// 	handle_exec_error(var, shell, 0);
+		// }
 	}
 }
 

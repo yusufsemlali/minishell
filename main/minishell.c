@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 06:01:17 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/27 20:11:48 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/27 00:28:58 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	reset(t_shell *shell)
 	g_modes->pipe_count = 0;
 	g_modes->pid2 = 0;
 	g_modes->pid = 0;
+	g_modes->d_change = 0;
 	free_all(shell);
 	shell->s = NULL;
 }

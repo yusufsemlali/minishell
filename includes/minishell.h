@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/10/26 23:13:06 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/27 01:00:57 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,8 @@ typedef struct s_var
 	char			*cpy_env[CMD_MAX_LENGTH];
 	char			*cpy_cmd_path;
 	int				len;
-
+	int				check;
+	char			*key;
 }					t_var;
 
 typedef struct s_mode
@@ -139,6 +140,7 @@ typedef struct s_mode
 	pid_t			pid2;
 	int				pipe_count;
 	int				fd_childs[2];
+	int				d_change;
 }					t_mode;
 
 // -- main -- //
@@ -159,6 +161,7 @@ char				*spacing(char *s);
 char				*get_env(t_env *nv, char *key);
 void				token_lst(t_shell *shell);
 void				valid(t_shell *shell);
+int					validate(char *s, t_shell *shell);
 void				expand(t_shell *shell);
 void				squish(t_shell *shell);
 void				export_error(t_shell *shell, t_oken *next);
@@ -197,12 +200,13 @@ void				free_herdoc(t_herdoc *herdoc);
 void				ft_free_token(t_oken *token);
 int					set(t_oken *token);
 int					isnt_red(int type);
-void				process_export_entry(char *entry, t_shell *shell);
+void				process_export_entry(char *entry, t_shell *shell,
+						int *check);
 void				handle_export_error(void);
 void				print_env(t_shell *shell);
 int					is_space(char c);
-void				create_env(char *key, char *value, t_shell *shell);
-void				update_existing_env(t_env *env, const char *value);
+void				create_env(char *key, char *value, t_shell *shell, int i);
+void				update_existing_env(t_env *env, const char *value, int i);
 void				found_key(t_shell *shell, char *key);
 void				update_paths(t_shell *shell, char *past_path);
 void				handle_home_directory(t_shell *shell);

@@ -111,12 +111,6 @@ void check_directory(t_var *var, t_shell *shell)
 			g_modes->exit_mode = 126;
 			handle_exec_error(var, shell, 0);
 		}
-		// else if (S_ISREG(path_stat.st_mode))
-		// {
-		// 	print_err(var->av[0], 2);
-		// 	g_modes->exit_mode = 127;
-		// 	handle_exec_error(var, shell, 0);
-		// }
 	}
 }
 
@@ -130,7 +124,6 @@ void	exec_child_process(t_shell *shell, t_var *var)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(var->av[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
-		// free_av1(var->av);
 		var->av = av_m();
 		execve("/bin/sh", var->av, NULL);
 		perror("execve");

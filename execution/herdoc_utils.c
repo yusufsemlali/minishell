@@ -36,7 +36,7 @@ void	handle_exec_error(t_var *var, t_shell *shell, int i)
 	free_av1(var->av);
 	if (i)
 		lazy_free(var->env, env_size(shell->nv));
-	ft_exit(shell, 0, 0);
+	free_all_shell(shell, 0);
 }
 
 int	set(t_oken *token)

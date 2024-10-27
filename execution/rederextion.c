@@ -12,16 +12,31 @@
 
 #include "../includes/minishell.h"
 
+int	check_file(t_tree *tree, char *file_name)
+{
+	t_tree	*tmp;
+
+	tmp = tree->left;
+	while (tmp)
+	{
+		if (tmp->file_name != NULL && !ft_strcmp(tmp->file_name, file_name))
+			return (1);
+		tmp = tmp->right;
+	}
+	return (0);
+}
+
 void	ft_exec_rederect_in(t_shell *shell)
 {
 	int		fd;
 	int		stdin_copy;
 	t_tree	*tmp;
 
-	fd = open(shell->tree->file_name, O_RDWR);
-	if (fd < 0)
+	if (check_file(shell->tree, shell->tree->file_name))
+		fd = open(shell->tree->file_name, O_RDWR | O_CREAT, 0644);
+	else
 	{
-		printf("Error: open failed\n");
+		print_errrror(shell->tree->file_name);
 		g_modes->exit_mode = 1;
 		return ;
 	}
@@ -45,7 +60,11 @@ void	ft_exec_rederect_out(t_shell *shell)
 	stdout_copy = dup(STDOUT);
 	fd = open_file_for_writing(shell->tree->file_name);
 	if (fd < 0)
+	{
+		print_errrror(shell->tree->file_name);
+		g_modes->exit_mode = 1;
 		return ;
+	}
 	redirect_output(shell, fd);
 	close(fd);
 	tmp = shell->tree;
@@ -66,7 +85,7 @@ void	ft_exec_rederect_out_append(t_shell *shell)
 	fd = open(shell->tree->file_name, O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (fd < 0)
 	{
-		printf("Error: open failed\n");
+		print_errrror(shell->tree->file_name);
 		g_modes->exit_mode = 1;
 		return ;
 	}

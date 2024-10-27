@@ -242,6 +242,7 @@ char				**cmd_maker(t_shell *shell);
 void				handle_exec_error(t_var *var, t_shell *shell, int i);
 void				count_tree_nodes(t_tree *tree, int *count);
 char				**av_m(void);
+void				print_errrror(char *file_name);
 // -- built in -- //
 void				ft_exit(t_shell *shell, int i, int j);
 void				free_all_shell(t_shell *shell, int i);

@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:20:15 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/27 15:54:44 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:06:03 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,11 @@ void	cd(t_shell *shell)
 	char	**av;
 	char	past_path[1024];
 
+	getcwd(past_path, sizeof(past_path));
 	if (getcwd(past_path, sizeof(past_path)) == NULL)
 	{
 		perror("getcwd :");
-		g_modes->exit_mode = 1;
+		g_modes.exit_mode = 1;
 		return ;
 	}
 	if (!shell->tree->right || !ft_strcmp(shell->tree->right->op, "~"))
@@ -71,6 +72,6 @@ void	cd(t_shell *shell)
 		av = cmd_maker(shell);
 		change_directory(shell, av[1], av);
 	}
-	if (g_modes->exit_mode == 0)
+	if (g_modes.exit_mode == 0)
 		update_paths(shell, past_path);
 }

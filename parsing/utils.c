@@ -1,34 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 23:07:26 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/10/14 23:07:28 by ysemlali         ###   ########.fr       */
+/*   Created: 2024/10/14 23:05:28 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/10/14 23:05:31 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	handle_signals(int sig)
+int	metachar(char c)
 {
-	if (sig == SIGINT)
+	return (ft_strchr("|<>", c) != NULL);
+}
+
+char	*get_env(t_env *nv, char *key)
+{
+	t_env	*tmp;
+
+	tmp = nv;
+	while (tmp)
 	{
-		if (g_modes.pid == 0)
+		if (ft_strcmp(tmp->key, key) == 0)
+			return (tmp->value);
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
+
+int	getcount(char *s)
+{
+	int	count;
+
+	count = 0;
+	while (*s)
+	{
+		if (ft_isspace(*s))
 		{
-			ft_putstr_fd("\n", 1);
-			rl_on_new_line();
-			// rl_replace_line("", 0);
-			rl_redisplay();
-			g_modes.exit_mode = CTRL_C;
+			count++;
+			while (*s && ft_isspace(*s))
+				s++;
 		}
-		else
+		if (*s)
 		{
-			ft_putstr_fd("\n", 1);
-			g_modes.exit_mode = CTRL_C;
-			g_modes.herdoc_mode = CTRL_C;
+			count++;
+			while (*s && !ft_isspace(*s))
+				s++;
 		}
 	}
+	return (count);
 }

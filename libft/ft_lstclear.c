@@ -12,18 +12,19 @@
 
 #include "libft.h"
 
-void	ft_lstclear(t_oken **lst, void (*del)(void *))
+void	ft_lstclear(t_oken **lst)
 {
 	t_oken	*current;
 	t_oken	*next;
 
-	if (!lst || !del)
+	if (lst == NULL || *lst == NULL)
 		return ;
 	current = *lst;
 	while (current != NULL)
 	{
 		next = current->next;
-		del(current->value);
+		if (current->value)
+			free(current->value);
 		free(current);
 		current = next;
 	}

@@ -6,7 +6,6 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 00:07:08 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/10/26 23:12:44 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +31,14 @@ void	free_herdoc(t_herdoc *herdoc)
 
 void	handle_exec_error(t_var *var, t_shell *shell, int i)
 {
-	// perror("execve");
 	free_av1(var->av);
 	if (i)
 		lazy_free(var->env, env_size(shell->nv));
 	free_all_shell(shell, 0);
+	perror("execve");
+	free(var->cmd_path);
+	lazy_free(var->env, env_size(shell->nv));
+	exit(g_modes.exit_mode);
 }
 
 int	set(t_oken *token)
@@ -53,4 +55,18 @@ int	set(t_oken *token)
 		tmp = tmp->next;
 	}
 	return (i);
+}
+
+int	already_exist(char *key, t_shell *shell)
+{
+	t_env	*tmp;
+
+	tmp = shell->nv;
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->key, key))
+			return (0);
+		tmp = tmp->next;
+	}
+	return (1);
 }

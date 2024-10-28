@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 21:53:08 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/27 15:59:53 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/13 17:37:28 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	update_paths(t_shell *shell, char *past_path)
 	if (getcwd(current_path, sizeof(current_path)) == NULL)
 	{
 		perror("getcwd :");
-		g_modes->exit_mode = 1;
+		g_modes.exit_mode = 1;
 		return ;
 	}
 	update_env(shell->nv, "OLDPWD", past_path);
@@ -34,7 +34,7 @@ void	handle_home_directory(t_shell *shell)
 	if (!home)
 	{
 		printf("HOME not set\n");
-		g_modes->exit_mode = 1;
+		g_modes.exit_mode = 1;
 		return ;
 	}
 	change_directory(shell, home, NULL);
@@ -45,7 +45,7 @@ void	change_directory(t_shell *shell, char *path, char **av)
 	(void)shell;
 	if (chdir(path))
 	{
-		g_modes->exit_mode = 1;
+		g_modes.exit_mode = 1;
 		if (av)
 			s_free(av);
 		perror("cd :");
@@ -54,7 +54,7 @@ void	change_directory(t_shell *shell, char *path, char **av)
 	{
 		if (av)
 			s_free(av);
-		g_modes->exit_mode = 0;
+		g_modes.exit_mode = 0;
 	}
 }
 

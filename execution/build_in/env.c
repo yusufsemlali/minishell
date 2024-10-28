@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 16:32:37 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/19 15:05:10 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:01:43 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ void	env(t_shell *shell)
 			printf("%s=%s\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
-	g_modes->exit_mode = 0;
+	g_modes.exit_mode = 0;
 }

@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/07 06:01:17 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/10/27 00:28:58 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_mode	*g_modes;
+t_mode	g_modes;
 
 void	ctrl_c_remove(void)
 {
@@ -29,21 +27,27 @@ void	minishell(t_shell *shell)
 	(void)shell;
 }
 
+void	free_keys(char *key, char *value)
+{
+	free(key);
+	free(value);
+}
+
 void	reset(t_shell *shell)
 {
 	shell->err = 0;
 	shell->begin = 0;
 	shell->status = 0;
 	shell->end = 0;
-	g_modes->has_pipe = 0;
-	g_modes->input_mode = 0;
-	g_modes->output_mode = 0;
-	g_modes->herdoc_mode = 0;
-	g_modes->herdoc_mode = 0;
-	g_modes->pipe_count = 0;
-	g_modes->pid2 = 0;
-	g_modes->pid = 0;
-	g_modes->d_change = 0;
+	g_modes.has_pipe = 0;
+	g_modes.input_mode = 0;
+	g_modes.output_mode = 0;
+	g_modes.herdoc_mode = 0;
+	g_modes.herdoc_mode = 0;
+	g_modes.pipe_count = 0;
+	g_modes.pid2 = 0;
+	g_modes.pid = 0;
+	g_modes.d_change = 0;
 	free_all(shell);
 	shell->s = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:15:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/26 23:31:07 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:28:47 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	ft_continue_rederect_herd(t_shell *shell)
 	int		stdin_copy;
 	t_tree	*tmp;
 
-	fd = open("tmp", O_RDWR);
+	fd = open(".tmp", O_RDWR);
 	if (fd < 0)
 	{
 		printf("Error: open failed\n");
-		g_modes->exit_mode = 1;
+		g_modes.exit_mode = 1;
 		return ;
 	}
 	stdin_copy = dup(STDIN);
@@ -67,34 +67,39 @@ void	process_heredoc(t_shell *shell)
 	int		i;
 
 	i = 0;
-	while (shell->herdoc->herdoc && g_modes->herdoc_mode != CTRL_C)
+	while (shell->herdoc->herdoc && g_modes.herdoc_mode != CTRL_C)
 	{
 		line = readline("> ");
 		if (line)
 			handle_heredoc_line(shell, line, &i);
 		else
 		{
-			g_modes->exit_mode = 0;
-			exit(g_modes->exit_mode);
+			g_modes.exit_mode = 0;
+			exit(g_modes.exit_mode);
 		}
 	}
-	if (!shell->herdoc->herdoc || g_modes->herdoc_mode != CTRL_C)
-		g_modes->exit_mode = 0;
-	exit(g_modes->exit_mode);
+	if (!shell->herdoc->herdoc || g_modes.herdoc_mode != CTRL_C)
+		g_modes.exit_mode = 0;
+	exit(g_modes.exit_mode);
 }
 
 void	ft_exec_rederect_herd(t_shell *shell, int j)
 {
+	int	status;
+
+	status = 0;
 	if (j)
 	{
-		g_modes->pid = fork();
-		if (g_modes->pid == 0)
+		g_modes.pid = fork();
+		if (g_modes.pid == 0)
 		{
 			signal(SIGINT, SIG_DFL);
 			process_heredoc(shell);
 		}
 		else
-			waitpid(g_modes->pid, &g_modes->exit_mode, 0);
+			waitpid(g_modes.pid, &status, 0);
+		if (WIFEXITED(status))
+			g_modes.exit_mode = WEXITSTATUS(status);
 	}
 	else
 	{

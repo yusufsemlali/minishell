@@ -23,7 +23,7 @@ t_oken	*find_last_pipe(t_oken *tokens)
 	{
 		if (current->type == PIPE && current->read == 0)
 			last_pipe = current;
-		else if (!g_modes->pipe_count)
+		else if (!g_modes.pipe_count)
 			return (NULL);
 		current = current->next;
 	}
@@ -67,7 +67,7 @@ t_oken	*creat_token(t_oken *tokens, t_oken *last_redirection)
 	new = NULL;
 	while (current != last_redirection)
 	{
-		new = ft_lstnew(ft_strdup(current->value), current->type);
+		new = ft_lstnew(ft_strdup(current->value), current->type, 0);
 		new->read = current->read;
 		ft_lstadd_back(&tmp, new);
 		current = current->next;
@@ -75,7 +75,7 @@ t_oken	*creat_token(t_oken *tokens, t_oken *last_redirection)
 	current = last_redirection->next->next;
 	while (current && current->type != PIPE && isnt_red(current->type))
 	{
-		new = ft_lstnew(ft_strdup(current->value), current->type);
+		new = ft_lstnew(ft_strdup(current->value), current->type, 0);
 		new->read = current->read;
 		ft_lstadd_back(&tmp, new);
 		current = current->next;

@@ -3,10 +3,9 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/10/26 15:17:48 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +65,7 @@ int	execute(t_shell *shell)
 	t_oken	*tmp;
 	// t_tree	*root;
 
-	g_modes->pipe_count = pipe_count(shell->token);
+	g_modes.pipe_count = pipe_count(shell->token);
 	shell->tree = create_tree(shell->token);
 	// root = shell->tree;
 	// printAST(root, 0, "root");
@@ -74,10 +73,10 @@ int	execute(t_shell *shell)
 	shell->herdoc = set_up(tmp);
 	if (shell->herdoc != NULL)
 	{
-		shell->fd = open("tmp", O_CREAT | O_RDWR | O_TRUNC, 0644);
+		shell->fd = open(".tmp", O_CREAT | O_RDWR | O_TRUNC, 0644);
 		ft_exec_rederect_herd(shell, 1);
 	}
-	if (g_modes->herdoc_mode != CTRL_C)
+	if (g_modes.herdoc_mode != CTRL_C)
 		executing(shell);
 	free_herdoc(shell->herdoc);
 	if (shell->fd != 0)
@@ -85,6 +84,6 @@ int	execute(t_shell *shell)
 	ft_free_tree(shell->tree);
 	if (shell->fd)
 		close(shell->fd);
-	unlink("tmp");
+	unlink(".tmp");
 	return (0);
 }

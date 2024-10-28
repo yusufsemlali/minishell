@@ -5,12 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 00:31:10 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/10/27 00:57:31 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
 
 void	free_keys(char *key, char *value)
 {
@@ -18,6 +17,7 @@ void	free_keys(char *key, char *value)
 	free(value);
 }
 
+=
 void	extract_and_create_env(char *entry, int j, t_shell *shell)
 {
 	char	*key;
@@ -48,8 +48,8 @@ void	process_export_entry(char *entry, t_shell *shell, int *check)
 		{
 			*check = 1;
 			extract_and_create_env(entry, j, shell);
-			if (!g_modes->d_change)
-				g_modes->exit_mode = 0;
+			if (!g_modes.d_change)
+				g_modes.exit_mode = 0;
 			return ;
 		}
 		j++;
@@ -58,8 +58,8 @@ void	process_export_entry(char *entry, t_shell *shell, int *check)
 
 void	handle_export_error(void)
 {
-	ft_putstr_fd("export : not a valid identifier\n", 2);
-	g_modes->exit_mode = 1;
+	ft_putstr_fd("export : not a valid identifier\n", STDERR);
+	g_modes.exit_mode = 1;
 }
 
 void	print_env(t_shell *shell)

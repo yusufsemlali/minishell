@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -15,8 +16,6 @@
 
 # include "../libft/libft.h"
 # include <fcntl.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 # include <signal.h>
 # include <stddef.h>
 # include <stdio.h>
@@ -27,6 +26,8 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 
 # define ARGS 0    // arguments
 # define PIPE 1    // "|"
@@ -55,7 +56,8 @@
 // error custom
 # define ERR_SYNTAX 258 // syntax error
 
-# define BUFFER_SIZE 40960 // 40 KB
+# define BUFFER_SML 40960    // 40KB
+# define BUFFER_BIG 10485760 // 10MB
 # define CMD_MAX_LENGTH 1024
 
 // ANSI color codes for ayu dark theme
@@ -97,6 +99,7 @@ typedef struct s_shell
 	int				status;
 	int				fd;
 	int				err;
+	int				len;
 	int				begin;
 	int				end;
 	t_herdoc		*herdoc;
@@ -104,6 +107,8 @@ typedef struct s_shell
 	t_oken			*token;
 	int				r_fd;
 	char			**env;
+	char			*export_error;
+	int				st;
 }					t_shell;
 
 typedef struct s_var
@@ -126,6 +131,7 @@ typedef struct s_var
 	int				len;
 	int				check;
 	char			*key;
+
 }					t_var;
 
 typedef struct s_mode
@@ -145,6 +151,7 @@ typedef struct s_mode
 
 // -- main -- //
 void				init(t_shell **shell, int ac, char **av, char **nv);
+void				init_env(t_shell **shell, char **nv);
 void				handle_signals(int sig);
 void				free_all(t_shell *shell);
 void				free_nv(t_env **env);
@@ -162,9 +169,27 @@ char				*get_env(t_env *nv, char *key);
 void				token_lst(t_shell *shell);
 void				valid(t_shell *shell);
 int					validate(char *s, t_shell *shell);
+void				handle_signals(int sig);
+void				ignore_signal(int sig);
+
+// -- parsing -- //
+void				parse(t_shell *shell);
+void				spacing(t_shell *shell);
 void				expand(t_shell *shell);
+void				lexer(t_shell *shell);
 void				squish(t_shell *shell);
-void				export_error(t_shell *shell, t_oken *next);
+void				token_lst(t_shell *shell);
+void				valid(t_shell *shell);
+int					validate(char *s);
+//--- parse utils ----//
+char				*get_env(t_env *nv, char *key);
+int					metachar(char c);
+int					t_type(char *s);
+int					getcount(char *s);
+int					inquotes(char *s, int i, int x);
+int					metachar(char c);
+char				*var(char *s, t_env *nv);
+size_t				len_av(char **av);
 //---execution---//
 int					execute(t_shell *shell);
 int					ft_size(char **av);
@@ -242,6 +267,8 @@ char				**cmd_maker(t_shell *shell);
 void				handle_exec_error(t_var *var, t_shell *shell, int i);
 void				count_tree_nodes(t_tree *tree, int *count);
 char				**av_m(void);
+int					already_exist(char *key, t_shell *shell);
+void				free_keys(char *key, char *value);
 void				print_errrror(char *file_name);
 // -- built in -- //
 void				ft_exit(t_shell *shell, int i, int j);
@@ -253,5 +280,5 @@ void				pwd(t_shell *shell);
 void				export(t_shell *shell);
 void				unset(t_shell *shell);
 
-extern t_mode		*g_modes;
+extern t_mode		g_modes;
 #endif

@@ -6,7 +6,6 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:03:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/10/27 00:50:55 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +119,7 @@ void	unset(t_shell *shell)
 	int		i;
 
 	i = 0;
-	g_modes->exit_mode = 0;
+	g_modes.exit_mode = 0;
 	if (create_arr(arr, shell))
 		return ;
 	while (arr[i])

@@ -21,6 +21,7 @@ typedef struct s_token
 {
 	char			*value;
 	int				type;
+	int				index;
 	int				read;
 	struct s_token	*next;
 }					t_oken;
@@ -59,7 +60,6 @@ void				*ft_calloc(size_t n, size_t size);
 char				*ft_strdup(const char *str);
 char				*ft_strndup(const char *s, size_t n);
 char				**ft_split(char const *s, char c);
-char				**ft_token(char *s, char *d);
 char				*ft_strtrim(char const *s1, char const *set);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char				*ft_strpbrk(const char *s, const char *accept);
@@ -71,15 +71,31 @@ void				ft_putnbr_fd(int n, int fd);
 char				*ft_strnstr(const char *h, const char *n, size_t l);
 char				*ft_strjoin(char *s1, char *s2);
 char				*ft_itoa(int n);
+int					get_num_len(long n);
 
 // bonus
-t_oken				*ft_lstnew(char *value, int type);
+t_oken				*ft_lstnew(char *value, int type, int index);
 t_oken				*ft_lstlast(t_oken *token);
 int					ft_lstsize(t_oken *token);
-void				ft_lstclear(t_oken **token, void (*del)(void *));
+void				ft_lstclear(t_oken **lst);
 void				ft_lstadd_front(t_oken **token, t_oken *new);
 void				ft_lstadd_back(t_oken **token, t_oken *new);
-void				ft_lstdelone(t_oken *lst, void (*del)(void *));
-void				ft_dellast(t_oken **lst, void (*del)(void *));
-void				del(void *value);
+void				ft_lstdelone(t_oken *lst);
+void				ft_dellast(t_oken **lst);
+
+// get_next_line 
+
+# ifndef B_S
+#  define B_S 32
+# endif
+
+char	*get_next_line(int fd);
+size_t	ln_exists(char *buf);
+size_t	ln_index(char *buf);
+char	*join_string(char *line, char *buf);
+char	*cutstr(char *s, unsigned int start, size_t len);
+size_t	catnate(char *dst, char *src, size_t dstsize);
+
+
+
 #endif

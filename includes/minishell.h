@@ -1,4 +1,16 @@
 
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/10/27 01:00:57 by aclakhda         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -117,9 +129,8 @@ typedef struct s_var
 	char			*cpy_env[CMD_MAX_LENGTH];
 	char			*cpy_cmd_path;
 	int				len;
-	char			*key;
-	char			*value;
 	int				check;
+	char			*key;
 
 }					t_var;
 
@@ -134,6 +145,7 @@ typedef struct s_mode
 	pid_t			pid;
 	pid_t			pid2;
 	int				pipe_count;
+	int				fd_childs[2];
 	int				d_change;
 }					t_mode;
 
@@ -145,6 +157,18 @@ void				free_all(t_shell *shell);
 void				free_nv(t_env **env);
 void				free_av(char ***av);
 int					error(void *ptr, t_shell *shell);
+char				*var(char *s, t_env *nv);
+char				*get_next_line(int fd);
+// -- parsing -- //
+void				parse(t_shell *shell);
+void				handle_signals(int sig);
+int					inquotes(char *s, int i, int x);
+int					metachar(char c);
+char				*spacing(char *s);
+char				*get_env(t_env *nv, char *key);
+void				token_lst(t_shell *shell);
+void				valid(t_shell *shell);
+int					validate(char *s, t_shell *shell);
 void				handle_signals(int sig);
 void				ignore_signal(int sig);
 
@@ -240,7 +264,7 @@ char				**get_path_split(void);
 char				*find_cmd_path(char **av, t_env *nv);
 void				free_av1(char **av);
 char				**cmd_maker(t_shell *shell);
-void				handle_exec_error(t_var *var, t_shell *shell);
+void				handle_exec_error(t_var *var, t_shell *shell, int i);
 void				count_tree_nodes(t_tree *tree, int *count);
 char				**av_m(void);
 int					already_exist(char *key, t_shell *shell);

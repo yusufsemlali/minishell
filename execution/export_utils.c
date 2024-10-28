@@ -5,13 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/26 21:30:46 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/10/11 19:03:57 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+
+void	free_keys(char *key, char *value)
+{
+	free(key);
+	free(value);
+}
+
+=
 void	extract_and_create_env(char *entry, int j, t_shell *shell)
 {
 	char	*key;
@@ -31,7 +37,7 @@ void	process_export_entry(char *entry, t_shell *shell, int *check)
 	int	j;
 
 	j = 0;
-	if (validate(entry))
+	if (validate(entry, shell))
 	{
 		*check = 1;
 		return ;

@@ -6,7 +6,6 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:22:54 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/10/02 15:16:25 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +76,7 @@ void	handle_child_2_process(int fd[], t_shell *shell)
 
 void	ft_pipe(t_shell *shell)
 {
-	int	fd[2];
+	int		fd[2];
 
 	if (pipe(fd) == -1)
 	{

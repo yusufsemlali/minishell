@@ -6,7 +6,6 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:03:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/10/11 19:01:37 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +72,20 @@ void	create_env(char *key, char *value, t_shell *shell, int i)
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;
+}
+
+int	already_exist(char *key, t_shell *shell)
+{
+	t_env	*tmp;
+
+	tmp = shell->nv;
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->key, key))
+			return (0);
+		tmp = tmp->next;
+	}
+	return (1);
 }
 
 void	export(t_shell *shell)

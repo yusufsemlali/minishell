@@ -6,8 +6,7 @@
 #    By: aclakhda <aclakhda@student.2.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/25 21:41:51 by ysemlali          #+#    #+#              #
-#    Updated: 2024/10/16 16:20:06 by aclakhda         ###   ########.fr        #
-#    Updated: 2024/10/14 23:08:25 by ysemlali         ###   ########.fr        #
+#    Updated: 2024/10/26 15:48:05 by aclakhda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,17 +37,18 @@ SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c ma
 		    execution/rederextion.c\
 				execution/expand.c\
 		    execution/pipe.c\
-				execution/tree_utils.c\
-				execution/herdoc_utils.c\
-				execution/export_utils.c\
-				execution/cd_utils.c\
-				execution/exit_pipe.c\
-				execution/ft_rederction.c\
-				execution/utils_3.c\
-				execution/tree_u2.c\
-				execution/im_gonna_kms.c\
-				execution/bocchi_3.c\
-				execution/help.c\
+			execution/tree_utils.c\
+			execution/herdoc_utils.c\
+			execution/export_utils.c\
+			execution/cd_utils.c\
+			execution/exit_pipe.c\
+			execution/ft_rederction.c\
+			execution/utils_3.c\
+			execution/tree_u2.c\
+			execution/im_gonna_kms.c\
+			execution/bocchi_3.c\
+			execution/get_next_line.c\
+			execution/help.c\
 
 OBJS = $(SRCS:.c=.o)
 NAME = minishell

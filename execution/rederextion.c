@@ -21,8 +21,6 @@ int	check_file(t_tree *tree, char *file_name)
 	{
 		if (tmp->file_name != NULL && !ft_strcmp(tmp->file_name, file_name))
 			return (1);
-		// if (tmp->file_name)
-		// 	open(tmp->file_name, O_CREAT, 0644);
 		tmp = tmp->right;
 	}
 	return (0);
@@ -87,7 +85,7 @@ void	ft_exec_rederect_out_append(t_shell *shell)
 	fd = open(shell->tree->file_name, O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (fd < 0)
 	{
-		printf("Error: open failed\n");
+		print_errrror(shell->tree->file_name);
 		g_modes.exit_mode = 1;
 		return ;
 	}

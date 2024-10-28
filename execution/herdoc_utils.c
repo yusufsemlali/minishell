@@ -6,7 +6,6 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 00:07:08 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/30 16:44:20 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +29,12 @@ void	free_herdoc(t_herdoc *herdoc)
 	}
 }
 
-void	handle_exec_error(t_var *var, t_shell *shell)
+void	handle_exec_error(t_var *var, t_shell *shell, int i)
 {
+	free_av1(var->av);
+	if (i)
+		lazy_free(var->env, env_size(shell->nv));
+	free_all_shell(shell, 0);
 	perror("execve");
 	free(var->cmd_path);
 	lazy_free(var->env, env_size(shell->nv));

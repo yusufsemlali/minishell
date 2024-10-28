@@ -6,7 +6,6 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 00:24:15 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/30 15:59:41 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +18,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	unsigned char	*s;
 
 	i = 0;
-	if (dest == NULL && src == NULL)
+	if (dest == NULL || src == NULL)
 		return (0);
 	d = (unsigned char *)dest;
 	s = (unsigned char *)src;

@@ -63,12 +63,9 @@ void printAST(t_tree *root, int level, char *side) {
 int	execute(t_shell *shell)
 {
 	t_oken	*tmp;
-	// t_tree	*root;
 
 	g_modes.pipe_count = pipe_count(shell->token);
 	shell->tree = create_tree(shell->token);
-	// root = shell->tree;
-	// printAST(root, 0, "root");
 	tmp = shell->token;
 	shell->herdoc = set_up(tmp);
 	if (shell->herdoc != NULL)

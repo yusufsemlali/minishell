@@ -10,14 +10,6 @@
 
 #include "../includes/minishell.h"
 
-
-void	free_keys(char *key, char *value)
-{
-	free(key);
-	free(value);
-}
-
-=
 void	extract_and_create_env(char *entry, int j, t_shell *shell)
 {
 	char	*key;
@@ -37,7 +29,7 @@ void	process_export_entry(char *entry, t_shell *shell, int *check)
 	int	j;
 
 	j = 0;
-	if (validate(entry, shell))
+	if (validate(entry))
 	{
 		*check = 1;
 		return ;

@@ -74,7 +74,7 @@ char	*expanding(t_shell *shell)
 	char	*s;
 
 	s = shell->s;
-	buf = ft_calloc(get_variable_size(s, shell->nv), 1);
+	buf = ft_calloc(get_variable_size(s, shell->nv) + 2, 1);
 	while (*s)
 		s += get_variables(s, buf, shell->nv);
 	return (buf);

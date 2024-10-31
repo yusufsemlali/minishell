@@ -75,6 +75,7 @@ void	valid(t_shell *shell)
 	token = shell->token;
 	while (token->next)
 	{
+    printf("%s %d %d\n", token->value, token->type, token->index);
 		if (token->type == PIPE)
 			pipe_error(shell, token, token->next);
 		if (token->type == HEREDOC)

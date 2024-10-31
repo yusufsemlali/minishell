@@ -159,28 +159,15 @@ void				free_av(char ***av);
 int					error(void *ptr, t_shell *shell);
 char				*var(char *s, t_env *nv);
 char				*get_next_line(int fd);
-// -- parsing -- //
-void				parse(t_shell *shell);
 void				handle_signals(int sig);
-int					inquotes(char *s, int i, int x);
-int					metachar(char c);
-char				*spacing(char *s);
-char				*get_env(t_env *nv, char *key);
-void				token_lst(t_shell *shell);
-void				valid(t_shell *shell);
-int					validate(char *s, t_shell *shell);
-void				handle_signals(int sig);
-void				ignore_signal(int sig);
-
 // -- parsing -- //
 void				parse(t_shell *shell);
 void				spacing(t_shell *shell);
 void				expand(t_shell *shell);
 void				lexer(t_shell *shell);
-void				squish(t_shell *shell);
-void				token_lst(t_shell *shell);
 void				valid(t_shell *shell);
 int					validate(char *s);
+
 //--- parse utils ----//
 char				*get_env(t_env *nv, char *key);
 int					metachar(char c);

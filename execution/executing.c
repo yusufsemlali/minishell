@@ -107,7 +107,7 @@ void check_directory(t_var *var, t_shell *shell)
 		if (S_ISDIR(path_stat.st_mode))
 		{
 			print_err(var->av[0], 0);
-			g_modes->exit_mode = 126;
+			g_modes.exit_mode = 126;
 			handle_exec_error(var, shell, 0);
 		}
 	}
@@ -133,7 +133,6 @@ void	exec_child_process(t_shell *shell, t_var *var)
 		if (execve(var->cmd_path, var->av, var->env) == -1)
 		{
 			g_modes.exit_mode = -1;
-			handle_exec_error(var, shell);
 		}
 	}
 }

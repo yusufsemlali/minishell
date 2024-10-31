@@ -218,7 +218,7 @@ void				handle_export_error(void);
 void				print_env(t_shell *shell);
 int					is_space(char c);
 void				create_env(char *key, char *value, t_shell *shell, int i);
-void				update_existing_env(t_env *env, const char *value, int i);
+void				update_existing_env(t_env *env, char *value, int i, char *key);
 void				found_key(t_shell *shell, char *key);
 void				update_paths(t_shell *shell, char *past_path);
 void				handle_home_directory(t_shell *shell);

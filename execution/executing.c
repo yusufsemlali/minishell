@@ -117,7 +117,8 @@ void	exec_child_process(t_shell *shell, t_var *var)
 {
 	var->av = cmd_maker(shell);
 	var->cmd_path = find_cmd_path(var->av, shell->nv);
-	check_directory(var, shell);
+	if (var->cmd_path)
+		check_directory(var, shell);
 	if (!var->cmd_path && ft_strcmp(var->av[0], "./minishell") != 0)
 	{
 		ft_putstr_fd("minishell: ", 2);

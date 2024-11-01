@@ -87,15 +87,21 @@ int	is_space(char c)
 
 void	update_existing_env(t_env *env, char *value, int i, char *key)
 {
+	char	*tmp;
+
+	tmp = env->value;
 	if (i)
 	{
-		env->value = ft_strjoin(env->value, (char *)value);
+		tmp = ft_strjoin(env->value, (char *)value);
+		free(env->value);
+		env->value = tmp;
 		free(value);
 		free(key);
 		return ;
 	}
-	free(env->value);
+	if (env->value)
+		free(env->value);
+	env->value = strdup(value);
 	free(key);
 	free(value);
-	env->value = strdup(value);
 }

@@ -34,7 +34,7 @@ t_tree	*create_simple_tree(t_oken *tokens)
 
 	if (tokens)
 	{
-		root = creat_node(tokens->value, NULL);
+		root = creat_node(tokens->value, NULL, tokens->type);
 		if (tokens->next && (tokens->next->type == ARGS || \
 			tokens->next->type == CMD))
 			root->right = create_tree(tokens->next);

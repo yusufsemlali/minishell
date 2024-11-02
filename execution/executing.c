@@ -198,9 +198,9 @@ void	executing(t_shell *shell)
 {
 	if (!shell->tree)
 		return ;
-	else if (!ft_strcmp(shell->tree->op, "|"))
+	else if (shell->tree->type == PIPE)
 		ft_pipe(shell);
-	else if (is_rederaction(shell->tree->op))
+	else if (is_rederaction(shell->tree->op) && type_check(shell->tree))
 		ft_exec_rederect(shell);
 	else if (check_cmd(shell))
 		ft_exec_cmd(shell);

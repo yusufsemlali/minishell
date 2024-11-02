@@ -83,7 +83,7 @@ t_oken	*creat_token(t_oken *tokens, t_oken *last_redirection)
 	return (tmp);
 }
 
-t_tree	*creat_node(char *str, char *file_name)
+t_tree	*creat_node(char *str, char *file_name, int type)
 {
 	t_tree	*node;
 
@@ -95,5 +95,6 @@ t_tree	*creat_node(char *str, char *file_name)
 		node->file_name = NULL;
 	node->left = NULL;
 	node->right = NULL;
+	node->type = type;
 	return (node);
 }

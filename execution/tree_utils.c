@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 00:00:54 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/27 01:05:35 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/03 14:12:23 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ t_tree	*creat_tree_pipe(t_oken *tokens, t_oken *last_red_p)
 	g_modes.pipe_count--;
 	last_red_p->read = 1;
 	g_modes.has_pipe = 1;
-	root = creat_node(last_red_p->value, NULL, tokens->type);
+	root = creat_node(last_red_p->value, NULL, last_red_p->type);
 	if (last_red_p->next)
 		root->right = create_tree(pipe_right);
 	root->left = create_tree(pipe_left);

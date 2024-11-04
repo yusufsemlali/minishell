@@ -50,6 +50,7 @@ SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c ma
 			execution/help.c\
 			execution/random_file_gen.c\
 
+
 OBJS = $(SRCS:.c=.o)
 NAME = minishell
 LIBFT_NAME = libft/libft.a

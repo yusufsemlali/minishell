@@ -5,6 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/04 16:53:24 by aclakhda          #+#    #+#             */
+/*   Updated: 2024/11/04 16:54:09 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +30,6 @@ void	extract_and_create_env(char *entry, int j, t_shell *shell)
 		key = ft_substr(entry, 0, j);
 	value = ft_substr(entry, j + 1, ft_strlen(entry) - (j + 1));
 	create_env(key, value, shell, edit);
-	// free_keys(key, value);
 }
 
 void	process_export_entry(char *entry, t_shell *shell, int *check)
@@ -76,13 +77,6 @@ void	print_env(t_shell *shell)
 		printf("\n");
 		tmp = tmp->next;
 	}
-}
-
-int	is_space(char c)
-{
-	return (c == ' ' || c == '\t' || \
-		c == '\n' || c == '\v' || c == \
-			'\f' || c == '\r');
 }
 
 void	update_existing_env(t_env *env, char *value, int i, char *key)

@@ -47,8 +47,8 @@ SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c ma
 			execution/tree_u2.c\
 			execution/im_gonna_kms.c\
 			execution/bocchi_3.c\
-			execution/get_next_line.c\
 			execution/help.c\
+			execution/random_file_gen.c\
 
 OBJS = $(SRCS:.c=.o)
 NAME = minishell

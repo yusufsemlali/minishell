@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:55:33 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/10/07 14:30:19 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/04 18:25:55 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	free_all_shell(t_shell *shell, int i)
 	ft_free_tree(shell->tree);
 	close(shell->fd);
 	if (i != 2)
-		unlink(".tmp");
+		unlink(".da24$%sds@##$sdsfdp0214100daR");
 	free_all(shell);
 	exit(g_modes.exit_mode);
 }

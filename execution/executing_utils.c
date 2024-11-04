@@ -28,7 +28,7 @@ char	*creating_cmd_path(int len, char **path_split, int i, char *av)
 	return (cmd_path);
 }
 
-void	s_free(char	**av)
+void	s_free(char **av)
 {
 	int	i;
 
@@ -43,22 +43,19 @@ void	s_free(char	**av)
 
 int	check_cmd(t_shell *shell)
 {
-	if (!ft_strcmp("echo", shell->tree->op) \
-		|| !ft_strcmp("cd", shell->tree->op) \
-			|| !ft_strcmp("pwd", shell->tree->op) \
-				|| !ft_strcmp("export", shell->tree->op) \
-					|| !ft_strcmp("unset", shell->tree->op) \
-						|| !ft_strcmp("env", shell->tree->op) \
-							|| !ft_strcmp("exit", shell->tree->op))
+	if (!ft_strcmp("echo", shell->tree->op) || !ft_strcmp("cd", shell->tree->op)
+		|| !ft_strcmp("pwd", shell->tree->op) || !ft_strcmp("export",
+			shell->tree->op) || !ft_strcmp("unset", shell->tree->op)
+		|| !ft_strcmp("env", shell->tree->op) || !ft_strcmp("exit",
+			shell->tree->op))
 		return (1);
 	return (0);
 }
 
 int	is_rederaction(char *c)
 {
-	if (!ft_strcmp(c, ">") \
-		|| !ft_strcmp(c, "<") \
-			|| !ft_strcmp(c, ">>") || !ft_strcmp(c, "<<"))
+	if (!ft_strcmp(c, ">") || !ft_strcmp(c, "<") || !ft_strcmp(c, ">>")
+		|| !ft_strcmp(c, "<<"))
 		return (1);
 	return (0);
 }

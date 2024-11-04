@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/03 14:12:38 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/04 16:47:28 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_tree	*create_tree(t_oken *tokens)
 		last_redirection_pipe->type == PIPE)
 		return (creat_tree_pipe(tokens, last_redirection_pipe));
 	else if (last_redirection_pipe && last_redirection_pipe->read == 0 && \
-		!isnt_red(last_redirection_pipe->type))
+				!isnt_red(last_redirection_pipe->type))
 		return (creat_tree_red(tokens, last_redirection_pipe));
 	return (create_simple_tree(tokens));
 }
@@ -50,15 +50,6 @@ t_herdoc	*set_up(t_oken *token)
 	if (herdoc)
 		herdoc->herdoc = j;
 	return (herdoc);
-}
-
-
-void printAST(t_tree *root, int level, char *side) {
-    if (root == NULL) return;
-    for (int i = 0; i < level; i++) printf("    ");
-    printf("%s (%s)\n", root->op, side);
-    printAST(root->left, level + 1, "left");
-    printAST(root->right, level + 1, "right");
 }
 
 int	execute(t_shell *shell)

@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:32:06 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/27 00:54:08 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/04 18:40:42 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	handle_open_error(void)
 {
-	printf("Error: open failed\n");
+	ft_putstr_fd("failed to open\n", 2);
 	g_modes.exit_mode = 1;
 }
 

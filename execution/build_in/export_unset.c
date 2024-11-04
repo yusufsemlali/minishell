@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/16 15:03:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/10/31 23:31:14 by aclakhda         ###   ########.fr       */
+/*   Created: 2024/11/04 16:52:34 by aclakhda          #+#    #+#             */
+/*   Updated: 2024/11/04 16:52:36 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	create_env(char *key, char *value, t_shell *shell, int i)
 {
 	t_env	*tmp;
 	t_env	*new;
-	(void)i;
 
+	(void)i;
 	tmp = shell->nv;
 	while (tmp)
 	{
@@ -77,7 +77,6 @@ void	create_env(char *key, char *value, t_shell *shell, int i)
 		tmp = tmp->next;
 	tmp->next = new;
 }
-
 
 void	export(t_shell *shell)
 {

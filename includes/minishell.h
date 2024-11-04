@@ -257,6 +257,9 @@ int					already_exist(char *key, t_shell *shell);
 void				free_keys(char *key, char *value);
 void				print_errrror(char *file_name);
 int					type_check(t_tree *tree);
+void				print_err(char *str, int i);
+void				check_directory(t_var *var, t_shell *shell);
+int					is_space(char c);
 // -- built in -- //
 void				ft_exit(t_shell *shell, int i, int j);
 void				free_all_shell(t_shell *shell, int i);

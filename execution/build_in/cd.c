@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:20:15 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/10/10 18:06:03 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/04 17:11:29 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,12 @@ void	cd(t_shell *shell)
 	char	**av;
 	char	past_path[1024];
 
+	if (shell->tree->right->right)
+	{
+		ft_putstr_fd("cd: too many argument :c\n", 2);
+		g_modes.exit_mode = 1;
+		return ;
+	}
 	getcwd(past_path, sizeof(past_path));
 	if (getcwd(past_path, sizeof(past_path)) == NULL)
 	{

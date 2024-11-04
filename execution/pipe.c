@@ -6,6 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:22:54 by aclakhda          #+#    #+#             */
+/*   Updated: 2024/11/04 18:40:05 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +77,11 @@ void	handle_child_2_process(int fd[], t_shell *shell)
 
 void	ft_pipe(t_shell *shell)
 {
-	int		fd[2];
+	int	fd[2];
 
 	if (pipe(fd) == -1)
 	{
-		printf("Error: pipe failed\n");
+		ft_putstr_fd("failed to open pipe\n", 2);
 		return ;
 	}
 	handle_child_process(fd, shell);

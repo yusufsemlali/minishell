@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/03 14:12:38 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/04 18:45:51 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_tree	*create_tree(t_oken *tokens)
 		last_redirection_pipe->type == PIPE)
 		return (creat_tree_pipe(tokens, last_redirection_pipe));
 	else if (last_redirection_pipe && last_redirection_pipe->read == 0 && \
-		!isnt_red(last_redirection_pipe->type))
+				!isnt_red(last_redirection_pipe->type))
 		return (creat_tree_red(tokens, last_redirection_pipe));
 	return (create_simple_tree(tokens));
 }
@@ -52,15 +52,6 @@ t_herdoc	*set_up(t_oken *token)
 	return (herdoc);
 }
 
-
-void printAST(t_tree *root, int level, char *side) {
-    if (root == NULL) return;
-    for (int i = 0; i < level; i++) printf("    ");
-    printf("%s (%s)\n", root->op, side);
-    printAST(root->left, level + 1, "left");
-    printAST(root->right, level + 1, "right");
-}
-
 int	execute(t_shell *shell)
 {
 	t_oken	*tmp;
@@ -71,7 +62,8 @@ int	execute(t_shell *shell)
 	shell->herdoc = set_up(tmp);
 	if (shell->herdoc != NULL)
 	{
-		shell->fd = open(".tmp", O_CREAT | O_RDWR | O_TRUNC, 0644);
+		shell->fd = open(".da24$%sds@##$sdsfdp0214100daR", \
+			O_CREAT | O_RDWR | O_TRUNC, 0644);
 		ft_exec_rederect_herd(shell, 1);
 	}
 	if (g_modes.herdoc_mode != CTRL_C)
@@ -82,6 +74,6 @@ int	execute(t_shell *shell)
 	ft_free_tree(shell->tree);
 	if (shell->fd)
 		close(shell->fd);
-	unlink(".tmp");
+	unlink(".da24$%sds@##$sdsfdp0214100daR");
 	return (0);
 }

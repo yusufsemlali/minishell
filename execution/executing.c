@@ -117,7 +117,8 @@ void	exec_child_process(t_shell *shell, t_var *var)
 {
 	var->av = cmd_maker(shell);
 	var->cmd_path = find_cmd_path(var->av, shell->nv);
-	check_directory(var, shell);
+	if (var->cmd_path)
+		check_directory(var, shell);
 	if (!var->cmd_path && ft_strcmp(var->av[0], "./minishell") != 0)
 	{
 		ft_putstr_fd("minishell: ", 2);
@@ -197,9 +198,9 @@ void	executing(t_shell *shell)
 {
 	if (!shell->tree)
 		return ;
-	else if (!ft_strcmp(shell->tree->op, "|"))
+	else if (shell->tree->type == PIPE)
 		ft_pipe(shell);
-	else if (is_rederaction(shell->tree->op))
+	else if (is_rederaction(shell->tree->op) && type_check(shell->tree))
 		ft_exec_rederect(shell);
 	else if (check_cmd(shell))
 		ft_exec_cmd(shell);

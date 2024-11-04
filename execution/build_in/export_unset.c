@@ -6,6 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:03:09 by aclakhda          #+#    #+#             */
+/*   Updated: 2024/10/31 23:31:14 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +31,16 @@ int	create_arr(char **arr, t_shell *shell)
 	return (0);
 }
 
-t_env	*create_new_env(const char *key, const char *value)
+t_env	*create_new_env(char *key, char *value, int i)
 {
 	t_env	*new;
 
 	new = (t_env *)malloc(sizeof(t_env));
 	if (!new)
 		return (NULL);
-	new->key = ft_strdup(key);
-	new->value = ft_strdup(value);
-	if (!new->key)
+	new->key = ft_strdup((const char *)key);
+	new->value = ft_strdup((const char *)value);
+	if (!new->key || (!new->value && i))
 	{
 		free(new->key);
 		free(new->value);
@@ -47,6 +48,8 @@ t_env	*create_new_env(const char *key, const char *value)
 		return (NULL);
 	}
 	new->next = NULL;
+	free(key);
+	free(value);
 	return (new);
 }
 
@@ -54,18 +57,19 @@ void	create_env(char *key, char *value, t_shell *shell, int i)
 {
 	t_env	*tmp;
 	t_env	*new;
+	(void)i;
 
 	tmp = shell->nv;
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->key, key))
 		{
-			update_existing_env(tmp, value, i);
+			update_existing_env(tmp, value, i, key);
 			return ;
 		}
 		tmp = tmp->next;
 	}
-	new = create_new_env(key, value);
+	new = create_new_env(key, value, i);
 	if (!new)
 		return ;
 	tmp = shell->nv;
@@ -94,7 +98,6 @@ void	export(t_shell *shell)
 		{
 			tmp.key = ft_substr(arr[tmp.i], 0, ft_strlen(arr[tmp.i]));
 			create_env(tmp.key, NULL, shell, 0);
-			free(tmp.key);
 		}
 		tmp.i++;
 	}

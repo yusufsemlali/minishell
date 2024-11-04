@@ -12,7 +12,7 @@
 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -ggdb 
+CFLAGS =  -Wall -Wextra -Werror -ggdb #-fsanitize=address
 LIBS = -Llibft -lft -lreadline
 SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c main/init_utils.c\
 		    parsing/parse.c\

@@ -14,14 +14,21 @@ void	extract_and_create_env(char *entry, int j, t_shell *shell)
 {
 	char	*key;
 	char	*value;
+	int		edit;
 
-	key = ft_substr(entry, 0, j);
-	value = ft_substr(entry, j + 1, ft_strlen(entry) - (j + 1));
+	key = NULL;
+	value = NULL;
+	edit = 0;
 	if (entry[j - 1] == '+')
-		create_env(key, value, shell, 1);
+	{
+		edit = 1;
+		key = ft_substr(entry, 0, j - 1);
+	}
 	else
-		create_env(key, value, shell, 0);
-	free_keys(key, value);
+		key = ft_substr(entry, 0, j);
+	value = ft_substr(entry, j + 1, ft_strlen(entry) - (j + 1));
+	create_env(key, value, shell, edit);
+	// free_keys(key, value);
 }
 
 void	process_export_entry(char *entry, t_shell *shell, int *check)
@@ -78,14 +85,23 @@ int	is_space(char c)
 			'\f' || c == '\r');
 }
 
-void	update_existing_env(t_env *env, const char *value, int i)
+void	update_existing_env(t_env *env, char *value, int i, char *key)
 {
+	char	*tmp;
+
+	tmp = env->value;
 	if (i)
 	{
-		env->value = ft_strjoin(env->value, (char *)value);
-		free((char *)value);
+		tmp = ft_strjoin(env->value, (char *)value);
+		free(env->value);
+		env->value = tmp;
+		free(value);
+		free(key);
 		return ;
 	}
-	free(env->value);
+	if (env->value)
+		free(env->value);
 	env->value = strdup(value);
+	free(key);
+	free(value);
 }

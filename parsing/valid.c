@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 23:08:58 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/10/20 11:06:34 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/10/31 19:56:29 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	valid(t_shell *shell)
 	token = shell->token;
 	while (token->next)
 	{
-    printf("%s %d %d\n", token->value, token->type, token->index);
+		// printf("%s %d %d\n", token->value, token->type, token->index);
 		if (token->type == PIPE)
 			pipe_error(shell, token, token->next);
 		if (token->type == HEREDOC)

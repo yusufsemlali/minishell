@@ -74,7 +74,7 @@ typedef struct s_tree
 	char			*file_name;
 	struct s_tree	*left;
 	struct s_tree	*right;
-	int				mark;
+	int				type;
 }					t_tree;
 
 typedef struct s_herdoc
@@ -206,7 +206,6 @@ t_tree				*creat_tree_red(t_oken *tokens, t_oken *last_r_pip);
 t_tree				*creat_tree_pipe(t_oken *tokens, t_oken *last_red_p);
 t_tree				*creat_tree_pipe(t_oken *tokens, t_oken *last_red_p);
 t_oken				*creat_token(t_oken *tokens, t_oken *last_redirection);
-t_tree				*creat_node(char *str, char *file_name);
 t_oken				*last_p_r(t_oken *tokens);
 void				free_herdoc(t_herdoc *herdoc);
 void				ft_free_token(t_oken *token);
@@ -218,7 +217,7 @@ void				handle_export_error(void);
 void				print_env(t_shell *shell);
 int					is_space(char c);
 void				create_env(char *key, char *value, t_shell *shell, int i);
-void				update_existing_env(t_env *env, const char *value, int i);
+void				update_existing_env(t_env *env, char *value, int i, char *key);
 void				found_key(t_shell *shell, char *key);
 void				update_paths(t_shell *shell, char *past_path);
 void				handle_home_directory(t_shell *shell);
@@ -237,7 +236,7 @@ void				handle_open_error(void);
 void				handle_left_subtree(t_tree *root, t_oken *tokens,
 						t_oken *last_r_pip);
 void				handle_right_subtree(t_tree *root, t_oken *last_r_pip);
-t_tree				*creat_node(char *str, char *file_name);
+t_tree				*creat_node(char *str, char *file_name, int type);
 t_oken				*creat_token(t_oken *tokens, t_oken *last_redirection);
 t_oken				*last_p_r(t_oken *tokens);
 t_oken				*find_last_redirection(t_oken *tokens);
@@ -257,6 +256,7 @@ char				**av_m(void);
 int					already_exist(char *key, t_shell *shell);
 void				free_keys(char *key, char *value);
 void				print_errrror(char *file_name);
+int					type_check(t_tree *tree);
 // -- built in -- //
 void				ft_exit(t_shell *shell, int i, int j);
 void				free_all_shell(t_shell *shell, int i);

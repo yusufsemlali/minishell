@@ -1,13 +1,12 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/18 15:41:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/10/27 01:00:57 by aclakhda         ###   ########.fr       */
+/*   Created: 2024/11/04 16:59:57 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/11/04 17:01:11 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +216,8 @@ void				handle_export_error(void);
 void				print_env(t_shell *shell);
 int					is_space(char c);
 void				create_env(char *key, char *value, t_shell *shell, int i);
-void				update_existing_env(t_env *env, char *value, int i, char *key);
+void				update_existing_env(t_env *env, char *value, int i,
+						char *key);
 void				found_key(t_shell *shell, char *key);
 void				update_paths(t_shell *shell, char *past_path);
 void				handle_home_directory(t_shell *shell);

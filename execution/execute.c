@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/04 16:47:28 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/04 18:45:51 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ int	execute(t_shell *shell)
 	shell->herdoc = set_up(tmp);
 	if (shell->herdoc != NULL)
 	{
-		shell->fd = open(".tmp", O_CREAT | O_RDWR | O_TRUNC, 0644);
+		shell->fd = open(".da24$%sds@##$sdsfdp0214100daR", \
+			O_CREAT | O_RDWR | O_TRUNC, 0644);
 		ft_exec_rederect_herd(shell, 1);
 	}
 	if (g_modes.herdoc_mode != CTRL_C)
@@ -73,6 +74,6 @@ int	execute(t_shell *shell)
 	ft_free_tree(shell->tree);
 	if (shell->fd)
 		close(shell->fd);
-	unlink(".tmp");
+	unlink(".da24$%sds@##$sdsfdp0214100daR");
 	return (0);
 }

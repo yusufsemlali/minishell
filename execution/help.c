@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:18:41 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/04 16:55:12 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/04 18:38:23 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	print_errrror(char *file_name)
 {
 	ft_putstr_fd("minishell: failed to open file \"", 2);
-	ft_putstr_fd(file_name, 2);
+	if (file_name)
+		ft_putstr_fd(file_name, 2);
 	ft_putstr_fd("\" >~<\n", 2);
 }
 

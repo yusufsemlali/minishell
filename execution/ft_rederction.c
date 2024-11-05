@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_rederction.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:15:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/04 20:26:44 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/11/05 21:06:34 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_continue_rederect_herd(t_shell *shell)
 	int		stdin_copy;
 	t_tree	*tmp;
 
-	fd = open(".da24$%sds@##$sdsfdp0214100daR", O_RDWR);
+	fd = open(g_modes.name_list[shell->tree->fd - 3], O_RDWR);
 	if (fd < 0)
 	{
 		print_errrror(NULL);
@@ -36,12 +36,44 @@ void	ft_continue_rederect_herd(t_shell *shell)
 	close(stdin_copy);
 }
 
+void	_reset(t_oken *token)
+{
+	t_oken	*tmp;
+
+	tmp = token;
+	while(tmp)
+	{
+		tmp->read = 0;
+		tmp = tmp->next;
+	}
+}
+
+t_oken	*next(t_oken *token, int i)
+{
+	t_oken	*tmp;
+
+	if (i)
+		_reset(token);
+	tmp = token;
+	while(tmp)
+	{
+		if (tmp->type == HEREDOC && tmp->read == 0)
+		{
+			tmp->read = 1;
+			return (tmp);
+		}
+		tmp = tmp->next;
+	}
+	return (tmp);
+}
+
 void	handle_heredoc_line(t_shell *shell, char *line, int *i)
 {
 	char	*tmp;
 
 	if (ft_strcmp(line, shell->herdoc->line[*i]) == 0)
 	{
+		shell->tmp = next(shell->tmp, 0);
 		free(line);
 		(*i)++;
 		shell->herdoc->herdoc--;
@@ -56,10 +88,11 @@ void	handle_heredoc_line(t_shell *shell, char *line, int *i)
 	}
 	else
 		free(tmp);
-	write(shell->fd, line, ft_strlen(line));
-	write(shell->fd, "\n", 1);
+	write(shell->tmp->fd, line, ft_strlen(line));
+	write(shell->tmp->fd, "\n", 1);
 	free(line);
 }
+
 
 void	process_heredoc(t_shell *shell)
 {
@@ -67,6 +100,8 @@ void	process_heredoc(t_shell *shell)
 	int		i;
 
 	i = 0;
+	shell->tmp = shell->token;
+	shell->tmp = next(shell->token, 1);
 	while (shell->herdoc->herdoc && g_modes.herdoc_mode != CTRL_C)
 	{
 		line = readline("> ");

@@ -6,11 +6,24 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:55:33 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/04 18:25:55 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/05 20:46:52 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	unlinker(void)
+{
+	int	i;
+
+	i = 0;
+	while(g_modes.name_list[i])
+	{
+		unlink(g_modes.name_list[i]);
+		free(g_modes.name_list[i]);
+		i++;
+	}
+}
 
 int	is_numeric(char *str)
 {
@@ -39,7 +52,7 @@ void	free_all_shell(t_shell *shell, int i)
 	ft_free_tree(shell->tree);
 	close(shell->fd);
 	if (i != 2)
-		unlink(".da24$%sds@##$sdsfdp0214100daR");
+		unlinker();
 	free_all(shell);
 	exit(g_modes.exit_mode);
 }

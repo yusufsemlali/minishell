@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:49:37 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/04 18:18:48 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/05 18:01:53 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,21 @@ void	printt(char *file_name)
 	close(fd);
 }
 
-void	random_err(char **av)
-{
-	int		fd;
-	char	*r_file;
-	char	*n_file;
+// void	random_err(char **av)
+// {
+// 	int		fd;
+// 	char	*r_file;
+// 	char	*n_file;
 
-	r_file = random_name_gen();
-	n_file = ft_strjoin(".", r_file);
-	fd = open(n_file, O_CREAT | O_RDWR | O_APPEND, 0644);
-	ft_putstr_fd("minishell: ", fd);
-	ft_putstr_fd(av[0], fd);
-	ft_putstr_fd(": is a directory\n", fd);
-	close(fd);
-	printt(n_file);
-	free(r_file);
-	unlink(n_file);
-	free(n_file);
-}
+// 	r_file = random_name_gen();
+// 	n_file = ft_strjoin(".", r_file);
+// 	fd = open(n_file, O_CREAT | O_RDWR | O_APPEND, 0644);
+// 	ft_putstr_fd("minishell: ", fd);
+// 	ft_putstr_fd(av[0], fd);
+// 	ft_putstr_fd(": is a directory\n", fd);
+// 	close(fd);
+// 	printt(n_file);
+// 	free(r_file);
+// 	unlink(n_file);
+// 	free(n_file);
+// }

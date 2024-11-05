@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 01:06:45 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/27 15:21:43 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/05 18:15:16 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_tree	*create_simple_tree(t_oken *tokens)
 
 	if (tokens)
 	{
-		root = creat_node(tokens->value, NULL, tokens->type);
+		root = creat_node(tokens->value, NULL, tokens->type, 0);
 		if (tokens->next && (tokens->next->type == ARGS
 				|| tokens->next->type == CMD))
 			root->right = create_tree(tokens->next);

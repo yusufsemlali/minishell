@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/05 20:48:09 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/05 21:11:09 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,17 +116,8 @@ void	set_file(t_shell *shell)
 int	execute(t_shell *shell)
 {
 	t_oken	*tmp;
+
 	set_file(shell);
-	// for (t_oken *tmp = shell->token; tmp ; tmp = tmp->next)
-	// {
-	// 	printf("%s : %d\n", tmp->value, tmp->fd);
-	// 	printf("=============\n");
-	// }
-	// while(g_modes.name_list[i])
-	// {
-	// 	printf(" i = %d and names are %s\n", i, g_modes.name_list[i]);
-	// 	i++;
-	// }
 	g_modes.pipe_count = pipe_count(shell->token);
 	shell->tree = create_tree(shell->token);
 	tmp = shell->token;

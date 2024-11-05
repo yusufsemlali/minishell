@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:15:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/04 18:38:04 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:10:07 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	ft_exec_rederect_herd(t_shell *shell, int j)
 	}
 	else
 	{
-		if (ft_strcmp(shell->tree->op, "<<") == 0)
+		if (ft_strcmp(shell->tree->op, "<<") == 0 && !g_modes.has_pipe)
 			ft_continue_rederect_herd(shell);
 	}
 }

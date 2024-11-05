@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:46:55 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/25 17:25:58 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/05 20:44:10 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	ft_free_tree(t_tree *root)
 	free(root->op);
 	if (root->file_name)
 		free(root->file_name);
+	if (root->fd)
+		close(root->fd);
 	free(root);
 	root = NULL;
 }

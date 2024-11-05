@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/04 18:45:51 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/05 20:48:09 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,87 @@ t_herdoc	*set_up(t_oken *token)
 	return (herdoc);
 }
 
+int	creat_fd(int range, int reset)
+{
+	static int	i;
+	static int	fd;
+	char		*name;
+	char		*file_n;
+
+	if (reset)
+	{
+		i = 0;
+		fd = 0;
+	}
+	else if (!range && !fd)
+	{
+		file_n = random_name_gen();
+		name = ft_strjoin(".", file_n);
+		free(file_n);
+		g_modes.name_list[range] = name;
+		g_modes.name_list[range + 1] = NULL;
+		fd = open(name, O_CREAT | O_RDWR | O_TRUNC, 0644);
+		return (fd);
+	}
+	else if (range != i)
+	{
+		file_n = random_name_gen();
+		name = ft_strjoin(".", file_n);
+		free(file_n);
+		g_modes.name_list[range] = name;
+		g_modes.name_list[range + 1] = NULL;
+		fd = open(name, O_CREAT | O_RDWR | O_TRUNC, 0644);
+		i = range;
+		return (fd);
+	}
+	return (fd);
+}
+
+void	set_file(t_shell *shell)
+{
+	int		range;
+	t_oken	*tmp;
+
+	tmp = shell->token;
+	range = 0;
+	while(tmp)
+	{
+		if (tmp->type == PIPE)
+		{
+			range++;
+			tmp = tmp->next;
+			continue;
+		}
+		if (tmp->type == HEREDOC)
+		{
+			tmp->fd = creat_fd(range, 0);
+		}
+		tmp = tmp->next;
+	}
+	creat_fd(range, 1);
+
+}
+
 int	execute(t_shell *shell)
 {
 	t_oken	*tmp;
-
+	set_file(shell);
+	// for (t_oken *tmp = shell->token; tmp ; tmp = tmp->next)
+	// {
+	// 	printf("%s : %d\n", tmp->value, tmp->fd);
+	// 	printf("=============\n");
+	// }
+	// while(g_modes.name_list[i])
+	// {
+	// 	printf(" i = %d and names are %s\n", i, g_modes.name_list[i]);
+	// 	i++;
+	// }
 	g_modes.pipe_count = pipe_count(shell->token);
 	shell->tree = create_tree(shell->token);
 	tmp = shell->token;
 	shell->herdoc = set_up(tmp);
 	if (shell->herdoc != NULL)
 	{
-		shell->fd = open(".da24$%sds@##$sdsfdp0214100daR", \
-			O_CREAT | O_RDWR | O_TRUNC, 0644);
 		ft_exec_rederect_herd(shell, 1);
 	}
 	if (g_modes.herdoc_mode != CTRL_C)
@@ -74,6 +143,6 @@ int	execute(t_shell *shell)
 	ft_free_tree(shell->tree);
 	if (shell->fd)
 		close(shell->fd);
-	unlink(".da24$%sds@##$sdsfdp0214100daR");
+	unlinker();
 	return (0);
 }

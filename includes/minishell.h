@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:59:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/11/04 17:01:11 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/11/05 20:47:10 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,14 @@ typedef struct s_tree
 	struct s_tree	*left;
 	struct s_tree	*right;
 	int				type;
+	int				fd;
 }					t_tree;
 
 typedef struct s_herdoc
 {
 	int				herdoc;
 	char			**line;
+	int				fd;
 }					t_herdoc;
 
 typedef struct s_env
@@ -108,6 +110,7 @@ typedef struct s_shell
 	char			**env;
 	char			*export_error;
 	int				st;
+	t_oken			*tmp;
 }					t_shell;
 
 typedef struct s_var
@@ -146,6 +149,7 @@ typedef struct s_mode
 	int				pipe_count;
 	int				fd_childs[2];
 	int				d_change;
+	char			*name_list[1000];
 }					t_mode;
 
 // -- main -- //
@@ -236,7 +240,7 @@ void				handle_open_error(void);
 void				handle_left_subtree(t_tree *root, t_oken *tokens,
 						t_oken *last_r_pip);
 void				handle_right_subtree(t_tree *root, t_oken *last_r_pip);
-t_tree				*creat_node(char *str, char *file_name, int type);
+t_tree				*creat_node(char *str, char *file_name, int type, int fd);
 t_oken				*creat_token(t_oken *tokens, t_oken *last_redirection);
 t_oken				*last_p_r(t_oken *tokens);
 t_oken				*find_last_redirection(t_oken *tokens);
@@ -260,6 +264,8 @@ int					type_check(t_tree *tree);
 void				print_err(char *str, int i);
 void				check_directory(t_var *var, t_shell *shell);
 int					is_space(char c);
+char				*random_name_gen(void);
+void				unlinker(void);
 // -- built in -- //
 void				ft_exit(t_shell *shell, int i, int j);
 void				free_all_shell(t_shell *shell, int i);

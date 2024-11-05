@@ -23,6 +23,7 @@ typedef struct s_token
 	int				type;
 	int				index;
 	int				read;
+	int				fd;
 	struct s_token	*next;
 }					t_oken;
 

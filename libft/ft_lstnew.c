@@ -22,6 +22,7 @@ t_oken	*ft_lstnew(char *value, int type, int index)
 	result->value = value;
 	result->type = type;
 	result->read = 0;
+	result->fd = 0;
 	result->index = index;
 	result->next = NULL;
 	return (result);

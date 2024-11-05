@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 23:09:14 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/10/14 23:09:16 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/11/05 21:35:37 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*var(char *s, t_env *nv)
 {
 	char	*buf;
 
-	buf = ft_calloc(get_size(s, nv), 1);
+	buf = ft_calloc(get_size(s, nv) + 1, 1);
 	while (*s)
 		s += get_vars(s, buf, nv);
 	return (buf);

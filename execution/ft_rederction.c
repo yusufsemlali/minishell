@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:15:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/05 21:06:34 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/05 21:36:33 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	handle_heredoc_line(t_shell *shell, char *line, int *i)
 	write(shell->tmp->fd, "\n", 1);
 	free(line);
 }
-
 
 void	process_heredoc(t_shell *shell)
 {

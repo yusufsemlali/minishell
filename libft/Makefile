@@ -1,4 +1,4 @@
-CFLAGS = -Wall -Wextra -Werror  -ggdb
+CFLAGS = -Wall -Wextra -Werror
 
 NAME = libft.a
 

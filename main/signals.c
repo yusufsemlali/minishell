@@ -6,7 +6,7 @@
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 23:07:26 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/10/14 23:07:28 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/11/04 16:58:28 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	handle_signals(int sig)
 		{
 			ft_putstr_fd("\n", 1);
 			rl_on_new_line();
-			// rl_replace_line("", 0);
+			rl_replace_line("", 0);
 			rl_redisplay();
 			g_modes.exit_mode = CTRL_C;
 		}

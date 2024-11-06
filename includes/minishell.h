@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:59:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/11/06 15:09:53 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/06 20:17:11 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,7 @@ void				handle_exit_numeric(t_shell *shell);
 size_t				overfl(int exit_mode);
 int					is_numeric(char *str);
 void				ft_exec_rederect_herd(t_shell *shell, int j);
-void				redirect_output(t_shell *shell, int fd);
+void				redirect_output(t_shell *shell, int fd, int i);
 int					open_file_for_writing(char *file_name);
 void				handle_open_error(void);
 void				handle_left_subtree(t_tree *root, t_oken *tokens,

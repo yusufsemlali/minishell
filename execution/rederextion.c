@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rederextion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:35:04 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/06 17:13:51 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/11/06 20:16:55 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	ft_exec_rederect_in(t_shell *shell)
 	int		stdin_copy;
 	t_tree	*tmp;
 
+	stdin_copy = dup(STDIN);
 	if (check_file(shell->tree, shell->tree->file_name))
 		fd = open(shell->tree->file_name, O_RDWR | O_CREAT, 0644);
 	else
@@ -48,8 +49,7 @@ void	ft_exec_rederect_in(t_shell *shell)
 		g_modes.exit_mode = 1;
 		return ;
 	}
-	stdin_copy = dup(STDIN);
-	dup2(fd, STDIN);
+	redirect_output(shell, fd, 1);
 	close(fd);
 	tmp = shell->tree;
 	shell->tree = shell->tree->left;
@@ -73,7 +73,7 @@ void	ft_exec_rederect_out(t_shell *shell)
 		g_modes.exit_mode = 1;
 		return ;
 	}
-	redirect_output(shell, fd);
+	redirect_output(shell, fd, 0);
 	close(fd);
 	tmp = shell->tree;
 	shell->tree = shell->tree->left;
@@ -97,7 +97,7 @@ void	ft_exec_rederect_out_append(t_shell *shell)
 		g_modes.exit_mode = 1;
 		return ;
 	}
-	redirect_output(shell, fd);
+	redirect_output(shell, fd, 0);
 	close(fd);
 	tmp = shell->tree;
 	shell->tree = shell->tree->left;

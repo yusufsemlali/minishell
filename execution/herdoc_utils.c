@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:43:00 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/05 21:45:40 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/06 19:45:10 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	handle_exec_error(t_var *var, t_shell *shell, int i)
 		lazy_free(var->env, env_size(shell->nv));
 	free_all_shell(shell, 0);
 	perror("execve");
-	free(var->cmd_path);
+	if (var->cmd_path)
+		free(var->cmd_path);
 	lazy_free(var->env, env_size(shell->nv));
 	exit(g_modes.exit_mode);
 }

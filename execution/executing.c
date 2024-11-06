@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:26:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/04 16:51:32 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/06 19:57:41 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ void	exec_child_process(t_shell *shell, t_var *var)
 {
 	var->av = cmd_maker(shell);
 	var->cmd_path = find_cmd_path(var->av, shell->nv);
-	if (var->cmd_path)
-		check_directory(var, shell);
+	check_directory(var, shell);
 	if (!var->cmd_path && ft_strcmp(var->av[0], "./minishell") != 0)
 	{
 		ft_putstr_fd("minishell: ", 2);

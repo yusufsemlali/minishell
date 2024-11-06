@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:32:06 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/06 20:18:24 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/06 20:34:35 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ int	open_file_for_writing(char *file_name)
 	int	fd;
 
 	fd = open(file_name, O_RDWR | O_CREAT | O_TRUNC, 0644);
-	if (fd < 0)
-		handle_open_error();
 	return (fd);
 }
 

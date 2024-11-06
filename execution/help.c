@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:18:41 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/04 20:15:25 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/06 19:58:40 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,25 @@ void	check_directory(t_var *var, t_shell *shell)
 {
 	struct stat	path_stat;
 
-	if (stat(var->cmd_path, &path_stat) == 0)
+	if (stat(var->av[0], &path_stat) == -1)
 	{
-		if (S_ISDIR(path_stat.st_mode))
-		{
-			print_err(var->av[0], 0);
-			g_modes.exit_mode = 126;
-			handle_exec_error(var, shell, 0);
-		}
+		if (var->cmd_path)
+			return ;
+		print_err(var->av[0], 1);
+		g_modes.exit_mode = 127;
+		handle_exec_error(var, shell, 0);
+	}
+	if (S_ISDIR(path_stat.st_mode))
+	{
+		print_err(var->av[0], 0);
+		g_modes.exit_mode = 126;
+		handle_exec_error(var, shell, 0);
+	}
+	if (access(var->av[0], X_OK) == -1)
+	{
+		print_err(var->av[0], 2);
+		g_modes.exit_mode = 126;
+		handle_exec_error(var, shell, 0);
 	}
 }
 
@@ -61,7 +72,7 @@ void	print_err(char *str, int i)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(str, 2);
-		ft_putstr_fd(": is a file\n", 2);
+		ft_putstr_fd(": permission denied\n", 2);
 	}
 }
 

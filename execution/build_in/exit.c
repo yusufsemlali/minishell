@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:55:33 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/05 21:44:54 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:07:10 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	unlinker(void)
 	int	i;
 
 	i = 0;
-	while(g_modes.name_list[i])
+	while (g_modes.name_list[i])
 	{
 		unlink(g_modes.name_list[i]);
 		free(g_modes.name_list[i]);

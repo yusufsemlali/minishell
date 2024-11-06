@@ -49,6 +49,7 @@ SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c ma
 			execution/bocchi_3.c\
 			execution/help.c\
 			execution/random_file_gen.c\
+			execution/help_2.c\
 
 
 OBJS = $(SRCS:.c=.o)

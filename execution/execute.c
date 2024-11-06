@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/05 21:11:09 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:03:31 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,65 +52,19 @@ t_herdoc	*set_up(t_oken *token)
 	return (herdoc);
 }
 
-int	creat_fd(int range, int reset)
+int	set_up_file_name(int range)
 {
-	static int	i;
-	static int	fd;
-	char		*name;
-	char		*file_n;
+	char	*name;
+	int		fd;
+	char	*file_n;
 
-	if (reset)
-	{
-		i = 0;
-		fd = 0;
-	}
-	else if (!range && !fd)
-	{
-		file_n = random_name_gen();
-		name = ft_strjoin(".", file_n);
-		free(file_n);
-		g_modes.name_list[range] = name;
-		g_modes.name_list[range + 1] = NULL;
-		fd = open(name, O_CREAT | O_RDWR | O_TRUNC, 0644);
-		return (fd);
-	}
-	else if (range != i)
-	{
-		file_n = random_name_gen();
-		name = ft_strjoin(".", file_n);
-		free(file_n);
-		g_modes.name_list[range] = name;
-		g_modes.name_list[range + 1] = NULL;
-		fd = open(name, O_CREAT | O_RDWR | O_TRUNC, 0644);
-		i = range;
-		return (fd);
-	}
+	file_n = random_name_gen();
+	name = ft_strjoin(".", file_n);
+	free(file_n);
+	g_modes.name_list[range] = name;
+	g_modes.name_list[range + 1] = NULL;
+	fd = open(name, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	return (fd);
-}
-
-void	set_file(t_shell *shell)
-{
-	int		range;
-	t_oken	*tmp;
-
-	tmp = shell->token;
-	range = 0;
-	while(tmp)
-	{
-		if (tmp->type == PIPE)
-		{
-			range++;
-			tmp = tmp->next;
-			continue;
-		}
-		if (tmp->type == HEREDOC)
-		{
-			tmp->fd = creat_fd(range, 0);
-		}
-		tmp = tmp->next;
-	}
-	creat_fd(range, 1);
-
 }
 
 int	execute(t_shell *shell)
@@ -134,6 +88,5 @@ int	execute(t_shell *shell)
 	ft_free_tree(shell->tree);
 	if (shell->fd)
 		close(shell->fd);
-	unlinker();
 	return (0);
 }

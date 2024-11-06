@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:59:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/11/05 20:47:10 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:09:53 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,6 +266,10 @@ void				check_directory(t_var *var, t_shell *shell);
 int					is_space(char c);
 char				*random_name_gen(void);
 void				unlinker(void);
+int					creat_fd(int range, int reset);
+void				set_file(t_shell *shell);
+void				_reset(t_oken *token);
+int					set_up_file_name(int range);
 // -- built in -- //
 void				ft_exit(t_shell *shell, int i, int j);
 void				free_all_shell(t_shell *shell, int i);

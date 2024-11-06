@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:15:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/05 21:06:34 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:06:20 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,6 @@ void	ft_continue_rederect_herd(t_shell *shell)
 	close(stdin_copy);
 }
 
-void	_reset(t_oken *token)
-{
-	t_oken	*tmp;
-
-	tmp = token;
-	while(tmp)
-	{
-		tmp->read = 0;
-		tmp = tmp->next;
-	}
-}
-
 t_oken	*next(t_oken *token, int i)
 {
 	t_oken	*tmp;
@@ -55,7 +43,7 @@ t_oken	*next(t_oken *token, int i)
 	if (i)
 		_reset(token);
 	tmp = token;
-	while(tmp)
+	while (tmp)
 	{
 		if (tmp->type == HEREDOC && tmp->read == 0)
 		{
@@ -92,7 +80,6 @@ void	handle_heredoc_line(t_shell *shell, char *line, int *i)
 	write(shell->tmp->fd, "\n", 1);
 	free(line);
 }
-
 
 void	process_heredoc(t_shell *shell)
 {

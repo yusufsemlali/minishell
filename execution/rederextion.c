@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rederextion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:35:04 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/10/16 16:22:05 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/06 17:13:51 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	check_file(t_tree *tree, char *file_name)
 {
-	t_tree	*tmp;
+	t_tree		*tmp;
+	struct stat	path_stat;
 
 	tmp = tree->left;
 	while (tmp)
@@ -22,6 +23,13 @@ int	check_file(t_tree *tree, char *file_name)
 		if (tmp->file_name != NULL && !ft_strcmp(tmp->file_name, file_name))
 			return (1);
 		tmp = tmp->right;
+	}
+	if (stat(file_name, &path_stat) == 0)
+	{
+		if (!S_ISREG(path_stat.st_mode))
+			return (0);
+		else
+			return (1);
 	}
 	return (0);
 }

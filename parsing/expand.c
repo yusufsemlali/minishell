@@ -85,7 +85,7 @@ void	expand(t_shell *shell)
 	char	*expand;
 
 	expand = expanding(shell);
-	if (*expand != 0)
+	if (expand)
 	{
 		free(shell->s);
 		shell->s = ft_strreplace(expand, - '$', '$');

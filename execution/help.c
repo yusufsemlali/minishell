@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:18:41 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/07 18:49:43 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/09 22:35:59 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,32 +28,33 @@ int	type_check(t_tree *tree)
 	return (0);
 }
 
-void	check_directory(t_var *var, t_shell *shell)
+int	check_directory(t_var *var, t_shell *shell)
 {
 	struct stat	path_stat;
 
 	if (stat(var->av[0], &path_stat) == -1)
 	{
-		if (var->cmd_path)
-			return ;
-		if (ft_strncmp("./", var->av[0], 2) && ft_strncmp("/", var->av[0], 1))
-			return ;
+		if (var->cmd_path || check_is_dir_path(var->av[0]))
+			return (0);
 		print_err(var->av[0], 1);
 		g_modes.exit_mode = 127;
 		handle_exec_error(var, shell, 0);
 	}
 	if (S_ISDIR(path_stat.st_mode))
 	{
+		if (check_is_dir_path(var->av[0]))
+			return (1);
 		print_err(var->av[0], 0);
-		g_modes.exit_mode = 126;
-		handle_exec_error(var, shell, 0);
+		for_norminet(var, shell);
 	}
 	if (access(var->av[0], X_OK) == -1)
 	{
+		if (ft_strncmp("./", var->av[0], 2) && ft_strncmp("/", var->av[0], 1))
+			return (0);
 		print_err(var->av[0], 2);
-		g_modes.exit_mode = 126;
-		handle_exec_error(var, shell, 0);
+		for_norminet(var, shell);
 	}
+	return (0);
 }
 
 void	print_err(char *str, int i)

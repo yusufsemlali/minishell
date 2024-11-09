@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:59:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/11/06 20:17:11 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/10 00:18:32 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,7 +262,7 @@ void				free_keys(char *key, char *value);
 void				print_errrror(char *file_name);
 int					type_check(t_tree *tree);
 void				print_err(char *str, int i);
-void				check_directory(t_var *var, t_shell *shell);
+int					check_directory(t_var *var, t_shell *shell);
 int					is_space(char c);
 char				*random_name_gen(void);
 void				unlinker(void);
@@ -270,6 +270,9 @@ int					creat_fd(int range, int reset);
 void				set_file(t_shell *shell);
 void				_reset(t_oken *token);
 int					set_up_file_name(int range);
+int					check_is_dir_path(char *path);
+void				for_norminet(t_var *var, t_shell *shell);
+int					isnt_red(int type);
 // -- built in -- //
 void				ft_exit(t_shell *shell, int i, int j);
 void				free_all_shell(t_shell *shell, int i);

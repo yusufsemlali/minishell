@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:35:04 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/06 20:16:55 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/10 00:56:34 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,68 @@ void	ft_exec_rederect_out_append(t_shell *shell)
 	close(stdout_copy);
 }
 
+int	file_creation(t_oken *t)
+{
+	int	fd;
+
+	if (t->type == OUTPUT)
+	{
+		fd = open_file_for_writing(t->next->value);
+		if (fd < 0)
+		{
+			print_errrror(t->next->value);
+			g_modes.exit_mode = 1;
+			return (1);
+		}
+	}
+	else if (t->type == APPEND)
+	{
+		fd = creat_fd_2(t->next->value);
+		if (fd < 0)
+			return (1);
+		// fd = open(t->next->value, O_RDWR | O_CREAT | O_APPEND, 0644);
+		// if (fd < 0)
+		// {
+		// 	print_errrror(t->next->value);
+		// 	g_modes.exit_mode = 1;
+		// 	return (1);
+		// }
+	}
+	else if (t->type == INPUT)
+	{
+		fd = open(t->next->value, O_RDWR, 0644);
+		if (fd < 0)
+		{
+			print_errrror(t->next->value);
+			g_modes.exit_mode = 1;
+			return (1);
+		}
+	}
+	close(fd);
+	return (0);
+}
+
+int	checks_err(t_shell *shell)
+{
+	t_oken	*tmp;
+
+	tmp = shell->token;
+	while (tmp)
+	{
+		if (!isnt_red(tmp->type))
+		{
+			if(file_creation(tmp))
+				return (1);
+		}
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
 void	ft_exec_rederect(t_shell *shell)
 {
+	if (checks_err(shell))
+		return ;
 	if (ft_strcmp(shell->tree->op, ">") == 0)
 		ft_exec_rederect_out(shell);
 	else if (ft_strcmp(shell->tree->op, ">>") == 0)

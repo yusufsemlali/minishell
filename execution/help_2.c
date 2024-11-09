@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:02:12 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/06 15:08:35 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/09 22:37:25 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,24 @@ void	_reset(t_oken *token)
 		tmp->read = 0;
 		tmp = tmp->next;
 	}
+}
+
+int	check_is_dir_path(char *path)
+{
+	int	i;
+
+	i = 0;
+	while (path[i])
+	{
+		if (path[i] == '/')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+void	for_norminet(t_var *var, t_shell *shell)
+{
+	g_modes.exit_mode = 126;
+	handle_exec_error(var, shell, 0);
 }

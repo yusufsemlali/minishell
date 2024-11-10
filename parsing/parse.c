@@ -71,8 +71,14 @@ void	parse(t_shell *shell)
 	if (closed_checker(shell, shell->s))
 	{
 		spacing(shell);
-		lexer(shell);
-		expand(shell);
+    expand(shell);
+    lexer(shell);
 		valid(shell);
 	}
 }
+
+
+/*token(shell);*/
+    /*type(shell);*/
+    /*for(t_oken *t = shell->token; t != NULL; t = t->next)*/
+    /*  printf("%s %d\n", t->value, t->type);*/

@@ -65,24 +65,20 @@ int	skip_whitespace(char **s)
 void	token(t_shell *shell, int type, char *buf, int *i)
 {
 	static int		p = -1;
-	static t_oken	*prev = NULL;
 
 	if (*i == 0 && type == ARGS)
 	{
 		shell->token = ft_lnew(ft_strdup(buf), CMD, *i, NULL);
-		prev = shell->token;
 		p = type;
 	}
 	else if (*i > 0 && type == ARGS && p == PIPE)
 	{
-		ft_lstadd_back(&shell->token, ft_lnew(ft_strdup(buf), CMD, *i, prev));
-		prev = shell->token;
+		ft_lstadd_back(&shell->token, ft_lnew(ft_strdup(buf), CMD, *i, ft_lstlast(shell->token)));
 		p = type;
 	}
 	else
 	{
-		ft_lstadd_back(&shell->token, ft_lnew(ft_strdup(buf), type, *i, prev));
-		prev = shell->token;
+		ft_lstadd_back(&shell->token, ft_lnew(ft_strdup(buf), type, *i, ft_lstlast(shell->token)));
 		p = type;
 	}
 	(*i)++;

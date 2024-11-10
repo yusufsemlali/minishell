@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_lnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-t_oken	*ft_lstnew(char *value, int type, int index)
+t_oken	*ft_lnew(char *value, int type, int index, t_oken *prev)
 {
 	t_oken	*result;
 
@@ -25,5 +25,6 @@ t_oken	*ft_lstnew(char *value, int type, int index)
 	result->fd = 0;
 	result->index = index;
 	result->next = NULL;
+	result->prev = prev;
 	return (result);
 }

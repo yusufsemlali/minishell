@@ -50,9 +50,6 @@ void	free_all(t_shell *shell)
 {
 	free(shell->s);
 	ft_lstclear(&shell->token);
-	if (shell->end != 0)
-	{
-		cleanup_env(shell->nv);
-		free(shell);
-	}
+	cleanup_env(shell->nv);
+	free(shell);
 }

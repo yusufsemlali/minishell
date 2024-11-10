@@ -37,6 +37,8 @@ void	free_keys(char *key, char *value)
 
 void	reset(t_shell *shell)
 {
+	free(shell->s);
+	ft_lstclear(&shell->token);
 	shell->err = 0;
 	shell->begin = 0;
 	shell->status = 0;
@@ -50,7 +52,6 @@ void	reset(t_shell *shell)
 	g_modes.pid2 = 0;
 	g_modes.pid = 0;
 	g_modes.d_change = 0;
-	free_all(shell);
 	shell->s = NULL;
 }
 
@@ -68,7 +69,7 @@ int	main(const int ac, char **av, char **nv)
 		reset(shell);
 		parse(shell);
 		shell->r_fd = 0;
-		if (shell->err == 0)
+		if (shell->err == 0 || shell->token)
 			minishell(shell);
 	}
 	return (0);

@@ -39,5 +39,5 @@ char	toggle(unsigned int i, char c)
 
 int	main(void)
 {
-	printf("%s \n", ft_strmapi("hello word", toggle));
+	printf("%s \n", ft_strmapi("hi word", toggle));
 }

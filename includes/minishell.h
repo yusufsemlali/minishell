@@ -286,6 +286,7 @@ void				env(t_shell *shell);
 void				pwd(t_shell *shell);
 void				export(t_shell *shell);
 void				unset(t_shell *shell);
+void        ft_usleep(void);
 
 extern t_mode		g_modes;
 #endif

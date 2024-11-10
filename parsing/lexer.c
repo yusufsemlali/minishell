@@ -64,22 +64,26 @@ int	skip_whitespace(char **s)
 
 void	token(t_shell *shell, int type, char *buf, int *i)
 {
-	static int	prev = -1;
+	static int		p = -1;
+	static t_oken	*prev = NULL;
 
 	if (*i == 0 && type == ARGS)
 	{
-		shell->token = ft_lstnew(ft_strdup(buf), CMD, *i);
-		prev = type;
+		shell->token = ft_lnew(ft_strdup(buf), CMD, *i, NULL);
+		prev = shell->token;
+		p = type;
 	}
-	else if (*i > 0 && type == ARGS && prev == PIPE)
+	else if (*i > 0 && type == ARGS && p == PIPE)
 	{
-		ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup(buf), CMD, *i));
-		prev = type;
+		ft_lstadd_back(&shell->token, ft_lnew(ft_strdup(buf), CMD, *i, prev));
+		prev = shell->token;
+		p = type;
 	}
 	else
 	{
-		ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup(buf), type, *i));
-		prev = type;
+		ft_lstadd_back(&shell->token, ft_lnew(ft_strdup(buf), type, *i, prev));
+		prev = shell->token;
+		p = type;
 	}
 	(*i)++;
 	ft_bzero(buf, BUFFER_SML);
@@ -101,5 +105,6 @@ void	lexer(t_shell *shell)
 			break ;
 		token(shell, get_next_token(&s, buf), buf, &i);
 	}
-	ft_lstadd_back(&shell->token, ft_lstnew(ft_strdup("END"), END, i));
+	ft_lstadd_back(&shell->token, ft_lnew(ft_strdup("END"), END, i,
+			ft_lstlast(shell->token)));
 }

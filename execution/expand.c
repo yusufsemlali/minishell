@@ -72,7 +72,7 @@ char	*var(char *s, t_env *nv)
 {
 	char	*buf;
 
-	buf = ft_calloc(get_size(s, nv) + 1, 1);
+	buf = ft_calloc(get_size(s, nv) + 2, 1);
 	while (*s)
 		s += get_vars(s, buf, nv);
 	return (buf);

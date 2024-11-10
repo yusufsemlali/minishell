@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:59:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/11/10 00:18:32 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/10 16:20:36 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_tree
 	struct s_tree	*right;
 	int				type;
 	int				fd;
+	int				index;
 }					t_tree;
 
 typedef struct s_herdoc
@@ -240,7 +241,7 @@ void				handle_open_error(void);
 void				handle_left_subtree(t_tree *root, t_oken *tokens,
 						t_oken *last_r_pip);
 void				handle_right_subtree(t_tree *root, t_oken *last_r_pip);
-t_tree				*creat_node(char *str, char *file_name, int type, int fd);
+t_tree				*creat_node(t_oken *token, char *file_name, int fd);
 t_oken				*creat_token(t_oken *tokens, t_oken *last_redirection);
 t_oken				*last_p_r(t_oken *tokens);
 t_oken				*find_last_redirection(t_oken *tokens);
@@ -273,6 +274,9 @@ int					set_up_file_name(int range);
 int					check_is_dir_path(char *path);
 void				for_norminet(t_var *var, t_shell *shell);
 int					isnt_red(int type);
+int					creat_fd_2(char *file_name, int i);
+int					file_creation(t_oken *t);
+int					checks_err(t_shell *shell);
 // -- built in -- //
 void				ft_exit(t_shell *shell, int i, int j);
 void				free_all_shell(t_shell *shell, int i);

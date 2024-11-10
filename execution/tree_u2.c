@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 00:51:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/05 20:48:50 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/10 16:21:48 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,19 +83,20 @@ t_oken	*creat_token(t_oken *tokens, t_oken *last_redirection)
 	return (tmp);
 }
 
-t_tree	*creat_node(char *str, char *file_name, int type, int fd)
+t_tree	*creat_node(t_oken *token, char *file_name, int fd)
 {
 	t_tree	*node;
 
 	node = malloc(sizeof(t_tree));
-	node->op = ft_strdup(str);
+	node->op = ft_strdup(token->value);
 	if (file_name)
 		node->file_name = ft_strdup(file_name);
 	else
 		node->file_name = NULL;
 	node->left = NULL;
 	node->right = NULL;
-	node->type = type;
+	node->type = token->type;
 	node->fd = fd;
+	node->index = token->index;
 	return (node);
 }

@@ -12,23 +12,6 @@
 
 #include "../includes/minishell.h"
 
-void	ft_usleep(void)
-{
-	unsigned int	r_num;
-	int				fd;
-	size_t			scaled_value;
-	size_t			counter;
-
-	fd = open("/dev/urandom", O_RDONLY);
-	read(fd, &r_num, sizeof(r_num));
-	close(fd);
-	scaled_value = r_num % 100000;
-	counter = 0;
-	while (counter < scaled_value * 100)
-	{
-		counter++;
-	}
-}
 
 int	random_number_gen(void)
 {

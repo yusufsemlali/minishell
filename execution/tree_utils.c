@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 00:00:54 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/10 16:21:08 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/10 20:35:55 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_tree	*create_redirection_node(t_oken *last_r_pip)
 
 	root = creat_node(last_r_pip, last_r_pip->next->value,\
 		last_r_pip->fd);
+	root->index = last_r_pip->index;
 	last_r_pip->read = 1;
 	return (root);
 }
@@ -58,6 +59,7 @@ t_oken	*creat_token_pipe(t_oken *tokens, t_oken *last_red_p)
 		pipe_left = ft_lnew(ft_strdup(tmp->value), tmp->type, 0, NULL);
 		pipe_left->read = tmp->read;
 		pipe_left->fd = tmp->fd;
+		pipe_left->index = tmp->index;
 		ft_lstadd_back(&tmp2, pipe_left);
 		tmp = tmp->next;
 	}
@@ -77,6 +79,7 @@ t_tree	*creat_tree_pipe(t_oken *tokens, t_oken *last_red_p)
 	last_red_p->read = 1;
 	g_modes.has_pipe = 1;
 	root = creat_node(last_red_p, NULL, 0);
+	root->index = last_red_p->index;
 	if (last_red_p->next)
 		root->right = create_tree(pipe_right);
 	root->left = create_tree(pipe_left);

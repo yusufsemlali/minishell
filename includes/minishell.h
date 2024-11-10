@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:59:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/11/10 16:20:36 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/10 18:38:09 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,9 @@ typedef struct s_var
 	int				len;
 	int				check;
 	char			*key;
-
+	int				begin;
+	int				end;
+	int				area_len;
 }					t_var;
 
 typedef struct s_mode

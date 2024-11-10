@@ -6,7 +6,7 @@
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:58:53 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/11/04 16:58:54 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/11/10 19:02:40 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	main(const int ac, char **av, char **nv)
 		reset(shell);
 		parse(shell);
 		shell->r_fd = 0;
-		if (shell->err == 0 || shell->token)
+		if (shell->err == 0 && shell->token)
 			minishell(shell);
 	}
 	return (0);

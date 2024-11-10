@@ -6,7 +6,7 @@
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:59:07 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/11/04 16:59:08 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/11/10 19:02:49 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ void	parse(t_shell *shell)
 	if (closed_checker(shell, shell->s))
 	{
 		spacing(shell);
-		lexer(shell);
 		expand(shell);
+		lexer(shell);
 		valid(shell);
 	}
 }

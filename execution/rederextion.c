@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:35:04 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/10 13:56:46 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/10 21:00:05 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,33 @@ void	ft_exec_rederect_out_append(t_shell *shell)
 	close(stdout_copy);
 }
 
+void loop_around_tokens(t_shell *shell) {
+    t_oken *tmp = shell->token;
+
+    // Traverse forward through the list
+    while (tmp) {
+        // Process the current token
+        printf("Forward:tokrn value : %s Token index: %d, type: %d\n", tmp->value, tmp->index, tmp->type);
+
+        if (!tmp->next)
+            break;
+        tmp = tmp->next;
+    }
+	printf("------------\n");
+    // Traverse backward through the list
+    while (tmp) {
+        // Process the current token
+         printf("backward: tokrn value : %s Token index: %d, type: %d\n", tmp->value, tmp->index, tmp->type);
+
+        if (!tmp->prev)
+            break;
+        tmp = tmp->prev;
+    }
+}
+
 void	ft_exec_rederect(t_shell *shell)
 {
+	loop_around_tokens(shell);
 	if (checks_err(shell))
 		return ;
 	if (ft_strcmp(shell->tree->op, ">") == 0)

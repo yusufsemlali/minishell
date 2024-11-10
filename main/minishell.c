@@ -69,7 +69,7 @@ int	main(const int ac, char **av, char **nv)
 		reset(shell);
 		parse(shell);
 		shell->r_fd = 0;
-		if (shell->err == 0)
+		if (shell->err == 0 || shell->token)
 			minishell(shell);
 	}
 	return (0);

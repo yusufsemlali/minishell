@@ -25,6 +25,7 @@ typedef struct s_token
 	int				read;
 	int				fd;
 	struct s_token	*next;
+	struct s_token	*prev;
 }					t_oken;
 
 // mandatory
@@ -75,7 +76,7 @@ char				*ft_itoa(int n);
 int					get_num_len(long n);
 
 // bonus
-t_oken				*ft_lstnew(char *value, int type, int index);
+t_oken				*ft_lnew(char *value, int type, int index, t_oken *prev);
 t_oken				*ft_lstlast(t_oken *token);
 int					ft_lstsize(t_oken *token);
 void				ft_lstclear(t_oken **lst);

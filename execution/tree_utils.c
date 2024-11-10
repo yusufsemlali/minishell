@@ -55,7 +55,7 @@ t_oken	*creat_token_pipe(t_oken *tokens, t_oken *last_red_p)
 	tmp = tokens;
 	while (tmp != last_red_p)
 	{
-		pipe_left = ft_lstnew(ft_strdup(tmp->value), tmp->type, 0);
+		pipe_left = ft_lnew(ft_strdup(tmp->value), tmp->type, 0, NULL);
 		pipe_left->read = tmp->read;
 		pipe_left->fd = tmp->fd;
 		ft_lstadd_back(&tmp2, pipe_left);

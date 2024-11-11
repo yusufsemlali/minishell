@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:59:07 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/11/10 19:02:49 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/11 14:31:41 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,3 +76,9 @@ void	parse(t_shell *shell)
 		valid(shell);
 	}
 }
+
+
+/*token(shell);*/
+    /*type(shell);*/
+    /*for(t_oken *t = shell->token; t != NULL; t = t->next)*/
+    /*  printf("%s %d\n", t->value, t->type);*/

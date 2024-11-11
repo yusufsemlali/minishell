@@ -15,8 +15,7 @@
 void	print_errrror(char *file_name)
 {
 	ft_putstr_fd("minishell: failed to open file \"", 2);
-	if (file_name)
-		ft_putstr_fd(file_name, 2);
+	ft_putstr_fd(file_name, 2);
 	ft_putstr_fd("\" >~<\n", 2);
 }
 
@@ -59,24 +58,24 @@ int	check_directory(t_var *var, t_shell *shell)
 
 void	print_err(char *str, int i)
 {
+  char buf[BUFFER_SML];
+	ft_strlcat(buf,"minishell: ", BUFFER_SML);
 	if (i == 1)
 	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(str, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
+		ft_strlcat(buf, str, BUFFER_SML);
+		ft_strlcat(buf, ": No such file or directory\n", BUFFER_SML);
 	}
 	else if (i == 0)
 	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(str, 2);
-		ft_putstr_fd(": is a directory\n", 2);
+		ft_strlcat(buf,str, BUFFER_SML);
+		ft_strlcat(buf,": Is a directory\n", BUFFER_SML);
 	}
 	else
 	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(str, 2);
-		ft_putstr_fd(": permission denied\n", 2);
+		ft_strlcat(buf, str, BUFFER_SML);
+		ft_strlcat(buf, ": Permission denied\n", BUFFER_SML);
 	}
+  ft_putstr_fd(buf, STDERR);
 }
 
 int	is_space(char c)

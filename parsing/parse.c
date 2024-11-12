@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:59:07 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/11/11 19:03:28 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/11/12 14:13:30 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ void	parse(t_shell *shell)
 	if (closed_checker(shell, shell->s))
 	{
 		spacing(shell);
-	    expand(shell);
-	    lexer(shell);
+    expand(shell);
+    lexer(shell);
 		valid(shell);
 	}
 }

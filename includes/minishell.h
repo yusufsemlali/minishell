@@ -175,7 +175,8 @@ int					validate(char *s);
 //experement 
 void        token(t_shell *shell);
 int         t_type(char *s, t_oken *prev);
-void	type(t_shell *shell);
+void        type(t_shell *shell);
+char        *quotes(char *s);
 
 
 //--- parse utils ----//

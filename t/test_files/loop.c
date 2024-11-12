@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strreplace.c                                    :+:      :+:    :+:   */
+/*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 10:33:42 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/18 10:33:42 by ysemlali         ###   ########.fr       */
+/*   Created: 2022/06/22 17:32:45 by lalex-ku          #+#    #+#             */
+/*   Updated: 2022/06/22 17:32:50 by lalex-ku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <fcntl.h>
+#include <stdio.h>
+#include <unistd.h>
 
-char	*ft_strreplace(char *s, int replace, int c)
+int	main(int argc, char const *argv[])
 {
-	char	*tmp;
-  if(s == NULL)
-    return(NULL);
-	tmp = s;
-	while (*tmp)
+	int	pid;
+
+	pid = fork();
+	open("infile", O_RDONLY);
+	while (1)
 	{
-		if (*tmp == replace)
-			*tmp = c;
-		tmp++;
+		printf("Helloo miniHELL %i\n", pid);
+		sleep(1);
 	}
-	return (s);
+	return (0);
 }

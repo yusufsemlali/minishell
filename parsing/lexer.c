@@ -12,6 +12,25 @@
 
 #include "../includes/minishell.h"
 
+
+
+int	t_type(char *s, t_oken *prev)
+{
+	if (ft_strcmp(s, "|") == 0)
+		return (PIPE);
+	else if (ft_strcmp(s, "<") == 0)
+		return (INPUT);
+	else if (ft_strcmp(s, ">") == 0)
+		return (OUTPUT);
+	else if (ft_strcmp(s, ">>") == 0)
+		return (APPEND);
+	else if (ft_strcmp(s, "<<") == 0)
+		return (HEREDOC);
+	else if (prev == NULL || ( prev && prev->type == PIPE))
+     return (CMD);
+	return (ARGS);
+}
+
 char *get_next_token(char **str)
 {
 	char	buf[BUFFER_SML];
@@ -20,18 +39,18 @@ char *get_next_token(char **str)
 
     i = 0;
     s = *str;
-  ft_bzero(token,BUFFER_SML );
+  ft_bzero(buf,BUFFER_SML );
 
     while (s[i])
     {
         if (ft_isspace(s[i]) && !inquotes(s, i, 0))
             break;
-        ft_strlcat(token, s + i, ft_strlen(token) + 2);
+        ft_strlcat(buf, s + i, ft_strlen(buf) + 2);
         i++;
     }
 
     *str += i;
-    return ft_strdup(token);
+    return ft_strdup(buf);
 }
 
 int	skip_whitespace(char **s)
@@ -43,36 +62,6 @@ int	skip_whitespace(char **s)
 	return (0);
 }
 
-static size_t	ft_wordlen(const char *s, char c)
-{
-	size_t	len;
-
-	len = 0;
-	while (s[len] && s[len] != c)
-		len++;
-	return (len);
-}
-
-
-static size_t	ft_word_count(const char *s, char c)
-{
-	size_t	count;
-	size_t	i;
-
-	count = 0;
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] != c)
-		{
-			count++;
-			i += ft_wordlen(&s[i], c);
-		}
-		else
-			i++;
-	}
-	return (count);
-}
 
 void	lexer(t_shell *shell)
 {
@@ -81,14 +70,12 @@ void	lexer(t_shell *shell)
 
 	i = 0;
 	s = shell->s;
-	shell->av = ft_calloc((ft_word_count(s, ' ') + 1), sizeof(char *));
-  if(shell->av == NULL)
-    return;
 	skip_whitespace(&s);
 	while (*s)
 	{
 		if (skip_whitespace(&s) != 0)
 			break ;
-		shell->av[i++] = get_next_token(&s);
+    ft_lstadd_back(&shell->token, ft_lnew(get_next_token(&s), 0, i, ft_lstlast(shell->token)));
+    i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/11 14:33:48 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/12 14:17:49 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,6 @@ int	execute(t_shell *shell)
 {
 	t_oken	*tmp;
 
-	for(t_oken *tmp = shell->token; tmp; tmp = tmp->next) {
-		printf("Token value : %s Token index: %d, type: %d\n", tmp->value, tmp->index, tmp->type);
-	}
 	set_file(shell);
 	g_modes.pipe_count = pipe_count(shell->token);
 	shell->tree = create_tree(shell->token);

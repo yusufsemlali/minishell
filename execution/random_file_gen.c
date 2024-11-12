@@ -12,7 +12,6 @@
 
 #include "../includes/minishell.h"
 
-
 int	random_number_gen(void)
 {
 	unsigned int	r_num;

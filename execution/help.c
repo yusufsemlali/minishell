@@ -21,8 +21,8 @@ void	print_errrror(char *file_name)
 
 int	type_check(t_tree *tree)
 {
-	if (tree->type == OUTPUT || tree->type == INPUT || \
-		tree->type == APPEND || tree->type == HEREDOC)
+	if (tree->type == OUTPUT || tree->type == INPUT || tree->type == APPEND
+		|| tree->type == HEREDOC)
 		return (1);
 	return (0);
 }
@@ -57,8 +57,9 @@ void	check_directory(t_var *var, t_shell *shell)
 
 void	print_err(char *str, int i)
 {
-  char buf[BUFFER_SML];
-	ft_strlcat(buf,"minishell: ", BUFFER_SML);
+	char	buf[BUFFER_SML];
+
+	ft_strlcat(buf, "minishell: ", BUFFER_SML);
 	if (i == 1)
 	{
 		ft_strlcat(buf, str, BUFFER_SML);
@@ -66,19 +67,19 @@ void	print_err(char *str, int i)
 	}
 	else if (i == 0)
 	{
-		ft_strlcat(buf,str, BUFFER_SML);
-		ft_strlcat(buf,": Is a directory\n", BUFFER_SML);
+		ft_strlcat(buf, str, BUFFER_SML);
+		ft_strlcat(buf, ": Is a directory\n", BUFFER_SML);
 	}
 	else
 	{
 		ft_strlcat(buf, str, BUFFER_SML);
 		ft_strlcat(buf, ": Permission denied\n", BUFFER_SML);
 	}
-  ft_putstr_fd(buf, STDERR);
+	ft_putstr_fd(buf, STDERR);
 }
 
 int	is_space(char c)
 {
-	return (c == ' ' || c == '\t' || \
-			c == '\n' || c == '\v' || c == '\f' || c == '\r');
+	return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
+		|| c == '\r');
 }

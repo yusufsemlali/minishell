@@ -12,8 +12,6 @@
 
 #include "../includes/minishell.h"
 
-
-
 int	t_type(char *s, t_oken *prev)
 {
 	if (ft_strcmp(s, "|") == 0)
@@ -26,31 +24,29 @@ int	t_type(char *s, t_oken *prev)
 		return (APPEND);
 	else if (ft_strcmp(s, "<<") == 0)
 		return (HEREDOC);
-	else if (prev == NULL || ( prev && prev->type == PIPE))
-     return (CMD);
+	else if (prev == NULL || (prev && prev->type == PIPE))
+		return (CMD);
 	return (ARGS);
 }
 
-char *get_next_token(char **str)
+char	*get_next_token(char **str)
 {
 	char	buf[BUFFER_SML];
-    int     i;
-    char    *s;
+	int		i;
+	char	*s;
 
-    i = 0;
-    s = *str;
-  ft_bzero(buf,BUFFER_SML );
-
-    while (s[i])
-    {
-        if (ft_isspace(s[i]) && !inquotes(s, i, 0))
-            break;
-        ft_strlcat(buf, s + i, ft_strlen(buf) + 2);
-        i++;
-    }
-
-    *str += i;
-    return ft_strdup(buf);
+	i = 0;
+	s = *str;
+	ft_bzero(buf, BUFFER_SML);
+	while (s[i])
+	{
+		if (ft_isspace(s[i]) && !inquotes(s, i, 0))
+			break ;
+		ft_strlcat(buf, s + i, ft_strlen(buf) + 2);
+		i++;
+	}
+	*str += i;
+	return (ft_strdup(buf));
 }
 
 int	skip_whitespace(char **s)
@@ -61,7 +57,6 @@ int	skip_whitespace(char **s)
 		return (-1);
 	return (0);
 }
-
 
 void	lexer(t_shell *shell)
 {
@@ -75,7 +70,8 @@ void	lexer(t_shell *shell)
 	{
 		if (skip_whitespace(&s) != 0)
 			break ;
-    ft_lstadd_back(&shell->token, ft_lnew(get_next_token(&s), 0, i, ft_lstlast(shell->token)));
-    i++;
+		ft_lstadd_back(&shell->token, ft_lnew(get_next_token(&s), 0, i,
+				ft_lstlast(shell->token)));
+		i++;
 	}
 }

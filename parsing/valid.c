@@ -37,8 +37,8 @@ void	redirect_error(t_shell *shell, int type, t_oken *next)
 {
 	if (shell->err == ERR_SYNTAX)
 		return ;
-	if ((type == OUTPUT || type == INPUT || type == APPEND)
-		&& (next == NULL ||  next->type != ARGS))
+	if ((type == OUTPUT || type == INPUT || type == APPEND) && (next == NULL
+			|| next->type != ARGS))
 	{
 		shell->err = ERR_SYNTAX;
 		g_modes.exit_mode = 2;
@@ -75,13 +75,13 @@ void	valid(t_shell *shell)
 	token = shell->token;
 	while (token)
 	{
-    /*printf("%s %d %d\n", token->value, token->type, token->index);*/
 		if (token->type == PIPE)
 			pipe_error(shell, token, token->next);
 		if (token->type == HEREDOC)
 			heredoc_error(shell, token->type, token->next);
 		if ((token->type == OUTPUT || token->type == INPUT
-				|| token->type == APPEND) && (token->next == NULL || token->next->type != ARGS))
+				|| token->type == APPEND) && (token->next == NULL
+				|| token->next->type != ARGS))
 			redirect_error(shell, token->type, token->next);
 		if (shell->err == ERR_SYNTAX)
 			break ;

@@ -15,8 +15,9 @@
 char	*ft_strreplace(char *s, int replace, int c)
 {
 	char	*tmp;
-  if(s == NULL)
-    return(NULL);
+
+	if (s == NULL)
+		return (NULL);
 	tmp = s;
 	while (*tmp)
 	{

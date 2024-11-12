@@ -14,17 +14,17 @@
 
 void	exec_child_process(t_shell *shell, t_var *var)
 {
-  char buf[BUFFER_SML];
-  
+	char	buf[BUFFER_SML];
+
 	var->av = cmd_maker(shell);
 	var->cmd_path = find_cmd_path(var->av, shell->nv);
 	check_directory(var, shell);
 	if (!var->cmd_path || !ft_strlen(shell->tree->op))
 	{
-		ft_strlcat(buf,"minishell: ", BUFFER_SML);
+		ft_strlcat(buf, "minishell: ", BUFFER_SML);
 		ft_strlcat(buf, var->av[0], BUFFER_SML);
-		ft_strlcat(buf,": command not found\n", BUFFER_SML);
-    ft_putstr_fd(buf, STDERR);
+		ft_strlcat(buf, ": command not found\n", BUFFER_SML);
+		ft_putstr_fd(buf, STDERR);
 		var->av = av_m();
 		execve("/bin/sh", var->av, NULL);
 		perror("execve");

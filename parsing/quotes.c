@@ -1,17 +1,28 @@
-# include "../includes/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quotes.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/12 20:03:20 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/11/12 20:03:20 by ysemlali         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../includes/minishell.h"
 
-char 	*quotes(char *s)
+char	*quotes(char *s)
 {
-  char token[BUFFER_SML];
+	char	token[BUFFER_SML];
 	int		i;
 	int		x;
 
 	i = 0;
 	x = 0;
-  ft_bzero(token, BUFFER_SML);
-  if (s == NULL)
-    return(NULL);
+	ft_bzero(token, BUFFER_SML);
+	if (s == NULL)
+		return (NULL);
 	while (s[i])
 	{
 		while ((s[i] == '\"' || s[i] == '\'') && !inquotes(s, i, 0))
@@ -22,6 +33,6 @@ char 	*quotes(char *s)
 			ft_strlcat(token, s + i, ft_strlen(token) + 2);
 		i++;
 	}
-  free(s);
-  return(ft_strdup(token));
+	free(s);
+	return (ft_strdup(token));
 }

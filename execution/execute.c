@@ -18,11 +18,11 @@ t_tree	*create_tree(t_oken *tokens)
 
 	last_redirection_pipe = NULL;
 	last_redirection_pipe = last_p_r(tokens);
-	if (last_redirection_pipe && last_redirection_pipe->read == 0 && \
-		last_redirection_pipe->type == PIPE)
+	if (last_redirection_pipe && last_redirection_pipe->read == 0
+		&& last_redirection_pipe->type == PIPE)
 		return (creat_tree_pipe(tokens, last_redirection_pipe));
-	else if (last_redirection_pipe && last_redirection_pipe->read == 0 && \
-				!isnt_red(last_redirection_pipe->type))
+	else if (last_redirection_pipe && last_redirection_pipe->read == 0
+		&& !isnt_red(last_redirection_pipe->type))
 		return (creat_tree_red(tokens, last_redirection_pipe));
 	return (create_simple_tree(tokens));
 }

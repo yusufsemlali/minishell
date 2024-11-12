@@ -72,6 +72,18 @@ int	space(char *new, char *s, int *i)
 	return (ft_strlen(buf));
 }
 
+int	isheredoc(char *s, int i)
+{
+	while (i > 0)
+	{
+		if (s[i - 1] == '<' && s[i - 2] == '<')
+			if (!inquotes(s, i, 0))
+				return (1);
+		i--;
+	}
+	return (0);
+}
+
 void	spacing(t_shell *shell)
 {
 	char	*new;
@@ -87,6 +99,9 @@ void	spacing(t_shell *shell)
 		i = 0;
 		while (s[i])
 		{
+      if ((s[i] == '$' && inquotes(s, i, 2)) || (s[i] == '$'
+					&& isheredoc(s, i)))
+				*new ++ = -s[i++];
 			if (metachar(s[i]) && !inquotes(s, i, 0))
 				new += space(new, s, &i);
 			else

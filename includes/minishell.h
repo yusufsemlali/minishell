@@ -36,6 +36,7 @@
 # define APPEND 5  // ">>"
 # define HEREDOC 6 // "<<"
 # define END 7     // ""
+# define EMPTY 8   // empty expansoin
 
 # define STDIN 0
 # define STDOUT 1
@@ -173,11 +174,15 @@ void				expand(t_shell *shell);
 void				lexer(t_shell *shell);
 void				valid(t_shell *shell);
 int					validate(char *s);
+// experement
+void				token(t_shell *shell);
+int					t_type(char *s, t_oken *prev);
+void				type(t_shell *shell);
+char				*quotes(char *s);
 
 //--- parse utils ----//
 char				*get_env(t_env *nv, char *key);
 int					metachar(char c);
-int					t_type(char *s);
 int					getcount(char *s);
 int					inquotes(char *s, int i, int x);
 int					metachar(char c);

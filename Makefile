@@ -15,12 +15,14 @@ CC = cc
 CFLAGS =  -Wall -Wextra -Werror -g3
 LIBS = -Llibft -lft -lreadline
 SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c main/init_utils.c\
-		    parsing/parse.c\
-		    parsing/line.c\
+				parsing/parse.c\
+				parsing/line.c\
 				parsing/lexer.c\
+				parsing/token.c\
+				parsing/expand.c\
+				parsing/quotes.c\
 		    parsing/valid.c\
 				parsing/export.c\
-				parsing/expand.c\
 				parsing/utils.c\
 		    execution/utils.c\
 				execution/utils_2.c\

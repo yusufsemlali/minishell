@@ -24,8 +24,8 @@ t_oken	*ft_lnew(char *value, int type, int index, t_oken *prev)
 	result->read = 0;
 	result->fd = 0;
 	result->index = index;
-  result->double_q = 0;
-  result->single_q = 0;
+	result->double_q = 0;
+	result->single_q = 0;
 	result->next = NULL;
 	result->prev = prev;
 	return (result);

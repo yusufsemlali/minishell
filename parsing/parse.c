@@ -71,8 +71,10 @@ void	parse(t_shell *shell)
 	if (closed_checker(shell, shell->s))
 	{
 		spacing(shell);
-	    expand(shell);
-	    lexer(shell);
+    /*expand(shell);*/
+    lexer(shell);
+    token(shell);
+    type(shell);
 		valid(shell);
 	}
 }

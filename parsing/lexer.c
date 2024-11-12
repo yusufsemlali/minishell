@@ -12,45 +12,26 @@
 
 #include "../includes/minishell.h"
 
-int	t_type(char *s)
+char *get_next_token(char **str)
 {
-	if (ft_strcmp(s, "|") == 0)
-		return (PIPE);
-	else if (ft_strcmp(s, "<") == 0)
-		return (INPUT);
-	else if (ft_strcmp(s, ">") == 0)
-		return (OUTPUT);
-	else if (ft_strcmp(s, ">>") == 0)
-		return (APPEND);
-	else if (ft_strcmp(s, "<<") == 0)
-		return (HEREDOC);
-	else
-		return (ARGS);
-}
+	char	buf[BUFFER_SML];
+    int     i;
+    char    *s;
 
-int	get_next_token(char **str, char *token)
-{
-	int		i;
-	int		x;
-	char	*s;
+    i = 0;
+    s = *str;
+  ft_bzero(token,BUFFER_SML );
 
-	i = 0;
-	x = 0;
-	s = *str;
-	while (s[i])
-	{
-		while ((s[i] == '\"' || s[i] == '\'') && !inquotes(s, i, 0))
-			x = s[i++];
-		if (s[i] == '\0' || (ft_isspace(s[i]) && !inquotes(s, i, 0)))
-			break ;
-		if (s[i] != '\0' && x != s[i])
-			ft_strlcat(token, s + i, ft_strlen(token) + 2);
-		i++;
-	}
-	*str += i;
-	if (x != 0)
-		return (ARGS);
-	return (t_type(token));
+    while (s[i])
+    {
+        if (ft_isspace(s[i]) && !inquotes(s, i, 0))
+            break;
+        ft_strlcat(token, s + i, ft_strlen(token) + 2);
+        i++;
+    }
+
+    *str += i;
+    return ft_strdup(token);
 }
 
 int	skip_whitespace(char **s)
@@ -62,45 +43,52 @@ int	skip_whitespace(char **s)
 	return (0);
 }
 
-void	token(t_shell *shell, int type, char *buf, int *i)
+static size_t	ft_wordlen(const char *s, char c)
 {
-	static int		p = -1;
+	size_t	len;
 
-	if (*i == 0 && type == ARGS)
+	len = 0;
+	while (s[len] && s[len] != c)
+		len++;
+	return (len);
+}
+
+
+static size_t	ft_word_count(const char *s, char c)
+{
+	size_t	count;
+	size_t	i;
+
+	count = 0;
+	i = 0;
+	while (s[i])
 	{
-		shell->token = ft_lnew(ft_strdup(buf), CMD, *i, NULL);
-		p = type;
+		if (s[i] != c)
+		{
+			count++;
+			i += ft_wordlen(&s[i], c);
+		}
+		else
+			i++;
 	}
-	else if (*i > 0 && type == ARGS && p == PIPE)
-	{
-		ft_lstadd_back(&shell->token, ft_lnew(ft_strdup(buf), CMD, *i, ft_lstlast(shell->token)));
-		p = type;
-	}
-	else
-	{
-		ft_lstadd_back(&shell->token, ft_lnew(ft_strdup(buf), type, *i, ft_lstlast(shell->token)));
-		p = type;
-	}
-	(*i)++;
-	ft_bzero(buf, BUFFER_SML);
+	return (count);
 }
 
 void	lexer(t_shell *shell)
 {
-	char	buf[BUFFER_SML];
 	char	*s;
 	int		i;
 
 	i = 0;
 	s = shell->s;
-	ft_bzero(buf, BUFFER_SML);
+	shell->av = ft_calloc((ft_word_count(s, ' ') + 1), sizeof(char *));
+  if(shell->av == NULL)
+    return;
 	skip_whitespace(&s);
 	while (*s)
 	{
 		if (skip_whitespace(&s) != 0)
 			break ;
-		token(shell, get_next_token(&s, buf), buf, &i);
+		shell->av[i++] = get_next_token(&s);
 	}
-	ft_lstadd_back(&shell->token, ft_lnew(ft_strdup("END"), END, i,
-			ft_lstlast(shell->token)));
 }

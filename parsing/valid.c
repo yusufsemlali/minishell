@@ -86,5 +86,4 @@ void	valid(t_shell *shell)
 			break ;
 		token = token->next;
 	}
-	ft_dellast(&shell->token);
 }

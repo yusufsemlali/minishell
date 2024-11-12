@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:59:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/11/12 17:22:00 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/12 20:15:29 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,6 +280,7 @@ int					creat_fd_2(char *file_name, int i);
 int					file_creation(t_oken *t);
 int					checks_err(t_shell *shell);
 t_oken				*return_tmp(t_shell *shell);
+void				bocchi(t_shell *shell);
 // -- built in -- //
 void				ft_exit(t_shell *shell, int i, int j);
 void				free_all_shell(t_shell *shell, int i);

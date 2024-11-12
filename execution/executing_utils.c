@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 20:54:13 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/23 16:59:40 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/12 19:02:44 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	check_cmd(t_shell *shell)
 			shell->tree->op) || !ft_strcmp("unset", shell->tree->op)
 		|| !ft_strcmp("env", shell->tree->op) || !ft_strcmp("exit",
 			shell->tree->op))
+		return (1);
+	if (!ft_strcmp("bocchi", shell->tree->op))
 		return (1);
 	return (0);
 }

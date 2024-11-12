@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 00:00:54 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/10 20:35:55 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:12:24 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_tree	*create_redirection_node(t_oken *last_r_pip)
 {
 	t_tree	*root;
 
-	root = creat_node(last_r_pip, last_r_pip->next->value,\
+	root = creat_node(last_r_pip, last_r_pip->next->value, \
 		last_r_pip->fd);
 	root->index = last_r_pip->index;
 	last_r_pip->read = 1;

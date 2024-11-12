@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:18:41 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/09 22:35:59 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:16:32 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,9 @@ int	check_directory(t_var *var, t_shell *shell)
 
 void	print_err(char *str, int i)
 {
-  char buf[BUFFER_SML];
-	ft_strlcat(buf,"minishell: ", BUFFER_SML);
+	char	buf[BUFFER_SML];
+
+	ft_strlcat(buf, "minishell: ", BUFFER_SML);
 	if (i == 1)
 	{
 		ft_strlcat(buf, str, BUFFER_SML);
@@ -67,15 +68,15 @@ void	print_err(char *str, int i)
 	}
 	else if (i == 0)
 	{
-		ft_strlcat(buf,str, BUFFER_SML);
-		ft_strlcat(buf,": Is a directory\n", BUFFER_SML);
+		ft_strlcat(buf, str, BUFFER_SML);
+		ft_strlcat(buf, ": Is a directory\n", BUFFER_SML);
 	}
 	else
 	{
 		ft_strlcat(buf, str, BUFFER_SML);
 		ft_strlcat(buf, ": Permission denied\n", BUFFER_SML);
 	}
-  ft_putstr_fd(buf, STDERR);
+	ft_putstr_fd(buf, STDERR);
 }
 
 int	is_space(char c)

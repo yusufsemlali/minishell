@@ -6,12 +6,11 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:49:37 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/05 18:01:53 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:21:36 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
 
 int	random_number_gen(void)
 {
@@ -57,6 +56,21 @@ void	printt(char *file_name)
 	close(fd);
 }
 
+t_oken	*return_tmp(t_shell *shell)
+{
+	t_oken	*tmp;
+
+	tmp = shell->token;
+	while (shell->tree->index != tmp->index)
+		tmp = tmp->next;
+	while (tmp && tmp->type != PIPE)
+	{
+		if (!tmp->next)
+			break ;
+		tmp = tmp->next;
+	}
+	return (tmp);
+}
 // void	random_err(char **av)
 // {
 // 	int		fd;

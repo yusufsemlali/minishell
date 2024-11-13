@@ -1,18 +1,5 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: aclakhda <aclakhda@student.2.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/07/25 21:41:51 by ysemlali          #+#    #+#              #
-#    Updated: 2024/10/26 15:48:05 by aclakhda         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-
 CC = cc
-CFLAGS =  -Wall -Wextra -Werror -g
+CFLAGS =  -Wall -Wextra -Werror -g3
 LIBS = -Llibft -lft -lreadline
 SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c main/init_utils.c\
 				parsing/parse.c\
@@ -52,6 +39,7 @@ SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c ma
 			execution/help.c\
 			execution/random_file_gen.c\
 			execution/help_2.c\
+			execution/the_last_file.c\
 
 
 OBJS = $(SRCS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:35:04 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/06 20:16:55 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:46:01 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ void	ft_exec_rederect_in(t_shell *shell)
 		g_modes.exit_mode = 1;
 		return ;
 	}
-	redirect_output(shell, fd, 1);
-	close(fd);
+	redirect_output(shell, fd, 0);
 	tmp = shell->tree;
 	shell->tree = shell->tree->left;
 	executing(shell);
@@ -73,8 +72,7 @@ void	ft_exec_rederect_out(t_shell *shell)
 		g_modes.exit_mode = 1;
 		return ;
 	}
-	redirect_output(shell, fd, 0);
-	close(fd);
+	redirect_output(shell, fd, 1);
 	tmp = shell->tree;
 	shell->tree = shell->tree->left;
 	executing(shell);
@@ -97,8 +95,7 @@ void	ft_exec_rederect_out_append(t_shell *shell)
 		g_modes.exit_mode = 1;
 		return ;
 	}
-	redirect_output(shell, fd, 0);
-	close(fd);
+	redirect_output(shell, fd, 1);
 	tmp = shell->tree;
 	shell->tree = shell->tree->left;
 	executing(shell);
@@ -109,6 +106,8 @@ void	ft_exec_rederect_out_append(t_shell *shell)
 
 void	ft_exec_rederect(t_shell *shell)
 {
+	if (checks_err(shell))
+		return ;
 	if (ft_strcmp(shell->tree->op, ">") == 0)
 		ft_exec_rederect_out(shell);
 	else if (ft_strcmp(shell->tree->op, ">>") == 0)

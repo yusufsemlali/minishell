@@ -72,18 +72,6 @@ int	space(char *new, char *s, int *i)
 	return (ft_strlen(buf));
 }
 
-int	isheredoc(char *s, int i)
-{
-	while (i > 0)
-	{
-		if (s[i - 1] == '<' && s[i - 2] == '<')
-			if (!inquotes(s, i, 0))
-				return (1);
-		i--;
-	}
-	return (0);
-}
-
 void	spacing(t_shell *shell)
 {
 	char	*new;

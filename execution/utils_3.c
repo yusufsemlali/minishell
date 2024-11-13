@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:32:06 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/06 20:34:35 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:45:02 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,17 @@ int	open_file_for_writing(char *file_name)
 	return (fd);
 }
 
-void	redirect_output(t_shell *shell, int fd, int i)
+void	redirect_output(t_shell *shell, int fd, int STD)
 {
-	int	j;
-
-	if (i)
-		j = STDIN;
-	else
-		j = STDOUT;
 	if (shell->r_fd)
-		dup2(shell->r_fd, j);
+	{
+		dup2(shell->r_fd, STD);
+		close(fd);
+	}
 	else
 	{
 		shell->r_fd = fd;
-		dup2(fd, j);
+		dup2(fd, STD);
 	}
 }
 

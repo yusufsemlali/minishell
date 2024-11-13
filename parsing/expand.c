@@ -115,6 +115,8 @@ void	expand(t_shell *shell)
 		new = quotes(new);
 		if (new)
 		{
+			if (*new == '\0' && token->type != MPT)
+				token->type = EMPTY;
 			free(token->value);
 			token->value = new;
 		}

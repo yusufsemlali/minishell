@@ -14,7 +14,9 @@
 
 int	t_type(char *s, t_oken *prev)
 {
-	if (ft_strcmp(s, "|") == 0)
+	if (ft_strcmp(s, "''") == 0 || ft_strcmp(s, "\"\"") == 0)
+		return (MPT);
+	else if (ft_strcmp(s, "|") == 0)
 		return (PIPE);
 	else if (ft_strcmp(s, "<") == 0)
 		return (INPUT);

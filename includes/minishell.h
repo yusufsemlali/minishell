@@ -37,6 +37,7 @@
 # define HEREDOC 6 // "<<"
 # define END 7     // ""
 # define EMPTY 8   // empty expansoin
+# define MPT 9     // empty expansoin
 
 # define STDIN 0
 # define STDOUT 1
@@ -176,6 +177,7 @@ void				token(t_shell *shell);
 int					t_type(char *s, t_oken *prev);
 void				type(t_shell *shell);
 char				*quotes(char *s);
+void				squish(t_shell *shell);
 
 //--- parse utils ----//
 char				*get_env(t_env *nv, char *key);

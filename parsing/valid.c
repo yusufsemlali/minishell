@@ -27,7 +27,7 @@ void	heredoc_error(t_shell *shell, int type, t_oken *next)
 	{
 		shell->err = ERR_SYNTAX;
 		g_modes.exit_mode = 2;
-		ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
+		ft_putstr_fd("minishell: syntax error near unexpected token  `", 2);
 		ft_putstr_fd(next->value, 2);
 		ft_putstr_fd("'\n", 2);
 	}
@@ -44,7 +44,7 @@ void	redirect_error(t_shell *shell, int type, t_oken *next)
 		g_modes.exit_mode = 2;
 		if (next == NULL)
 		{
-			ft_putstr_fd("minishell: syntax error near unexpected token", 2);
+			ft_putstr_fd("minishell: syntax error near unexpected token ", 2);
 			ft_putendl_fd("`newline'", 2);
 		}
 		else

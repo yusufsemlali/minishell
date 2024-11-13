@@ -46,8 +46,7 @@ char	*ft_strncpy(char *dest, char *src, unsigned int n)
 
 int	isnt_red(int type)
 {
-	if (type == OUTPUT || \
-		type == INPUT || type == APPEND || type == HEREDOC)
+	if (type == OUTPUT || type == INPUT || type == APPEND || type == HEREDOC)
 		return (0);
 	return (1);
 }

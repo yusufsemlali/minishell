@@ -1,29 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strreplace.c                                    :+:      :+:    :+:   */
+/*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 10:33:42 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/18 10:33:42 by ysemlali         ###   ########.fr       */
+/*   Created: 2024/11/12 20:03:20 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/11/12 20:03:20 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minishell.h"
 
-char	*ft_strreplace(char *s, int replace, int c)
+char	*quotes(char *s)
 {
-	char	*tmp;
+	char	token[BUFFER_SML];
+	int		i;
+	int		x;
 
+	i = 0;
+	x = 0;
+	ft_bzero(token, BUFFER_SML);
 	if (s == NULL)
 		return (NULL);
-	tmp = s;
-	while (*tmp)
+	while (s[i])
 	{
-		if (*tmp == replace)
-			*tmp = c;
-		tmp++;
+		while ((s[i] == '\"' || s[i] == '\'') && !inquotes(s, i, 0))
+			x = s[i++];
+		if (s[i] == '\0' || (ft_isspace(s[i]) && !inquotes(s, i, 0)))
+			break ;
+		if (s[i] != '\0' && x != s[i])
+			ft_strlcat(token, s + i, ft_strlen(token) + 2);
+		i++;
 	}
-	return (s);
+	free(s);
+	return (ft_strdup(token));
 }

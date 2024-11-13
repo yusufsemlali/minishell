@@ -21,8 +21,8 @@ void	print_errrror(char *file_name)
 
 int	type_check(t_tree *tree)
 {
-	if (tree->type == OUTPUT || tree->type == INPUT || \
-		tree->type == APPEND || tree->type == HEREDOC)
+	if (tree->type == OUTPUT || tree->type == INPUT || tree->type == APPEND
+		|| tree->type == HEREDOC)
 		return (1);
 	return (0);
 }
@@ -86,6 +86,6 @@ void	print_err(char *str, int i)
 
 int	is_space(char c)
 {
-	return (c == ' ' || c == '\t' || \
-			c == '\n' || c == '\v' || c == '\f' || c == '\r');
+	return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
+		|| c == '\r');
 }

@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:18:41 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/12 17:16:32 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/13 20:39:20 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ void	print_err(char *str, int i)
 	{
 		ft_strlcat(buf, str, BUFFER_SML);
 		ft_strlcat(buf, ": Is a directory\n", BUFFER_SML);
+	}
+	else if(i == 2)
+	{
+		ft_strlcat(buf, str, BUFFER_SML);
+		ft_strlcat(buf, "ambigguous redirect\n", BUFFER_SML);
 	}
 	else
 	{

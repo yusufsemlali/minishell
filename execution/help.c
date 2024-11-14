@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:18:41 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/13 22:49:49 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/14 00:06:08 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	check_directory(t_var *var, t_shell *shell)
 	{
 		if (ft_strncmp("./", var->av[0], 2) && ft_strncmp("/", var->av[0], 1))
 			return (0);
-		print_err(var->av[0], 2);
+		print_err(var->av[0], 3);
 		for_norminet(var, shell);
 	}
 	return (0);

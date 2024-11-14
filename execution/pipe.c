@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:22:54 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/14 20:53:33 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/14 21:02:18 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	child_2(t_shell *shell, int fd[])
 	t_tree	*tmp;
 	int		stdin_copy;
 
-	shell->in_pipe = 1;
 	tmp = shell->tree;
 	stdin_copy = dup(STDIN);
 	close(fd[1]);

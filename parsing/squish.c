@@ -18,7 +18,7 @@ void	squish(t_shell *shell)
 	t_oken	*to_delete;
 
 	token = shell->token;
-  shell->i = 0;
+	shell->i = 0;
 	while (token)
 	{
 		if (token->type == EMPTY)
@@ -33,7 +33,7 @@ void	squish(t_shell *shell)
 		}
 		else
 		{
-      token->index = shell->i++;
+			token->index = shell->i++;
 			token = token->next;
 		}
 	}

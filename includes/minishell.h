@@ -106,7 +106,7 @@ typedef struct s_shell
 	int				len;
 	int				begin;
 	int				end;
-  int       i;
+	int				i;
 	t_herdoc		*herdoc;
 	t_tree			*tree;
 	t_oken			*token;

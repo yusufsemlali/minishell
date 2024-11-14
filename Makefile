@@ -1,3 +1,4 @@
+CC = cc
 CFLAGS =  -Wall -Wextra -Werror -g3
 LIBS = -Llibft -lft -lreadline
 SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c main/init_utils.c\

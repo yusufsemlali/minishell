@@ -111,16 +111,18 @@ void	expand(t_shell *shell)
 	while (token)
 	{
 		token->type = t_type(token->value, token->prev);
-		new = expanding(token->value, token->prev, shell->nv);
-		new = quotes(new);
-		if (new)
-		{
-			if (*new == '\0' && token->type != MPT)
-				token->type = EMPTY;
-			free(token->value);
-			token->value = new;
-		}
-		token->value = ft_strreplace(token->value, - '$', '$');
+    if(ft_strchr(token->value, '$'))
+    {
+		  new = expanding(token->value, token->prev, shell->nv);
+      if (new)
+      {
+        if (*new == '\0' && token->type != MPT)
+          token->type = EMPTY;
+        free(token->value);
+        token->value = new;
+      }
+    }
+		token->value = quotes(ft_strreplace(token->value, - '$', '$'));
 		token = token->next;
 	}
 }

@@ -28,6 +28,8 @@ void	squish(t_shell *shell)
 				token->prev->next = token->next;
 			else
 				shell->token = token->next;
+			if (token->next)
+				token->next->prev = token->prev;
 			token = token->next;
 			ft_lstdelone(to_delete);
 		}

@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 00:50:05 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/12 17:21:08 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/13 22:48:47 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,25 @@ int	file_creation(t_oken *t)
 	return (0);
 }
 
+int	ambig(t_oken *tmp)
+{
+	if (ft_strncmp(tmp->next->value, "$", 1) == 0)
+	{
+		print_err(tmp->next->value, 2);
+		g_modes.exit_mode = 1;
+		return (1);
+	}
+	return (0);
+}
+
 int	v_alide(int area_len, t_oken *tmp)
 {
 	while (tmp && area_len)
 	{
 		if (!isnt_red(tmp->type))
 		{
+			if (ambig(tmp))
+				return (0);
 			if (file_creation(tmp))
 				return (0);
 		}

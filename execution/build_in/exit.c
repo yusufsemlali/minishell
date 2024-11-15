@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:55:33 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/06 15:07:10 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/14 21:00:00 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	free_all_shell(t_shell *shell, int i)
 		return ;
 	}
 	free_herdoc(shell->herdoc);
-	ft_free_tree(shell->tree);
+	ft_free_tree(shell->tree_copy);
 	close(shell->fd);
 	free_all(shell);
 	exit(g_modes.exit_mode);

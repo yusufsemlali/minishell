@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:59:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/11/13 22:47:53 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/14 21:02:41 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ typedef struct s_shell
 	int				i;
 	t_herdoc		*herdoc;
 	t_tree			*tree;
+	t_tree			*tree_copy;
 	t_oken			*token;
 	int				r_fd;
 	char			**env;

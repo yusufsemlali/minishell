@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/12 14:17:49 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/14 20:51:08 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	execute(t_shell *shell)
 	set_file(shell);
 	g_modes.pipe_count = pipe_count(shell->token);
 	shell->tree = create_tree(shell->token);
+	shell->tree_copy = shell->tree;
 	tmp = shell->token;
 	shell->herdoc = set_up(tmp);
 	if (shell->herdoc != NULL)

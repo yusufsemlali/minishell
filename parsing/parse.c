@@ -75,7 +75,7 @@ void	parse(t_shell *shell)
 		expand(shell);
 		valid(shell);
 		squish(shell);
-		/*for (t_oken *t = shell->token; t; t = t->next)*/
+		/*for (t_oken *t = shell->token; t != NULL; t = t->next)*/
 		/*	printf("%s %d %d\n", t->value, t->type, t->index);*/
 	}
 }

@@ -19,4 +19,5 @@ void	ft_lstdelone(t_oken *lst)
 		free(lst->value);
 		free(lst);
 	}
+  lst = NULL;
 }

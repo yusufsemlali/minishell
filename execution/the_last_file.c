@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 00:50:05 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/13 22:48:47 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/16 16:54:14 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	creat_fd_2(char *file_name, int i)
 		fd = open_file_for_writing(file_name);
 		if (fd < 0)
 		{
-			print_err(file_name,1);
+			print_err(file_name, 1);
 			g_modes.exit_mode = 1;
 			return (-1);
 		}

@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:26:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/14 00:01:23 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/16 16:26:16 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,19 @@ void	ft_exec_cmd(t_shell *shell)
 		unset(shell);
 	else if (ft_strcmp(shell->tree->op, "exit") == 0)
 		ft_exit(shell, 1, 1);
+	else if (ft_strcmp(shell->tree->op, "bocchi") == 0)
+		bocchi(shell);
 }
 
 void	executing(t_shell *shell)
 {
 	if (!shell->tree)
 		return ;
+	else if (shell->tree->type == EMPTY)
+	{
+		shell->tree = shell->tree->right;
+		executing(shell);
+	}
 	else if (shell->tree->type == PIPE)
 		ft_pipe(shell);
 	else if (is_rederaction(shell->tree->op) && type_check(shell->tree))

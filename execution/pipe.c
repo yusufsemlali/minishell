@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:22:54 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/14 21:02:18 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/16 16:43:05 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ void	handle_child_2_process(int fd[], t_shell *shell)
 	g_modes.pid2 = fork();
 	if (g_modes.pid2 == 0)
 		child_2(shell, fd);
-	close(fd[0]);
-	close(fd[1]);
 	waitpid(g_modes.pid, &bocchi, 0);
+	close(fd[1]);
 	waitpid(g_modes.pid2, &status, 0);
+	close(fd[0]);
 	if (WIFEXITED(status))
 		g_modes.exit_mode = WEXITSTATUS(status);
 	else

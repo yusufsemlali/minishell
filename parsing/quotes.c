@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/12 20:03:20 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/11/12 20:03:20 by ysemlali         ###   ########.fr       */
+/*   Created: 2024/11/15 23:51:11 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/11/15 23:51:11 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*quotes(char *s)
 	{
 		while ((s[i] == '\"' || s[i] == '\'') && !inquotes(s, i, 0))
 			x = s[i++];
-		if (s[i] == '\0' || (ft_isspace(s[i]) && !inquotes(s, i, 0)))
+		if (s[i] == '\0')
 			break ;
 		if (s[i] != '\0' && x != s[i])
 			ft_strlcat(token, s + i, ft_strlen(token) + 2);

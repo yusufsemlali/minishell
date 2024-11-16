@@ -271,7 +271,6 @@ void				count_tree_nodes(t_tree *tree, int *count);
 char				**av_m(void);
 int					already_exist(char *key, t_shell *shell);
 void				free_keys(char *key, char *value);
-void				print_errrror(char *file_name);
 int					type_check(t_tree *tree);
 void				print_err(char *str, int i);
 int					check_directory(t_var *var, t_shell *shell);

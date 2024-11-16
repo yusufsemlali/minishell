@@ -14,7 +14,7 @@
 
 void	write_error(char *s)
 {
-	ft_putstr_fd("MiniShell: export: `", 2);
+	ft_putstr_fd("Minishell: export: `", 2);
 	ft_putstr_fd(s, 2);
 	ft_putendl_fd("': not a valid identifier", 2);
 	g_modes.d_change = 1;

@@ -99,3 +99,4 @@ void	update_existing_env(t_env *env, char *value, int i, char *key)
 	free(key);
 	free(value);
 }
+

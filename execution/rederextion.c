@@ -45,7 +45,7 @@ void	ft_exec_rederect_in(t_shell *shell)
 		fd = open(shell->tree->file_name, O_RDWR | O_CREAT, 0644);
 	else
 	{
-		print_errrror(shell->tree->file_name);
+		print_err(shell->tree->file_name, 1);
 		g_modes.exit_mode = 1;
 		return ;
 	}
@@ -68,7 +68,7 @@ void	ft_exec_rederect_out(t_shell *shell)
 	fd = open_file_for_writing(shell->tree->file_name);
 	if (fd < 0)
 	{
-		print_errrror(shell->tree->file_name);
+		print_err(shell->tree->file_name, 1);
 		g_modes.exit_mode = 1;
 		return ;
 	}
@@ -91,7 +91,7 @@ void	ft_exec_rederect_out_append(t_shell *shell)
 	fd = open(shell->tree->file_name, O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (fd < 0)
 	{
-		print_errrror(shell->tree->file_name);
+		print_err(shell->tree->file_name, 1);
 		g_modes.exit_mode = 1;
 		return ;
 	}

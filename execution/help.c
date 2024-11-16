@@ -12,13 +12,6 @@
 
 #include "../includes/minishell.h"
 
-void	print_errrror(char *file_name)
-{
-	ft_putstr_fd("minishell: failed to open file \"", 2);
-	ft_putstr_fd(file_name, 2);
-	ft_putstr_fd("\" >~<\n", 2);
-}
-
 int	type_check(t_tree *tree)
 {
 	if (tree->type == OUTPUT || tree->type == INPUT || tree->type == APPEND
@@ -35,7 +28,7 @@ int	check_directory(t_var *var, t_shell *shell)
 	{
 		if (var->cmd_path || check_is_dir_path(var->av[0]))
 			return (0);
-		print_err(var->av[0], 1);
+		print_err(NULL, 2);
 		g_modes.exit_mode = 127;
 		handle_exec_error(var, shell, 0);
 	}
@@ -56,6 +49,7 @@ int	check_directory(t_var *var, t_shell *shell)
 	return (0);
 }
 
+
 void	print_err(char *str, int i)
 {
 	char	buf[BUFFER_SML];
@@ -72,7 +66,7 @@ void	print_err(char *str, int i)
 		ft_strlcat(buf, str, BUFFER_SML);
 		ft_strlcat(buf, ": Is a directory\n", BUFFER_SML);
 	}
-	else if(i == 2)
+	else if (i == 2)
 	{
 		ft_strlcat(buf, str, BUFFER_SML);
 		ft_strlcat(buf, " ambigguous redirect\n", BUFFER_SML);

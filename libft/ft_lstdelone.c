@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali & aclakhda <ysemlali & aclackd    +#+  +:+       +#+        */
+/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:39:19 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/09/02 23:39:16 by ysemlali &       ###   ########.fr       */
+/*   Updated: 2024/11/15 22:31:47 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ void	ft_lstdelone(t_oken *lst)
 {
 	if (lst)
 	{
-		free(lst->value);
+		if (lst->value)
+			free(lst->value);
 		free(lst);
 	}
-  lst = NULL;
+	lst = NULL;
 }

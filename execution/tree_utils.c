@@ -16,8 +16,7 @@ t_tree	*create_redirection_node(t_oken *last_r_pip)
 {
 	t_tree	*root;
 
-	root = creat_node(last_r_pip, last_r_pip->next->value, \
-		last_r_pip->fd);
+	root = creat_node(last_r_pip, last_r_pip->next->value, last_r_pip->fd);
 	root->index = last_r_pip->index;
 	last_r_pip->read = 1;
 	return (root);

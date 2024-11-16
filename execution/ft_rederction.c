@@ -21,7 +21,7 @@ void	ft_continue_rederect_herd(t_shell *shell)
 	fd = open(g_modes.name_list[shell->tree->fd - 3], O_RDWR);
 	if (fd < 0)
 	{
-		print_errrror(NULL);
+		print_err(NULL, 1);
 		g_modes.exit_mode = 1;
 		return ;
 	}

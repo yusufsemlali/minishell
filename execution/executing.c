@@ -16,6 +16,7 @@ void	exec_child_process(t_shell *shell, t_var *var)
 {
 	char	buf[BUFFER_SML];
 
+	ft_bzero(buf, BUFFER_SML);
 	var->av = cmd_maker(shell);
 	var->cmd_path = find_cmd_path(var->av, shell->nv);
 	var->j = check_directory(var, shell);

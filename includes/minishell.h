@@ -15,6 +15,8 @@
 
 # include "../libft/libft.h"
 # include <fcntl.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 # include <signal.h>
 # include <stddef.h>
 # include <stdio.h>
@@ -25,8 +27,6 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 
 # define ARGS 0    // arguments
 # define PIPE 1    // "|"
@@ -298,6 +298,7 @@ void				env(t_shell *shell);
 void				pwd(t_shell *shell);
 void				export(t_shell *shell);
 void				unset(t_shell *shell);
+int					creat_fd_2(char *file_name, int i);
 
 extern t_mode		g_modes;
 #endif

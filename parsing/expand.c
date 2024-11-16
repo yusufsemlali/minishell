@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
+/*                                                 +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:07:02 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/11/06 16:07:02 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/11/12 20:39:32 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,12 +112,15 @@ void	expand(t_shell *shell)
 	{
 		token->type = t_type(token->value, token->prev);
 		new = expanding(token->value, token->prev, shell->nv);
+
 		new = quotes(new);
 		if (new)
 		{
 			free(token->value);
 			token->value = new;
 		}
+		if (*new == '\0')
+			token->type = EMPTY;
 		token->value = ft_strreplace(token->value, - '$', '$');
 		token = token->next;
 	}

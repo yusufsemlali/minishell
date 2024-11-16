@@ -18,7 +18,6 @@ SRCS =	main/minishell.c  main/init.c main/free.c main/error.c  main/signals.c ma
 				parsing/parse.c\
 				parsing/line.c\
 				parsing/lexer.c\
-				parsing/token.c\
 				parsing/expand.c\
 				parsing/quotes.c\
 		    parsing/valid.c\

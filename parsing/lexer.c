@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_token.c                                         :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali & aclakhda <ysemlali & aclackd    +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:06:04 by ysemlali &        #+#    #+#             */
-/*   Updated: 2024/09/01 21:25:34 by ysemlali &       ###   ########.fr       */
+/*   Updated: 2024/11/12 20:42:56 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int	t_type(char *s, t_oken *prev)
 {
-	if (ft_strcmp(s, "|") == 0)
+	if (ft_strcmp(s, "") == 0)
+		return (EMPTY);
+	else if (ft_strcmp(s, "|") == 0)
 		return (PIPE);
 	else if (ft_strcmp(s, "<") == 0)
 		return (INPUT);

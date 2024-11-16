@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:59:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/11/12 20:15:29 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/16 16:26:40 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define HEREDOC 6 // "<<"
 # define END 7     // ""
 # define EMPTY 8   // empty expansoin
+# define MPT 9     // empty expansoin
 
 # define STDIN 0
 # define STDOUT 1
@@ -105,8 +106,10 @@ typedef struct s_shell
 	int				len;
 	int				begin;
 	int				end;
+	int				i;
 	t_herdoc		*herdoc;
 	t_tree			*tree;
+	t_tree			*tree_copy;
 	t_oken			*token;
 	int				r_fd;
 	char			**env;
@@ -179,6 +182,7 @@ void				token(t_shell *shell);
 int					t_type(char *s, t_oken *prev);
 void				type(t_shell *shell);
 char				*quotes(char *s);
+void				squish(t_shell *shell);
 
 //--- parse utils ----//
 char				*get_env(t_env *nv, char *key);

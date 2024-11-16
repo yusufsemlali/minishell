@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:06:04 by ysemlali &        #+#    #+#             */
-/*   Updated: 2024/11/12 20:42:56 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/16 16:27:14 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	t_type(char *s, t_oken *prev)
 {
-	if (ft_strcmp(s, "") == 0)
-		return (EMPTY);
+	if (ft_strcmp(s, "''") == 0 || ft_strcmp(s, "\"\"") == 0)
+		return (MPT);
 	else if (ft_strcmp(s, "|") == 0)
 		return (PIPE);
 	else if (ft_strcmp(s, "<") == 0)

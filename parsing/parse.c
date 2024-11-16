@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:59:07 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/11/12 14:13:30 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/13 23:15:10 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,8 @@ void	parse(t_shell *shell)
 		lexer(shell);
 		expand(shell);
 		valid(shell);
+		squish(shell);
+		/*for (t_oken *t = shell->token; t; t = t->next)*/
+		/*	printf("%s %d %d\n", t->value, t->type, t->index);*/
 	}
 }
-
-/*token(shell);*/
-/*type(shell);*/
-/*for(t_oken *t = shell->token; t != NULL; t = t->next)*/
-/*  printf("%s %d\n", t->value, t->type);*/

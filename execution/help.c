@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:18:41 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/14 00:06:08 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/16 16:53:49 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	check_directory(t_var *var, t_shell *shell)
 	}
 	return (0);
 }
-
 
 void	print_err(char *str, int i)
 {

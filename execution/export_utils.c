@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:53:24 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/04 16:54:09 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/16 16:53:36 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,3 @@ void	update_existing_env(t_env *env, char *value, int i, char *key)
 	free(key);
 	free(value);
 }
-

@@ -11,33 +11,30 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
+
+char	toggle(unsigned int i, char c)
+{
+	(void)i;
+	if (c == - '$' || c == - '#')
+		return ('%');
+	return (c);
+}
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
 	char	*result;
 	char	*d;
+	int		i;
 
+	i = 0;
 	d = (char *)s;
 	if (!s || !f)
 		return (0);
 	result = ft_calloc(ft_strlen(s) + 1, 1);
 	while (*s)
 	{
-		*result = f(s - d, *s);
+		result[i++] = f(s - d, *s);
 		s++;
-		result++;
 	}
 	return (result);
-}
-
-char	toggle(unsigned int i, char c)
-{
-	(void)i;
-	return (ft_toupper(c));
-}
-
-int	main(void)
-{
-	printf("%s \n", ft_strmapi("hi word", toggle));
 }

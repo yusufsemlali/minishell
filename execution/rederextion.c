@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:35:04 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/13 20:28:26 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/18 22:28:03 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	ft_exec_rederect_in(t_shell *shell)
 	shell->tree = tmp;
 	dup2(stdin_copy, STDIN);
 	close(stdin_copy);
+	close(fd);
 }
 
 void	ft_exec_rederect_out(t_shell *shell)
@@ -79,6 +80,7 @@ void	ft_exec_rederect_out(t_shell *shell)
 	shell->tree = tmp;
 	dup2(stdout_copy, STDOUT);
 	close(stdout_copy);
+	close(fd);
 }
 
 void	ft_exec_rederect_out_append(t_shell *shell)
@@ -102,6 +104,7 @@ void	ft_exec_rederect_out_append(t_shell *shell)
 	shell->tree = tmp;
 	dup2(stdout_copy, STDOUT);
 	close(stdout_copy);
+	close(fd);
 }
 
 void	ft_exec_rederect(t_shell *shell)

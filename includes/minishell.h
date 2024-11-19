@@ -15,8 +15,6 @@
 
 # include "../libft/libft.h"
 # include <fcntl.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 # include <signal.h>
 # include <stddef.h>
 # include <stdio.h>
@@ -27,6 +25,8 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 
 # define ARGS 0    // arguments
 # define PIPE 1    // "|"
@@ -38,6 +38,12 @@
 # define END 7     // ""
 # define EMPTY 8   // empty expansoin
 # define MPT 9     // empty expansoin
+# define SINGLE 10 // \'
+# define DOUBLE 11 // \"
+
+
+
+   
 
 # define STDIN 0
 # define STDOUT 1
@@ -101,6 +107,7 @@ typedef struct s_shell
 	char			**av;
 	int				*type;
 	int				status;
+  int       start;
 	int				fd;
 	int				err;
 	int				len;
@@ -111,9 +118,11 @@ typedef struct s_shell
 	t_tree			*tree;
 	t_tree			*tree_copy;
 	t_oken			*token;
+  t_oken      *t;
 	int				r_fd;
 	char			**env;
 	char			*export_error;
+  char      *buf;
 	int				st;
 	t_oken			*tmp;
 }					t_shell;
@@ -178,11 +187,6 @@ void				lexer(t_shell *shell);
 void				valid(t_shell *shell);
 int					validate(char *s);
 // experement
-void				token(t_shell *shell);
-int					t_type(char *s, t_oken *prev);
-void				type(t_shell *shell);
-char				*quotes(char *s);
-void				squish(t_shell *shell);
 
 //--- parse utils ----//
 char				*get_env(t_env *nv, char *key);
@@ -299,6 +303,13 @@ void				pwd(t_shell *shell);
 void				export(t_shell *shell);
 void				unset(t_shell *shell);
 int					creat_fd_2(char *file_name, int i);
+
+
+
+
+// this is fucked
+void	type(t_shell *shell, char c);
+void  append(t_shell *shell, char c, char *buf);
 
 extern t_mode		g_modes;
 #endif

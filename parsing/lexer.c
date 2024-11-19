@@ -12,25 +12,6 @@
 
 #include "../includes/minishell.h"
 
-int	t_type(char *s, t_oken *prev)
-{
-	if (ft_strcmp(s, "''") == 0 || ft_strcmp(s, "\"\"") == 0)
-		return (MPT);
-	else if (ft_strcmp(s, "|") == 0)
-		return (PIPE);
-	else if (ft_strcmp(s, "<") == 0)
-		return (INPUT);
-	else if (ft_strcmp(s, ">") == 0)
-		return (OUTPUT);
-	else if (ft_strcmp(s, ">>") == 0)
-		return (APPEND);
-	else if (ft_strcmp(s, "<<") == 0)
-		return (HEREDOC);
-	else if (prev == NULL || (prev && prev->type == PIPE))
-		return (CMD);
-	return (ARGS);
-}
-
 char	*get_next_token(char **str)
 {
 	char	buf[BUFFER_SML];
@@ -62,18 +43,26 @@ int	skip_whitespace(char **s)
 
 void	lexer(t_shell *shell)
 {
-	char	*s;
-	int		i;
-
-	i = 0;
-	s = shell->s;
-	skip_whitespace(&s);
-	while (*s)
+  char buf[BUFFER_SML];
+  char *s = shell->s;
+  int i = 0;
+  shell->t = ft_lnew("", 0, i++, ft_lstlast(shell->token));
+  ft_bzero(buf, BUFFER_SML);
+	while (1)
 	{
-		if (skip_whitespace(&s) != 0)
-			break ;
-		ft_lstadd_back(&shell->token, ft_lnew(get_next_token(&s), 0, i,
-				ft_lstlast(shell->token)));
-		i++;
+    type(shell, *s);
+    append(shell, *s, buf);
+    if(shell->start)
+    {
+      printf("%s %d %d\n", shell->t->value, shell->t->type, shell->t->index);
+		  ft_lstadd_back(&shell->token, shell->t);
+      shell->t = ft_lnew("", 0 , i++, ft_lstlast(shell->token));
+      ft_bzero(buf, BUFFER_SML);
+     skip_whitespace(&s);
+    }
+    else
+      s++;
+    if(shell->end)
+      break;
 	}
 }

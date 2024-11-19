@@ -23,8 +23,8 @@ typedef struct s_token
 	int				type;
 	int				index;
 	int				read;
-	int				double_q;
-	int				single_q;
+	int				quote;
+  int       expand;
 	int				fd;
 	struct s_token	*next;
 	struct s_token	*prev;

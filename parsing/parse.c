@@ -32,7 +32,7 @@ int	closed_checker(t_shell *shell, char *s)
 	if (two_open % 2 != 0)
 		ft_putendl_fd("minishell: syntax error near unexpected token `\"'", 2);
 	if (one_open % 2 != 0 || two_open % 2 != 0)
-		return (g_modes.exit_mode = 127, shell->err = ERR_SYNTAX, 0);
+		return (g_modes.exit_mode = 2, shell->err = 2, 0);
 	return (1);
 }
 
@@ -69,11 +69,5 @@ void	parse(t_shell *shell)
 	add_history(shell->s);
 	shell->len = ft_strlen(shell->s);
 	if (closed_checker(shell, shell->s))
-	{
-		spacing(shell);
-		lexer(shell);
-		expand(shell);
-		valid(shell);
-		squish(shell);
-	}
+    lexer(shell);
 }

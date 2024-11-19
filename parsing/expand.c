@@ -74,12 +74,13 @@ int	get_variables(char *s, char *buf, t_env *nv, int prev)
 	{
 		ft_strlcpy(env, s + 1, ft_strcspn(s + 1, "$ =\'\"\t\f\v\r/") + 1);
 		if (get_env(nv, env) == NULL && (prev == HEREDOC || prev == INPUT
-				|| prev == OUTPUT || prev == APPEND))
+				|| prev == OUTPUT || prev == APPND))
 		{
 			ft_strlcat(buf, "$", BUFFER_SML);
 			ft_strlcat(buf, env, BUFFER_SML);
 		}
-		ft_strlcat(buf, get_env(nv, env), BUFFER_SML);
+    else
+      ft_strlcat(buf, get_env(nv, env), BUFFER_SML);
 		return (ft_strlen(env) + 1);
 	}
 	return (ft_strlcat(buf, s, ft_strlen(buf) + 2), 1);

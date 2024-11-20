@@ -14,9 +14,13 @@
 
 int	t_type(char *s, t_oken *prev)
 {
-	if (ft_strcmp(s, "''") == 0 || ft_strcmp(s, "\"\"") == 0)
-		return (MPT);
-	else if (ft_strcmp(s, "|") == 0)
+	char	c[2];
+
+	c[0] = -40;
+	c[1] = '\0';
+	if (ft_strcmp(s, c) == 0)
+		return (EMPTY);
+	if (ft_strcmp(s, "|") == 0)
 		return (PIPE);
 	else if (ft_strcmp(s, "<") == 0)
 		return (INPUT);
@@ -31,29 +35,33 @@ int	t_type(char *s, t_oken *prev)
 	return (ARGS);
 }
 
-char	*get_next_token(char **str)
+void	token(t_shell *shell, char **str)
 {
-	char	buf[BUFFER_SML];
+	char	token[BUFFER_SML];
 	int		i;
 	char	*s;
 
 	i = 0;
 	s = *str;
-	ft_bzero(buf, BUFFER_SML);
+	ft_bzero(token, BUFFER_SML);
 	while (s[i])
 	{
-		if (ft_isspace(s[i]) && !inquotes(s, i, 0))
+		while ((s[i] == '\"' || s[i] == '\'') && !inquotes(s, i, 0))
+			shell->t->quote = s[i++];
+		if (s[i] == '\0' || (ft_isspace(s[i]) && !inquotes(s, i, 0)))
 			break ;
-		ft_strlcat(buf, s + i, ft_strlen(buf) + 2);
+		if (s[i] != '\0' && shell->t->quote != s[i])
+			ft_strlcat(token, s + i, ft_strlen(token) + 2);
 		i++;
 	}
 	*str += i;
-	return (ft_strdup(buf));
+	shell->t->value = ft_strdup(token);
+	shell->t->type = t_type(token, shell->t->prev);
 }
 
 int	skip_whitespace(char **s)
 {
-	while (**s && ft_strchr(" \t\r\v\f", **s))
+	while (**s && ft_isspace(**s))
 		(*s)++;
 	if (**s == '\0')
 		return (-1);
@@ -72,8 +80,8 @@ void	lexer(t_shell *shell)
 	{
 		if (skip_whitespace(&s) != 0)
 			break ;
-		ft_lstadd_back(&shell->token, ft_lnew(get_next_token(&s), 0, i,
-				ft_lstlast(shell->token)));
-		i++;
+		shell->t = ft_lnew(NULL, 0, i++, ft_lstlast(shell->token));
+		token(shell, &s);
+		ft_lstadd_back(&shell->token, shell->t);
 	}
 }

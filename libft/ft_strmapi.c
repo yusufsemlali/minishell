@@ -15,8 +15,8 @@
 char	toggle(unsigned int i, char c)
 {
 	(void)i;
-	if (c == - '$' || c == - '#')
-		return ('%');
+	if (c == -99 || c == -100 || c == -36)
+		return ('$');
 	return (c);
 }
 

@@ -42,6 +42,7 @@ int	get_variable_size(char *s, t_env *nv)
 	return (len);
 }
 
+
 int	basic_env(char *s, char *buf)
 {
 	char	*tmp;
@@ -62,19 +63,23 @@ int	basic_env(char *s, char *buf)
 	return (0);
 }
 
-int	get_variables(char *s, char *buf, t_env *nv, int prev)
+int expand(t_shell *shell, char *buf, char *s, t_oken *p)
 {
 	char	env[1024];
+  t_env *nv = shell->nv;
+  int prev  = 0;
 	int		i;
 
 	i = basic_env(s, buf);
 	if (i != 0)
 		return (i);
-	if (*s == '$' && !ft_isspace(*(s + 1)) && *(s + 1) != '/')
+  if(p)
+    prev = p->type;
+	if (!ft_isspace(*(s + 1)) && *(s + 1) != '/')
 	{
 		ft_strlcpy(env, s + 1, ft_strcspn(s + 1, "$ =\'\"\t\f\v\r/") + 1);
 		if (get_env(nv, env) == NULL && (prev == HEREDOC || prev == INPUT
-				|| prev == OUTPUT || prev == APPND))
+				|| prev == OUTPUT || prev == APPEND))
 		{
 			ft_strlcat(buf, "$", BUFFER_SML);
 			ft_strlcat(buf, env, BUFFER_SML);
@@ -84,47 +89,4 @@ int	get_variables(char *s, char *buf, t_env *nv, int prev)
 		return (ft_strlen(env) + 1);
 	}
 	return (ft_strlcat(buf, s, ft_strlen(buf) + 2), 1);
-}
-
-char	*expanding(char *s, t_oken *prev, t_env *nv)
-{
-	char	*buf;
-
-	buf = ft_calloc(get_variable_size(s, nv) + 2, 1);
-	if (buf)
-	{
-		while (*s)
-		{
-			if (prev)
-				s += get_variables(s, buf, nv, prev->type);
-			else
-				s += get_variables(s, buf, nv, -1);
-		}
-	}
-	return (buf);
-}
-
-void	expand(t_shell *shell)
-{
-	t_oken	*token;
-	char	*new;
-
-	token = shell->token;
-	while (token)
-	{
-		token->type = t_type(token->value, token->prev);
-		if (ft_strchr(token->value, '$'))
-		{
-			new = expanding(token->value, token->prev, shell->nv);
-			if (new)
-			{
-				if (*new == '\0' && token->type != MPT)
-					token->type = EMPTY;
-				free(token->value);
-				token->value = new;
-			}
-		}
-		token->value = quotes(ft_strreplace(token->value, - '$', '$'));
-		token = token->next;
-	}
 }

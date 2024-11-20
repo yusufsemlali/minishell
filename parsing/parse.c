@@ -69,5 +69,9 @@ void	parse(t_shell *shell)
 	add_history(shell->s);
 	shell->len = ft_strlen(shell->s);
 	if (closed_checker(shell, shell->s))
+  {
+    shell->len = get_variable_size(shell->s, shell->nv) +2;
     lexer(shell);
+  }
 }
+

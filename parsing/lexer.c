@@ -3,38 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:06:04 by ysemlali &        #+#    #+#             */
-/*   Updated: 2024/11/16 16:27:14 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/20 02:07:03 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*get_next_token(char **str)
-{
-	char	buf[BUFFER_SML];
-	int		i;
-	char	*s;
-
-	i = 0;
-	s = *str;
-	ft_bzero(buf, BUFFER_SML);
-	while (s[i])
-	{
-		if (ft_isspace(s[i]) && !inquotes(s, i, 0))
-			break ;
-		ft_strlcat(buf, s + i, ft_strlen(buf) + 2);
-		i++;
-	}
-	*str += i;
-	return (ft_strdup(buf));
-}
-
 int	skip_whitespace(char **s)
 {
-	while (**s && ft_strchr(" \t\r\v\f", **s))
+	while (**s && ft_isspace(**s))
 		(*s)++;
 	if (**s == '\0')
 		return (-1);
@@ -43,26 +23,31 @@ int	skip_whitespace(char **s)
 
 void	lexer(t_shell *shell)
 {
-  char buf[BUFFER_SML];
-  char *s = shell->s;
-  int i = 0;
-  shell->t = ft_lnew("", 0, i++, ft_lstlast(shell->token));
-  ft_bzero(buf, BUFFER_SML);
+	char	*buffer = ft_calloc(shell->len, 1);
+	char	token[BUFFER_SML];
+	int		run;
+	int		i;
+	run = 0;
+	i = 0;
+	ft_bzero(token, BUFFER_SML);
+	shell->t = ft_lnew(NULL, 0, i++, NULL);
+	ft_strlcpy(buffer, shell->s, shell->len);
+	shell->r = buffer;
 	while (1)
 	{
-    type(shell, *s);
-    append(shell, *s, buf);
-    if(shell->start)
-    {
-      printf("%s %d %d\n", shell->t->value, shell->t->type, shell->t->index);
-		  ft_lstadd_back(&shell->token, shell->t);
-      shell->t = ft_lnew("", 0 , i++, ft_lstlast(shell->token));
-      ft_bzero(buf, BUFFER_SML);
-     skip_whitespace(&s);
-    }
+		type(shell, *shell->r, &run);
+		append(shell, token , &run);
+		if (run == END)
+		{
+			shell->t->value = ft_strdup(token);
+			ft_lstadd_back(&shell->token, shell->t);
+			shell->t = ft_lnew(NULL, 0, i++, ft_lstlast(shell->token));
+			ft_bzero(token, BUFFER_SML);
+			skip_whitespace(&shell->r);
+			if (*shell->r == '\0')
+				break ;
+		}
     else
-      s++;
-    if(shell->end)
-      break;
+			shell->r++;
 	}
 }

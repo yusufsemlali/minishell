@@ -41,6 +41,7 @@ void	reset(t_shell *shell)
 	ft_lstclear(&shell->token);
 	shell->err = 0;
 	shell->begin = 0;
+  shell->start = 0;
 	shell->status = 0;
 	shell->end = 0;
 	g_modes.has_pipe = 0;

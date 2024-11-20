@@ -12,16 +12,16 @@
 
 #include "../includes/minishell.h"
 
-void	type(t_shell *shell, char c)
+void	type(t_shell *shell, char c, int *run)
 {
-	shell->start = 0;
-	if (c == '\"' && shell->t->quote == DOUBLE)
+  *run = 0;
+  if (c == '\"' && shell->t->quote == DOUBLE)
     shell->t->quote = 0;
-  if( c== '\'' && shell->t->quote == SINGLE)
+  else if( c== '\'' && shell->t->quote == SINGLE)
     shell->t->quote = 0;
-	if (c == '\"' && shell->t->quote == 0)
+  else if(c == '\"' && shell->t->quote == 0)
 		shell->t->quote = DOUBLE;
-	if (c == '\'' && shell->t->quote == 0)
+  else if(c == '\'' && shell->t->quote == 0)
 		shell->t->quote = SINGLE;
 	if (c == '|' && shell->t->quote == 0)
 		shell->t->type = PIPE;
@@ -38,9 +38,7 @@ void	type(t_shell *shell, char c)
   if(ft_isalnum(c) && shell->t->index != 0)
     shell->t->type = ARGS;
   if (c == '$' && shell->t->quote != SINGLE )
-    shell->t->expand = 1;
-  if ((ft_isspace(c) && shell->t->quote == 0 ) || c == '\0')  
-    shell->start = 1;
-  if(c == '\0')
-    shell->end = 1;
+    shell->t->expand = EXPAND;
+  if ((ft_isspace(c) && shell->t->quote == 0) || c == '\0')  
+    *run = END;
 }

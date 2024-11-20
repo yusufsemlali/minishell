@@ -25,6 +25,7 @@ typedef struct s_token
 	int				read;
 	int				quote;
   int       expand;
+  int       run;
 	int				fd;
 	struct s_token	*next;
 	struct s_token	*prev;

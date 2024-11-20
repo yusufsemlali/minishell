@@ -40,7 +40,8 @@
 # define MPT 9     // empty expansoin
 # define SINGLE 10 // \'
 # define DOUBLE 11 // \"
-
+# define EXPAND 12 // "$"
+# define START  13 // 
 
 
    
@@ -102,7 +103,9 @@ typedef struct s_env
 
 typedef struct s_shell
 {
-	char			*s;
+  char      *s;
+	char			*r;
+  char      *j;
 	t_env			*nv;
 	char			**av;
 	int				*type;
@@ -182,7 +185,6 @@ void				handle_signals(int sig);
 // -- parsing -- //
 void				parse(t_shell *shell);
 void				spacing(t_shell *shell);
-void				expand(t_shell *shell);
 void				lexer(t_shell *shell);
 void				valid(t_shell *shell);
 int					validate(char *s);
@@ -308,8 +310,10 @@ int					creat_fd_2(char *file_name, int i);
 
 
 // this is fucked
-void	type(t_shell *shell, char c);
-void  append(t_shell *shell, char c, char *buf);
+void	type(t_shell *shell, char c, int *run);
+void append(t_shell *shell, char *buf, int *run);
+int	get_variable_size(char *s, t_env *nv);
+int expand(t_shell *shell, char *buf, char *s, t_oken *p);
 
 extern t_mode		g_modes;
 #endif

@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int	t_type(char *s, t_oken *prev)
+int	t_type(char *s, t_oken *prev, int quote)
 {
 	char	c[2];
 
@@ -20,15 +20,15 @@ int	t_type(char *s, t_oken *prev)
 	c[1] = '\0';
 	if (ft_strcmp(s, c) == 0)
 		return (EMPTY);
-	if (ft_strcmp(s, "|") == 0)
+	if (ft_strcmp(s, "|") == 0 && quote == 0)
 		return (PIPE);
-	else if (ft_strcmp(s, "<") == 0)
+	else if (ft_strcmp(s, "<") == 0 && quote == 0)
 		return (INPUT);
-	else if (ft_strcmp(s, ">") == 0)
+	else if (ft_strcmp(s, ">") == 0 && quote == 0)
 		return (OUTPUT);
-	else if (ft_strcmp(s, ">>") == 0)
+	else if (ft_strcmp(s, ">>") == 0 && quote == 0)
 		return (APPEND);
-	else if (ft_strcmp(s, "<<") == 0)
+	else if (ft_strcmp(s, "<<") == 0 && quote == 0)
 		return (HEREDOC);
 	else if (prev == NULL || (prev && prev->type == PIPE))
 		return (CMD);
@@ -56,7 +56,7 @@ void	token(t_shell *shell, char **str)
 	}
 	*str += i;
 	shell->t->value = ft_strdup(token);
-	shell->t->type = t_type(token, shell->t->prev);
+	shell->t->type = t_type(token, shell->t->prev, shell->t->quote);
 }
 
 int	skip_whitespace(char **s)

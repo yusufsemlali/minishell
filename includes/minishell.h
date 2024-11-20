@@ -177,12 +177,8 @@ void				spacing(t_shell *shell);
 void				lexer(t_shell *shell);
 void				valid(t_shell *shell);
 int					validate(char *s);
-// experement
-void	expand(t_shell *shell);
-void	token(t_shell *shell, char **str);
-int					t_type(char *s, t_oken *prev);
-void				type(t_shell *shell);
-char				*quotes(char *s);
+void        expand(t_shell *shell);
+void        token(t_shell *shell, char **str);
 void				squish(t_shell *shell);
 
 //--- parse utils ----//

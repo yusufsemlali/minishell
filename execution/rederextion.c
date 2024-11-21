@@ -6,32 +6,31 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:35:04 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/13 20:28:26 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/21 14:15:02 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	check_file(t_tree *tree, char *file_name)
+void	redirect_in(t_shell *shell, int fd, int STD)
 {
-	t_tree		*tmp;
-	struct stat	path_stat;
+	if (shell->i_fd)
+	{
+		dup2(shell->i_fd, STD);
+		close(fd);
+	}
+	else
+	{
+		shell->i_fd = fd;
+		dup2(fd, STD);
+	}
+}
 
-	tmp = tree->left;
-	while (tmp)
-	{
-		if (tmp->file_name != NULL && !ft_strcmp(tmp->file_name, file_name))
-			return (1);
-		tmp = tmp->right;
-	}
-	if (stat(file_name, &path_stat) == 0)
-	{
-		if (!S_ISREG(path_stat.st_mode))
-			return (0);
-		else
-			return (1);
-	}
-	return (0);
+void	print_errrror(char *file_name)
+{
+	ft_putstr_fd("minishell: ", STDERR);
+	ft_putstr_fd(file_name, STDERR);
+	ft_putstr_fd(": No such file or directory\n", STDERR);
 }
 
 void	ft_exec_rederect_in(t_shell *shell)
@@ -41,21 +40,21 @@ void	ft_exec_rederect_in(t_shell *shell)
 	t_tree	*tmp;
 
 	stdin_copy = dup(STDIN);
-	if (check_file(shell->tree, shell->tree->file_name))
-		fd = open(shell->tree->file_name, O_RDWR | O_CREAT, 0644);
-	else
+	fd = open(shell->tree->file_name, O_RDWR | O_CREAT, 0644);
+	if (fd < 0)
 	{
-		print_err(shell->tree->file_name, 1);
+		print_errrror(shell->tree->file_name);
 		g_modes.exit_mode = 1;
 		return ;
 	}
-	redirect_output(shell, fd, 0);
+	redirect_in(shell, fd, 0);
 	tmp = shell->tree;
 	shell->tree = shell->tree->left;
 	executing(shell);
 	shell->tree = tmp;
 	dup2(stdin_copy, STDIN);
 	close(stdin_copy);
+	close(fd);
 }
 
 void	ft_exec_rederect_out(t_shell *shell)
@@ -68,7 +67,7 @@ void	ft_exec_rederect_out(t_shell *shell)
 	fd = open_file_for_writing(shell->tree->file_name);
 	if (fd < 0)
 	{
-		print_err(shell->tree->file_name, 1);
+		print_errrror(shell->tree->file_name);
 		g_modes.exit_mode = 1;
 		return ;
 	}
@@ -79,6 +78,7 @@ void	ft_exec_rederect_out(t_shell *shell)
 	shell->tree = tmp;
 	dup2(stdout_copy, STDOUT);
 	close(stdout_copy);
+	close(fd);
 }
 
 void	ft_exec_rederect_out_append(t_shell *shell)
@@ -91,7 +91,7 @@ void	ft_exec_rederect_out_append(t_shell *shell)
 	fd = open(shell->tree->file_name, O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (fd < 0)
 	{
-		print_err(shell->tree->file_name, 1);
+		print_errrror(shell->tree->file_name);
 		g_modes.exit_mode = 1;
 		return ;
 	}
@@ -102,6 +102,7 @@ void	ft_exec_rederect_out_append(t_shell *shell)
 	shell->tree = tmp;
 	dup2(stdout_copy, STDOUT);
 	close(stdout_copy);
+	close(fd);
 }
 
 void	ft_exec_rederect(t_shell *shell)

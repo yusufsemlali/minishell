@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 00:50:05 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/16 16:54:14 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/21 14:18:45 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	file_creation(t_oken *t)
 			g_modes.exit_mode = 1;
 			return (1);
 		}
+		close(fd);
 	}
 	return (0);
 }

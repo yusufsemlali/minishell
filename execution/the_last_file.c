@@ -6,11 +6,12 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 00:50:05 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/21 21:22:33 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/21 23:49:23 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
 
 int	file_creation(t_oken *t)
 {
@@ -33,8 +34,7 @@ int	file_creation(t_oken *t)
 		fd = open(t->next->value, O_RDWR, 0644);
 		if (fd < 0)
 		{
-			print_err(t->next->value, 1);
-			g_modes.exit_mode = 1;
+			nothing(t);
 			return (1);
 		}
 		close(fd);

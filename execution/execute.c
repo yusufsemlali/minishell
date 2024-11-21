@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/21 21:23:05 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/21 23:23:46 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,7 @@ int	execute(t_shell *shell)
 	tmp = shell->token;
 	shell->herdoc = set_up(tmp);
 	if (shell->herdoc != NULL)
-	{
 		ft_exec_rederect_herd(shell, 1);
-	}
 	if (g_modes.herdoc_mode != CTRL_C)
 		executing(shell);
 	free_herdoc(shell->herdoc);

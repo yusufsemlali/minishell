@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:15:09 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/06 15:06:20 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/21 23:26:13 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,12 @@ void	process_heredoc(t_shell *shell)
 		else
 		{
 			g_modes.exit_mode = 0;
-			exit(g_modes.exit_mode);
+			free_all_shell(shell, 0);
 		}
 	}
 	if (!shell->herdoc->herdoc || g_modes.herdoc_mode != CTRL_C)
 		g_modes.exit_mode = 0;
-	exit(g_modes.exit_mode);
+	free_all_shell(shell, 0);
 }
 
 void	ft_exec_rederect_herd(t_shell *shell, int j)
@@ -116,6 +116,7 @@ void	ft_exec_rederect_herd(t_shell *shell, int j)
 		if (g_modes.pid == 0)
 		{
 			signal(SIGINT, SIG_DFL);
+			g_modes.allow = 1;
 			process_heredoc(shell);
 		}
 		else

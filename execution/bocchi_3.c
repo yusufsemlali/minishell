@@ -6,13 +6,13 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 01:20:55 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/04 16:02:41 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/21 22:17:38 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	**av_m(void)
+char	**av_m(t_shell *shell)
 {
 	char	**av;
 
@@ -20,7 +20,8 @@ char	**av_m(void)
 	if (!av)
 	{
 		perror("malloc");
-		exit(EXIT_FAILURE);
+		g_modes.exit_mode = EXIT_FAILURE;
+		free_all_shell(shell, 0);
 	}
 	av[0] = "/bin/sh";
 	av[1] = "-c";

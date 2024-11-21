@@ -75,7 +75,7 @@ void	parse(t_shell *shell)
 		lexer(shell);
 		valid(shell);
 		squish(shell);
-	}
-}
 		/*for (t_oken *token = shell->token; token; token = token->next)*/
 		/*	printf("%s %d %d\n", token->value, token->type, token->index);*/
+	}
+}

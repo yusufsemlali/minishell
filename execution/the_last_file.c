@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 00:50:05 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/21 14:18:45 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/21 21:22:33 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	v_alide(int area_len, t_oken *tmp)
 {
 	while (tmp && area_len)
 	{
-		if (!isnt_red(tmp->type))
+		if (!isnt_red(tmp->type, 0))
 		{
 			if (ambig(tmp))
 				return (0);

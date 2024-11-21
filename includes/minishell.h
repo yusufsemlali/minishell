@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:59:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/11/21 14:10:03 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/21 21:22:22 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,6 @@ t_oken				*last_p_r(t_oken *tokens);
 void				free_herdoc(t_herdoc *herdoc);
 void				ft_free_token(t_oken *token);
 int					set(t_oken *token);
-int					isnt_red(int type);
 void				process_export_entry(char *entry, t_shell *shell,
 						int *check);
 void				handle_export_error(void);
@@ -284,7 +283,7 @@ void				_reset(t_oken *token);
 int					set_up_file_name(int range);
 int					check_is_dir_path(char *path);
 void				for_norminet(t_var *var, t_shell *shell);
-int					isnt_red(int type);
+int					isnt_red(int type, int i);
 int					creat_fd_2(char *file_name, int i);
 int					file_creation(t_oken *t);
 int					checks_err(t_shell *shell);

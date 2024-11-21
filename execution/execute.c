@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/14 20:51:08 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/21 21:23:05 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_tree	*create_tree(t_oken *tokens)
 		&& last_redirection_pipe->type == PIPE)
 		return (creat_tree_pipe(tokens, last_redirection_pipe));
 	else if (last_redirection_pipe && last_redirection_pipe->read == 0
-		&& !isnt_red(last_redirection_pipe->type))
+		&& !isnt_red(last_redirection_pipe->type, 1))
 		return (creat_tree_red(tokens, last_redirection_pipe));
 	return (create_simple_tree(tokens));
 }

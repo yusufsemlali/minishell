@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:18:41 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/16 16:53:49 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/21 16:53:58 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	check_directory(t_var *var, t_shell *shell)
 	{
 		if (var->cmd_path || check_is_dir_path(var->av[0]))
 			return (0);
-		print_err(NULL, 2);
+		print_err(var->av[0], 1);
 		g_modes.exit_mode = 127;
 		handle_exec_error(var, shell, 0);
 	}

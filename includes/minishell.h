@@ -15,6 +15,8 @@
 
 # include "../libft/libft.h"
 # include <fcntl.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 # include <signal.h>
 # include <stddef.h>
 # include <stdio.h>
@@ -25,8 +27,6 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 
 # define ARGS 0    // arguments
 # define PIPE 1    // "|"
@@ -111,7 +111,7 @@ typedef struct s_shell
 	t_tree			*tree;
 	t_tree			*tree_copy;
 	t_oken			*token;
-  t_oken       *t;
+	t_oken			*t;
 	int				r_fd;
 	int				i_fd;
 	char			**env;
@@ -178,8 +178,8 @@ void				spacing(t_shell *shell);
 void				lexer(t_shell *shell);
 void				valid(t_shell *shell);
 int					validate(char *s);
-void        expand(t_shell *shell);
-void        token(t_shell *shell, char **str);
+void				expand(t_shell *shell);
+void				token(t_shell *shell, char **str);
 void				squish(t_shell *shell);
 
 //--- parse utils ----//

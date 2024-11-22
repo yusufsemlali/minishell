@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 19:12:15 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/09/19 15:08:26 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/21 23:49:30 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,25 @@
 
 void	pwd(t_shell *shell)
 {
-	t_env	*tmp;
+	char	buf[PATH_MAX];
+	char	*pwd;
 
-	tmp = shell->nv;
-	while (tmp)
+	(void)shell;
+	pwd = getcwd(buf, PATH_MAX);
+	if (!pwd)
 	{
-		if (ft_strcmp(tmp->key, "PWD") == 0)
-		{
-			printf("%s\n", tmp->value);
-			return ;
-		}
-		tmp = tmp->next;
+		perror("getcwd:");
+		g_modes.exit_mode = -1;
 	}
-	g_modes.exit_mode = 0;
+	if (pwd)
+	{
+		printf("%s\n", pwd);
+		g_modes.exit_mode = 0;
+	}
+}
+
+void	nothing(t_oken *t)
+{
+	print_err(t->next->value, 1);
+	g_modes.exit_mode = 1;
 }

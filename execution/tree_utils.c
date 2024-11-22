@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 00:00:54 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/12 17:12:24 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/21 21:22:42 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_tree	*create_redirection_node(t_oken *last_r_pip)
 
 t_oken	*find_next_token(t_oken *current)
 {
-	while (current && (current->type != PIPE || isnt_red(current->type)))
+	while (current && (current->type != PIPE || isnt_red(current->type, 1)))
 		current = current->next;
 	return (current);
 }

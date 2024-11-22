@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:35:04 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/21 14:15:02 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/21 21:26:13 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,6 @@ void	redirect_in(t_shell *shell, int fd, int STD)
 	}
 }
 
-void	print_errrror(char *file_name)
-{
-	ft_putstr_fd("minishell: ", STDERR);
-	ft_putstr_fd(file_name, STDERR);
-	ft_putstr_fd(": No such file or directory\n", STDERR);
-}
-
 void	ft_exec_rederect_in(t_shell *shell)
 {
 	int		fd;
@@ -43,7 +36,7 @@ void	ft_exec_rederect_in(t_shell *shell)
 	fd = open(shell->tree->file_name, O_RDWR | O_CREAT, 0644);
 	if (fd < 0)
 	{
-		print_errrror(shell->tree->file_name);
+		print_err(shell->tree->file_name, 1);
 		g_modes.exit_mode = 1;
 		return ;
 	}
@@ -67,7 +60,7 @@ void	ft_exec_rederect_out(t_shell *shell)
 	fd = open_file_for_writing(shell->tree->file_name);
 	if (fd < 0)
 	{
-		print_errrror(shell->tree->file_name);
+		print_err(shell->tree->file_name, 1);
 		g_modes.exit_mode = 1;
 		return ;
 	}
@@ -91,7 +84,7 @@ void	ft_exec_rederect_out_append(t_shell *shell)
 	fd = open(shell->tree->file_name, O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (fd < 0)
 	{
-		print_errrror(shell->tree->file_name);
+		print_err(shell->tree->file_name, 1);
 		g_modes.exit_mode = 1;
 		return ;
 	}

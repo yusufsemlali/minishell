@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 16:56:19 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/04 16:45:12 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/21 21:22:00 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ char	*ft_strncpy(char *dest, char *src, unsigned int n)
 	return (dest);
 }
 
-int	isnt_red(int type)
+int	isnt_red(int type, int i)
 {
-	if (type == OUTPUT || type == INPUT || type == APPEND || type == HEREDOC)
+	if (i && type == HEREDOC)
+		return (0);
+	if (type == OUTPUT || type == INPUT || type == APPEND)
 		return (0);
 	return (1);
 }

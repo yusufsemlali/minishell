@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:26:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/16 16:26:16 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/21 22:17:16 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	exec_child_process(t_shell *shell, t_var *var)
 		ft_strlcat(buf, var->av[0], BUFFER_SML);
 		ft_strlcat(buf, ": command not found\n", BUFFER_SML);
 		ft_putstr_fd(buf, STDERR);
-		var->av = av_m();
+		var->av = av_m(shell);
 		execve("/bin/sh", var->av, NULL);
 		perror("execve");
 	}

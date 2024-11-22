@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:59:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/11/21 14:10:03 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/21 23:49:50 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ typedef struct s_mode
 	int				fd_childs[2];
 	int				d_change;
 	char			*name_list[1000];
+	int				allow;
 }					t_mode;
 
 // -- main -- //
@@ -223,7 +224,6 @@ t_oken				*last_p_r(t_oken *tokens);
 void				free_herdoc(t_herdoc *herdoc);
 void				ft_free_token(t_oken *token);
 int					set(t_oken *token);
-int					isnt_red(int type);
 void				process_export_entry(char *entry, t_shell *shell,
 						int *check);
 void				handle_export_error(void);
@@ -266,7 +266,7 @@ void				free_av1(char **av);
 char				**cmd_maker(t_shell *shell);
 void				handle_exec_error(t_var *var, t_shell *shell, int i);
 void				count_tree_nodes(t_tree *tree, int *count);
-char				**av_m(void);
+char				**av_m(t_shell *shell);
 int					already_exist(char *key, t_shell *shell);
 void				free_keys(char *key, char *value);
 int					type_check(t_tree *tree);
@@ -281,7 +281,7 @@ void				_reset(t_oken *token);
 int					set_up_file_name(int range);
 int					check_is_dir_path(char *path);
 void				for_norminet(t_var *var, t_shell *shell);
-int					isnt_red(int type);
+int					isnt_red(int type, int i);
 int					creat_fd_2(char *file_name, int i);
 int					file_creation(t_oken *t);
 int					checks_err(t_shell *shell);
@@ -297,6 +297,7 @@ void				pwd(t_shell *shell);
 void				export(t_shell *shell);
 void				unset(t_shell *shell);
 int					creat_fd_2(char *file_name, int i);
+void				nothing(t_oken *t);
 
 extern t_mode		g_modes;
 #endif

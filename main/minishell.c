@@ -42,6 +42,7 @@ void	reset(t_shell *shell)
 	shell->err = 0;
 	shell->begin = 0;
 	shell->status = 0;
+	shell->r_fd = 0;
 	shell->end = 0;
 	g_modes.has_pipe = 0;
 	g_modes.input_mode = 0;
@@ -70,7 +71,6 @@ int	main(const int ac, char **av, char **nv)
 	{
 		reset(shell);
 		parse(shell);
-		shell->r_fd = 0;
 		if (shell->err == 0 && shell->token)
 			minishell(shell);
 	}

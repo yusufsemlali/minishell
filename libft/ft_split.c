@@ -37,7 +37,7 @@ static size_t	ft_wordlen(const char *s, char c)
 	return (len);
 }
 
-static size_t	ft_count_words(const char *s, char c)
+size_t	ft_count_words(const char *s, char c)
 {
 	size_t	count;
 	size_t	i;

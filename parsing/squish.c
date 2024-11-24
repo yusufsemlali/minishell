@@ -25,21 +25,25 @@ void	delete_token(t_shell *shell, t_oken *token)
 
 void	normalize(char *s)
 {
-	size_t	i;
-	size_t	j;
+	char	*c;
 
-	i = 0;
-	j = 0;
-	while (s[i] != '\0')
+	c = s;
+	if (!s)
+		return ;
+	while (*s)
 	{
-		if (s[i] > 0)
-		{
-			s[j] = s[i];
-			j++;
-		}
-		i++;
+		if (*s > 0)
+			*c++ = *s;
+		s++;
 	}
-	s[j] = '\0';
+	*c = '\0';
+}
+
+void	change_cmd_value(t_oken *token)
+{
+	if (token->value)
+		free(token->value);
+	token->value = ft_strdup("''");
 }
 
 void	squish(t_shell *shell)
@@ -59,6 +63,8 @@ void	squish(t_shell *shell)
 			normalize(token->value);
 			token->index = shell->i++;
 		}
+		if (token->type == CMD && *token->value == '\0')
+			change_cmd_value(token);
 		token = next_token;
 	}
 }

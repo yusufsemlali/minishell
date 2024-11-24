@@ -18,7 +18,7 @@ int	t_type(char *s, t_oken *prev, int quote)
 
 	c[0] = -40;
 	c[1] = '\0';
-	if (ft_strcmp(s, c) == 0)
+	if (ft_strcmp(s, c) == 0 && quote == 0)
 		return (EMPTY);
 	if (ft_strcmp(s, "|") == 0 && quote == 0)
 		return (PIPE);

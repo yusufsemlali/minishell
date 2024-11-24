@@ -12,7 +12,6 @@
 
 #include "../includes/minishell.h"
 
-
 int	file_creation(t_oken *t)
 {
 	int	fd;

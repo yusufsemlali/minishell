@@ -56,6 +56,8 @@ void	squish(t_shell *shell)
 	while (token)
 	{
 		next_token = token->next;
+		if (token->type == CMD && *token->value == '\0')
+			change_cmd_value(token);
 		if (token->type == EMPTY)
 			delete_token(shell, token);
 		else
@@ -63,8 +65,6 @@ void	squish(t_shell *shell)
 			normalize(token->value);
 			token->index = shell->i++;
 		}
-		if (token->type == CMD && *token->value == '\0')
-			change_cmd_value(token);
 		token = next_token;
 	}
 }

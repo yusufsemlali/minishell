@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:22:54 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/16 16:43:05 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/29 00:29:53 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	child_2(t_shell *shell, int fd[])
 	t_tree	*tmp;
 	int		stdin_copy;
 
+	g_modes.allow = 0;
 	tmp = shell->tree;
 	stdin_copy = dup(STDIN);
 	close(fd[1]);
@@ -35,6 +36,7 @@ void	child_process(int fd[], t_shell *shell)
 	t_tree	*tmp;
 	int		stdout_copy;
 
+	g_modes.allow = 0;
 	tmp = shell->tree;
 	stdout_copy = dup(STDOUT);
 	close(fd[0]);

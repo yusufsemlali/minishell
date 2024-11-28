@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:59:57 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/11/16 16:26:40 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/29 00:29:34 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ typedef struct s_mode
 	int				fd_childs[2];
 	int				d_change;
 	char			*name_list[1000];
+	int				allow;
 }					t_mode;
 
 // -- main -- //

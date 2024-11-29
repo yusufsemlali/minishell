@@ -23,8 +23,7 @@ typedef struct s_token
 	int				type;
 	int				index;
 	int				read;
-	int				double_q;
-	int				single_q;
+	int				quote;
 	int				fd;
 	struct s_token	*next;
 	struct s_token	*prev;
@@ -74,6 +73,9 @@ void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 char				*ft_strnstr(const char *h, const char *n, size_t l);
 char				*ft_strjoin(char *s1, char *s2);
+char				toggle(unsigned int i, char c);
+size_t				ft_count_words(const char *s, char c);
+void				ft_charneg(char *arr, size_t index);
 char				*ft_itoa(int n);
 int					get_num_len(long n);
 

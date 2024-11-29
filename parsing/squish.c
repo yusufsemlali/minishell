@@ -23,36 +23,48 @@ void	delete_token(t_shell *shell, t_oken *token)
 	ft_lstdelone(token);
 }
 
-void	delete_pipe_and_empty(t_shell *shell, t_oken **token)
+void	normalize(char *s)
 {
-	t_oken	*to_delete;
-	t_oken	*prev_token;
+	char	*c;
 
-	to_delete = *token;
-	if (to_delete->prev && to_delete->prev->type == PIPE)
+	c = s;
+	if (!s)
+		return ;
+	while (*s)
 	{
-		prev_token = to_delete->prev;
-		delete_token(shell, prev_token);
+		if (*s > 0)
+			*c++ = *s;
+		s++;
 	}
-	prev_token = to_delete->next;
-	delete_token(shell, to_delete);
-	*token = prev_token;
+	*c = '\0';
+}
+
+void	change_cmd_value(t_oken *token)
+{
+	if (token->value)
+		free(token->value);
+	token->value = ft_strdup("''");
 }
 
 void	squish(t_shell *shell)
 {
 	t_oken	*token;
+	t_oken	*next_token;
 
 	token = shell->token;
 	shell->i = 0;
 	while (token)
 	{
+		next_token = token->next;
+		if (token->type == CMD && *token->value == '\0')
+			change_cmd_value(token);
 		if (token->type == EMPTY)
-			delete_pipe_and_empty(shell, &token);
+			delete_token(shell, token);
 		else
 		{
+			normalize(token->value);
 			token->index = shell->i++;
-			token = token->next;
 		}
+		token = next_token;
 	}
 }

@@ -12,6 +12,13 @@
 
 #include "libft.h"
 
+void	ft_charneg(char *arr, size_t index)
+{
+	if (!arr)
+		return ;
+	arr[index] = -arr[index];
+}
+
 char	*ft_strreplace(char *s, int replace, int c)
 {
 	char	*tmp;

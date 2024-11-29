@@ -12,26 +12,18 @@
 
 #include "../includes/minishell.h"
 
-int	check_file(t_tree *tree, char *file_name)
+void	redirect_in(t_shell *shell, int fd, int STD)
 {
-	t_tree		*tmp;
-	struct stat	path_stat;
-
-	tmp = tree->left;
-	while (tmp)
+	if (shell->i_fd)
 	{
-		if (tmp->file_name != NULL && !ft_strcmp(tmp->file_name, file_name))
-			return (1);
-		tmp = tmp->right;
+		dup2(shell->i_fd, STD);
+		close(fd);
 	}
-	if (stat(file_name, &path_stat) == 0)
+	else
 	{
-		if (!S_ISREG(path_stat.st_mode))
-			return (0);
-		else
-			return (1);
+		shell->i_fd = fd;
+		dup2(fd, STD);
 	}
-	return (0);
 }
 
 void	ft_exec_rederect_in(t_shell *shell)
@@ -41,15 +33,14 @@ void	ft_exec_rederect_in(t_shell *shell)
 	t_tree	*tmp;
 
 	stdin_copy = dup(STDIN);
-	if (check_file(shell->tree, shell->tree->file_name))
-		fd = open(shell->tree->file_name, O_RDWR | O_CREAT, 0644);
-	else
+	fd = open(shell->tree->file_name, O_RDWR | O_CREAT, 0644);
+	if (fd < 0)
 	{
 		print_err(shell->tree->file_name, 1);
 		g_modes.exit_mode = 1;
 		return ;
 	}
-	redirect_output(shell, fd, 0);
+	redirect_in(shell, fd, 0);
 	tmp = shell->tree;
 	shell->tree = shell->tree->left;
 	executing(shell);

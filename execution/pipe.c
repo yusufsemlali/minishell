@@ -19,6 +19,7 @@ void	child_2(t_shell *shell, int fd[])
 
 	g_modes.allow = 0;
 	tmp = shell->tree;
+	g_modes.allow = 1;
 	stdin_copy = dup(STDIN);
 	close(fd[1]);
 	dup2(fd[0], STDIN);
@@ -38,6 +39,7 @@ void	child_process(int fd[], t_shell *shell)
 
 	g_modes.allow = 0;
 	tmp = shell->tree;
+	g_modes.allow = 1;
 	stdout_copy = dup(STDOUT);
 	close(fd[0]);
 	dup2(fd[1], STDOUT);

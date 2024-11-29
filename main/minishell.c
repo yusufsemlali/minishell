@@ -5,7 +5,6 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 16:58:53 by ysemlali          #+#    #+#             */
 /*   Updated: 2024/11/29 00:32:05 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -42,6 +41,7 @@ void	reset(t_shell *shell)
 	shell->err = 0;
 	shell->begin = 0;
 	shell->status = 0;
+	shell->r_fd = 0;
 	shell->end = 0;
 	g_modes.has_pipe = 0;
 	g_modes.input_mode = 0;
@@ -53,6 +53,7 @@ void	reset(t_shell *shell)
 	g_modes.pid = 0;
 	g_modes.d_change = 0;
 	g_modes.allow = 1;
+	shell->i_fd = 0;
 	shell->s = NULL;
 }
 
@@ -69,7 +70,6 @@ int	main(const int ac, char **av, char **nv)
 	{
 		reset(shell);
 		parse(shell);
-		shell->r_fd = 0;
 		if (shell->err == 0 && shell->token)
 			minishell(shell);
 	}

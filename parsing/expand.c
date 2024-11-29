@@ -3,11 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
-/*                                                 +#+#+#+#+#+  
-	+#+           */
-/*   Created: 2024/11/06 16:07:02 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/11/12 20:39:32 by aclakhda         ###   ########.fr       */
+/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/20 09:21:20 by ysemlali          #+#    #+#             */
+/*   Updated: 2024/11/20 09:21:21 by ysemlali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +41,54 @@ int	get_variable_size(char *s, t_env *nv)
 	return (len);
 }
 
-int	basic_env(char *s, char *buf)
+int	normal_expansion(char *s, t_env *nv, char *buf)
+{
+	char	env[1024];
+	char	c[2];
+	char	*tmp;
+
+	c[0] = -40;
+	c[1] = '\0';
+	ft_strlcpy(env, s + 1, ft_strcspn(s + 1, "$ =\'\"\t\f\v\r/") + 1);
+	if (get_env(nv, env) == NULL)
+		ft_strlcat(buf, c, BUFFER_SML);
+	else
+	{
+		tmp = get_env(nv, env);
+		if (ft_strchr(tmp, '\'') != NULL || ft_strchr(tmp, '\"') != NULL)
+		{
+			ft_strlcat(buf, "\"", BUFFER_SML);
+			ft_strlcat(buf, tmp, BUFFER_SML);
+			ft_strlcat(buf, "\"", BUFFER_SML);
+		}
+		else
+			ft_strlcat(buf, tmp, BUFFER_SML);
+	}
+	return (ft_strlen(env) + 1);
+}
+
+int	redirection_expansion(char *s, t_env *nv, char *buf)
+{
+	char	env[1024];
+	char	*d;
+
+	d = "$ =\'\"\t\f\v\r/";
+	ft_strlcpy(env, s + 1, ft_strcspn(s + 1, d) + 1);
+	if (*s == -100 && get_env(nv, env) == NULL)
+		ft_strlcat(buf, s, ft_strcspn(s + 1, d) + ft_strlen(buf) + 2);
+	if (*s == -100 && get_env(nv, env) != NULL)
+	{
+		if (ft_count_words(get_env(nv, env), ' ') != 1)
+			ft_strlcat(buf, s, (ft_strcspn(s + 1, d) + ft_strlen(buf) + 2));
+		else
+			ft_strlcat(buf, get_env(nv, env), BUFFER_SML);
+	}
+	if (*s == -99)
+		ft_strlcat(buf, s, (ft_strcspn(s + 1, d) + ft_strlen(buf) + 2));
+	return (ft_strlen(env) + 1);
+}
+
+int	get_variables(char *s, char *buf, t_env *nv)
 {
 	char	*tmp;
 
@@ -59,71 +105,26 @@ int	basic_env(char *s, char *buf)
 		return (ft_strlcat(buf, "minishell", BUFFER_SML), 2);
 	if (*s == '$' && (ft_isspace(*(s + 1)) || *(s + 1) == '\0'))
 		return (ft_strlcat(buf, "$", BUFFER_SML), 1);
-	return (0);
-}
-
-int	get_variables(char *s, char *buf, t_env *nv, int prev)
-{
-	char	env[1024];
-	int		i;
-
-	i = basic_env(s, buf);
-	if (i != 0)
-		return (i);
 	if (*s == '$' && !ft_isspace(*(s + 1)) && *(s + 1) != '/')
-	{
-		ft_strlcpy(env, s + 1, ft_strcspn(s + 1, "$ =\'\"\t\f\v\r/") + 1);
-		if (get_env(nv, env) == NULL && (prev == HEREDOC || prev == INPUT
-				|| prev == OUTPUT || prev == APPEND))
-		{
-			ft_strlcat(buf, "$", BUFFER_SML);
-			ft_strlcat(buf, env, BUFFER_SML);
-		}
-		ft_strlcat(buf, get_env(nv, env), BUFFER_SML);
-		return (ft_strlen(env) + 1);
-	}
+		return (normal_expansion(s, nv, buf));
+	if ((*s == -99 || *s == -100) && !ft_isspace(*(s + 1)) && *(s + 1) != '/')
+		return (redirection_expansion(s, nv, buf));
 	return (ft_strlcat(buf, s, ft_strlen(buf) + 2), 1);
-}
-
-char	*expanding(char *s, t_oken *prev, t_env *nv)
-{
-	char	*buf;
-
-	buf = ft_calloc(get_variable_size(s, nv) + 2, 1);
-	if (buf)
-	{
-		while (*s)
-		{
-			if (prev)
-				s += get_variables(s, buf, nv, prev->type);
-			else
-				s += get_variables(s, buf, nv, -1);
-		}
-	}
-	return (buf);
 }
 
 void	expand(t_shell *shell)
 {
-	t_oken	*token;
-	char	*new;
+	char	*buf;
+	char	*s;
 
-	token = shell->token;
-	while (token)
+	s = shell->s;
+	buf = ft_calloc(get_variable_size(s, shell->nv) + 2, 1);
+	if (buf)
 	{
-		token->type = t_type(token->value, token->prev);
-		if (ft_strchr(token->value, '$'))
-		{
-			new = expanding(token->value, token->prev, shell->nv);
-			if (new)
-			{
-				if (*new == '\0' && token->type != MPT)
-					token->type = EMPTY;
-				free(token->value);
-				token->value = new;
-			}
-		}
-		token->value = quotes(ft_strreplace(token->value, - '$', '$'));
-		token = token->next;
+		while (*s)
+			s += get_variables(s, buf, shell->nv);
+		free(shell->s);
+		shell->s = ft_strmapi(buf, toggle);
+		free(buf);
 	}
 }

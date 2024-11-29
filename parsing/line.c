@@ -72,6 +72,23 @@ int	space(char *new, char *s, int *i)
 	return (ft_strlen(buf));
 }
 
+int	expand_case(char *new, char *s, int *index)
+{
+	int	i;
+
+	i = *index;
+	while (i > 0 && (ft_isspace(s[i - 1]) || inquotes(s, i, 1)))
+		i--;
+	if (s[i - 1] == '<' && s[i - 2] == '<')
+		*new = -99;
+	else if (s[i - 1] == '>' || s[i - 1] == '<')
+		*new = -100;
+	else
+		*new = '$';
+	*index += 1;
+	return (1);
+}
+
 void	spacing(t_shell *shell)
 {
 	char	*new;
@@ -89,7 +106,9 @@ void	spacing(t_shell *shell)
 		{
 			if ((s[i] == '$' && inquotes(s, i, 2)))
 				*new ++ = -s[i++];
-			if (metachar(s[i]) && !inquotes(s, i, 0))
+			else if (s[i] == '$' && !inquotes(s, i, 2))
+				new += expand_case(new, s, &i);
+			else if (metachar(s[i]) && !inquotes(s, i, 0))
 				new += space(new, s, &i);
 			else
 				*new ++ = s[i++];

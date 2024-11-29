@@ -36,11 +36,11 @@ int	closed_checker(t_shell *shell, char *s)
 	return (1);
 }
 
-char	*prompt(t_shell *shell, char *pwd, char *home)
+char	*prompt(char *pwd, char *home)
 {
 	static char	prompt[BUFFER_SML];
 
-	pwd = get_env(shell->nv, pwd);
+	pwd = getcwd(NULL, PATH_MAX);
 	home = getenv(home);
 	ft_bzero(prompt, BUFFER_SML);
 	ft_strlcat(prompt, COLOR_GREEN, BUFFER_SML);
@@ -58,12 +58,12 @@ char	*prompt(t_shell *shell, char *pwd, char *home)
 		ft_strlcat(prompt, pwd, BUFFER_SML);
 	ft_strlcat(prompt, COLOR_RESET, BUFFER_SML);
 	ft_strlcat(prompt, "$ ", BUFFER_SML);
-	return (prompt);
+	return (free(pwd), prompt);
 }
 
 void	parse(t_shell *shell)
 {
-	shell->s = readline(prompt(shell, "PWD", "HOME"));
+	shell->s = readline(prompt("PWD", "HOME"));
 	if (error(shell->s, shell))
 		return ;
 	add_history(shell->s);
@@ -71,8 +71,8 @@ void	parse(t_shell *shell)
 	if (closed_checker(shell, shell->s))
 	{
 		spacing(shell);
-		lexer(shell);
 		expand(shell);
+		lexer(shell);
 		valid(shell);
 		squish(shell);
 	}

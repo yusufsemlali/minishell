@@ -26,7 +26,8 @@ void	free_herdoc(t_herdoc *herdoc)
 		}
 		free(herdoc->line);
 		free(herdoc);
-		unlinker();
+		if (!g_modes.allow)
+			unlinker();
 		herdoc = NULL;
 	}
 }

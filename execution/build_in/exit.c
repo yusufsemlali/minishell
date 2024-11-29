@@ -19,7 +19,8 @@ void	unlinker(void)
 	i = 0;
 	while (g_modes.name_list[i])
 	{
-		unlink(g_modes.name_list[i]);
+		if (g_modes.allow)
+			unlink(g_modes.name_list[i]);
 		free(g_modes.name_list[i]);
 		i++;
 	}

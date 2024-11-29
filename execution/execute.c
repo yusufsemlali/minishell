@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:12:59 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/21 23:23:46 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/29 00:29:21 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,7 @@ int	execute(t_shell *shell)
 	ft_free_tree(shell->tree);
 	if (shell->fd)
 		close(shell->fd);
+	if (shell->r_fd)
+		close(shell->r_fd);
 	return (0);
 }

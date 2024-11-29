@@ -5,8 +5,7 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 16:58:53 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/11/21 23:25:25 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/11/29 00:32:05 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +51,8 @@ void	reset(t_shell *shell)
 	g_modes.pipe_count = 0;
 	g_modes.pid2 = 0;
 	g_modes.pid = 0;
-	g_modes.allow = 0;
 	g_modes.d_change = 0;
+	g_modes.allow = 1;
 	shell->i_fd = 0;
 	shell->s = NULL;
 }

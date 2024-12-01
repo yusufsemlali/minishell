@@ -101,14 +101,16 @@ void	process_heredoc(t_shell *shell)
 			else
 			{
 				g_modes.exit_mode = 0;
-				free_all_shell(shell, 0);//to do : leaks mazalin hna kinda 2- check the error of file getting delliting <:
-			}
+				free_all_shell(shell, 0);
+      }
 		}
 	}
 	if (!shell->herdoc->herdoc || g_modes.herdoc_mode != CTRL_C)
 		g_modes.exit_mode = 0;
-	free_all_shell(shell, 0);//alsooo hereee kinda
+	free_all_shell(shell, 0);
 }
+
+
 
 void	ft_exec_rederect_herd(t_shell *shell, int j)
 {
@@ -120,7 +122,7 @@ void	ft_exec_rederect_herd(t_shell *shell, int j)
 		g_modes.pid = fork();
 		if (g_modes.pid == 0)
 		{
-			signal(SIGINT, SIG_DFL);
+			signal(SIGINT, heredoc_signals);
 			g_modes.allow = 0;
 			process_heredoc(shell);
 		}

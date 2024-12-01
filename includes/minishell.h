@@ -173,6 +173,7 @@ int					error(void *ptr, t_shell *shell);
 char				*var(char *s, t_env *nv);
 char				*get_next_line(int fd);
 void				handle_signals(int sig);
+void        heredoc_signals(int sig);
 // -- parsing -- //
 void				parse(t_shell *shell);
 void				spacing(t_shell *shell);

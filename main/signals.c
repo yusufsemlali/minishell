@@ -32,3 +32,16 @@ void	handle_signals(int sig)
 		}
 	}
 }
+
+void        heredoc_signals(int sig)
+{
+  if (sig == SIGINT)
+  {
+    close(STDIN_FILENO);
+		g_modes.herdoc_mode = CTRL_C;
+    g_modes.exit_mode = CTRL_C;
+  }
+}
+
+
+

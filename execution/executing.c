@@ -47,15 +47,9 @@ void	wait_for_child_process(void)
 		g_modes.exit_mode = 127;
 	else
 	{
-		if (WIFEXITED(g_modes.exit_mode))
-			g_modes.exit_mode = WEXITSTATUS(g_modes.exit_mode);
-		else
-		{
-			if (g_modes.exit_mode == 0)
-				g_modes.exit_mode = 1;
-			else
-				g_modes.exit_mode = CTRL_C;
-		}
+		handle_child_termination(g_modes.exit_mode);
+		if (g_modes.exit_mode == 0)
+			g_modes.exit_mode = 1;
 	}
 }
 
@@ -70,7 +64,10 @@ void	ft_exec_bin(t_shell *shell)
 		return ;
 	}
 	if (g_modes.pid == 0)
+	{
+		signal(SIGQUIT, SIG_DFL);
 		exec_child_process(shell, &var);
+	}
 	else
 		wait_for_child_process();
 }

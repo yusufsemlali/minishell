@@ -56,7 +56,10 @@ void	handle_child_process(int fd[], t_shell *shell)
 {
 	g_modes.pid = fork();
 	if (g_modes.pid == 0)
+	{
+		signal(SIGQUIT, SIG_DFL);
 		child_process(fd, shell);
+	}
 }
 
 void	handle_child_2_process(int fd[], t_shell *shell)
@@ -68,15 +71,15 @@ void	handle_child_2_process(int fd[], t_shell *shell)
 	status = 0;
 	g_modes.pid2 = fork();
 	if (g_modes.pid2 == 0)
+	{
+		signal(SIGQUIT, SIG_DFL);
 		child_2(shell, fd);
+	}
 	waitpid(g_modes.pid, &bocchi, 0);
 	close(fd[1]);
 	waitpid(g_modes.pid2, &status, 0);
 	close(fd[0]);
-	if (WIFEXITED(status))
-		g_modes.exit_mode = WEXITSTATUS(status);
-	else
-		g_modes.exit_mode = CTRL_C;
+	handle_child_termination(status);
 }
 
 void	ft_pipe(t_shell *shell)

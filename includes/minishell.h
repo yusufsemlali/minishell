@@ -15,6 +15,8 @@
 
 # include "../libft/libft.h"
 # include <fcntl.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 # include <signal.h>
 # include <stddef.h>
 # include <stdio.h>
@@ -25,8 +27,6 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 
 # define ARGS 0    // arguments
 # define PIPE 1    // "|"
@@ -54,18 +54,30 @@
 # define ERR_SIGFAULT 139  // segmentation fault
 # define CMD_NOT_FOUND 127 // comand not found
 
+typedef enum
+{
+	W_EXITSTATUS,
+	W_TERMSIG,
+	W_STOPSIG,
+	W_IFEXITED,
+	W_IFSIGNALED,
+	W_IFSTOPPED,
+	W_IFCONTINUED,
+	W_COREDUMP,
+}					StatusType;
+
 // error custom
 # define ERR_SYNTAX 258 // syntax error
 
-# define BUFFER_SML 40960    // 40KB
+# define BUFFER_SML 40960 // 40KB
 # define BUFFER_BIG 10485760 // 10MB
 # define CMD_MAX_LENGTH 1024
 
 // ANSI color codes for ayu dark theme
-# define COLOR_BLUE "\033[0;34m"  // Blue
+# define COLOR_BLUE "\033[0;34m" // Blue
 # define COLOR_GREEN "\033[0;92m" // Bright green
-# define COLOR_RED "\033[0;91m"   // Bright red
-# define COLOR_RESET "\033[0m"    // Reset color
+# define COLOR_RED "\033[0;91m" // Bright red
+# define COLOR_RESET "\033[0m" // Reset color
 # define BOLD_ON "\e[1m"
 # define BOLD_OFF "\e[m"
 
@@ -173,7 +185,7 @@ int					error(void *ptr, t_shell *shell);
 char				*var(char *s, t_env *nv);
 char				*get_next_line(int fd);
 void				handle_signals(int sig);
-void        heredoc_signals(int sig);
+void				heredoc_signals(int sig);
 // -- parsing -- //
 void				parse(t_shell *shell);
 void				spacing(t_shell *shell);
@@ -299,6 +311,7 @@ void				export(t_shell *shell);
 void				unset(t_shell *shell);
 int					creat_fd_2(char *file_name, int i);
 void				nothing(t_oken *t);
+void				handle_child_termination(int status);
 
 extern t_mode		g_modes;
 #endif

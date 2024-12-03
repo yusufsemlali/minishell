@@ -102,15 +102,13 @@ void	process_heredoc(t_shell *shell)
 			{
 				g_modes.exit_mode = 0;
 				free_all_shell(shell, 0);
-      }
+			}
 		}
 	}
 	if (!shell->herdoc->herdoc || g_modes.herdoc_mode != CTRL_C)
 		g_modes.exit_mode = 0;
 	free_all_shell(shell, 0);
 }
-
-
 
 void	ft_exec_rederect_herd(t_shell *shell, int j)
 {

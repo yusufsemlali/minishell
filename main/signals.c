@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysemlali <ysemlali@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 23:07:26 by ysemlali          #+#    #+#             */
-/*   Updated: 2024/11/04 16:58:28 by ysemlali         ###   ########.fr       */
+/*   Updated: 2024/12/02 20:53:16 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ void	handle_signals(int sig)
 
 void        heredoc_signals(int sig)
 {
-  if (sig == SIGINT)
-  {
-    close(STDIN_FILENO);
+	if (sig == SIGINT)
+	{
+		close(STDIN_FILENO);
 		g_modes.herdoc_mode = CTRL_C;
-    g_modes.exit_mode = CTRL_C;
-  }
+		g_modes.exit_mode = CTRL_C;
+	}
 }
 
 

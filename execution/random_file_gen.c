@@ -21,7 +21,7 @@ int	creat_fd_2(char *file_name, int i)
 		fd = open(file_name, O_RDWR | O_CREAT | O_APPEND, 0644);
 		if (fd < 0)
 		{
-			print_err(file_name, 1);
+			open_error(file_name);
 			g_modes.exit_mode = 1;
 			return (-1);
 		}
@@ -31,7 +31,7 @@ int	creat_fd_2(char *file_name, int i)
 		fd = open_file_for_writing(file_name);
 		if (fd < 0)
 		{
-			print_err(file_name, 1);
+			open_error(file_name);
 			g_modes.exit_mode = 1;
 			return (-1);
 		}

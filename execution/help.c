@@ -49,35 +49,6 @@ int	check_directory(t_var *var, t_shell *shell)
 	return (0);
 }
 
-void	print_err(char *str, int i)
-{
-	char	buf[BUFFER_SML];
-
-	ft_bzero(buf, BUFFER_SML);
-	ft_strlcat(buf, "minishell: ", BUFFER_SML);
-	if (i == 1)
-	{
-		ft_strlcat(buf, str, BUFFER_SML);
-		ft_strlcat(buf, ": No such file or directory\n", BUFFER_SML);
-	}
-	else if (i == 0)
-	{
-		ft_strlcat(buf, str, BUFFER_SML);
-		ft_strlcat(buf, ": Is a directory\n", BUFFER_SML);
-	}
-	else if (i == 2)
-	{
-		ft_strlcat(buf, str, BUFFER_SML);
-		ft_strlcat(buf, " ambigguous redirect\n", BUFFER_SML);
-	}
-	else
-	{
-		ft_strlcat(buf, str, BUFFER_SML);
-		ft_strlcat(buf, ": Permission denied\n", BUFFER_SML);
-	}
-	ft_putstr_fd(buf, STDERR);
-}
-
 int	is_space(char c)
 {
 	return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'

@@ -45,7 +45,7 @@ int	ambig(t_oken *tmp)
 {
 	if (ft_strncmp(tmp->next->value, "$", 1) == 0)
 	{
-		print_err(tmp->next->value, 2);
+		ambiguous_error(tmp->next->value);
 		g_modes.exit_mode = 1;
 		return (1);
 	}

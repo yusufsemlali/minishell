@@ -40,19 +40,6 @@ void	exec_child_process(t_shell *shell, t_var *var)
 	}
 }
 
-void	wait_for_child_process(void)
-{
-	waitpid(g_modes.pid, &g_modes.exit_mode, 0);
-	if (g_modes.exit_mode == 10752)
-		g_modes.exit_mode = 127;
-	else
-	{
-		handle_child_termination(g_modes.exit_mode);
-		if (g_modes.exit_mode == 0)
-			g_modes.exit_mode = 1;
-	}
-}
-
 void	ft_exec_bin(t_shell *shell)
 {
 	t_var	var;
@@ -69,7 +56,10 @@ void	ft_exec_bin(t_shell *shell)
 		exec_child_process(shell, &var);
 	}
 	else
-		wait_for_child_process();
+	{
+		waitpid(g_modes.pid, &g_modes.exit_mode, 0);
+		handle_child_termination(g_modes.exit_mode);
+	}
 }
 
 void	ft_exec_cmd(t_shell *shell)

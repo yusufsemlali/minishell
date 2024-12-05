@@ -15,8 +15,6 @@
 
 # include "../libft/libft.h"
 # include <fcntl.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 # include <signal.h>
 # include <stddef.h>
 # include <stdio.h>
@@ -27,6 +25,8 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 
 # define ARGS 0    // arguments
 # define PIPE 1    // "|"
@@ -53,18 +53,6 @@
 # define ERR_EXECUTE 126   // command invoked cannot execute
 # define ERR_SIGFAULT 139  // segmentation fault
 # define CMD_NOT_FOUND 127 // comand not found
-
-typedef enum
-{
-	W_EXITSTATUS,
-	W_TERMSIG,
-	W_STOPSIG,
-	W_IFEXITED,
-	W_IFSIGNALED,
-	W_IFSTOPPED,
-	W_IFCONTINUED,
-	W_COREDUMP,
-}					StatusType;
 
 // error custom
 # define ERR_SYNTAX 258 // syntax error
@@ -283,7 +271,6 @@ char				**av_m(t_shell *shell);
 int					already_exist(char *key, t_shell *shell);
 void				free_keys(char *key, char *value);
 int					type_check(t_tree *tree);
-void				print_err(char *str, int i);
 int					check_directory(t_var *var, t_shell *shell);
 int					is_space(char c);
 char				*random_name_gen(void);
@@ -312,6 +299,9 @@ void				unset(t_shell *shell);
 int					creat_fd_2(char *file_name, int i);
 void				nothing(t_oken *t);
 void				handle_child_termination(int status);
+void				ambiguous_error(char *str);
+void				print_err(char *str, int i);
+void				open_error(char *str);
 
 extern t_mode		g_modes;
 #endif

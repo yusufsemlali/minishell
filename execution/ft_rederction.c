@@ -21,7 +21,7 @@ void	ft_continue_rederect_herd(t_shell *shell)
 	fd = open(g_modes.name_list[shell->tree->fd - 3], O_RDWR);
 	if (fd < 0)
 	{
-		print_err(NULL, 1);
+		open_error(NULL);
 		g_modes.exit_mode = 1;
 		return ;
 	}
@@ -118,6 +118,8 @@ void	ft_exec_rederect_herd(t_shell *shell, int j)
 	if (j)
 	{
 		g_modes.pid = fork();
+    if(g_modes.pid == -1)
+      perror("fork");
 		if (g_modes.pid == 0)
 		{
 			signal(SIGINT, heredoc_signals);

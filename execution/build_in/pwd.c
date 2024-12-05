@@ -33,6 +33,6 @@ void	pwd(t_shell *shell)
 
 void	nothing(t_oken *t)
 {
-	print_err(t->next->value, 1);
+	open_error(t->next->value);
 	g_modes.exit_mode = 1;
 }

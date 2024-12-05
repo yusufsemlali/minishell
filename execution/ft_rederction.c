@@ -118,8 +118,6 @@ void	ft_exec_rederect_herd(t_shell *shell, int j)
 	if (j)
 	{
 		g_modes.pid = fork();
-    if(g_modes.pid == -1)
-      perror("fork");
 		if (g_modes.pid == 0)
 		{
 			signal(SIGINT, heredoc_signals);

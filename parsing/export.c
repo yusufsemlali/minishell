@@ -18,7 +18,7 @@ void	write_error(char *s, t_shell *shell)
 	ft_putstr_fd(s, 2);
 	ft_putendl_fd("': not a valid identifier", 2);
 	shell->d_change = 1;
-	g_modes.exit_mode = 1;
+	exit_mode = 1;
 }
 
 int	valid_plus(char current, char next)

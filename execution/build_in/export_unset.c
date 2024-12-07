@@ -108,7 +108,7 @@ void	unset(t_shell *shell)
 	int		i;
 
 	i = 0;
-	g_modes.exit_mode = 0;
+	exit_mode = 0;
 	if (create_arr(arr, shell))
 		return ;
 	while (arr[i])

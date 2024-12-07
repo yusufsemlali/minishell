@@ -12,12 +12,6 @@
 
 #include "../includes/minishell.h"
 
-void	init_g_modes(void)
-{
-	g_modes.exit_mode = 0;
-	g_modes.herdoc = NULL;
-}
-
 char	*get_value(char *key)
 {
 	char	*value;
@@ -74,7 +68,6 @@ void	init(t_shell **shell, int ac, char **av, char **nv)
 	(void)av;
 	*shell = ft_calloc(1, sizeof(t_shell));
 	(*shell)->status = 0;
-	init_g_modes();
 	if (nv == NULL)
 		init_basic_env(shell, basic);
 	else

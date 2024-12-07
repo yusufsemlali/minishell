@@ -20,7 +20,7 @@ char	**av_m(t_shell *shell)
 	if (!av)
 	{
 		perror("malloc");
-		g_modes.exit_mode = EXIT_FAILURE;
+		exit_mode = EXIT_FAILURE;
 		free_all_shell(shell, 0);
 	}
 	av[0] = "/bin/sh";

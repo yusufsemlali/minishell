@@ -123,7 +123,6 @@ typedef struct s_shell
 	int				d_change;
 	int				has_pipe;
   int       pipe_count;
-	int				fd_childs[2];
 	char			*name_list[1000];
 	int				allow;
 }					t_shell;
@@ -155,14 +154,6 @@ typedef struct s_var
 }					t_var;
 
 
-typedef struct s_mode
-{
-	int				exit_mode;
-	t_herdoc		*herdoc;
-	int				fd_childs[2];
-	char			*name_list[1000];
-	/*int				allow;*/
-}					t_mode;
 
 // -- main -- //
 void				init(t_shell **shell, int ac, char **av, char **nv);
@@ -269,10 +260,9 @@ int					check_directory(t_var *var, t_shell *shell);
 int					is_space(char c);
 char				*random_name_gen(void);
 void				unlinker(t_shell *shell);
-int					creat_fd(int range, int reset);
 void				set_file(t_shell *shell);
 void				_reset(t_oken *token);
-int					set_up_file_name(int range);
+int					set_up_file_name(t_shell *shell,int range);
 int					check_is_dir_path(char *path);
 void				for_norminet(t_var *var, t_shell *shell);
 int					isnt_red(int type, int i);
@@ -308,6 +298,11 @@ t_tree	*create_tree(t_shell  *shell , t_oken *tokens);
 t_tree	*creat_tree_red(t_shell * shell, t_oken *tokens, t_oken *last_r_pip);
 void	handle_right_subtree(t_shell *shell, t_tree *root, t_oken *last_r_pip);
 t_tree	*create_simple_tree(t_shell *shell, t_oken *tokens);
+int	creat_fd(t_shell *shell, int range, int reset);
 
-extern t_mode		g_modes;
+
+
+
+
+extern int exit_mode;
 #endif

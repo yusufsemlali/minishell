@@ -21,7 +21,7 @@ static int	get_size(char *s, t_env *nv)
 	while (*s)
 	{
 		if (ft_strncmp(s, "$?", 2) == 0)
-			len += get_num_len(g_modes.exit_mode);
+			len += get_num_len(exit_mode);
 		if (ft_strncmp(s, "$$", 2) == 0)
 			len += 2;
 		if (ft_strncmp(s, "$#", 2) == 0 || ft_strncmp(s, "\"$\"", 3) == 0)
@@ -47,7 +47,7 @@ int	get_vars(char *s, char *buf, t_env *nv)
 	char	*tmp;
 
 	if (ft_strncmp(s, "$?", 2) == 0)
-		return (ft_strlcat(buf, (tmp = ft_itoa(g_modes.exit_mode)), BUFFER_SML),
+		return (ft_strlcat(buf, (tmp = ft_itoa(exit_mode)), BUFFER_SML),
 			free(tmp), 2);
 	if (ft_strncmp(s, "$$", 2) == 0)
 		return (ft_strlcat(buf, "$$", BUFFER_SML), 2);

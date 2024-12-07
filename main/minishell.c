@@ -12,8 +12,7 @@
 
 #include "../includes/minishell.h"
 
-t_mode	g_modes;
-int exit_mode;
+int exit_mode = 0;
 
 void	ctrl_c_remove(void)
 {

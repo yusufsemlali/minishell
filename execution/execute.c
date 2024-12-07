@@ -52,7 +52,7 @@ t_herdoc	*set_up(t_oken *token)
 	return (herdoc);
 }
 
-int	set_up_file_name(int range)
+int	set_up_file_name(t_shell * shell,int range)
 {
 	char	*name;
 	int		fd;
@@ -61,8 +61,8 @@ int	set_up_file_name(int range)
 	file_n = random_name_gen();
 	name = ft_strjoin(".", file_n);
 	free(file_n);
-	g_modes.name_list[range] = name;
-	g_modes.name_list[range + 1] = NULL;
+	shell->name_list[range] = name;
+	shell->name_list[range + 1] = NULL;
 	fd = open(name, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	return (fd);
 }

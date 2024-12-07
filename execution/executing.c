@@ -35,7 +35,7 @@ void	exec_child_process(t_shell *shell, t_var *var)
 		var->env = creat_env(shell->nv);
 		if (execve(var->cmd_path, var->av, var->env) == -1)
 		{
-			g_modes.exit_mode = -1;
+			exit_mode = -1;
 		}
 	}
 }
@@ -58,8 +58,8 @@ void	ft_exec_bin(t_shell *shell)
 	else
 	{
     change_signals(1);
-		waitpid(shell->pid, &g_modes.exit_mode, 0);
-		handle_child_termination(g_modes.exit_mode);
+		waitpid(shell->pid, &exit_mode, 0);
+		handle_child_termination(exit_mode);
 	}
 }
 
@@ -68,7 +68,7 @@ void	ft_exec_cmd(t_shell *shell)
 	if (ft_strcmp(shell->tree->op, "echo") == 0)
 	{
 		echo(shell);
-		g_modes.exit_mode = 0;
+		exit_mode = 0;
 	}
 	else if (ft_strcmp(shell->tree->op, "cd") == 0)
 		cd(shell);

@@ -97,9 +97,15 @@ void	process_heredoc(t_shell *shell)
 		else
 		{
 			if (shell->herdoc->line[i + 1])
+      {
+        if(line == NULL && g_modes.herdoc_mode != 130)
+          printf("minishell: warning: here-document delimited by end-of-file\n");
 				i++;
+      }
 			else
 			{
+        if(line == NULL && g_modes.herdoc_mode != 130)
+          printf("minishell: warning: here-document delimited by end-of-file\n");
 				g_modes.exit_mode = 0;
 				free_all_shell(shell, 0);
 			}

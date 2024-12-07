@@ -29,7 +29,7 @@ t_oken	*find_next_token(t_oken *current)
 	return (current);
 }
 
-t_tree	*creat_tree_red(t_oken *tokens, t_oken *last_r_pip)
+t_tree	*creat_tree_red(t_shell * shell, t_oken *tokens, t_oken *last_r_pip)
 {
 	t_tree	*root;
 
@@ -37,8 +37,8 @@ t_tree	*creat_tree_red(t_oken *tokens, t_oken *last_r_pip)
 	if (last_r_pip->next)
 	{
 		root = create_redirection_node(last_r_pip);
-		handle_left_subtree(root, tokens, last_r_pip);
-		handle_right_subtree(root, last_r_pip);
+		handle_left_subtree(shell, root, tokens, last_r_pip);
+		handle_right_subtree(shell, root, last_r_pip);
 	}
 	return (root);
 }
@@ -65,7 +65,7 @@ t_oken	*creat_token_pipe(t_oken *tokens, t_oken *last_red_p)
 	return (tmp2);
 }
 
-t_tree	*creat_tree_pipe(t_oken *tokens, t_oken *last_red_p)
+t_tree	*creat_tree_pipe(t_shell *shell ,t_oken *tokens ,t_oken *last_red_p)
 {
 	t_tree	*root;
 	t_oken	*pipe_left;
@@ -74,14 +74,14 @@ t_tree	*creat_tree_pipe(t_oken *tokens, t_oken *last_red_p)
 	pipe_left = creat_token_pipe(tokens, last_red_p);
 	pipe_right = last_red_p->next;
 	root = NULL;
-	g_modes.pipe_count--;
+	shell->pipe_count--;
 	last_red_p->read = 1;
-	g_modes.has_pipe = 1;
+	shell->has_pipe = 1;
 	root = creat_node(last_red_p, NULL, 0);
 	root->index = last_red_p->index;
 	if (last_red_p->next)
-		root->right = create_tree(pipe_right);
-	root->left = create_tree(pipe_left);
+		root->right = create_tree(shell, pipe_right);
+	root->left = create_tree(shell, pipe_left);
 	ft_free_token(pipe_left);
 	return (root);
 }

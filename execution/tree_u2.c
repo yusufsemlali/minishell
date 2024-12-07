@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-t_oken	*find_last_pipe(t_oken *tokens)
+t_oken	*find_last_pipe(t_shell *shell, t_oken *tokens)
 {
 	t_oken	*current;
 	t_oken	*last_pipe;
@@ -23,7 +23,7 @@ t_oken	*find_last_pipe(t_oken *tokens)
 	{
 		if (current->type == PIPE && current->read == 0)
 			last_pipe = current;
-		else if (!g_modes.pipe_count)
+		else if (!shell->pipe_count)
 			return (NULL);
 		current = current->next;
 	}
@@ -46,11 +46,11 @@ t_oken	*find_last_redirection(t_oken *tokens)
 	return (last_redirection);
 }
 
-t_oken	*last_p_r(t_oken *tokens)
+t_oken	*last_p_r(t_shell *shell,t_oken *tokens)
 {
 	t_oken	*last_redirection_pipe;
 
-	last_redirection_pipe = find_last_pipe(tokens);
+	last_redirection_pipe = find_last_pipe(shell, tokens);
 	if (!last_redirection_pipe)
 		last_redirection_pipe = find_last_redirection(tokens);
 	return (last_redirection_pipe);

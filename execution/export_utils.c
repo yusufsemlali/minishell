@@ -37,7 +37,7 @@ void	process_export_entry(char *entry, t_shell *shell, int *check)
 	int	j;
 
 	j = 0;
-	if (validate(entry))
+	if (validate(entry, shell))
 	{
 		*check = 1;
 		return ;
@@ -48,7 +48,7 @@ void	process_export_entry(char *entry, t_shell *shell, int *check)
 		{
 			*check = 1;
 			extract_and_create_env(entry, j, shell);
-			if (!g_modes.d_change)
+			if (!shell->d_change)
 				g_modes.exit_mode = 0;
 			return ;
 		}

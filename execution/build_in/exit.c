@@ -12,14 +12,14 @@
 
 #include "../../includes/minishell.h"
 
-void	unlinker(void)
+void	unlinker(t_shell *shell)
 {
 	int	i;
 
 	i = 0;
 	while (g_modes.name_list[i])
 	{
-		if (g_modes.allow)
+		if (shell->allow)
 			unlink(g_modes.name_list[i]);
 		free(g_modes.name_list[i]);
 		i++;
@@ -49,7 +49,7 @@ void	free_all_shell(t_shell *shell, int i)
 		g_modes.exit_mode = overfl(g_modes.exit_mode);
 		return ;
 	}
-	free_herdoc(shell->herdoc);
+	free_herdoc(shell,shell->herdoc);
 	ft_free_tree(shell->tree_copy);
 	if (shell->fd)
 		close(shell->fd);
@@ -72,7 +72,7 @@ void	handle_exit_error(t_shell *shell, char *msg, int exit_code)
 
 void	ft_exit(t_shell *shell, int i, int j)
 {
-	if (g_modes.has_pipe)
+	if (shell->has_pipe)
 		return (exit_pipe(shell));
 	if (i)
 		ft_putstr_fd("exit\n", STDERR_FILENO);

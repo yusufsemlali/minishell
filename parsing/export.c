@@ -12,12 +12,12 @@
 
 #include "../includes/minishell.h"
 
-void	write_error(char *s)
+void	write_error(char *s, t_shell *shell)
 {
 	ft_putstr_fd("Minishell: export: `", 2);
 	ft_putstr_fd(s, 2);
 	ft_putendl_fd("': not a valid identifier", 2);
-	g_modes.d_change = 1;
+	shell->d_change = 1;
 	g_modes.exit_mode = 1;
 }
 
@@ -28,14 +28,14 @@ int	valid_plus(char current, char next)
 	return (0);
 }
 
-int	validate(char *s)
+int	validate(char *s, t_shell *shell)
 {
 	char	*tmp;
 
 	tmp = s;
 	if (ft_isdigit(s[0]) || s[0] == '=')
 	{
-		write_error(tmp);
+		write_error(tmp , shell);
 		return (1);
 	}
 	while (*s && *s != '=')
@@ -47,7 +47,7 @@ int	validate(char *s)
 			|| *s == '<' || *s == '>' || *s == '?' || *s == ',' || *s == '.'
 			|| *s == '/' || *s == ' ' || *s == '$' || valid_plus(*s, *(s + 1)))
 		{
-			write_error(tmp);
+			write_error(tmp, shell);
 			return (1);
 		}
 		s++;

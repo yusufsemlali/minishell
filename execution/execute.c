@@ -12,19 +12,19 @@
 
 #include "../includes/minishell.h"
 
-t_tree	*create_tree(t_oken *tokens)
+t_tree	*create_tree(t_shell  *shell , t_oken *tokens)
 {
 	t_oken	*last_redirection_pipe;
 
 	last_redirection_pipe = NULL;
-	last_redirection_pipe = last_p_r(tokens);
+	last_redirection_pipe = last_p_r(shell,tokens);
 	if (last_redirection_pipe && last_redirection_pipe->read == 0
 		&& last_redirection_pipe->type == PIPE)
-		return (creat_tree_pipe(tokens, last_redirection_pipe));
+		return (creat_tree_pipe(shell, tokens, last_redirection_pipe));
 	else if (last_redirection_pipe && last_redirection_pipe->read == 0
 		&& !isnt_red(last_redirection_pipe->type, 1))
-		return (creat_tree_red(tokens, last_redirection_pipe));
-	return (create_simple_tree(tokens));
+		return (creat_tree_red(shell,tokens, last_redirection_pipe));
+	return (create_simple_tree(shell, tokens));
 }
 
 t_herdoc	*set_up(t_oken *token)
@@ -72,16 +72,15 @@ int	execute(t_shell *shell)
 	t_oken	*tmp;
 
 	set_file(shell);
-	g_modes.pipe_count = pipe_count(shell->token);
-	shell->tree = create_tree(shell->token);
+	shell->pipe_count = pipe_count(shell->token);
+	shell->tree = create_tree(shell, shell->token);
 	shell->tree_copy = shell->tree;
 	tmp = shell->token;
 	shell->herdoc = set_up(tmp);
 	if (shell->herdoc != NULL)
 		ft_exec_rederect_herd(shell, 1);
-	if (g_modes.herdoc_mode != CTRL_C)
-		executing(shell);
-	free_herdoc(shell->herdoc);
+	executing(shell);
+	free_herdoc(shell, shell->herdoc);
 	if (shell->fd != 0)
 		close(shell->fd);
 	ft_free_tree(shell->tree);
@@ -91,3 +90,4 @@ int	execute(t_shell *shell)
 		close(shell->r_fd);
 	return (0);
 }
+

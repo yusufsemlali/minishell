@@ -40,27 +40,27 @@ void	redirect_output(t_shell *shell, int fd, int STD)
 	}
 }
 
-void	handle_left_subtree(t_tree *root, t_oken *tokens, t_oken *last_r_pip)
+void	handle_left_subtree(t_shell *shell, t_tree *root, t_oken *tokens, t_oken *last_r_pip)
 {
 	t_oken	*new_token;
 
 	if (last_r_pip->next->next)
 	{
 		new_token = creat_token(tokens, last_r_pip);
-		root->left = create_tree(new_token);
+		root->left = create_tree(shell,new_token);
 		ft_free_token(new_token);
 	}
 	else if (last_r_pip != tokens)
-		root->left = create_tree(tokens);
+		root->left = create_tree(shell,tokens);
 }
 
-void	handle_right_subtree(t_tree *root, t_oken *last_r_pip)
+void	handle_right_subtree(t_shell *shell, t_tree *root, t_oken *last_r_pip)
 {
 	t_oken	*tmp;
 
 	tmp = find_next_token(last_r_pip->next->next);
 	if (last_r_pip->next->next && tmp && tmp->read == 0)
-		root->right = create_tree(tmp);
+		root->right = create_tree(shell,tmp);
 	else
 		root->right = NULL;
 }

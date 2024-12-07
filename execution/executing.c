@@ -44,20 +44,21 @@ void	ft_exec_bin(t_shell *shell)
 {
 	t_var	var;
 
-	g_modes.pid = fork();
-	if (g_modes.pid == -1)
+	shell->pid = fork();
+	if (shell->pid == -1)
 	{
 		perror("fork");
 		return ;
 	}
-	if (g_modes.pid == 0)
+	if (shell->pid == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
 		exec_child_process(shell, &var);
 	}
 	else
 	{
-		waitpid(g_modes.pid, &g_modes.exit_mode, 0);
+    change_signals(1);
+		waitpid(shell->pid, &g_modes.exit_mode, 0);
 		handle_child_termination(g_modes.exit_mode);
 	}
 }

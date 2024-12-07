@@ -17,9 +17,9 @@ void	child_2(t_shell *shell, int fd[])
 	t_tree	*tmp;
 	int		stdin_copy;
 
-	g_modes.allow = 0;
+	shell->allow = 0;
 	tmp = shell->tree;
-	g_modes.allow = 1;
+	shell->allow = 1;
 	stdin_copy = dup(STDIN);
 	close(fd[1]);
 	dup2(fd[0], STDIN);
@@ -37,9 +37,9 @@ void	child_process(int fd[], t_shell *shell)
 	t_tree	*tmp;
 	int		stdout_copy;
 
-	g_modes.allow = 0;
+	shell->allow = 0;
 	tmp = shell->tree;
-	g_modes.allow = 1;
+	shell->allow = 1;
 	stdout_copy = dup(STDOUT);
 	close(fd[0]);
 	dup2(fd[1], STDOUT);
@@ -54,8 +54,8 @@ void	child_process(int fd[], t_shell *shell)
 
 void	handle_child_process(int fd[], t_shell *shell)
 {
-	g_modes.pid = fork();
-	if (g_modes.pid == 0)
+	shell->pid = fork();
+	if (shell->pid == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
 		child_process(fd, shell);
@@ -69,15 +69,15 @@ void	handle_child_2_process(int fd[], t_shell *shell)
 
 	bocchi = 0;
 	status = 0;
-	g_modes.pid2 = fork();
-	if (g_modes.pid2 == 0)
+	shell->pid2 = fork();
+	if (shell->pid2 == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
 		child_2(shell, fd);
 	}
-	waitpid(g_modes.pid, &bocchi, 0);
+	waitpid(shell->pid, &bocchi, 0);
 	close(fd[1]);
-	waitpid(g_modes.pid2, &status, 0);
+	waitpid(shell->pid2, &status, 0);
 	close(fd[0]);
 	handle_child_termination(status);
 }

@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-void	free_herdoc(t_herdoc *herdoc)
+void	free_herdoc(t_shell *shell,t_herdoc *herdoc)
 {
 	int	i;
 
@@ -26,7 +26,7 @@ void	free_herdoc(t_herdoc *herdoc)
 		}
 		free(herdoc->line);
 		free(herdoc);
-		unlinker();
+		unlinker(shell);
 		herdoc = NULL;
 	}
 }

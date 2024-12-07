@@ -12,25 +12,30 @@
 
 #include "../includes/minishell.h"
 
-void	handle_signals(int sig)
+void change_signals(int type)
 {
-	if (sig == SIGINT)
-	{
-		if (g_modes.pid == 0)
-		{
-			ft_putstr_fd("\n", 1);
-			rl_on_new_line();
-			rl_replace_line("", 0);
-			rl_redisplay();
-			g_modes.exit_mode = CTRL_C;
-		}
-		else
-		{
-			ft_putstr_fd("\n", 1);
-			g_modes.exit_mode = CTRL_C;
-			g_modes.herdoc_mode = CTRL_C;
-		}
-	}
+  if(type == 1)
+    signal(SIGINT, run_mode);
+  else if(type == 2)
+      signal(SIGINT, readline_mode);
+}
+
+
+void run_mode(int sig)
+{
+  (void)sig;
+  ft_putstr_fd("\n", 1);
+  g_modes.exit_mode = CTRL_C;
+}
+
+void	readline_mode(int sig)
+{
+  (void)sig;
+  ft_putstr_fd("\n", 1);
+  rl_on_new_line();
+  rl_replace_line("", 0);
+  rl_redisplay();
+  g_modes.exit_mode = CTRL_C;
 }
 
 void	heredoc_signals(int sig)
@@ -38,7 +43,6 @@ void	heredoc_signals(int sig)
 	if (sig == SIGINT)
 	{
 		close(STDIN_FILENO);
-		g_modes.herdoc_mode = CTRL_C;
 		g_modes.exit_mode = CTRL_C;
 	}
 }

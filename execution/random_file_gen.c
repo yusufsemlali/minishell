@@ -22,7 +22,7 @@ int	creat_fd_2(char *file_name, int i)
 		if (fd < 0)
 		{
 			open_error(file_name);
-			exit_mode = 1;
+			g_exit_status = 1;
 			return (-1);
 		}
 	}
@@ -32,7 +32,7 @@ int	creat_fd_2(char *file_name, int i)
 		if (fd < 0)
 		{
 			open_error(file_name);
-			exit_mode = 1;
+			g_exit_status = 1;
 			return (-1);
 		}
 	}

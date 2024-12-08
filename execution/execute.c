@@ -12,18 +12,18 @@
 
 #include "../includes/minishell.h"
 
-t_tree	*create_tree(t_shell  *shell , t_oken *tokens)
+t_tree	*create_tree(t_shell *shell, t_oken *tokens)
 {
 	t_oken	*last_redirection_pipe;
 
 	last_redirection_pipe = NULL;
-	last_redirection_pipe = last_p_r(shell,tokens);
+	last_redirection_pipe = last_p_r(shell, tokens);
 	if (last_redirection_pipe && last_redirection_pipe->read == 0
 		&& last_redirection_pipe->type == PIPE)
 		return (creat_tree_pipe(shell, tokens, last_redirection_pipe));
 	else if (last_redirection_pipe && last_redirection_pipe->read == 0
 		&& !isnt_red(last_redirection_pipe->type, 1))
-		return (creat_tree_red(shell,tokens, last_redirection_pipe));
+		return (creat_tree_red(shell, tokens, last_redirection_pipe));
 	return (create_simple_tree(shell, tokens));
 }
 
@@ -52,7 +52,7 @@ t_herdoc	*set_up(t_oken *token)
 	return (herdoc);
 }
 
-int	set_up_file_name(t_shell * shell,int range)
+int	set_up_file_name(t_shell *shell, int range)
 {
 	char	*name;
 	int		fd;
@@ -90,4 +90,3 @@ int	execute(t_shell *shell)
 		close(shell->r_fd);
 	return (0);
 }
-

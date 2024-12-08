@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-void	free_herdoc(t_shell *shell,t_herdoc *herdoc)
+void	free_herdoc(t_shell *shell, t_herdoc *herdoc)
 {
 	int	i;
 
@@ -41,7 +41,7 @@ void	handle_exec_error(t_var *var, t_shell *shell, int i)
 	if (var->cmd_path)
 		free(var->cmd_path);
 	lazy_free(var->env, env_size(shell->nv));
-	exit(exit_mode);
+	exit(g_exit_status);
 }
 
 int	set(t_oken *token)

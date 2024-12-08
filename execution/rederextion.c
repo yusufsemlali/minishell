@@ -37,7 +37,7 @@ void	ft_exec_rederect_in(t_shell *shell)
 	if (fd < 0)
 	{
 		open_error(shell->tree->file_name);
-		exit_mode = 1;
+		g_exit_status = 1;
 		return ;
 	}
 	redirect_in(shell, fd, 0);
@@ -61,7 +61,7 @@ void	ft_exec_rederect_out(t_shell *shell)
 	if (fd < 0)
 	{
 		open_error(shell->tree->file_name);
-		exit_mode = 1;
+		g_exit_status = 1;
 		return ;
 	}
 	redirect_output(shell, fd, 1);
@@ -85,7 +85,7 @@ void	ft_exec_rederect_out_append(t_shell *shell)
 	if (fd < 0)
 	{
 		open_error(shell->tree->file_name);
-		exit_mode = 1;
+		g_exit_status = 1;
 		return ;
 	}
 	redirect_output(shell, fd, 1);

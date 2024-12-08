@@ -49,7 +49,7 @@ void	process_export_entry(char *entry, t_shell *shell, int *check)
 			*check = 1;
 			extract_and_create_env(entry, j, shell);
 			if (!shell->d_change)
-				exit_mode = 0;
+				g_exit_status = 0;
 			return ;
 		}
 		j++;
@@ -59,7 +59,7 @@ void	process_export_entry(char *entry, t_shell *shell, int *check)
 void	handle_export_error(void)
 {
 	ft_putstr_fd("export : not a valid identifier\n", STDERR);
-	exit_mode = 1;
+	g_exit_status = 1;
 }
 
 void	print_env(t_shell *shell)

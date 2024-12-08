@@ -22,7 +22,7 @@ void	ft_continue_rederect_herd(t_shell *shell)
 	if (fd < 0)
 	{
 		open_error(NULL);
-		exit_mode = 1;
+		g_exit_status = 1;
 		return ;
 	}
 	stdin_copy = dup(STDIN);
@@ -89,7 +89,7 @@ void	process_heredoc(t_shell *shell)
 	i = 0;
 	shell->tmp = shell->token;
 	shell->tmp = next(shell->token, 1);
-	while (shell->herdoc->herdoc && exit_mode != CTRL_C)
+	while (shell->herdoc->herdoc && g_exit_status != CTRL_C)
 	{
 		line = readline("> ");
 		if (line)
@@ -97,23 +97,23 @@ void	process_heredoc(t_shell *shell)
 		else
 		{
 			if (shell->herdoc->line[i + 1])
-      {
-        if(line == NULL && exit_mode != 130)
-          printf("minishell: warning: here-document delimited by end-of-file\n");
+			{
+				if (line == NULL && g_exit_status != 130)
+					printf("minishell: warning: here-document delimited by end-of-file\n");
 				i++;
-      }
+			}
 			else
 			{
-        if(line == NULL && exit_mode != 130)
-          printf("minishell: warning: here-document delimited by end-of-file\n");
-        if(exit_mode != 130)
-          exit_mode = 0;
+				if (line == NULL && g_exit_status != 130)
+					printf("minishell: warning: here-document delimited by end-of-file\n");
+				if (g_exit_status != 130)
+					g_exit_status = 0;
 				free_all_shell(shell, 0);
 			}
 		}
 	}
-	if (!shell->herdoc->herdoc || exit_mode != CTRL_C)
-		exit_mode = 0;
+	if (!shell->herdoc->herdoc || g_exit_status != CTRL_C)
+		g_exit_status = 0;
 	free_all_shell(shell, 0);
 }
 
@@ -132,12 +132,12 @@ void	ft_exec_rederect_herd(t_shell *shell, int j)
 			process_heredoc(shell);
 		}
 		else
-    {
-      change_signals(1);
-      waitpid(shell->pid, &status, 0);
-    }
+		{
+			change_signals(1);
+			waitpid(shell->pid, &status, 0);
+		}
 		if (WIFEXITED(status))
-			exit_mode = WEXITSTATUS(status);
+			g_exit_status = WEXITSTATUS(status);
 	}
 	else
 	{

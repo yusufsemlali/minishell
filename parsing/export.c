@@ -18,7 +18,7 @@ void	write_error(char *s, t_shell *shell)
 	ft_putstr_fd(s, 2);
 	ft_putendl_fd("': not a valid identifier", 2);
 	shell->d_change = 1;
-	exit_mode = 1;
+	g_exit_status = 1;
 }
 
 int	valid_plus(char current, char next)
@@ -35,7 +35,7 @@ int	validate(char *s, t_shell *shell)
 	tmp = s;
 	if (ft_isdigit(s[0]) || s[0] == '=')
 	{
-		write_error(tmp , shell);
+		write_error(tmp, shell);
 		return (1);
 	}
 	while (*s && *s != '=')

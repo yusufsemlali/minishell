@@ -59,7 +59,7 @@ void	init(t_shell **shell, int ac, char **av, char **nv)
 
 	signal(SIGINT, readline_mode);
 	signal(SIGQUIT, SIG_IGN);
-  signal(SIGABRT, SIG_IGN);
+	signal(SIGABRT, SIG_IGN);
 	basic[0] = "PWD";
 	basic[1] = "SHLVL";
 	basic[2] = "_";

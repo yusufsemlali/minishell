@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int exit_mode = 0;
+int		g_exit_status = 0;
 
 void	ctrl_c_remove(void)
 {
@@ -36,7 +36,7 @@ void	free_keys(char *key, char *value)
 
 void	reset(t_shell *shell)
 {
-  change_signals(2);
+	change_signals(2);
 	free(shell->s);
 	ft_lstclear(&shell->token);
 	shell->err = 0;

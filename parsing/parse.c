@@ -32,7 +32,7 @@ int	closed_checker(t_shell *shell, char *s)
 	if (two_open % 2 != 0)
 		ft_putendl_fd("minishell: syntax error near unexpected token `\"'", 2);
 	if (one_open % 2 != 0 || two_open % 2 != 0)
-		return (exit_mode = 127, shell->err = ERR_SYNTAX, 0);
+		return (g_exit_status = 127, shell->err = ERR_SYNTAX, 0);
 	return (1);
 }
 

@@ -46,7 +46,7 @@ t_oken	*find_last_redirection(t_oken *tokens)
 	return (last_redirection);
 }
 
-t_oken	*last_p_r(t_shell *shell,t_oken *tokens)
+t_oken	*last_p_r(t_shell *shell, t_oken *tokens)
 {
 	t_oken	*last_redirection_pipe;
 

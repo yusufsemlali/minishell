@@ -29,7 +29,7 @@ t_oken	*find_next_token(t_oken *current)
 	return (current);
 }
 
-t_tree	*creat_tree_red(t_shell * shell, t_oken *tokens, t_oken *last_r_pip)
+t_tree	*creat_tree_red(t_shell *shell, t_oken *tokens, t_oken *last_r_pip)
 {
 	t_tree	*root;
 
@@ -65,7 +65,7 @@ t_oken	*creat_token_pipe(t_oken *tokens, t_oken *last_red_p)
 	return (tmp2);
 }
 
-t_tree	*creat_tree_pipe(t_shell *shell ,t_oken *tokens ,t_oken *last_red_p)
+t_tree	*creat_tree_pipe(t_shell *shell, t_oken *tokens, t_oken *last_red_p)
 {
 	t_tree	*root;
 	t_oken	*pipe_left;

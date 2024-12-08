@@ -79,9 +79,9 @@ int	expand_case(char *new, char *s, int *index)
 	i = *index;
 	while (i > 0 && (ft_isspace(s[i - 1]) || inquotes(s, i, 1)))
 		i--;
-	if (s[i - 1] == '<' && s[i - 2] == '<')
+	if (i > 0 && (s[i - 1] == '<' && s[i - 2] == '<'))
 		*new = -99;
-	else if (s[i - 1] == '>' || s[i - 1] == '<')
+	else if (i > 0 && (s[i - 1] == '>' || s[i - 1] == '<'))
 		*new = -100;
 	else
 		*new = '$';

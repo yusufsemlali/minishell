@@ -20,7 +20,7 @@ int	error(void *ptr, t_shell *shell)
 		rl_clear_history();
 		shell->end = 1;
 		free_all(shell);
-		exit(exit_mode);
+		exit(g_exit_status);
 	}
 	else if (ft_strncmp(ptr, "", 1) == 0)
 		return (shell->err = 1, 1);

@@ -23,5 +23,5 @@ void	env(t_shell *shell)
 			printf("%s=%s\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
-	exit_mode = 0;
+	g_exit_status = 0;
 }

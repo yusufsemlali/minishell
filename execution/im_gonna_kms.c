@@ -38,7 +38,7 @@ t_tree	*create_simple_tree(t_shell *shell, t_oken *tokens)
 		root->index = tokens->index;
 		if (tokens->next && (tokens->next->type == ARGS
 				|| tokens->next->type == CMD))
-			root->right = create_tree(shell,tokens->next);
+			root->right = create_tree(shell, tokens->next);
 		return (root);
 	}
 	return (NULL);

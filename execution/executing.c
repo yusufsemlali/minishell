@@ -34,9 +34,7 @@ void	exec_child_process(t_shell *shell, t_var *var)
 	{
 		var->env = creat_env(shell->nv);
 		if (execve(var->cmd_path, var->av, var->env) == -1)
-		{
-			g_exit_status = -1;
-		}
+			g_exit_status = 2;
 	}
 }
 

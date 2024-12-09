@@ -21,7 +21,7 @@ void	ft_continue_rederect_herd(t_shell *shell)
 	fd = open(shell->name_list[shell->tree->fd - 3], O_RDWR);
 	if (fd < 0)
 	{
-		open_error(NULL);
+		open_error("achraf error");
 		g_exit_status = 1;
 		return ;
 	}
@@ -110,6 +110,12 @@ void	process_heredoc(t_shell *shell)
 void	ft_exec_rederect_herd(t_shell *shell, int j)
 {
 	shell->status = 0;
+  if(shell->herdoc->herdoc > 17)  
+  {
+    g_exit_status =2;
+    printf("minishell: maximum here-document count exceeded\n");
+    free_all_shell(shell,0);
+  }
 	if (j)
 	{
 		shell->pid = fork();

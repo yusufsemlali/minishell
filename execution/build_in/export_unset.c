@@ -87,6 +87,7 @@ void	export(t_shell *shell)
 	if (create_arr(arr, shell))
 	{
 		print_env(shell);
+    g_exit_status = 0;
 		return ;
 	}
 	tmp.i = 0;

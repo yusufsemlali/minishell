@@ -299,7 +299,7 @@ void				handle_right_subtree(t_shell *shell, t_tree *root,
 						t_oken *last_r_pip);
 t_tree				*create_simple_tree(t_shell *shell, t_oken *tokens);
 int					creat_fd(t_shell *shell, int range, int reset);
-void				heredoc_warning(void);
+void				heredoc_warning(t_shell *shell, int i);
 
 extern int			g_exit_status;
 #endif

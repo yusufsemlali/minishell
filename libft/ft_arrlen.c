@@ -17,12 +17,11 @@ size_t	ft_arrlen(char **s)
 	char	**tmp;
 
 	tmp = s;
-  if(s && *s)
-  {
-
-	while (*tmp)
-		tmp++;
-	return (tmp - s);
-  }
-  return(0);
+	if (s && *s)
+	{
+		while (*tmp)
+			tmp++;
+		return (tmp - s);
+	}
+	return (0);
 }

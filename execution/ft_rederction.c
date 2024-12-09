@@ -97,7 +97,7 @@ void	process_heredoc(t_shell *shell)
 		else
 		{
 			if (g_exit_status != 130)
-				heredoc_warning();
+				heredoc_warning(shell, 0);
 			if (shell->herdoc->line[i + 1])
 				i++;
 			else
@@ -110,12 +110,8 @@ void	process_heredoc(t_shell *shell)
 void	ft_exec_rederect_herd(t_shell *shell, int j)
 {
 	shell->status = 0;
-  if(shell->herdoc->herdoc > 17)  
-  {
-    g_exit_status =2;
-    printf("minishell: maximum here-document count exceeded\n");
-    free_all_shell(shell,0);
-  }
+	if (shell->herdoc->herdoc > 17)
+		heredoc_warning(shell, 1);
 	if (j)
 	{
 		shell->pid = fork();
@@ -130,13 +126,10 @@ void	ft_exec_rederect_herd(t_shell *shell, int j)
 		{
 			change_signals(1);
 			waitpid(shell->pid, &shell->status, 0);
+			if (WIFEXITED(shell->status))
+				g_exit_status = WEXITSTATUS(shell->status);
 		}
-		if (WIFEXITED(shell->status))
-			g_exit_status = WEXITSTATUS(shell->status);
 	}
-	else
-	{
-		if (ft_strcmp(shell->tree->op, "<<") == 0)
-			ft_continue_rederect_herd(shell);
-	}
+	else if (ft_strcmp(shell->tree->op, "<<") == 0)
+		ft_continue_rederect_herd(shell);
 }

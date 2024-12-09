@@ -48,14 +48,23 @@ void	ambiguous_error(char *str)
 	ft_putendl_fd(buf, STDERR);
 }
 
-void	heredoc_warning(void)
+void	heredoc_warning(t_shell *shell, int i)
 {
 	char	buf[ONEKB];
 
-	ft_bzero(buf, ONEKB);
-	ft_strlcat(buf, "warning: here-document ", ONEKB);
-	ft_strlcat(buf, "delimited by end-of-file\n", ONEKB);
-	ft_putstr_fd(buf, STDERR);
+	if (i == 1)
+	{
+		g_exit_status = 2;
+		printf("minishell: maximum here-document count exceeded\n");
+		free_all_shell(shell, 0);
+	}
+	else
+	{
+		ft_bzero(buf, ONEKB);
+		ft_strlcat(buf, "warning: here-document ", ONEKB);
+		ft_strlcat(buf, "delimited by end-of-file\n", ONEKB);
+		ft_putstr_fd(buf, STDERR);
+	}
 }
 
 void	print_err(char *str, int i)

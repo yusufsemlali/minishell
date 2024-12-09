@@ -6,7 +6,7 @@
 /*   By: aclakhda <aclakhda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 00:51:56 by aclakhda          #+#    #+#             */
-/*   Updated: 2024/11/21 21:22:56 by aclakhda         ###   ########.fr       */
+/*   Updated: 2024/12/06 12:58:41 by aclakhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_oken	*creat_token(t_oken *tokens, t_oken *last_redirection)
 	{
 		new = ft_lnew(ft_strdup(current->value), current->type, 0, NULL);
 		new->read = current->read;
+		new->fd = current->fd;
 		ft_lstadd_back(&tmp, new);
 		current = current->next;
 	}
@@ -77,6 +78,7 @@ t_oken	*creat_token(t_oken *tokens, t_oken *last_redirection)
 	{
 		new = ft_lnew(ft_strdup(current->value), current->type, 0, NULL);
 		new->read = current->read;
+		new->fd = current->fd;
 		ft_lstadd_back(&tmp, new);
 		current = current->next;
 	}

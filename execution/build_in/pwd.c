@@ -22,17 +22,17 @@ void	pwd(t_shell *shell)
 	if (!pwd)
 	{
 		perror("getcwd:");
-		g_modes.exit_mode = -1;
+		g_exit_status = -1;
 	}
 	if (pwd)
 	{
 		printf("%s\n", pwd);
-		g_modes.exit_mode = 0;
+		g_exit_status = 0;
 	}
 }
 
 void	nothing(t_oken *t)
 {
 	open_error(t->next->value);
-	g_modes.exit_mode = 1;
+	g_exit_status = 1;
 }

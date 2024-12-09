@@ -29,14 +29,14 @@ void	set_file(t_shell *shell)
 		}
 		if (tmp->type == HEREDOC)
 		{
-			tmp->fd = creat_fd(range, 0);
+			tmp->fd = creat_fd(shell, range, 0);
 		}
 		tmp = tmp->next;
 	}
-	creat_fd(range, 1);
+	creat_fd(shell, range, 1);
 }
 
-int	creat_fd(int range, int reset)
+int	creat_fd(t_shell *shell, int range, int reset)
 {
 	static int	i;
 	static int	fd;
@@ -48,12 +48,12 @@ int	creat_fd(int range, int reset)
 	}
 	else if (!range && !fd)
 	{
-		fd = set_up_file_name(range);
+		fd = set_up_file_name(shell, range);
 		return (fd);
 	}
 	else if (range != i)
 	{
-		fd = set_up_file_name(range);
+		fd = set_up_file_name(shell, range);
 		i = range;
 		return (fd);
 	}
@@ -88,6 +88,6 @@ int	check_is_dir_path(char *path)
 
 void	for_norminet(t_var *var, t_shell *shell)
 {
-	g_modes.exit_mode = 126;
+	g_exit_status = 126;
 	handle_exec_error(var, shell, 0);
 }

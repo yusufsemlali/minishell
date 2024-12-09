@@ -61,14 +61,14 @@ void	cd(t_shell *shell)
 	if (shell->tree->right && shell->tree->right->right)
 	{
 		ft_putstr_fd("cd: too many argument :c\n", 2);
-		g_modes.exit_mode = 1;
+		g_exit_status = 1;
 		return ;
 	}
 	getcwd(past_path, sizeof(past_path));
 	if (getcwd(past_path, sizeof(past_path)) == NULL)
 	{
 		perror("getcwd :");
-		g_modes.exit_mode = 1;
+		g_exit_status = 1;
 		return ;
 	}
 	if (!shell->tree->right || !ft_strcmp(shell->tree->right->op, "~"))
@@ -78,6 +78,6 @@ void	cd(t_shell *shell)
 		av = cmd_maker(shell);
 		change_directory(shell, av[1], av);
 	}
-	if (g_modes.exit_mode == 0)
+	if (g_exit_status == 0)
 		update_paths(shell, past_path);
 }

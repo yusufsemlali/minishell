@@ -12,16 +12,16 @@
 
 #include "../../includes/minishell.h"
 
-void	unlinker(void)
+void	unlinker(t_shell *shell)
 {
 	int	i;
 
 	i = 0;
-	while (g_modes.name_list[i])
+	while (shell->name_list[i])
 	{
-		if (g_modes.allow)
-			unlink(g_modes.name_list[i]);
-		free(g_modes.name_list[i]);
+		if (shell->allow)
+			unlink(shell->name_list[i]);
+		free(shell->name_list[i]);
 		i++;
 	}
 }
@@ -46,15 +46,15 @@ void	free_all_shell(t_shell *shell, int i)
 {
 	if (i)
 	{
-		g_modes.exit_mode = overfl(g_modes.exit_mode);
+		g_exit_status = overfl(g_exit_status);
 		return ;
 	}
-	free_herdoc(shell->herdoc);
+	free_herdoc(shell, shell->herdoc);
 	ft_free_tree(shell->tree_copy);
 	if (shell->fd)
 		close(shell->fd);
 	free_all(shell);
-	exit(g_modes.exit_mode);
+	exit(g_exit_status);
 }
 
 void	handle_exit_error(t_shell *shell, char *msg, int exit_code)
@@ -64,7 +64,7 @@ void	handle_exit_error(t_shell *shell, char *msg, int exit_code)
 	if (exit_code == 2)
 		ft_putstr_fd(": numeric argument required", STDERR_FILENO);
 	ft_putstr_fd("\n", STDERR_FILENO);
-	g_modes.exit_mode = exit_code;
+	g_exit_status = exit_code;
 	if (exit_code == 1)
 		return ;
 	free_all_shell(shell, 0);
@@ -72,20 +72,20 @@ void	handle_exit_error(t_shell *shell, char *msg, int exit_code)
 
 void	ft_exit(t_shell *shell, int i, int j)
 {
-	if (g_modes.has_pipe)
+	if (shell->has_pipe)
 		return (exit_pipe(shell));
 	if (i)
 		ft_putstr_fd("exit\n", STDERR_FILENO);
 	if (shell->tree->right && !ft_strcmp(shell->tree->right->op, "--"))
 	{
-		g_modes.exit_mode = 0;
+		g_exit_status = 0;
 		free_all_shell(shell, 0);
 	}
 	if (shell->tree->right && j)
 	{
 		if (is_numeric(shell->tree->right->op) && !shell->tree->right->right)
 		{
-			g_modes.exit_mode = ft_atoi(shell->tree->right->op);
+			g_exit_status = ft_atoi(shell->tree->right->op);
 			if (ft_atoi(shell->tree->right->op) == LONG_MAX)
 				return (handle_exit_error(shell, shell->tree->right->op, 2));
 		}

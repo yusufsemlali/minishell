@@ -29,7 +29,7 @@ int	check_directory(t_var *var, t_shell *shell)
 		if (var->cmd_path || check_is_dir_path(var->av[0]))
 			return (0);
 		print_err(var->av[0], 1);
-		g_modes.exit_mode = 127;
+		g_exit_status = 127;
 		handle_exec_error(var, shell, 0);
 	}
 	if (S_ISDIR(path_stat.st_mode))

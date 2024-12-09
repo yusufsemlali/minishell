@@ -18,11 +18,11 @@ void	ft_continue_rederect_herd(t_shell *shell)
 	int		stdin_copy;
 	t_tree	*tmp;
 
-	fd = open(g_modes.name_list[shell->tree->fd - 3], O_RDWR);
+	fd = open(shell->name_list[shell->tree->fd - 3], O_RDWR);
 	if (fd < 0)
 	{
 		open_error(NULL);
-		g_modes.exit_mode = 1;
+		g_exit_status = 1;
 		return ;
 	}
 	stdin_copy = dup(STDIN);
@@ -89,51 +89,44 @@ void	process_heredoc(t_shell *shell)
 	i = 0;
 	shell->tmp = shell->token;
 	shell->tmp = next(shell->token, 1);
-	while (shell->herdoc->herdoc && g_modes.herdoc_mode != CTRL_C)
+	while (shell->herdoc->herdoc && g_exit_status != CTRL_C)
 	{
 		line = readline("> ");
 		if (line)
 			handle_heredoc_line(shell, line, &i);
 		else
 		{
+			if (g_exit_status != 130)
+				heredoc_warning();
 			if (shell->herdoc->line[i + 1])
-      {
-        if(line == NULL && g_modes.herdoc_mode != 130)
-          printf("minishell: warning: here-document delimited by end-of-file\n");
 				i++;
-      }
 			else
-			{
-        if(line == NULL && g_modes.herdoc_mode != 130)
-          printf("minishell: warning: here-document delimited by end-of-file\n");
-				g_modes.exit_mode = 0;
 				free_all_shell(shell, 0);
-			}
 		}
 	}
-	if (!shell->herdoc->herdoc || g_modes.herdoc_mode != CTRL_C)
-		g_modes.exit_mode = 0;
 	free_all_shell(shell, 0);
 }
 
 void	ft_exec_rederect_herd(t_shell *shell, int j)
 {
-	int	status;
-
-	status = 0;
+	shell->status = 0;
 	if (j)
 	{
-		g_modes.pid = fork();
-		if (g_modes.pid == 0)
+		shell->pid = fork();
+		if (shell->pid == 0)
 		{
 			signal(SIGINT, heredoc_signals);
-			g_modes.allow = 0;
+			shell->allow = 0;
+			g_exit_status = 0;
 			process_heredoc(shell);
 		}
 		else
-			waitpid(g_modes.pid, &status, 0);
-		if (WIFEXITED(status))
-			g_modes.exit_mode = WEXITSTATUS(status);
+		{
+			change_signals(1);
+			waitpid(shell->pid, &shell->status, 0);
+		}
+		if (WIFEXITED(shell->status))
+			g_exit_status = WEXITSTATUS(shell->status);
 	}
 	else
 	{

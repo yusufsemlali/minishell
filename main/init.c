@@ -12,20 +12,6 @@
 
 #include "../includes/minishell.h"
 
-void	init_g_modes(void)
-{
-	g_modes.input_mode = 0;
-	g_modes.exit_mode = 0;
-	g_modes.output_mode = 0;
-	g_modes.has_pipe = 0;
-	g_modes.herdoc_mode = 0;
-	g_modes.herdoc = NULL;
-	g_modes.pid = 0;
-	g_modes.pid2 = 0;
-	g_modes.pipe_count = 0;
-	g_modes.d_change = 0;
-}
-
 char	*get_value(char *key)
 {
 	char	*value;
@@ -71,8 +57,9 @@ void	init(t_shell **shell, int ac, char **av, char **nv)
 {
 	char	*basic[4];
 
-	signal(SIGINT, handle_signals);
+	signal(SIGINT, readline_mode);
 	signal(SIGQUIT, SIG_IGN);
+	signal(SIGABRT, SIG_IGN);
 	basic[0] = "PWD";
 	basic[1] = "SHLVL";
 	basic[2] = "_";
@@ -81,7 +68,6 @@ void	init(t_shell **shell, int ac, char **av, char **nv)
 	(void)av;
 	*shell = ft_calloc(1, sizeof(t_shell));
 	(*shell)->status = 0;
-	init_g_modes();
 	if (nv == NULL)
 		init_basic_env(shell, basic);
 	else

@@ -12,25 +12,29 @@
 
 #include "../includes/minishell.h"
 
-void	handle_signals(int sig)
+void	change_signals(int type)
 {
-	if (sig == SIGINT)
-	{
-		if (g_modes.pid == 0)
-		{
-			ft_putstr_fd("\n", 1);
-			rl_on_new_line();
-			rl_replace_line("", 0);
-			rl_redisplay();
-			g_modes.exit_mode = CTRL_C;
-		}
-		else
-		{
-			ft_putstr_fd("\n", 1);
-			g_modes.exit_mode = CTRL_C;
-			g_modes.herdoc_mode = CTRL_C;
-		}
-	}
+	if (type == 1)
+		signal(SIGINT, run_mode);
+	else if (type == 2)
+		signal(SIGINT, readline_mode);
+}
+
+void	run_mode(int sig)
+{
+	(void)sig;
+	ft_putstr_fd("\n", 1);
+	g_exit_status = CTRL_C;
+}
+
+void	readline_mode(int sig)
+{
+	(void)sig;
+	ft_putstr_fd("\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+	g_exit_status = CTRL_C;
 }
 
 void	heredoc_signals(int sig)
@@ -38,15 +42,14 @@ void	heredoc_signals(int sig)
 	if (sig == SIGINT)
 	{
 		close(STDIN_FILENO);
-		g_modes.herdoc_mode = CTRL_C;
-		g_modes.exit_mode = CTRL_C;
+		g_exit_status = CTRL_C;
 	}
 }
 
 void	handle_child_termination(int status)
 {
 	if (WEXITSTATUS(status) == 42)
-		g_modes.exit_mode = CMD_NOT_FOUND;
+		g_exit_status = CMD_NOT_FOUND;
 	else if (WIFSIGNALED(status))
 	{
 		if (WTERMSIG(status) == SIGQUIT)
@@ -56,8 +59,8 @@ void	handle_child_termination(int status)
 			else
 				ft_putendl_fd("Quit", STDOUT);
 		}
-		g_modes.exit_mode = 128 + WTERMSIG(status);
+		g_exit_status = 128 + WTERMSIG(status);
 	}
 	else
-		g_modes.exit_mode = WEXITSTATUS(status);
+		g_exit_status = WEXITSTATUS(status);
 }

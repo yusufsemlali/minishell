@@ -15,6 +15,8 @@
 
 # include "../libft/libft.h"
 # include <fcntl.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 # include <signal.h>
 # include <stddef.h>
 # include <stdio.h>
@@ -25,8 +27,6 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 
 # define ARGS 0    // arguments
 # define PIPE 1    // "|"
@@ -57,15 +57,16 @@
 // error custom
 # define ERR_SYNTAX 258 // syntax error
 
-# define BUFFER_SML 40960 // 40KB
+# define ONEKB 1024          // 1KB
+# define BUFFER_SML 40960    // 40KB
 # define BUFFER_BIG 10485760 // 10MB
 # define CMD_MAX_LENGTH 1024
 
 // ANSI color codes for ayu dark theme
-# define COLOR_BLUE "\033[0;34m" // Blue
+# define COLOR_BLUE "\033[0;34m"  // Blue
 # define COLOR_GREEN "\033[0;92m" // Bright green
-# define COLOR_RED "\033[0;91m" // Bright red
-# define COLOR_RESET "\033[0m" // Reset color
+# define COLOR_RED "\033[0;91m"   // Bright red
+# define COLOR_RESET "\033[0m"    // Reset color
 # define BOLD_ON "\e[1m"
 # define BOLD_OFF "\e[m"
 
@@ -118,6 +119,13 @@ typedef struct s_shell
 	char			*export_error;
 	int				st;
 	t_oken			*tmp;
+	pid_t			pid;
+	pid_t			pid2;
+	int				d_change;
+	int				has_pipe;
+	int				pipe_count;
+	char			*name_list[1000];
+	int				allow;
 }					t_shell;
 
 typedef struct s_var
@@ -145,23 +153,6 @@ typedef struct s_var
 	int				area_len;
 }					t_var;
 
-typedef struct s_mode
-{
-	int				input_mode;
-	int				exit_mode;
-	int				output_mode;
-	int				has_pipe;
-	int				herdoc_mode;
-	t_herdoc		*herdoc;
-	pid_t			pid;
-	pid_t			pid2;
-	int				pipe_count;
-	int				fd_childs[2];
-	int				d_change;
-	char			*name_list[1000];
-	int				allow;
-}					t_mode;
-
 // -- main -- //
 void				init(t_shell **shell, int ac, char **av, char **nv);
 void				init_env(t_shell **shell, char **nv);
@@ -179,7 +170,6 @@ void				parse(t_shell *shell);
 void				spacing(t_shell *shell);
 void				lexer(t_shell *shell);
 void				valid(t_shell *shell);
-int					validate(char *s);
 void				expand(t_shell *shell);
 void				token(t_shell *shell, char **str);
 void				squish(t_shell *shell);
@@ -215,14 +205,10 @@ int					is_herd(char *c);
 void				ft_exec_rederect_herd(t_shell *shell, int j);
 void				ft_str_cpy(char *dest, const char *src);
 char				*ft_strncpy(char *dest, char *src, unsigned int n);
-void				free_herdoc(t_herdoc *herdoc);
-t_tree				*create_tree(t_oken *tokens);
-t_tree				*creat_tree_red(t_oken *tokens, t_oken *last_r_pip);
-t_tree				*creat_tree_pipe(t_oken *tokens, t_oken *last_red_p);
-t_tree				*creat_tree_pipe(t_oken *tokens, t_oken *last_red_p);
+void				free_herdoc(t_shell *shell, t_herdoc *herdoc);
 t_oken				*creat_token(t_oken *tokens, t_oken *last_redirection);
-t_oken				*last_p_r(t_oken *tokens);
-void				free_herdoc(t_herdoc *herdoc);
+t_tree				*creat_tree_pipe(t_shell *shell, t_oken *tokens,
+						t_oken *last_red_p);
 void				ft_free_token(t_oken *token);
 int					set(t_oken *token);
 void				process_export_entry(char *entry, t_shell *shell,
@@ -242,24 +228,22 @@ char				*get_env_cd(t_env *nv, char *key);
 void				exit_pipe(t_shell *shell);
 void				handle_exit_too_many_args(void);
 void				handle_exit_numeric(t_shell *shell);
-size_t				overfl(int exit_mode);
+size_t				overfl(int g_exit_status);
 int					is_numeric(char *str);
 void				ft_exec_rederect_herd(t_shell *shell, int j);
 void				redirect_output(t_shell *shell, int fd, int i);
 int					open_file_for_writing(char *file_name);
 void				handle_open_error(void);
-void				handle_left_subtree(t_tree *root, t_oken *tokens,
-						t_oken *last_r_pip);
-void				handle_right_subtree(t_tree *root, t_oken *last_r_pip);
+void				handle_left_subtree(t_shell *shell, t_tree *root,
+						t_oken *tokens, t_oken *last_r_pip);
 t_tree				*creat_node(t_oken *token, char *file_name, int fd);
 t_oken				*creat_token(t_oken *tokens, t_oken *last_redirection);
-t_oken				*last_p_r(t_oken *tokens);
+t_oken				*last_p_r(t_shell *shell, t_oken *tokens);
 t_oken				*find_last_redirection(t_oken *tokens);
-t_oken				*find_last_pipe(t_oken *tokens);
+t_oken				*find_last_pipe(t_shell *shell, t_oken *tokens);
 t_oken				*find_next_token(t_oken *current);
 int					pipe_count(t_oken *token);
 t_herdoc			*s(int i);
-t_tree				*create_simple_tree(t_oken *tokens);
 char				*check_access(char **path_split, char *av);
 char				**get_path_split(void);
 char				*find_cmd_path(char **av, t_env *nv);
@@ -274,11 +258,10 @@ int					type_check(t_tree *tree);
 int					check_directory(t_var *var, t_shell *shell);
 int					is_space(char c);
 char				*random_name_gen(void);
-void				unlinker(void);
-int					creat_fd(int range, int reset);
+void				unlinker(t_shell *shell);
 void				set_file(t_shell *shell);
 void				_reset(t_oken *token);
-int					set_up_file_name(int range);
+int					set_up_file_name(t_shell *shell, int range);
 int					check_is_dir_path(char *path);
 void				for_norminet(t_var *var, t_shell *shell);
 int					isnt_red(int type, int i);
@@ -303,5 +286,20 @@ void				ambiguous_error(char *str);
 void				print_err(char *str, int i);
 void				open_error(char *str);
 
-extern t_mode		g_modes;
+// new
+void				change_signals(int type);
+void				readline_mode(int sig);
+void				run_mode(int sig);
+void				heredoc_mode(int sig);
+int					validate(char *s, t_shell *shell);
+t_tree				*create_tree(t_shell *shell, t_oken *tokens);
+t_tree				*creat_tree_red(t_shell *shell, t_oken *tokens,
+						t_oken *last_r_pip);
+void				handle_right_subtree(t_shell *shell, t_tree *root,
+						t_oken *last_r_pip);
+t_tree				*create_simple_tree(t_shell *shell, t_oken *tokens);
+int					creat_fd(t_shell *shell, int range, int reset);
+void				heredoc_warning(void);
+
+extern int			g_exit_status;
 #endif

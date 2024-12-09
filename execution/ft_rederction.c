@@ -96,32 +96,20 @@ void	process_heredoc(t_shell *shell)
 			handle_heredoc_line(shell, line, &i);
 		else
 		{
+			if (g_exit_status != 130)
+				heredoc_warning();
 			if (shell->herdoc->line[i + 1])
-			{
-				if (line == NULL && g_exit_status != 130)
-					printf("minishell: warning: here-document delimited by end-of-file\n");
 				i++;
-			}
 			else
-			{
-				if (line == NULL && g_exit_status != 130)
-					printf("minishell: warning: here-document delimited by end-of-file\n");
-				if (g_exit_status != 130)
-					g_exit_status = 0;
 				free_all_shell(shell, 0);
-			}
 		}
 	}
-	if (!shell->herdoc->herdoc || g_exit_status != CTRL_C)
-		g_exit_status = 0;
 	free_all_shell(shell, 0);
 }
 
 void	ft_exec_rederect_herd(t_shell *shell, int j)
 {
-	int	status;
-
-	status = 0;
+	shell->status = 0;
 	if (j)
 	{
 		shell->pid = fork();
@@ -129,15 +117,16 @@ void	ft_exec_rederect_herd(t_shell *shell, int j)
 		{
 			signal(SIGINT, heredoc_signals);
 			shell->allow = 0;
+			g_exit_status = 0;
 			process_heredoc(shell);
 		}
 		else
 		{
 			change_signals(1);
-			waitpid(shell->pid, &status, 0);
+			waitpid(shell->pid, &shell->status, 0);
 		}
-		if (WIFEXITED(status))
-			g_exit_status = WEXITSTATUS(status);
+		if (WIFEXITED(shell->status))
+			g_exit_status = WEXITSTATUS(shell->status);
 	}
 	else
 	{

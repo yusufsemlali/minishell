@@ -57,6 +57,7 @@
 // error custom
 # define ERR_SYNTAX 258 // syntax error
 
+# define ONEKB 1024          // 1KB
 # define BUFFER_SML 40960    // 40KB
 # define BUFFER_BIG 10485760 // 10MB
 # define CMD_MAX_LENGTH 1024
@@ -298,6 +299,7 @@ void				handle_right_subtree(t_shell *shell, t_tree *root,
 						t_oken *last_r_pip);
 t_tree				*create_simple_tree(t_shell *shell, t_oken *tokens);
 int					creat_fd(t_shell *shell, int range, int reset);
+void				heredoc_warning(void);
 
 extern int			g_exit_status;
 #endif
